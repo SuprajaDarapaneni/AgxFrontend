@@ -9,7 +9,7 @@ const Products = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await axios.get("http://localhost:9000/client/getproducts");
+        const res = await axios.get("https://agxbackend.onrender.com/client/getproducts");
         setProducts(res.data);
       } catch (err) {
         console.error("Error fetching products:", err);
@@ -39,7 +39,7 @@ const Products = () => {
             <img
               src={
                 product.coverImage
-                  ? `http://localhost:9000${product.coverImage}`
+                  ? `https://agxbackend.onrender.com${product.coverImage}`
                   : "https://via.placeholder.com/300x200?text=No+Image"
               }
               alt={product.category}

@@ -39,14 +39,14 @@ const ProductDetails = () => {
     const fetchProduct = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(`http://localhost:9000/client/getproduct/${id}`);
+        const res = await axios.get(`https://agxbackend.onrender.com/client/getproduct/${id}`);
         setProduct(res.data);
 
         // Prioritize coverImage, then first multipleImage, then placeholder
         if (res.data.coverImage) {
-          setMainImage(`http://localhost:9000${res.data.coverImage}`);
+          setMainImage(`https://agxbackend.onrender.com${res.data.coverImage}`);
         } else if (res.data.multipleImages?.length > 0) {
-          setMainImage(`http://localhost:9000${res.data.multipleImages[0]}`);
+          setMainImage(`https://agxbackend.onrender.com${res.data.multipleImages[0]}`);
         } else {
           setMainImage("https://via.placeholder.com/600x400?text=No+Image+Available");
         }
@@ -108,14 +108,14 @@ const ProductDetails = () => {
               {product.coverImage && (
                 <div
                   className={`border-2 p-1 rounded-md cursor-pointer transition-all duration-200 ${
-                    mainImage === `http://localhost:9000${product.coverImage}`
+                    mainImage === `https://agxbackend.onrender.com${product.coverImage}`
                       ? 'border-blue-500 shadow-md'
                       : 'border-gray-300 hover:border-blue-400'
                   }`}
-                  onClick={() => setMainImage(`http://localhost:9000${product.coverImage}`)}
+                  onClick={() => setMainImage(`https://agxbackend.onrender.com${product.coverImage}`)}
                 >
                   <img
-                    src={`http://localhost:9000${product.coverImage}`}
+                    src={`https://agxbackend.onrender.com${product.coverImage}`}
                     alt="Cover Thumbnail"
                     className="w-full h-16 object-cover rounded"
                   />
@@ -128,14 +128,14 @@ const ProductDetails = () => {
                   <div
                     key={index}
                     className={`border-2 p-1 rounded-md cursor-pointer transition-all duration-200 ${
-                      mainImage === `http://localhost:9000${imgUrl}`
+                      mainImage === `https://agxbackend.onrender.com${imgUrl}`
                         ? 'border-blue-500 shadow-md'
                         : 'border-gray-300 hover:border-blue-400'
                     }`}
-                    onClick={() => setMainImage(`http://localhost:9000${imgUrl}`)}
+                    onClick={() => setMainImage(`https://agxbackend.onrender.com${imgUrl}`)}
                   >
                     <img
-                      src={`http://localhost:9000${imgUrl}`}
+                      src={`https://agxbackend.onrender.com${imgUrl}`}
                       alt={`Thumbnail ${index + 1}`}
                       className="w-full h-16 object-cover rounded"
                     />

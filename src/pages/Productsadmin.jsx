@@ -18,7 +18,7 @@ import {
 import axios from "axios";
 
 import Topbar from "../components/Topbar";
-import Sidebar from "../components/Sidebar";
+import Sidebar from "../components/sidebar";
 
 const drawerWidth = 240;
 
@@ -68,7 +68,7 @@ const ProductAdmin = () => {
 
   const fetchProducts = async () => {
     try {
-      const res = await axios.get("http://localhost:9000/client/getproducts");
+      const res = await axios.get("https://agxbackend.onrender.com/client/getproducts");
       setProducts(res.data);
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -89,7 +89,7 @@ const ProductAdmin = () => {
     if (!confirmDelete) return;
 
     try {
-      await axios.delete(`http://localhost:9000/client/deleteproduct/${id}`);
+      await axios.delete(`https://agxbackend.onrender.com/client/deleteproduct/${id}`);
       fetchProducts();
     } catch (error) {
       console.error("Error deleting product:", error);
@@ -105,9 +105,9 @@ const ProductAdmin = () => {
       coverImage: null,
       multipleImages: [],
     });
-    setExistingCoverImageUrl(product.coverImage ? `http://localhost:9000${product.coverImage}` : "");
+    setExistingCoverImageUrl(product.coverImage ? `https://agxbackend.onrender.com${product.coverImage}` : "");
     setExistingMultipleImageUrls(
-      product.multipleImages ? product.multipleImages.map(img => `http://localhost:9000${img}`) : []
+      product.multipleImages ? product.multipleImages.map(img => `https://agxbackend.onrender.com${img}`) : []
     );
 
     setIsEditMode(true);
@@ -134,9 +134,9 @@ const ProductAdmin = () => {
 
     try {
       if (isEditMode) {
-        await axios.patch(`http://localhost:9000/client/updateproduct/${editingProductId}`, data);
+        await axios.patch(`https://agxbackend.onrender.com/client/updateproduct/${editingProductId}`, data);
       } else {
-        await axios.post("http://localhost:9000/client/addproduct", data);
+        await axios.post("https://agxbackend.onrender.com/client/addproduct", data);
       }
       fetchProducts();
       resetForm();
@@ -294,7 +294,7 @@ const ProductAdmin = () => {
                 <CardMedia
                   component="img"
                   height="140"
-                  image={product.coverImage ? `http://localhost:9000${product.coverImage}` : "/placeholder.jpg"}
+                  image={product.coverImage ? `https://agxbackend.onrender.com${product.coverImage}` : "/placeholder.jpg"}
                   alt={product.name}
                   sx={{ objectFit: "cover" }}
                 />
@@ -317,7 +317,7 @@ const ProductAdmin = () => {
                         {product.multipleImages.map((imgUrl, index) => (
                           <img
                             key={index}
-                            src={`http://localhost:9000${imgUrl}`}
+                            src={`https://agxbackend.onrender.com${imgUrl}`}
                             alt={`${product.name} additional image ${index}`}
                             style={{ width: "60px", height: "60px", objectFit: "cover", border: "1px solid #ccc" }}
                           />

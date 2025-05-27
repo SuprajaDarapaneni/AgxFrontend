@@ -10,7 +10,7 @@ const BlogDetail = () => {
   useEffect(() => {
     const fetchBlog = async () => {
       try {
-        const response = await axios.get(`http://localhost:9000/blogs/${id}`);
+        const response = await axios.get(`https://agxbackend.onrender.com/blogs/${id}`);
         setBlog(response.data);
       } catch (error) {
         console.error('Failed to fetch blog:', error);

@@ -26,7 +26,7 @@ const HomePage = () => {
     const fetchProducts = async () => {
       try {
         // Fetching products from the specified endpoint
-        const response = await fetch('http://localhost:9000/client/getproducts');
+        const response = await fetch('https://agxbackend.onrender.com/client/getproducts');
         const data = await response.json();
         setProducts(data); // Update state with fetched products
       } catch (error) {
@@ -211,7 +211,7 @@ const HomePage = () => {
                   src={
                     product.coverImage?.startsWith('http')
                       ? product.coverImage
-                      : `http://localhost:9000/${product.coverImage?.replace(/^\/+/, '')}`
+                      : `https://agxbackend.onrender.com/${product.coverImage?.replace(/^\/+/, '')}`
                   }
                   alt={product.name}
                   className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"

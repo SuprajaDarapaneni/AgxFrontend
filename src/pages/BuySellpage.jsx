@@ -52,7 +52,7 @@ const BuySellForm = () => {
     setIsSubmitDisabled(true);
 
     try {
-      const response = await fetch('http://localhost:9000/buyform', {
+      const response = await fetch('https://agxbackend.onrender.com/buyform', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

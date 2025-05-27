@@ -18,7 +18,7 @@ import {
 import { Edit, Delete } from '@mui/icons-material';
 
 import Topbar from '../components/Topbar';
-import Sidebar from '../components/Sidebar';
+import Sidebar from '../components/sidebar';
 
 const drawerWidth = 240;
 
@@ -53,7 +53,7 @@ const BlogsPage = () => {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    fetch('http://localhost:9000/blogs')
+    fetch('https://agxbackend.onrender.com/blogs')
       .then(res => res.json())
       .then(data => setBlogs(data))
       .catch(err => console.error('Failed to fetch blogs:', err));
@@ -67,8 +67,8 @@ const BlogsPage = () => {
     e.preventDefault();
     try {
       const url = editingId
-        ? `http://localhost:9000/blogs/${editingId}`
-        : 'http://localhost:9000/blogs';
+        ? `https://agxbackend.onrender.com/blogs/${editingId}`
+        : 'https://agxbackend.onrender.com/blogs';
       const method = editingId ? 'PUT' : 'POST';
 
       const res = await fetch(url, {
@@ -104,7 +104,7 @@ const BlogsPage = () => {
 
   const handleDelete = async id => {
     try {
-      const res = await fetch(`http://localhost:9000/blogs/${id}`, { method: 'DELETE' });
+      const res = await fetch(`https://agxbackend.onrender.com/blogs/${id}`, { method: 'DELETE' });
       if (!res.ok) throw new Error('Failed to delete blog');
 
       setBlogs(blogs.filter(b => b._id !== id));

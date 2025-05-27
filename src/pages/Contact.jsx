@@ -18,7 +18,7 @@ function ContactForm() {
     e.preventDefault();
   
     try {
-      const response = await fetch("http://localhost:9000/contact", {
+      const response = await fetch("https://agxbackend.onrender.com/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

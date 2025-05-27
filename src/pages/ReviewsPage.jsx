@@ -54,7 +54,7 @@ const ReviewsPage = () => {
 
   // Fetch reviews
   useEffect(() => {
-    fetch('http://localhost:9000/reviewss')
+    fetch('https://agxbackend.onrender.com/reviewss')
       .then((res) => res.json())
       .then((data) => setReviews(Array.isArray(data) ? data : []))
       .catch((err) => console.error('Failed to fetch reviews:', err));
@@ -68,8 +68,8 @@ const ReviewsPage = () => {
     e.preventDefault();
     try {
       const url = editingId
-        ? `http://localhost:9000/reviews/${editingId}`
-        : 'http://localhost:9000/reviews';
+        ? `https://agxbackend.onrender.com/reviews/${editingId}`
+        : 'https://agxbackend.onrender.com/reviews';
       const method = editingId ? 'PUT' : 'POST';
 
       const res = await fetch(url, {
@@ -105,7 +105,7 @@ const ReviewsPage = () => {
 
   const handleDelete = async (id) => {
     try {
-      const res = await fetch(`http://localhost:9000/reviews/${id}`, { method: 'DELETE' });
+      const res = await fetch(`https://agxbackend.onrender.com/reviews/${id}`, { method: 'DELETE' });
       if (!res.ok) throw new Error('Failed to delete review');
 
       setReviews(reviews.filter((r) => r._id !== id));
