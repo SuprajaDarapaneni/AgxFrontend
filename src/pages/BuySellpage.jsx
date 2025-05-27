@@ -117,7 +117,7 @@ const BuySellForm = () => {
                 <input
                   id="sell"
                   type="radio"
-                  type="radio"
+                 
                   name="buySell"
                   value="sell"
                   checked={formData.buySell === 'sell'}
