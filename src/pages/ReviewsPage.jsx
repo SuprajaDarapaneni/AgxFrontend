@@ -18,7 +18,7 @@ import {
 import { Edit, Delete } from '@mui/icons-material';
 
 import Topbar from '../components/Topbar';
-import Sidebar from '../components/Sidebar';
+import Sidebar from '../components/sidebar';
 
 const drawerWidth = 240;
 
