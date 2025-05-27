@@ -49,14 +49,14 @@ const HomePage = () => {
           <img src={src} alt={`Slide ${index}`} className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-center items-center text-center px-4">
             <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-4 drop-shadow-lg">
-              Want to Buy or Sell Products?
+              Connecting Continents with Confidence
             </h2>
-            <p className="text-lg md:text-xl text-white mb-6 max-w-xl drop-shadow-md">
+            {/* <p className="text-lg md:text-xl text-white mb-6 max-w-xl drop-shadow-md">
               We help connect buyers and sellers across borders. Explore trusted trading with ease.
-            </p>
+            </p> */}
             <Link to="/buy-sell">
               <button className="bg-white text-pink-600 font-semibold px-8 py-4 text-lg rounded-md hover:bg-gray-100 transition duration-300 shadow-lg">
-                Get Started Now
+               I Want To Buy/Sell
               </button>
             </Link>
           </div>
