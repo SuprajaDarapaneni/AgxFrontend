@@ -17,6 +17,9 @@ import BuySellpage from './pages/BuySellpage';
 import ProductDetails from './pages/ProductDetails';
 import Review from './pages/Review';
 import BlogDetail from './pages/BlogDetail';
+import AdminProducts from './pages/Productsadmin';
+import AdminReview from './pages/ReviewsPage';
+import AdminBlog from './pages/BlogsPages';
 
 
 // Sub-component to handle routes and conditionally hide header/footer
@@ -52,6 +55,10 @@ const AppContent = () => {
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/blogs/:id" element={<BlogDetail />} />
           {/* Admin Routes */}
+            <Route path="/Admin/Admindashboard/blogs" element={<AdminBlog />} />
+          <Route path="/Admin/Admindashboard/reviews" element={<AdminReview />} />
+         
+          <Route path="/Admin/Admindashboard/products" element={<AdminProducts />} />
           <Route path="/Admin/Admindashboard" element={<AdminDashboard />} />
           <Route path="/Admin" element={<Admin />} />
         </Routes>

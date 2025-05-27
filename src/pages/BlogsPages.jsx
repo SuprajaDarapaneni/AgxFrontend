@@ -22,7 +22,7 @@ import Sidebar from '../components/Sidebar';
 
 const drawerWidth = 240;
 
-const ReviewsPage = () => {
+const BlogsPage = () => {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   const [mode, setMode] = useState(prefersDarkMode ? 'dark' : 'light');
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -47,29 +47,28 @@ const ReviewsPage = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  const [reviews, setReviews] = useState([]);
-  const [form, setForm] = useState({ name: '', rating: '', comment: '' });
+  const [blogs, setBlogs] = useState([]);
+  const [form, setForm] = useState({ title: '', excerpt: '', content: '' });
   const [editingId, setEditingId] = useState(null);
   const [message, setMessage] = useState('');
 
-  // Fetch reviews
   useEffect(() => {
-    fetch('http://localhost:9000/reviewss')
-      .then((res) => res.json())
-      .then((data) => setReviews(Array.isArray(data) ? data : []))
-      .catch((err) => console.error('Failed to fetch reviews:', err));
+    fetch('http://localhost:9000/blogs')
+      .then(res => res.json())
+      .then(data => setBlogs(data))
+      .catch(err => console.error('Failed to fetch blogs:', err));
   }, []);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = e => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
     try {
       const url = editingId
-        ? `http://localhost:9000/reviews/${editingId}`
-        : 'http://localhost:9000/reviews';
+        ? `http://localhost:9000/blogs/${editingId}`
+        : 'http://localhost:9000/blogs';
       const method = editingId ? 'PUT' : 'POST';
 
       const res = await fetch(url, {
@@ -78,19 +77,19 @@ const ReviewsPage = () => {
         body: JSON.stringify(form),
       });
 
-      if (!res.ok) throw new Error('Failed to submit review');
+      if (!res.ok) throw new Error('Failed to submit blog');
 
       const result = await res.json();
 
       if (editingId) {
-        setReviews(reviews.map((r) => (r._id === editingId ? result : r)));
-        setMessage('Review updated successfully');
+        setBlogs(blogs.map(b => (b._id === editingId ? result : b)));
+        setMessage('Blog updated successfully');
       } else {
-        setReviews([result, ...reviews]);
-        setMessage('Review added successfully');
+        setBlogs([result, ...blogs]);
+        setMessage('Blog added successfully');
       }
 
-      setForm({ name: '', rating: '', comment: '' });
+      setForm({ title: '', excerpt: '', content: '' });
       setEditingId(null);
       setTimeout(() => setMessage(''), 3000);
     } catch (error) {
@@ -98,18 +97,18 @@ const ReviewsPage = () => {
     }
   };
 
-  const handleEdit = (review) => {
-    setEditingId(review._id);
-    setForm({ name: review.name, rating: review.rating, comment: review.comment });
+  const handleEdit = blog => {
+    setEditingId(blog._id);
+    setForm({ title: blog.title, excerpt: blog.excerpt, content: blog.content || '' });
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async id => {
     try {
-      const res = await fetch(`http://localhost:9000/reviews/${id}`, { method: 'DELETE' });
-      if (!res.ok) throw new Error('Failed to delete review');
+      const res = await fetch(`http://localhost:9000/blogs/${id}`, { method: 'DELETE' });
+      if (!res.ok) throw new Error('Failed to delete blog');
 
-      setReviews(reviews.filter((r) => r._id !== id));
-      setMessage('Review deleted successfully');
+      setBlogs(blogs.filter(b => b._id !== id));
+      setMessage('Blog deleted successfully');
       setTimeout(() => setMessage(''), 3000);
     } catch (error) {
       alert(error.message);
@@ -145,48 +144,44 @@ const ReviewsPage = () => {
           }}
         >
           <Typography variant="h4" gutterBottom>
-            Manage Reviews
+            Manage Blogs
           </Typography>
 
           <Paper sx={{ p: 2, mb: 4 }}>
-            <Typography variant="h6">
-              {editingId ? 'Edit Review' : 'Add New Review'}
-            </Typography>
+            <Typography variant="h6">{editingId ? 'Edit Blog' : 'Add New Blog'}</Typography>
             <form onSubmit={handleSubmit}>
               <TextField
-                label="Name"
-                name="name"
-                value={form.name}
+                label="Title"
+                name="title"
+                value={form.title}
                 onChange={handleInputChange}
                 fullWidth
                 required
                 margin="normal"
               />
               <TextField
-                label="Rating (1-5)"
-                name="rating"
-                value={form.rating}
+                label="Excerpt"
+                name="excerpt"
+                value={form.excerpt}
                 onChange={handleInputChange}
                 fullWidth
                 required
-                type="number"
-                inputProps={{ min: 1, max: 5 }}
                 margin="normal"
+                helperText="Short summary of the blog"
               />
               <TextField
-                label="Comment"
-                name="comment"
-                value={form.comment}
+                label="Content"
+                name="content"
+                value={form.content}
                 onChange={handleInputChange}
                 fullWidth
                 multiline
-                rows={4}
-                required
+                rows={6}
                 margin="normal"
               />
               <Box sx={{ mt: 2 }}>
                 <Button type="submit" variant="contained" color="primary">
-                  {editingId ? 'Update Review' : 'Add Review'}
+                  {editingId ? 'Update Blog' : 'Add Blog'}
                 </Button>
                 {editingId && (
                   <Button
@@ -194,7 +189,7 @@ const ReviewsPage = () => {
                     variant="outlined"
                     onClick={() => {
                       setEditingId(null);
-                      setForm({ name: '', rating: '', comment: '' });
+                      setForm({ title: '', excerpt: '', content: '' });
                     }}
                   >
                     Cancel
@@ -209,35 +204,37 @@ const ReviewsPage = () => {
             )}
           </Paper>
 
-          <Typography variant="h6" mb={1}>
-            Existing Reviews
-          </Typography>
+          <Typography variant="h6" mb={1}>Existing Blogs</Typography>
           <Paper>
             <List>
-              {reviews.map((review) => (
-                <React.Fragment key={review._id}>
+              {blogs.map(blog => (
+                <React.Fragment key={blog._id}>
                   <ListItem
                     secondaryAction={
                       <>
-                        <IconButton edge="end" aria-label="edit" onClick={() => handleEdit(review)}>
+                        <IconButton edge="end" aria-label="edit" onClick={() => handleEdit(blog)}>
                           <Edit />
                         </IconButton>
-                        <IconButton edge="end" aria-label="delete" onClick={() => handleDelete(review._id)}>
+                        <IconButton edge="end" aria-label="delete" onClick={() => handleDelete(blog._id)}>
                           <Delete />
                         </IconButton>
                       </>
                     }
                   >
                     <ListItemText
-                      primary={`${review.name} - ⭐ ${review.rating}`}
-                      secondary={review.comment}
+                      primary={blog.title}
+                      secondary={
+                        blog.excerpt.length > 100
+                          ? blog.excerpt.substring(0, 100) + '...'
+                          : blog.excerpt
+                      }
                     />
                   </ListItem>
                   <Divider />
                 </React.Fragment>
               ))}
-              {reviews.length === 0 && (
-                <Typography sx={{ p: 2 }}>No reviews found.</Typography>
+              {blogs.length === 0 && (
+                <Typography sx={{ p: 2 }}>No blogs found.</Typography>
               )}
             </List>
           </Paper>
@@ -247,4 +244,4 @@ const ReviewsPage = () => {
   );
 };
 
-export default ReviewsPage;
+export default BlogsPage;

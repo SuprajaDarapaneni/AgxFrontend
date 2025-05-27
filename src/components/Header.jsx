@@ -3,7 +3,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { Mail, Phone, Globe } from "lucide-react";
-import logo from "../assets/agx.jpg"; // Replace with pink version
+import logo from "../assets/logo.png"; // Replace with pink version
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -26,7 +26,7 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-gradient-to-r from-pink-100 via-white to-pink-50 text-[#42002E] font-sans fixed top-0 left-0 w-full z-50 shadow-lg border-b border-pink-200">
+    <header className="bg-gradient-to-r from-pink-0 via-white to-pink-0 text-[#42002E] font-sans fixed top-0 left-0 w-full z-50 shadow-lg border-b border-pink-200">
       <div className="max-w-screen-xl mx-auto flex justify-between items-center py-3 px-6">
         
         {/* Left: Logo and Title */}
@@ -36,14 +36,14 @@ const Header = () => {
             alt="Agx Logo"
             className="h-20 w-auto"
           />
-          <div>
+          {/* <div>
             <h1 className="text-3xl font-bold tracking-wide text-pink-800">
               Agx International
             </h1>
             <p className="text-sm text-pink-700 opacity-80">
               Import & Export Trade Consulting
             </p>
-          </div>
+          </div> */}
         </div>
 
         {/* Nav: Desktop */}

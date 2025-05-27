@@ -55,11 +55,13 @@ const CustomerReviewForm = () => {
     setSubmitMessage('');
 
     // Prepare the data to match backend expected fields
-    const submitData = {
-      name: formData.name,
-      rating: Number(formData.rating),
-      comment: formData.review, // map review -> comment for backend
-    };
+ const submitData = {
+  name: formData.name,
+  email: formData.email, // <--- THIS WAS MISSING
+  rating: Number(formData.rating),
+  comment: formData.review,
+};
+
 
     try {
       const response = await fetch('http://localhost:9000/reviews', {
@@ -195,7 +197,7 @@ const CustomerReviewForm = () => {
       </div>
 
       {/* Reviews List */}
-      <div className="max-w-md w-full mt-12 space-y-6 p-6 bg-white rounded-xl shadow-lg">
+      {/* <div className="max-w-md w-full mt-12 space-y-6 p-6 bg-white rounded-xl shadow-lg">
         <h3 className="text-xl font-semibold text-gray-900 mb-4">Customer Reviews</h3>
 
         {isLoadingReviews ? (
@@ -215,7 +217,7 @@ const CustomerReviewForm = () => {
             </div>
           ))
         )}
-      </div>
+      </div> */}
     </div>
   );
 };
