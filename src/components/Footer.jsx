@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { FaFacebookF, FaTwitter, FaInstagram } from "react-icons/fa";
-
+import logo from "../assets/logo.png";
 const Footer = () => {
   const pinkColor = "#FF1493"; // Deep pink for accents
   const darkTextColor = "#6b0657"; // Dark pink for main text on light bg
@@ -10,6 +10,9 @@ const Footer = () => {
     <footer className="py-16" style={{ backgroundColor: lightPinkBg, color: darkTextColor }}>
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
+               <div className="flex items-center space-x-4">
+          <img src={logo} alt="Agx Logo" className="h-20 w-auto" />
+        </div>
           {/* Brand Info */}
           <div>
             <Link to="/" className="text-3xl font-bold block mb-4" style={{ color: pinkColor }}>
