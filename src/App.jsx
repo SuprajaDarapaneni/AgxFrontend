@@ -4,7 +4,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
 import AdminDashboard from './pages/Dashboard';
-import Productsadmin from './pages/productsadmin'; // Changed 'productsadmin' to 'Productsadmin'
+import ProductsAdmin from './pages/Productsadmin'; // Changed 'productsadmin' to 'Productsadmin'
 
 import Admin from './pages/Auth';
 import Home from './pages/Home';
@@ -58,7 +58,7 @@ const AppContent = () => {
             <Route path="/Admin/Admindashboard/blogs" element={<AdminBlog />} />
           <Route path="/Admin/Admindashboard/reviews" element={<AdminReview />} />
          
-          <Route path="/Admin/Admindashboard/products" element={<AdminProducts />} />
+          <Route path="/Admin/Admindashboard/products" element={<ProductsAdmin />} />
           <Route path="/Admin/Admindashboard" element={<AdminDashboard />} />
           <Route path="/Admin" element={<Admin />} />
         </Routes>
