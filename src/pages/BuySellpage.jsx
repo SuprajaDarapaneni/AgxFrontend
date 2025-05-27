@@ -84,10 +84,10 @@ const BuySellForm = () => {
   return (
     <div className="min-h-screen bg-gradient-to-r from-pink-100 via-pink-50 to-pink-100 flex items-center justify-center px-4 py-10">
       <div className="max-w-xl w-full bg-white p-10 rounded-3xl shadow-xl border border-pink-200 space-y-6">
-        <div className="text-center">
+        {/* <div className="text-center">
           <h2 className="text-4xl font-bold text-pink-700">Connecting Continents with Confidence</h2>
           <p className="text-pink-500 mt-2 text-lg">Seamless Global Trade Starts Here</p>
-        </div>
+        </div> */}
 
         <form onSubmit={handleSubmit} className="space-y-6">
 
