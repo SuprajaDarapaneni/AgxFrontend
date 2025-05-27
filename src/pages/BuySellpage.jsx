@@ -84,15 +84,26 @@ const BuySellForm = () => {
   return (
     <div className="min-h-screen bg-pink-50 text-gray-900 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-lg w-full space-y-8 bg-white p-10 rounded-xl shadow-2xl border border-pink-200">
-        <div>
+        {/* <div>
           <h2 className="text-center text-4xl font-extrabold text-pink-700 mb-2">
             Buy or Sell Form
           </h2>
-          <p className="text-center text-pink-600 font-medium text-lg">
-            Quickly submit your buying or selling request
+        
+            <p className="text-center text-pink-600 font-medium text-lg">
+           connecting continents with confidence
           </p>
-        </div>
+        </div> 🌍 */}
+ <div>
+          <h5 className="text-center text-4xl font-extrabold text-pink-700 mb-2">
+           Connecting Continents with Confidence
+          </h5>
+        
+            <p className="text-center text-pink-600 font-medium text-lg">
+           Seamless Global Trade Starts Here
+          </p>
+          
 
+        </div>
         <form onSubmit={handleSubmit} className="mt-8 space-y-6">
 
           {/* Buy/Sell Radio */}

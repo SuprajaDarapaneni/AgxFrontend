@@ -26,7 +26,7 @@ const Topbar = ({ onDrawerToggle, colorMode, mode }) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    navigate('/logout');
+    navigate('/');
   };
 
   return (
