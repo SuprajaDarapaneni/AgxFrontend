@@ -11,7 +11,7 @@ import {
 
 // Import your custom Topbar and Sidebar components
 import Topbar from '../components/Topbar';
-import Sidebar from '../components/Sidebar'; // Ensure this path is correct for your actual Sidebar component
+import Sidebar from '../components/sidebar'; // Ensure this path is correct for your actual Sidebar component
 
 const drawerWidth = 240; // Define a drawer width for the sidebar, consistent with your Sidebar component
 
