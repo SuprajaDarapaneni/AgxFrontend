@@ -9,29 +9,29 @@ const ProductDetails = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Helper function to render text with a bold main heading and bullet points
-  // mainHeading: The primary bold heading for the content block (e.g., "Introduction")
-  // content: The raw string from the database field (e.g., product.name, product.description)
+  // Render content blocks with heading and bullet points
   const renderFormattedContent = (content, mainHeading) => {
     if (!content) return null;
 
-    // Split content by newline characters for bullet points
     const lines = content.split(/\r?\n/).filter(line => line.trim() !== '');
 
     return (
-      <div>
-        {/* Render the main heading boldly */}
-        {mainHeading && <h2 className="text-2xl font-bold text-gray-800 mb-2">{mainHeading}</h2>}
-
-        {/* Render content as bullet points */}
+      <section className="mb-6">
+        {mainHeading && (
+          <h2 className="text-3xl font-extrabold text-gray-900 mb-4 border-b-2 border-indigo-600 pb-2">
+            {mainHeading}
+          </h2>
+        )}
         {lines.length > 0 && (
-          <ul className="list-disc list-inside text-gray-700 leading-relaxed space-y-1">
+          <ul className="list-disc list-inside text-gray-700 space-y-2 leading-relaxed text-lg">
             {lines.map((line, index) => (
-              <li key={index} className="text-base">{line.trim()}</li>
+              <li key={index} className="hover:text-indigo-600 transition-colors duration-300">
+                {line.trim()}
+              </li>
             ))}
           </ul>
         )}
-      </div>
+      </section>
     );
   };
 
@@ -42,15 +42,13 @@ const ProductDetails = () => {
         const res = await axios.get(`https://agxbackend.onrender.com/client/getproduct/${id}`);
         setProduct(res.data);
 
-        // Prioritize coverImage, then first multipleImage, then placeholder
         if (res.data.coverImage) {
           setMainImage(`https://agxbackend.onrender.com${res.data.coverImage}`);
         } else if (res.data.multipleImages?.length > 0) {
           setMainImage(`https://agxbackend.onrender.com${res.data.multipleImages[0]}`);
         } else {
-          setMainImage("https://via.placeholder.com/600x400?text=No+Image+Available");
+          setMainImage("https://via.placeholder.com/700x500?text=No+Image+Available");
         }
-
         setLoading(false);
       } catch (err) {
         console.error("Error fetching product details:", err);
@@ -64,115 +62,122 @@ const ProductDetails = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-100">
-        <p className="text-gray-700 text-xl font-semibold">Loading product details...</p>
+      <div className="flex items-center justify-center min-h-screen bg-gray-50">
+        <p className="text-gray-600 text-2xl font-semibold animate-pulse">Loading product details...</p>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-red-100">
-        <p className="text-red-700 text-xl font-semibold">{error}</p>
+      <div className="flex items-center justify-center min-h-screen bg-red-50">
+        <p className="text-red-600 text-2xl font-semibold">{error}</p>
       </div>
     );
   }
 
   if (!product) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-100">
-        <p className="text-gray-700 text-xl font-semibold">Product not found.</p>
+      <div className="flex items-center justify-center min-h-screen bg-gray-50">
+        <p className="text-gray-600 text-2xl font-semibold">Product not found.</p>
       </div>
     );
   }
 
   return (
-    <section className="container mx-auto px-4 py-8 md:py-12">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start">
-
-        {/* Left: Image Display */}
-        <div className="w-full">
-          <div className="relative w-full bg-white rounded-lg shadow-xl overflow-hidden mb-6">
+    <section className="max-w-7xl mx-auto px-6 py-12 md:py-20">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+        {/* Left Side: Main Image + Thumbnails */}
+        <div>
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200">
             <img
               src={mainImage}
               alt={product.name}
-              className="w-full h-auto max-h-[550px] object-contain rounded-lg"
+              className="w-full max-h-[600px] object-contain transition-transform duration-300 hover:scale-105"
+              loading="lazy"
             />
           </div>
 
-          {/* Thumbnail Gallery */}
-          <div className="mt-6">
-            <h3 className="text-lg font-semibold text-gray-800 mb-3 border-b pb-2">More Views:</h3>
-            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3">
+          <div className="mt-8">
+            <h3 className="text-xl font-semibold text-gray-900 mb-4 border-b border-indigo-600 pb-2">
+              More Views
+            </h3>
+            <div className="grid grid-cols-4 sm:grid-cols-6 gap-4">
               {/* Cover Image Thumbnail */}
               {product.coverImage && (
-                <div
-                  className={`border-2 p-1 rounded-md cursor-pointer transition-all duration-200 ${
+                <button
+                  aria-label="Select cover image"
+                  className={`border-4 rounded-lg overflow-hidden focus:outline-none focus:ring-2 focus:ring-indigo-500 transition ${
                     mainImage === `https://agxbackend.onrender.com${product.coverImage}`
-                      ? 'border-blue-500 shadow-md'
-                      : 'border-gray-300 hover:border-blue-400'
+                      ? 'border-indigo-600 shadow-lg'
+                      : 'border-gray-300 hover:border-indigo-400'
                   }`}
                   onClick={() => setMainImage(`https://agxbackend.onrender.com${product.coverImage}`)}
                 >
                   <img
                     src={`https://agxbackend.onrender.com${product.coverImage}`}
                     alt="Cover Thumbnail"
-                    className="w-full h-16 object-cover rounded"
+                    className="w-full h-20 object-cover"
+                    loading="lazy"
                   />
-                </div>
+                </button>
               )}
 
               {/* Multiple Images Thumbnails */}
               {product.multipleImages?.length > 0 ? (
-                product.multipleImages.map((imgUrl, index) => (
-                  <div
-                    key={index}
-                    className={`border-2 p-1 rounded-md cursor-pointer transition-all duration-200 ${
+                product.multipleImages.map((imgUrl, idx) => (
+                  <button
+                    key={idx}
+                    aria-label={`Select image ${idx + 1}`}
+                    className={`border-4 rounded-lg overflow-hidden focus:outline-none focus:ring-2 focus:ring-indigo-500 transition ${
                       mainImage === `https://agxbackend.onrender.com${imgUrl}`
-                        ? 'border-blue-500 shadow-md'
-                        : 'border-gray-300 hover:border-blue-400'
+                        ? 'border-indigo-600 shadow-lg'
+                        : 'border-gray-300 hover:border-indigo-400'
                     }`}
                     onClick={() => setMainImage(`https://agxbackend.onrender.com${imgUrl}`)}
                   >
                     <img
                       src={`https://agxbackend.onrender.com${imgUrl}`}
-                      alt={`Thumbnail ${index + 1}`}
-                      className="w-full h-16 object-cover rounded"
+                      alt={`Thumbnail ${idx + 1}`}
+                      className="w-full h-20 object-cover"
+                      loading="lazy"
                     />
-                  </div>
+                  </button>
                 ))
               ) : (
                 !product.coverImage && (
-                  <p className="text-gray-500 text-sm col-span-full">No additional images available.</p>
+                  <p className="text-gray-400 text-sm col-span-full">
+                    No additional images available.
+                  </p>
                 )
               )}
             </div>
           </div>
         </div>
 
-        {/* Right: Content Section */}
-        <div className="bg-white p-6 rounded-lg shadow-xl space-y-6">
-
+        {/* Right Side: Content */}
+        <div className="bg-white p-8 rounded-2xl shadow-lg border border-gray-200">
           {/* Category */}
-          <div>
-            <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wide">Category</h3>
-            <p className="text-blue-700 text-base font-semibold mb-2">{product.category}</p>
+          <div className="mb-8">
+            <h3 className="uppercase text-indigo-600 font-bold tracking-wide mb-2 text-sm">
+              Category
+            </h3>
+            <p className="text-gray-900 text-xl font-semibold">{product.category}</p>
           </div>
 
-          {/* Introduction and Product Range (from name) */}
+          {/* Introduction (Name) */}
           {renderFormattedContent(product.name, "Introduction")}
 
-          {/* Additional Features (from description) */}
+          {/* Additional Information (Description) */}
           {renderFormattedContent(product.description, "Additional Information")}
 
-          {/* Why Choose Us (optional field whyChooseUsContent) */}
+          {/* Why Choose Us Section */}
           {product.whyChooseUsContent && (
-            <div className="border-t pt-4">
+            <div className="mt-10 border-t border-gray-300 pt-6">
               {renderFormattedContent(product.whyChooseUsContent, "Why Choose Us")}
             </div>
           )}
         </div>
-
       </div>
     </section>
   );

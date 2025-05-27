@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-// Updated list of industries
 const INDUSTRY_OPTIONS = [
   'Agricultural Products',
   'Textiles and Garments',
@@ -22,6 +21,7 @@ const BuySellForm = () => {
   });
 
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -50,6 +50,7 @@ const BuySellForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitDisabled(true);
+    setSuccessMessage('');
 
     try {
       const response = await fetch('https://agxbackend.onrender.com/buyform', {
@@ -61,9 +62,7 @@ const BuySellForm = () => {
       });
 
       if (response.ok) {
-        // Using console.log instead of alert for better UX
-        console.log('Form submitted successfully!');
-        // Optionally show a success message in the UI
+        setSuccessMessage('Your request has been submitted successfully! 🎉');
         setFormData({
           buySell: 'buy',
           name: '',
@@ -73,165 +72,111 @@ const BuySellForm = () => {
           timing: 'Immediately',
         });
       } else {
-        // Using console.error instead of alert
-        console.error('Failed to submit form. Status:', response.status);
-        // Optionally show an error message in the UI
+        setSuccessMessage('Failed to submit the form. Please try again.');
       }
     } catch (error) {
-      console.error('Error submitting form:', error);
-      // Optionally show an error message in the UI
+      setSuccessMessage('An error occurred. Please try again later.');
     } finally {
       setIsSubmitDisabled(false);
     }
   };
 
-
   return (
-    // Changed background to a light pink shade
-    <div className="min-h-screen bg-pink-100 text-gray-900 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-lg shadow-xl"> {/* Added white background and shadow */}
+    <div className="min-h-screen bg-pink-50 text-gray-900 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-lg w-full space-y-8 bg-white p-10 rounded-xl shadow-2xl border border-pink-200">
         <div>
-          <h2 className="text-center text-3xl font-extrabold text-gray-900">Form</h2> {/* Changed text color */}
+          <h2 className="text-center text-4xl font-extrabold text-pink-700 mb-2">
+            Buy or Sell Form
+          </h2>
+          <p className="text-center text-pink-600 font-medium text-lg">
+            Quickly submit your buying or selling request
+          </p>
         </div>
+
         <form onSubmit={handleSubmit} className="mt-8 space-y-6">
-          <div className="rounded-md shadow-sm space-y-4">
 
-            {/* Buy/Sell Radio Buttons */}
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center">
+          {/* Buy/Sell Radio */}
+          <div className="flex justify-center space-x-8 mb-6">
+            {['buy', 'sell'].map((option) => (
+              <label key={option} className="inline-flex items-center cursor-pointer text-lg font-semibold text-pink-700 hover:text-pink-900 transition-colors duration-200">
                 <input
-                  id="buy"
                   type="radio"
                   name="buySell"
-                  value="buy"
-                  checked={formData.buySell === 'buy'}
+                  value={option}
+                  checked={formData.buySell === option}
                   onChange={handleChange}
-                  // Adjusted radio button color
-                  className="h-4 w-4 text-pink-600 focus:ring-pink-500 border-gray-300"
+                  className="form-radio h-6 w-6 text-pink-600 transition duration-200"
                 />
-                <label htmlFor="buy" className="ml-2 text-sm font-medium text-gray-700"> {/* Changed text color */}
-                  Buy
+                <span className="ml-2 capitalize">{option}</span>
+              </label>
+            ))}
+          </div>
+
+          {/* Inputs */}
+          {[
+            { label: 'Name', name: 'name', type: 'text', placeholder: 'Your Name' },
+            { label: 'Phone', name: 'phone', type: 'tel', placeholder: 'Your Phone Number' },
+            { label: 'Email', name: 'email', type: 'email', placeholder: 'Your Email Address' },
+          ].map(({ label, name, type, placeholder }) => (
+            <div key={name}>
+              <label htmlFor={name} className="block text-sm font-semibold text-pink-700 mb-1">
+                {label}
+              </label>
+              <input
+                type={type}
+                id={name}
+                name={name}
+                value={formData[name]}
+                onChange={handleChange}
+                placeholder={placeholder}
+                required
+                className="w-full rounded-lg border border-pink-300 px-4 py-3 text-gray-900 text-lg placeholder-pink-400
+                  focus:border-pink-500 focus:ring-2 focus:ring-pink-400 focus:outline-none transition duration-300"
+              />
+            </div>
+          ))}
+
+          {/* Industries */}
+          <fieldset>
+            <legend className="text-pink-700 font-semibold mb-3 text-sm">
+              Select Industries (multiple)
+            </legend>
+            <div className="grid grid-cols-2 gap-3 max-h-48 overflow-y-auto scrollbar-thin scrollbar-thumb-pink-300 scrollbar-track-pink-100">
+              {INDUSTRY_OPTIONS.map(industry => (
+                <label key={industry} className="inline-flex items-center cursor-pointer text-gray-800 hover:text-pink-700 transition-colors duration-200">
+                  <input
+                    type="checkbox"
+                    value={industry}
+                    checked={formData.industries.includes(industry)}
+                    onChange={handleIndustryChange}
+                    className="form-checkbox h-5 w-5 text-pink-600 transition duration-200"
+                  />
+                  <span className="ml-2">{industry}</span>
                 </label>
-              </div>
-              <div className="flex items-center">
-                <input
-                  id="sell"
-                  type="radio"
-                 
-                  name="buySell"
-                  value="sell"
-                  checked={formData.buySell === 'sell'}
-                  onChange={handleChange}
-                   // Adjusted radio button color
-                  className="h-4 w-4 text-pink-600 focus:ring-pink-500 border-gray-300"
-                />
-                <label htmlFor="sell" className="ml-2 text-sm font-medium text-gray-700"> {/* Changed text color */}
-                  Sell
-                </label>
-              </div>
+              ))}
             </div>
+          </fieldset>
 
-            {/* Name Input */}
-            <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700"> {/* Changed text color */}
-                Name
-              </label>
-              <input
-                type="text"
-                name="name"
-                id="name"
-                value={formData.name}
-                onChange={handleChange}
-                // Adjusted input styling for white background theme
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:text-sm text-gray-900 bg-white"
-                placeholder="Your Name"
-                required
-              />
-            </div>
-
-            {/* Phone Input */}
-            <div>
-              <label htmlFor="phone" className="block text-sm font-medium text-gray-700"> {/* Changed text color */}
-                Phone
-              </label>
-              <input
-                type="tel"
-                name="phone"
-                id="phone"
-                value={formData.phone}
-                onChange={handleChange}
-                 // Adjusted input styling for white background theme
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:text-sm text-gray-900 bg-white"
-                placeholder="Your Phone Number"
-                required
-              />
-            </div>
-
-            {/* Email Input */}
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700"> {/* Changed text color */}
-                Email
-              </label>
-              <input
-                type="email"
-                name="email"
-                id="email"
-                value={formData.email}
-                onChange={handleChange}
-                 // Adjusted input styling for white background theme
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:text-sm text-gray-900 bg-white"
-                placeholder="Your Email Address"
-                required
-              />
-            </div>
-
-            {/* Industries Checkboxes */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2"> {/* Changed text color */}
-                Select Industries (You can select multiple)
-              </label>
-              <div className="space-y-2">
-                {INDUSTRY_OPTIONS.map((industry) => (
-                  <div key={industry} className="flex items-center">
-                    <input
-                      type="checkbox"
-                      id={industry}
-                      value={industry}
-                      checked={formData.industries.includes(industry)}
-                      onChange={handleIndustryChange}
-                      // Adjusted checkbox color
-                      className="h-4 w-4 text-pink-600 focus:ring-pink-500 border-gray-300 rounded"
-                    />
-                    <label htmlFor={industry} className="ml-2 text-sm text-gray-700"> {/* Changed text color */}
-                      {industry}
-                    </label>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Timing Select */}
-            <div>
-              <label htmlFor="timing" className="block text-sm font-medium text-gray-700"> {/* Changed text color */}
-                When do you want to buy/sell?
-              </label>
-              <select
-                name="timing"
-                id="timing"
-                value={formData.timing}
-                onChange={handleChange}
-                 // Adjusted select styling for white background theme
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500 sm:text-sm text-gray-900 bg-white"
-              >
-                <option value="Immediately">Immediately</option>
-                <option value="0-20days">0-20 days</option>
-                <option value="20-45days">20-45 days</option>
-                <option value="45-60days">45-60 days</option>
-                <option value="60-90days">60-90 days</option>
-                <option value="90-120days">90-120 days</option>
-              </select>
-            </div>
-
+          {/* Timing */}
+          <div>
+            <label htmlFor="timing" className="block text-sm font-semibold text-pink-700 mb-1">
+              When do you want to buy/sell?
+            </label>
+            <select
+              id="timing"
+              name="timing"
+              value={formData.timing}
+              onChange={handleChange}
+              className="w-full rounded-lg border border-pink-300 px-4 py-3 text-gray-900 text-lg
+                focus:border-pink-500 focus:ring-2 focus:ring-pink-400 focus:outline-none transition duration-300"
+            >
+              <option value="Immediately">Immediately</option>
+              <option value="0-20days">0-20 days</option>
+              <option value="20-45days">20-45 days</option>
+              <option value="45-60days">45-60 days</option>
+              <option value="60-90days">60-90 days</option>
+              <option value="90-120days">90-120 days</option>
+            </select>
           </div>
 
           {/* Submit Button */}
@@ -239,12 +184,20 @@ const BuySellForm = () => {
             <button
               type="submit"
               disabled={isSubmitDisabled}
-              // Adjusted button styling for pink theme
-              className={`w-full py-2 px-4 text-white font-medium rounded-md ${isSubmitDisabled ? 'bg-gray-400 cursor-not-allowed' : 'bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500'}`}
+              className={`w-full py-3 text-white font-bold rounded-lg shadow-md
+                ${isSubmitDisabled ? 'bg-pink-300 cursor-not-allowed' : 'bg-pink-600 hover:bg-pink-700 focus:ring-4 focus:ring-pink-300' }
+                transition duration-300`}
             >
               {isSubmitDisabled ? 'Submitting...' : 'Submit'}
             </button>
           </div>
+
+          {/* Success message */}
+          {successMessage && (
+            <p className="mt-4 text-center text-green-600 font-semibold animate-fadeIn">
+              {successMessage}
+            </p>
+          )}
         </form>
       </div>
     </div>

@@ -13,7 +13,9 @@ import {
   Stack,
   CssBaseline,
   ThemeProvider,
-  createTheme
+  createTheme,
+  Divider,
+  Tooltip,
 } from "@mui/material";
 import axios from "axios";
 
@@ -28,20 +30,44 @@ const ProductAdmin = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const colorMode = useMemo(() => ({
-    toggleColorMode: () => setMode((prev) => (prev === "light" ? "dark" : "light"))
+    toggleColorMode: () => setMode((prev) => (prev === "light" ? "dark" : "light")),
   }), []);
 
-  const theme = useMemo(() =>
-    createTheme({
-      palette: {
-        mode,
-        primary: { main: "#3f51b5" },
-        background: {
-          default: mode === "light" ? "#f4f6f8" : "#121212",
-          paper: mode === "light" ? "#ffffff" : "#1d1d1d",
-        }
-      }
-    }), [mode]);
+  const theme = useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode,
+          primary: { main: "#4f46e5" }, // Indigo-600 more vivid
+          background: {
+            default: mode === "light" ? "#f9fafb" : "#121212",
+            paper: mode === "light" ? "#ffffff" : "#1e1e1e",
+          },
+          error: { main: "#ef4444" }, // Red-500 for error buttons
+        },
+        typography: {
+          fontFamily: "'Inter', 'Roboto', 'Helvetica', 'Arial', sans-serif",
+          h4: {
+            fontWeight: 700,
+            letterSpacing: "0.02em",
+          },
+        },
+        shape: {
+          borderRadius: 12,
+        },
+        components: {
+          MuiButton: {
+            styleOverrides: {
+              root: {
+                textTransform: "none",
+                fontWeight: 600,
+              },
+            },
+          },
+        },
+      }),
+    [mode]
+  );
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -107,7 +133,7 @@ const ProductAdmin = () => {
     });
     setExistingCoverImageUrl(product.coverImage ? `https://agxbackend.onrender.com${product.coverImage}` : "");
     setExistingMultipleImageUrls(
-      product.multipleImages ? product.multipleImages.map(img => `https://agxbackend.onrender.com${img}`) : []
+      product.multipleImages ? product.multipleImages.map((img) => `https://agxbackend.onrender.com${img}`) : []
     );
 
     setIsEditMode(true);
@@ -127,9 +153,7 @@ const ProductAdmin = () => {
     }
 
     if (formData.multipleImages.length > 0) {
-      for (let i = 0; i < formData.multipleImages.length; i++) {
-        data.append("multipleImages", formData.multipleImages[i]);
-      }
+      formData.multipleImages.forEach((file) => data.append("multipleImages", file));
     }
 
     try {
@@ -149,9 +173,11 @@ const ProductAdmin = () => {
   const renderBulletPoints = (text) => {
     if (!text) return null;
     return (
-      <ul style={{ paddingLeft: "20px", marginTop: 4, marginBottom: 8 }}>
+      <ul style={{ paddingLeft: 20, marginTop: 6, marginBottom: 10 }}>
         {text.split("\n").map((line, idx) => (
-          <li key={idx} style={{ marginBottom: 4 }}>{line.trim()}</li>
+          <li key={idx} style={{ marginBottom: 4, lineHeight: 1.5 }}>
+            {line.trim()}
+          </li>
         ))}
       </ul>
     );
@@ -160,35 +186,32 @@ const ProductAdmin = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Box sx={{ display: "flex", height: "100vh" }}>
+      <Box sx={{ display: "flex", height: "100vh", bgcolor: "background.default" }}>
         <Topbar
           onDrawerToggle={handleDrawerToggle}
           colorMode={colorMode}
           mode={mode}
           drawerWidth={drawerWidth}
         />
-        <Sidebar
-          mobileOpen={mobileOpen}
-          onDrawerToggle={handleDrawerToggle}
-          drawerWidth={drawerWidth}
-        />
+        <Sidebar mobileOpen={mobileOpen} onDrawerToggle={handleDrawerToggle} drawerWidth={drawerWidth} />
 
         <Box
           component="main"
           sx={{
             flexGrow: 1,
-            p: 3,
+            p: 4,
             mt: "64px",
             width: { sm: `calc(100% - ${drawerWidth}px)` },
             overflowY: "auto",
-            backgroundColor: theme.palette.background.default,
-            color: theme.palette.text.primary
           }}
         >
-          <Typography variant="h4" gutterBottom>Manage Products</Typography>
+          <Typography variant="h4" gutterBottom sx={{ fontWeight: 700, mb: 3 }}>
+            Manage Products
+          </Typography>
 
           <Button
             variant="contained"
+            color="primary"
             onClick={() => {
               if (showForm && !isEditMode) {
                 resetForm();
@@ -200,7 +223,7 @@ const ProductAdmin = () => {
                 setExistingMultipleImageUrls([]);
               }
             }}
-            sx={{ mb: 2 }}
+            sx={{ mb: 3, borderRadius: 2, px: 4, py: 1.5, fontSize: 16 }}
           >
             {showForm ? (isEditMode ? "Cancel Edit" : "Close Form") : "Add Product"}
           </Button>
@@ -209,13 +232,21 @@ const ProductAdmin = () => {
             <Box
               component="form"
               onSubmit={handleSubmit}
-              mt={2}
-              display="flex"
-              flexDirection="column"
-              gap={2}
-              width={isNonMobile ? "40%" : "100%"}
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                gap: 3,
+                width: isNonMobile ? "40%" : "100%",
+                mb: 4,
+                p: 3,
+                borderRadius: 3,
+                boxShadow: 3,
+                backgroundColor: theme.palette.background.paper,
+              }}
             >
-              <Typography variant="h6">{isEditMode ? "Update Product" : "Add Product"}</Typography>
+              <Typography variant="h6" sx={{ fontWeight: 700 }}>
+                {isEditMode ? "Update Product" : "Add Product"}
+              </Typography>
 
               <TextField
                 label="Name"
@@ -224,115 +255,208 @@ const ProductAdmin = () => {
                 required
                 multiline
                 minRows={2}
+                fullWidth
+                sx={{ bgcolor: mode === "light" ? "white" : "grey.900" }}
               />
               <TextField
                 label="Category"
                 value={formData.category}
                 onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                 required
+                fullWidth
+                sx={{ bgcolor: mode === "light" ? "white" : "grey.900" }}
               />
               <TextField
                 label="Description"
                 multiline
-                minRows={3}
+                minRows={4}
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                 required
+                fullWidth
+                sx={{ bgcolor: mode === "light" ? "white" : "grey.900" }}
               />
 
-              <Typography variant="subtitle1">Cover Image:</Typography>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={(e) => setFormData({ ...formData, coverImage: e.target.files[0] })}
-              />
-              {isEditMode && existingCoverImageUrl && (
-                <Box mt={1}>
-                  <Typography variant="body2">Current Cover Image:</Typography>
-                  <img
-                    src={existingCoverImageUrl}
-                    alt="Current Cover"
-                    style={{ maxWidth: "150px", maxHeight: "150px", objectFit: "contain" }}
-                  />
-                  <Typography variant="caption">Select a new file above to replace it.</Typography>
-                </Box>
-              )}
+              <Box>
+                <Typography variant="subtitle1" gutterBottom>
+                  Cover Image:
+                </Typography>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => setFormData({ ...formData, coverImage: e.target.files[0] })}
+                  style={{ marginBottom: 12 }}
+                />
+                {isEditMode && existingCoverImageUrl && (
+                  <Box sx={{ mt: 1 }}>
+                    <Typography variant="body2" color="text.secondary" gutterBottom>
+                      Current Cover Image:
+                    </Typography>
+                    <Box
+                      component="img"
+                      src={existingCoverImageUrl}
+                      alt="Current Cover"
+                      sx={{
+                        maxWidth: 160,
+                        maxHeight: 160,
+                        borderRadius: 2,
+                        objectFit: "contain",
+                        boxShadow: 2,
+                      }}
+                    />
+                    <Typography variant="caption" color="text.secondary" mt={0.5}>
+                      Select a new file above to replace it.
+                    </Typography>
+                  </Box>
+                )}
+              </Box>
 
-              <Typography variant="subtitle1">Additional Images:</Typography>
-              <input
-                type="file"
-                accept="image/*"
-                multiple
-                onChange={(e) => setFormData({ ...formData, multipleImages: Array.from(e.target.files) })}
-              />
-              {isEditMode && existingMultipleImageUrls.length > 0 && (
-                <Box mt={1}>
-                  <Typography variant="body2">Current Additional Images:</Typography>
-                  <Stack direction="row" flexWrap="wrap" gap={1}>
+              <Box>
+                <Typography variant="subtitle1" gutterBottom>
+                  Additional Images:
+                </Typography>
+                <input
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  onChange={(e) =>
+                    setFormData({ ...formData, multipleImages: Array.from(e.target.files) })
+                  }
+                  style={{ marginBottom: 12 }}
+                />
+                {isEditMode && existingMultipleImageUrls.length > 0 && (
+                  <Stack direction="row" flexWrap="wrap" gap={1} mt={1}>
                     {existingMultipleImageUrls.map((url, index) => (
-                      <img
+                      <Box
+                        component="img"
                         key={index}
                         src={url}
                         alt={`Additional ${index}`}
-                        style={{ maxWidth: "100px", maxHeight: "100px", objectFit: "contain" }}
+                        sx={{
+                          width: 90,
+                          height: 90,
+                          borderRadius: 2,
+                          objectFit: "cover",
+                          boxShadow: 1,
+                          border: `1px solid ${theme.palette.divider}`,
+                        }}
                       />
                     ))}
                   </Stack>
-                  <Typography variant="caption">Select new files above to add/replace them.</Typography>
-                </Box>
-              )}
+                )}
+                {isEditMode && (
+                  <Typography variant="caption" color="text.secondary" mt={0.5}>
+                    Select new files above to add/replace them.
+                  </Typography>
+                )}
+              </Box>
 
-              <Button type="submit" variant="contained" color="primary">
-                {isEditMode ? "Update" : "Submit"}
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                size="large"
+                sx={{ borderRadius: 3, fontWeight: 700, mt: 2 }}
+              >
+                {isEditMode ? "Update Product" : "Add Product"}
               </Button>
             </Box>
           </Collapse>
 
-          <Stack direction="row" flexWrap="wrap" gap={2} mt={3}>
-            {products.map((product) => (
-              <Card key={product._id} sx={{ width: 300 }}>
-                <CardMedia
-                  component="img"
-                  height="140"
-                  image={product.coverImage ? `https://agxbackend.onrender.com${product.coverImage}` : "/placeholder.jpg"}
-                  alt={product.name}
-                  sx={{ objectFit: "cover" }}
-                />
-                <CardContent>
-                  <Typography variant="h6">Name</Typography>
-                  {renderBulletPoints(product.name)}
+          <Divider sx={{ mb: 3 }} />
 
-                  <Typography variant="h6" mt={2}>Category</Typography>
-                  <Typography variant="body2" color="text.secondary" mb={1}>
-                    {product.category}
-                  </Typography>
-
-                  <Typography variant="h6">Description</Typography>
-                  {renderBulletPoints(product.description)}
-
-                  {product.multipleImages && product.multipleImages.length > 0 && (
-                    <Box mt={2}>
-                      <Typography variant="subtitle2">More Images:</Typography>
-                      <Stack direction="row" flexWrap="wrap" gap={1}>
-                        {product.multipleImages.map((imgUrl, index) => (
-                          <img
-                            key={index}
-                            src={`https://agxbackend.onrender.com${imgUrl}`}
-                            alt={`${product.name} additional image ${index}`}
-                            style={{ width: "60px", height: "60px", objectFit: "cover", border: "1px solid #ccc" }}
-                          />
-                        ))}
-                      </Stack>
-                    </Box>
-                  )}
-                </CardContent>
-                <CardActions>
-                  <Button size="small" variant="outlined" onClick={() => handleEdit(product)}>Edit</Button>
-                  <Button size="small" variant="outlined" color="error" onClick={() => handleDelete(product._id)}>Delete</Button>
-                </CardActions>
-              </Card>
-            ))}
-          </Stack>
+          {products.length === 0 ? (
+            <Typography variant="h6" color="text.secondary" align="center" mt={6}>
+              No products found. Start by adding a new product.
+            </Typography>
+          ) : (
+            <Stack direction="row" flexWrap="wrap" gap={3} justifyContent="start">
+              {products.map((product) => (
+                <Card
+                  key={product._id}
+                  sx={{
+                    width: 320,
+                    borderRadius: 3,
+                    boxShadow: 4,
+                    transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                    "&:hover": {
+                      transform: "translateY(-6px)",
+                      boxShadow: 8,
+                    },
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  <CardMedia
+                    component="img"
+                    height="180"
+                    image={product.coverImage ? `https://agxbackend.onrender.com${product.coverImage}` : "/placeholder.jpg"}
+                    alt={product.name}
+                    sx={{ objectFit: "cover", borderTopLeftRadius: 12, borderTopRightRadius: 12 }}
+                  />
+                  <CardContent sx={{ flexGrow: 1 }}>
+                    <Typography variant="h6" gutterBottom sx={{ fontWeight: 700, mb: 1 }}>
+                      {product.name}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                      <strong>Category:</strong> {product.category}
+                    </Typography>
+                    <Typography variant="body2" sx={{ mb: 1 }}>
+                      {renderBulletPoints(product.description)}
+                    </Typography>
+                    {product.multipleImages && product.multipleImages.length > 0 && (
+                      <Box sx={{ mt: 2 }}>
+                        <Typography variant="subtitle2" gutterBottom>
+                          Additional Images:
+                        </Typography>
+                        <Stack direction="row" flexWrap="wrap" gap={1}>
+                          {product.multipleImages.map((imgUrl, index) => (
+                            <Box
+                              component="img"
+                              key={index}
+                              src={`https://agxbackend.onrender.com${imgUrl}`}
+                              alt={`${product.name} additional image ${index}`}
+                              sx={{
+                                width: 60,
+                                height: 60,
+                                borderRadius: 1.5,
+                                objectFit: "cover",
+                                border: `1px solid ${theme.palette.divider}`,
+                                boxShadow: 1,
+                              }}
+                            />
+                          ))}
+                        </Stack>
+                      </Box>
+                    )}
+                  </CardContent>
+                  <CardActions sx={{ justifyContent: "flex-end", gap: 1, px: 2, pb: 2 }}>
+                    <Tooltip title="Edit Product">
+                      <Button
+                        size="small"
+                        variant="outlined"
+                        onClick={() => handleEdit(product)}
+                        sx={{ borderRadius: 2, textTransform: "none" }}
+                      >
+                        Edit
+                      </Button>
+                    </Tooltip>
+                    <Tooltip title="Delete Product">
+                      <Button
+                        size="small"
+                        variant="outlined"
+                        color="error"
+                        onClick={() => handleDelete(product._id)}
+                        sx={{ borderRadius: 2, textTransform: "none" }}
+                      >
+                        Delete
+                      </Button>
+                    </Tooltip>
+                  </CardActions>
+                </Card>
+              ))}
+            </Stack>
+          )}
         </Box>
       </Box>
     </ThemeProvider>

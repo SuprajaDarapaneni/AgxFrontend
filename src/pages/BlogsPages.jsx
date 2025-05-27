@@ -5,17 +5,21 @@ import {
   TextField,
   Typography,
   Paper,
-  List,
-  ListItem,
-  ListItemText,
+  Card,
+  CardContent,
+  CardActions,
   IconButton,
   Divider,
   CssBaseline,
   useMediaQuery,
   ThemeProvider,
-  createTheme
+  createTheme,
+  Stack,
+  Tooltip,
+  Fade,
+  Avatar,
 } from '@mui/material';
-import { Edit, Delete } from '@mui/icons-material';
+import { Edit, Delete, Description } from '@mui/icons-material';
 
 import Topbar from '../components/Topbar';
 import Sidebar from '../components/sidebar';
@@ -35,12 +39,33 @@ const BlogsPage = () => {
     createTheme({
       palette: {
         mode,
-        primary: { main: '#3f51b5' },
+        primary: { main: '#4f46e5' }, // pink-ish for more vibrance
         background: {
-          default: mode === 'light' ? '#f4f6f8' : '#121212',
+          default: mode === 'light' ? '#f9fafb' : '#121212',
           paper: mode === 'light' ? '#ffffff' : '#1d1d1d',
+        },
+        text: {
+          primary: mode === 'light' ? '#1a1a1a' : '#fafafa',
+          secondary: mode === 'light' ? '#555' : '#bbb',
         }
-      }
+      },
+      typography: {
+        fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+      },
+      shape: {
+        borderRadius: 16,
+      },
+      components: {
+        MuiButton: {
+          styleOverrides: {
+            root: {
+              textTransform: 'none',
+              fontWeight: 600,
+              borderRadius: 12,
+            },
+          },
+        },
+      },
     }), [mode]);
 
   const handleDrawerToggle = () => {
@@ -135,109 +160,161 @@ const BlogsPage = () => {
           component="main"
           sx={{
             flexGrow: 1,
-            p: 3,
+            p: 4,
             mt: '64px',
             width: { sm: `calc(100% - ${drawerWidth}px)` },
             overflowY: 'auto',
             backgroundColor: theme.palette.background.default,
-            color: theme.palette.text.primary
+            color: theme.palette.text.primary,
           }}
         >
-          <Typography variant="h4" gutterBottom>
+          <Typography variant="h3" fontWeight={700} gutterBottom>
             Manage Blogs
           </Typography>
 
-          <Paper sx={{ p: 2, mb: 4 }}>
-            <Typography variant="h6">{editingId ? 'Edit Blog' : 'Add New Blog'}</Typography>
-            <form onSubmit={handleSubmit}>
-              <TextField
-                label="Title"
-                name="title"
-                value={form.title}
-                onChange={handleInputChange}
-                fullWidth
-                required
-                margin="normal"
-              />
-              <TextField
-                label="Excerpt"
-                name="excerpt"
-                value={form.excerpt}
-                onChange={handleInputChange}
-                fullWidth
-                required
-                margin="normal"
-                helperText="Short summary of the blog"
-              />
-              <TextField
-                label="Content"
-                name="content"
-                value={form.content}
-                onChange={handleInputChange}
-                fullWidth
-                multiline
-                rows={6}
-                margin="normal"
-              />
-              <Box sx={{ mt: 2 }}>
-                <Button type="submit" variant="contained" color="primary">
-                  {editingId ? 'Update Blog' : 'Add Blog'}
-                </Button>
-                {editingId && (
+          <Paper sx={{ p: 3, mb: 6, borderRadius: 3, boxShadow: 4 }}>
+            <Typography variant="h5" fontWeight={700} gutterBottom>
+              {editingId ? 'Edit Blog' : 'Add New Blog'}
+            </Typography>
+            <Box component="form" onSubmit={handleSubmit} noValidate>
+              <Stack spacing={3}>
+                <TextField
+                  label="Title"
+                  name="title"
+                  value={form.title}
+                  onChange={handleInputChange}
+                  fullWidth
+                  required
+                  autoFocus
+                  inputProps={{ maxLength: 100 }}
+                />
+                <TextField
+                  label="Excerpt"
+                  name="excerpt"
+                  value={form.excerpt}
+                  onChange={handleInputChange}
+                  fullWidth
+                  required
+                  helperText="Short summary of the blog (max 200 characters)"
+                  inputProps={{ maxLength: 200 }}
+                />
+                <TextField
+                  label="Content"
+                  name="content"
+                  value={form.content}
+                  onChange={handleInputChange}
+                  fullWidth
+                  multiline
+                  rows={8}
+                  placeholder="Write the full content here..."
+                />
+                <Box sx={{ display: 'flex', gap: 2 }}>
                   <Button
-                    sx={{ ml: 2 }}
-                    variant="outlined"
-                    onClick={() => {
-                      setEditingId(null);
-                      setForm({ title: '', excerpt: '', content: '' });
-                    }}
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    size="large"
+                    sx={{ flexGrow: 1 }}
                   >
-                    Cancel
+                    {editingId ? 'Update Blog' : 'Add Blog'}
                   </Button>
-                )}
-              </Box>
-            </form>
+                  {editingId && (
+                    <Button
+                      variant="outlined"
+                      color="secondary"
+                      size="large"
+                      sx={{ flexGrow: 1 }}
+                      onClick={() => {
+                        setEditingId(null);
+                        setForm({ title: '', excerpt: '', content: '' });
+                      }}
+                    >
+                      Cancel
+                    </Button>
+                  )}
+                </Box>
+              </Stack>
+            </Box>
+
             {message && (
-              <Typography color="success.main" sx={{ mt: 2 }}>
+              <Typography
+                color="success.main"
+                sx={{ mt: 2, fontWeight: 600, fontSize: 16 }}
+                align="center"
+              >
                 {message}
               </Typography>
             )}
           </Paper>
 
-          <Typography variant="h6" mb={1}>Existing Blogs</Typography>
-          <Paper>
-            <List>
+          <Typography variant="h5" mb={2} fontWeight={700}>
+            Existing Blogs
+          </Typography>
+
+          {blogs.length === 0 ? (
+            <Typography sx={{ p: 2, textAlign: 'center', color: 'text.secondary' }}>
+              No blogs found.
+            </Typography>
+          ) : (
+            <Stack spacing={3}>
               {blogs.map(blog => (
-                <React.Fragment key={blog._id}>
-                  <ListItem
-                    secondaryAction={
-                      <>
-                        <IconButton edge="end" aria-label="edit" onClick={() => handleEdit(blog)}>
-                          <Edit />
-                        </IconButton>
-                        <IconButton edge="end" aria-label="delete" onClick={() => handleDelete(blog._id)}>
-                          <Delete />
-                        </IconButton>
-                      </>
-                    }
-                  >
-                    <ListItemText
-                      primary={blog.title}
-                      secondary={
-                        blog.excerpt.length > 100
-                          ? blog.excerpt.substring(0, 100) + '...'
-                          : blog.excerpt
-                      }
-                    />
-                  </ListItem>
+                <Card
+                  key={blog._id}
+                  variant="outlined"
+                  sx={{
+                    borderRadius: 3,
+                    boxShadow: 3,
+                    transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+                    '&:hover': {
+                      boxShadow: 6,
+                      transform: 'translateY(-5px)',
+                    },
+                  }}
+                >
+                  <CardContent>
+                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+                      <Avatar sx={{ bgcolor: theme.palette.primary.main, mr: 2 }}>
+                        <Description />
+                      </Avatar>
+                      <Typography variant="h6" fontWeight={700}>
+                        {blog.title}
+                      </Typography>
+                    </Box>
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      sx={{ whiteSpace: 'pre-line' }}
+                    >
+                      {blog.excerpt.length > 150
+                        ? blog.excerpt.substring(0, 150) + '...'
+                        : blog.excerpt}
+                    </Typography>
+                  </CardContent>
                   <Divider />
-                </React.Fragment>
+                  <CardActions disableSpacing sx={{ justifyContent: 'flex-end' }}>
+                    <Tooltip title="Edit" arrow TransitionComponent={Fade}>
+                      <IconButton
+                        color="primary"
+                        onClick={() => handleEdit(blog)}
+                        aria-label="edit blog"
+                      >
+                        <Edit />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Delete" arrow TransitionComponent={Fade}>
+                      <IconButton
+                        color="error"
+                        onClick={() => handleDelete(blog._id)}
+                        aria-label="delete blog"
+                      >
+                        <Delete />
+                      </IconButton>
+                    </Tooltip>
+                  </CardActions>
+                </Card>
               ))}
-              {blogs.length === 0 && (
-                <Typography sx={{ p: 2 }}>No blogs found.</Typography>
-              )}
-            </List>
-          </Paper>
+            </Stack>
+          )}
         </Box>
       </Box>
     </ThemeProvider>
