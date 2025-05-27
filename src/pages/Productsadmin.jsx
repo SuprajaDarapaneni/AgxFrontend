@@ -22,7 +22,7 @@ import Sidebar from "../components/Sidebar";
 
 const drawerWidth = 240;
 
-const Products = () => {
+const ProductAdmin = () => {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
   const [mode, setMode] = useState(prefersDarkMode ? "dark" : "light");
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -339,4 +339,4 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default ProductAdmin;
