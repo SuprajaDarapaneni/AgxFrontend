@@ -4,7 +4,8 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
 import AdminDashboard from './pages/Dashboard';
-import ProductsAdmin from './pages/Productsadmin'; // Changed 'productsadmin' to 'Productsadmin'
+import ProductsAdmin from './pages/ProductsAdmin';
+
 
 import Admin from './pages/Auth';
 import Home from './pages/Home';
@@ -17,7 +18,7 @@ import BuySellpage from './pages/BuySellpage';
 import ProductDetails from './pages/ProductDetails';
 import Review from './pages/Review';
 import BlogDetail from './pages/BlogDetail';
-import AdminProducts from './pages/Productsadmin';
+
 import AdminReview from './pages/ReviewsPage';
 import AdminBlog from './pages/BlogsPages';
 
