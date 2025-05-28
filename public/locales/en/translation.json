@@ -217,6 +217,29 @@
 
 
 
+,
+  "aboutus": {
+    "title": "About AGX International",
+    "intro1": "Welcome to {{company}}, your trusted partner in global trade, specializing in seamless import and export services across industries.",
+    "intro2": "Whether you are a business seeking new markets or a buyer looking for top-quality international products, we provide the expertise, infrastructure, and trust you need to succeed on the global stage.",
+    "ourStoryTitle": "Our Story",
+    "ourStoryContent": "Founded on {{date}}, {{company}} was born from a vision to create a strong bridge between Indian industries and global markets. What started as a small idea has grown into a trusted name in the import and export sector, driven by the commitment to deliver the highest quality products across diverse industries — from agriculture and textiles to industrial machinery and consumer goods. Our foundation is built on expertise, integrity, and innovation. Every shipment we handle carries not just products but also trust, partnership, and long-term value. As we continue to expand our global footprint, we remain dedicated to building meaningful relationships and setting new benchmarks in international trade.",
+    "founderTitle": "Meet the Founder",
+    "founderName": "Anudeep – Founder & CEO, AGX International",
+    "founderBio1": "Anudeep is a visionary entrepreneur driven by a singular mission — to connect global buyers with quality Indian products through transparent, efficient, and reliable trade partnerships.",
+    "founderBio2": "From agricultural commodities and textiles to industrial tools, home décor, and cosmetics, Anudeep has built a multi-category export platform that prioritizes quality, compliance, and client satisfaction.",
+    "founderQuote": "Global business isn’t just about imports—it’s about building bridges of trust, service, and shared growth.",
+    "founderVision": "With a strong entrepreneurial spirit and hands-on industry knowledge, Anudeep continues to lead AGX International with integrity, innovation, and a future-ready mindset.",
+    "mission": "Our Mission",
+    "missionDesc": "To simplify global trade by offering reliable, transparent, and efficient import-export services that empower businesses to thrive internationally.",
+    "why": "Why Choose AGX International?",
+    "whyDesc": "With our deep industry knowledge, robust logistics network, and customer-first approach, we ensure smooth and secure cross-border transactions — every time.",
+    "values": "Our Values",
+    "valuesDesc": "Integrity, reliability, and partnership guide everything we do — ensuring every interaction builds lasting relationships and global opportunities.",
+    "ctaTitle": "Ready to trade globally with AGX International?",
+    "ctaDesc": "Contact us today and let’s unlock new opportunities together.",
+    "ctaBtn": "Contact Us"
+  }
 
 
 , "homepage": {

@@ -35,8 +35,8 @@ const Dashboard = () => {
           main: '#3f51b5',
         },
         background: {
-          default: mode === 'light' ? '#f4f6f8' : '#121212',
-          paper: mode === 'light' ? '#ffffff' : '#1d1d1d',
+          default: mode === 'light' ? '#f9fafb' : '#121212',
+          paper: mode === 'light' ? '#f9fafb' : '#121212',
         }
       },
     }), [mode]);
