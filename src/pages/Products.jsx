@@ -42,13 +42,13 @@ const Products = () => {
         <p className="max-w-3xl mx-auto text-gray-600 text-lg leading-relaxed">
           {t("product.description")}
         </p>
-        <button
+        {/* <button
           onClick={toggleLanguage}
           className="mt-4 px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition"
           aria-label="Toggle Language"
         >
           {t("product.langToggle")}
-        </button>
+        </button> */}
       </header>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
