@@ -1,26 +1,37 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Mail, Phone, Globe } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import logo from "../assets/logo.svg";
 
 const Header = () => {
+  const { t, i18n } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [language, setLanguage] = useState("EN");
   const location = useLocation();
 
+  // Keep language state in sync with i18n language
+  const [language, setLanguage] = useState(i18n.language || "en");
+
+  // Navigation items keys (for translation keys)
   const navItems = [
-    { name: "Home", path: "/" },
-    { name: "About Us", path: "/about" },
-    { name: "Services", path: "/services" },
-    { name: "Products", path: "/products" },
-    { name: "Blog", path: "/blogs" },
-    { name: "Contact Us", path: "/contact" },
-    { name: "Review", path: "/review" },
+    { key: "nav.home", path: "/" },
+    { key: "nav.aboutUs", path: "/about" },
+    { key: "nav.services", path: "/services" },
+    { key: "nav.products", path: "/products" },
+    { key: "nav.blog", path: "/blogs" },
+    { key: "nav.contactUs", path: "/contact" },
+    { key: "nav.review", path: "/review" },
   ];
 
-  const handleLanguageChange = (e) => setLanguage(e.target.value);
+  const handleLanguageChange = (e) => {
+    const lang = e.target.value.toLowerCase();
+    setLanguage(lang);
+    i18n.changeLanguage(lang);
+  };
 
-  useEffect(() => setIsMenuOpen(false), [location.pathname]);
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [location.pathname]);
 
   return (
     <header className="bg-white/80 backdrop-blur-md shadow-md fixed w-full top-0 left-0 z-50 border-b border-pink-200">
@@ -33,12 +44,11 @@ const Header = () => {
             alt="AGX Logo"
             className="h-14 w-auto object-contain"
           />
-          {/* <span className="text-pink-800 font-bold text-xl">AGX Consulting</span> */}
         </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex space-x-6">
-          {navItems.map(({ name, path }) => (
+          {navItems.map(({ key, path }) => (
             <Link
               key={path}
               to={path}
@@ -46,7 +56,7 @@ const Header = () => {
                 location.pathname === path ? "text-pink-700" : "text-[#42002E]"
               }`}
             >
-              {name}
+              {t(key)}
               {location.pathname === path && (
                 <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-pink-600 rounded-full"></span>
               )}
@@ -71,13 +81,13 @@ const Header = () => {
           <div className="flex items-center gap-2">
             <Globe size={16} className="text-pink-700" />
             <select
-              value={language}
+              value={language.toUpperCase()}
               onChange={handleLanguageChange}
               className="border border-pink-300 bg-pink-50 rounded px-2 py-1 focus:outline-none"
             >
               <option value="EN">EN</option>
-              <option value="DE">DE</option>
               <option value="FR">FR</option>
+              <option value="DE">DE</option>
             </select>
           </div>
         </div>
@@ -99,16 +109,18 @@ const Header = () => {
         }`}
       >
         <nav className="flex flex-col space-y-4">
-          {navItems.map(({ name, path }) => (
+          {navItems.map(({ key, path }) => (
             <Link
               key={path}
               to={path}
               onClick={() => setIsMenuOpen(false)}
               className={`font-semibold ${
-                location.pathname === path ? "text-pink-700" : "text-[#42002E] hover:text-pink-600"
+                location.pathname === path
+                  ? "text-pink-700"
+                  : "text-[#42002E] hover:text-pink-600"
               }`}
             >
-              {name}
+              {t(key)}
             </Link>
           ))}
 
@@ -124,13 +136,13 @@ const Header = () => {
             <div className="flex items-center gap-2">
               <Globe size={16} className="text-pink-700" />
               <select
-                value={language}
+                value={language.toUpperCase()}
                 onChange={handleLanguageChange}
                 className="border border-pink-300 bg-pink-50 rounded px-2 py-1"
               >
                 <option value="EN">EN</option>
-                <option value="DE">DE</option>
                 <option value="FR">FR</option>
+                <option value="DE"> DE</option>
               </select>
             </div>
           </div>

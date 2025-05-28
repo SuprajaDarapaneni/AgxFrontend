@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import Select from 'react-select';
+import { useTranslation } from 'react-i18next';
 
-const INDUSTRY_OPTIONS = [
-  { value: 'Agricultural Products', label: 'Agricultural Products' },
-  { value: 'Textiles and Garments', label: 'Textiles and Garments' },
-  { value: 'Automobiles and Parts', label: 'Automobiles and Parts' },
-  { value: 'Machinery and Tools', label: 'Machinery and Tools' },
-  { value: 'Home Decor', label: 'Home Decor' },
-  { value: 'Imitation Jewellery', label: 'Imitation Jewellery' },
-  { value: 'Cosmetics', label: 'Cosmetics' },
+const INDUSTRY_OPTIONS_RAW = [
+  'Agricultural Products',
+  'Textiles and Garments',
+  'Automobiles and Parts',
+  'Machinery and Tools',
+  'Home Decor',
+  'Imitation Jewellery',
+  'Cosmetics',
 ];
 
-const COUNTRY_OPTIONS = [
+const COUNTRY_OPTIONS_RAW = [
   'India',
   'United States',
   'China',
@@ -23,6 +24,19 @@ const COUNTRY_OPTIONS = [
 ];
 
 const BuySellForm = () => {
+  const { t } = useTranslation();
+
+  // Map raw options to translated label/value objects for react-select
+  const INDUSTRY_OPTIONS = INDUSTRY_OPTIONS_RAW.map(item => ({
+    value: item,
+    label: t(`industryOptions.${item}`),
+  }));
+
+  const COUNTRY_OPTIONS = COUNTRY_OPTIONS_RAW.map(item => ({
+    value: item,
+    label: t(`countryOptions.${item}`),
+  }));
+
   const [formData, setFormData] = useState({
     buySell: 'buy',
     name: '',
@@ -44,7 +58,7 @@ const BuySellForm = () => {
   const handleIndustrySelect = (selectedOptions) => {
     setFormData(prev => ({
       ...prev,
-      industries: selectedOptions.map(option => option.value),
+      industries: selectedOptions ? selectedOptions.map(option => option.value) : [],
     }));
   };
 
@@ -61,7 +75,7 @@ const BuySellForm = () => {
       });
 
       if (response.ok) {
-        setSuccessMessage('🎉 Your request has been submitted successfully!');
+        setSuccessMessage(t('form.successMessage'));
         setFormData({
           buySell: 'buy',
           name: '',
@@ -72,10 +86,10 @@ const BuySellForm = () => {
           timing: 'Immediately',
         });
       } else {
-        setSuccessMessage('❌ Submission failed. Please try again.');
+        setSuccessMessage(t('form.failureMessage'));
       }
     } catch (error) {
-      setSuccessMessage('⚠️ Something went wrong. Please try later.');
+      setSuccessMessage(t('form.errorMessage'));
     } finally {
       setIsSubmitDisabled(false);
     }
@@ -84,11 +98,6 @@ const BuySellForm = () => {
   return (
     <div className="min-h-screen bg-gradient-to-r from-pink-100 via-pink-50 to-pink-100 flex items-center justify-center px-4 py-10">
       <div className="max-w-xl w-full bg-white p-10 rounded-3xl shadow-xl border border-pink-200 space-y-6">
-        {/* <div className="text-center">
-          <h2 className="text-4xl font-bold text-pink-700">Connecting Continents with Confidence</h2>
-          <p className="text-pink-500 mt-2 text-lg">Seamless Global Trade Starts Here</p>
-        </div> */}
-
         <form onSubmit={handleSubmit} className="space-y-6">
 
           {/* Buy or Sell */}
@@ -103,25 +112,25 @@ const BuySellForm = () => {
                   onChange={handleChange}
                   className="form-radio text-pink-500 w-5 h-5"
                 />
-                <span className="ml-2 capitalize">{option}</span>
+                <span className="ml-2 capitalize">{t(`form.${option}`)}</span>
               </label>
             ))}
           </div>
 
           {/* Input Fields */}
           {[
-            { label: 'Name', name: 'name', type: 'text', placeholder: 'Enter your name' },
-            { label: 'Phone', name: 'phone', type: 'tel', placeholder: 'Enter phone number' },
-            { label: 'Email', name: 'email', type: 'email', placeholder: 'Enter email address' },
-          ].map(({ label, name, type, placeholder }) => (
+            { labelKey: 'name', name: 'name', type: 'text', placeholderKey: 'name' },
+            { labelKey: 'phone', name: 'phone', type: 'tel', placeholderKey: 'phone' },
+            { labelKey: 'email', name: 'email', type: 'email', placeholderKey: 'email' },
+          ].map(({ labelKey, name, type, placeholderKey }) => (
             <div key={name}>
-              <label className="block text-pink-600 font-medium mb-1">{label}</label>
+              <label className="block text-pink-600 font-medium mb-1">{t(`form.${labelKey}`)}</label>
               <input
                 type={type}
                 name={name}
                 value={formData[name]}
                 onChange={handleChange}
-                placeholder={placeholder}
+                placeholder={t(`form.${placeholderKey}`)}
                 required
                 className="w-full border border-pink-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-pink-400 focus:outline-none"
               />
@@ -130,7 +139,7 @@ const BuySellForm = () => {
 
           {/* Country Dropdown */}
           <div>
-            <label className="block text-pink-600 font-medium mb-1">Country</label>
+            <label className="block text-pink-600 font-medium mb-1">{t('form.country')}</label>
             <select
               name="country"
               value={formData.country}
@@ -138,16 +147,16 @@ const BuySellForm = () => {
               required
               className="w-full border border-pink-300 px-4 py-3 rounded-lg text-gray-700 focus:ring-2 focus:ring-pink-400"
             >
-              <option value="" disabled>Select your country</option>
-              {COUNTRY_OPTIONS.map(country => (
-                <option key={country} value={country}>{country}</option>
+              <option value="" disabled>{t('form.selectCountry')}</option>
+              {COUNTRY_OPTIONS.map(({ value, label }) => (
+                <option key={value} value={value}>{label}</option>
               ))}
             </select>
           </div>
 
-          {/* Industries Multi-Select Dropdown using react-select */}
+          {/* Industries Multi-Select */}
           <div>
-            <label className="block text-pink-600 font-medium mb-1">Select Industries</label>
+            <label className="block text-pink-600 font-medium mb-1">{t('form.industries')}</label>
             <Select
               options={INDUSTRY_OPTIONS}
               isMulti
@@ -160,19 +169,19 @@ const BuySellForm = () => {
 
           {/* Timing Dropdown */}
           <div>
-            <label className="block text-pink-600 font-medium mb-1">Preferred Timing</label>
+            <label className="block text-pink-600 font-medium mb-1">{t('form.timing')}</label>
             <select
               name="timing"
               value={formData.timing}
               onChange={handleChange}
               className="w-full border border-pink-300 px-4 py-3 rounded-lg text-gray-700 focus:ring-2 focus:ring-pink-400"
             >
-              <option value="Immediately">Immediately</option>
-              <option value="0-20days">0-20 days</option>
-              <option value="20-45days">20-45 days</option>
-              <option value="45-60days">45-60 days</option>
-              <option value="60-90days">60-90 days</option>
-              <option value="90-120days">90-120 days</option>
+              <option value="Immediately">{t('form.immediately')}</option>
+              <option value="0-20days">{t('form.days0to20')}</option>
+              <option value="20-45days">{t('form.days20to45')}</option>
+              <option value="45-60days">{t('form.days45to60')}</option>
+              <option value="60-90days">{t('form.days60to90')}</option>
+              <option value="90-120days">{t('form.days90to120')}</option>
             </select>
           </div>
 
@@ -185,7 +194,7 @@ const BuySellForm = () => {
                 ${isSubmitDisabled ? 'bg-pink-300 cursor-not-allowed' : 'bg-pink-600 hover:bg-pink-700'}
               `}
             >
-              {isSubmitDisabled ? 'Submitting...' : 'Submit Request'}
+              {isSubmitDisabled ? t('form.submitting') : t('form.submitRequest')}
             </button>
           </div>
 

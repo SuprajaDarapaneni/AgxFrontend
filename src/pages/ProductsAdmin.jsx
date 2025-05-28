@@ -29,21 +29,24 @@ const ProductAdmin = () => {
   const [mode, setMode] = useState(prefersDarkMode ? "dark" : "light");
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const colorMode = useMemo(() => ({
-    toggleColorMode: () => setMode((prev) => (prev === "light" ? "dark" : "light")),
-  }), []);
+  const colorMode = useMemo(
+    () => ({
+      toggleColorMode: () => setMode((prev) => (prev === "light" ? "dark" : "light")),
+    }),
+    []
+  );
 
   const theme = useMemo(
     () =>
       createTheme({
         palette: {
           mode,
-          primary: { main: "#4f46e5" }, // Indigo-600 more vivid
+          primary: { main: "#4f46e5" },
           background: {
             default: mode === "light" ? "#f9fafb" : "#121212",
             paper: mode === "light" ? "#ffffff" : "#1e1e1e",
           },
-          error: { main: "#ef4444" }, // Red-500 for error buttons
+          error: { main: "#ef4444" },
         },
         typography: {
           fontFamily: "'Inter', 'Roboto', 'Helvetica', 'Arial', sans-serif",
@@ -148,10 +151,12 @@ const ProductAdmin = () => {
     data.append("category", formData.category);
     data.append("description", formData.description);
 
+    // Append coverImage only if a new one was selected
     if (formData.coverImage) {
       data.append("coverImage", formData.coverImage);
     }
 
+    // Append multipleImages only if new files were selected
     if (formData.multipleImages.length > 0) {
       formData.multipleImages.forEach((file) => data.append("multipleImages", file));
     }
@@ -187,12 +192,7 @@ const ProductAdmin = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Box sx={{ display: "flex", height: "100vh", bgcolor: "background.default" }}>
-        <Topbar
-          onDrawerToggle={handleDrawerToggle}
-          colorMode={colorMode}
-          mode={mode}
-          drawerWidth={drawerWidth}
-        />
+        <Topbar onDrawerToggle={handleDrawerToggle} colorMode={colorMode} mode={mode} drawerWidth={drawerWidth} />
         <Sidebar mobileOpen={mobileOpen} onDrawerToggle={handleDrawerToggle} drawerWidth={drawerWidth} />
 
         <Box
@@ -287,7 +287,28 @@ const ProductAdmin = () => {
                   onChange={(e) => setFormData({ ...formData, coverImage: e.target.files[0] })}
                   style={{ marginBottom: 12 }}
                 />
-                {isEditMode && existingCoverImageUrl && (
+
+                {/* Preview selected new cover image */}
+                {formData.coverImage && (
+                  <Box mt={1}>
+                    <Typography variant="body2">New Cover Image Preview:</Typography>
+                    <Box
+                      component="img"
+                      src={URL.createObjectURL(formData.coverImage)}
+                      alt="New Cover Preview"
+                      sx={{
+                        maxWidth: 160,
+                        maxHeight: 160,
+                        borderRadius: 2,
+                        objectFit: "contain",
+                        boxShadow: 2,
+                      }}
+                    />
+                  </Box>
+                )}
+
+                {/* Show existing cover image only if editing and no new cover image selected */}
+                {isEditMode && existingCoverImageUrl && !formData.coverImage && (
                   <Box sx={{ mt: 1 }}>
                     <Typography variant="body2" color="text.secondary" gutterBottom>
                       Current Cover Image:
@@ -324,7 +345,31 @@ const ProductAdmin = () => {
                   }
                   style={{ marginBottom: 12 }}
                 />
-                {isEditMode && existingMultipleImageUrls.length > 0 && (
+
+                {/* Preview newly selected multiple images */}
+                {formData.multipleImages.length > 0 && (
+                  <Stack direction="row" flexWrap="wrap" gap={1} mt={1}>
+                    {formData.multipleImages.map((file, idx) => (
+                      <Box
+                        key={idx}
+                        component="img"
+                        src={URL.createObjectURL(file)}
+                        alt={`New Additional ${idx}`}
+                        sx={{
+                          width: 90,
+                          height: 90,
+                          borderRadius: 2,
+                          objectFit: "cover",
+                          boxShadow: 1,
+                          border: `1px solid ${theme.palette.divider}`,
+                        }}
+                      />
+                    ))}
+                  </Stack>
+                )}
+
+                {/* Show existing multiple images only if editing and no new images selected */}
+                {isEditMode && existingMultipleImageUrls.length > 0 && formData.multipleImages.length === 0 && (
                   <Stack direction="row" flexWrap="wrap" gap={1} mt={1}>
                     {existingMultipleImageUrls.map((url, index) => (
                       <Box
@@ -344,6 +389,7 @@ const ProductAdmin = () => {
                     ))}
                   </Stack>
                 )}
+
                 {isEditMode && (
                   <Typography variant="caption" color="text.secondary" mt={0.5}>
                     Select new files above to add/replace them.
@@ -390,7 +436,11 @@ const ProductAdmin = () => {
                   <CardMedia
                     component="img"
                     height="180"
-                    image={product.coverImage ? `https://agxbackend.onrender.com${product.coverImage}` : "/placeholder.jpg"}
+                    image={
+                      product.coverImage
+                        ? `https://agxbackend.onrender.com${product.coverImage}`
+                        : "/placeholder.jpg"
+                    }
                     alt={product.name}
                     sx={{ objectFit: "cover", borderTopLeftRadius: 12, borderTopRightRadius: 12 }}
                   />
@@ -410,19 +460,18 @@ const ProductAdmin = () => {
                           Additional Images:
                         </Typography>
                         <Stack direction="row" flexWrap="wrap" gap={1}>
-                          {product.multipleImages.map((imgUrl, index) => (
+                          {product.multipleImages.map((img, idx) => (
                             <Box
+                              key={idx}
                               component="img"
-                              key={index}
-                              src={`https://agxbackend.onrender.com${imgUrl}`}
-                              alt={`${product.name} additional image ${index}`}
+                              src={`https://agxbackend.onrender.com${img}`}
+                              alt={`Additional ${idx}`}
                               sx={{
-                                width: 60,
-                                height: 60,
-                                borderRadius: 1.5,
+                                width: 70,
+                                height: 70,
                                 objectFit: "cover",
+                                borderRadius: 2,
                                 border: `1px solid ${theme.palette.divider}`,
-                                boxShadow: 1,
                               }}
                             />
                           ))}
@@ -430,28 +479,25 @@ const ProductAdmin = () => {
                       </Box>
                     )}
                   </CardContent>
-                  <CardActions sx={{ justifyContent: "flex-end", gap: 1, px: 2, pb: 2 }}>
-                    <Tooltip title="Edit Product">
-                      <Button
-                        size="small"
-                        variant="outlined"
-                        onClick={() => handleEdit(product)}
-                        sx={{ borderRadius: 2, textTransform: "none" }}
-                      >
-                        Edit
-                      </Button>
-                    </Tooltip>
-                    <Tooltip title="Delete Product">
-                      <Button
-                        size="small"
-                        variant="outlined"
-                        color="error"
-                        onClick={() => handleDelete(product._id)}
-                        sx={{ borderRadius: 2, textTransform: "none" }}
-                      >
-                        Delete
-                      </Button>
-                    </Tooltip>
+                  <CardActions sx={{ justifyContent: "space-between", px: 2, pb: 2 }}>
+                    <Button
+                      size="small"
+                      variant="outlined"
+                      color="error"
+                      onClick={() => handleDelete(product._id)}
+                      sx={{ borderRadius: 2 }}
+                    >
+                      Delete
+                    </Button>
+                    <Button
+                      size="small"
+                      variant="contained"
+                      color="primary"
+                      onClick={() => handleEdit(product)}
+                      sx={{ borderRadius: 2 }}
+                    >
+                      Edit
+                    </Button>
                   </CardActions>
                 </Card>
               ))}

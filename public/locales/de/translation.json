@@ -1,0 +1,227 @@
+{
+  "title": "Über AGX International",
+  "intro1": "Willkommen bei {{company}}, Ihrem vertrauenswürdigen Partner im globalen Handel, spezialisiert auf nahtlose Import- und Exportdienstleistungen über verschiedene Branchen hinweg.",
+  "intro2": "Ob Sie als Unternehmen neue Märkte erschließen oder als Käufer hochwertige internationale Produkte suchen – wir bieten Ihnen das Fachwissen, die Infrastruktur und das Vertrauen, das Sie benötigen, um weltweit erfolgreich zu sein.",
+  "ourStoryTitle": "Unsere Geschichte",
+  "ourStoryContent": "Gegründet am {{date}}, entstand {{company}} aus der Vision, eine starke Brücke zwischen der indischen Industrie und den globalen Märkten zu bauen. Was als kleine Idee begann, hat sich zu einem vertrauenswürdigen Namen im Import- und Exportsektor entwickelt, angetrieben vom Engagement, Produkte höchster Qualität in vielfältigen Branchen zu liefern – von der Landwirtschaft und Textilien bis hin zu Industriemaschinen und Konsumgütern. Unsere Grundlage beruht auf Fachwissen, Integrität und Innovation. Jede von uns abgewickelte Sendung transportiert nicht nur Produkte, sondern auch Vertrauen, Partnerschaft und langfristigen Wert. Während wir unsere globale Präsenz weiter ausbauen, bleiben wir der Aufgabe verpflichtet, bedeutungsvolle Beziehungen aufzubauen und neue Maßstäbe im internationalen Handel zu setzen.",
+  "founderTitle": "Lernen Sie den Gründer kennen",
+  "founderName": "Anudeep – Gründer & CEO, AGX International",
+  "founderBio1": "Anudeep ist ein visionärer Unternehmer mit der Mission, globale Käufer mit hochwertigen indischen Produkten durch transparente, effiziente und zuverlässige Handelsbeziehungen zu verbinden.",
+  "founderBio2": "Von Agrarprodukten und Textilien bis hin zu Industrieausrüstung, Wohnaccessoires und Kosmetik – Anudeep hat eine vielseitige Exportplattform aufgebaut, die Qualität, Compliance und Kundenzufriedenheit in den Vordergrund stellt.",
+  "founderQuote": "Globaler Handel bedeutet nicht nur Import – es geht darum, Brücken aus Vertrauen, Service und gemeinsamem Wachstum zu bauen.",
+  "founderVision": "Mit einem ausgeprägten Unternehmergeist und praktischer Branchenerfahrung führt Anudeep AGX International weiterhin mit Integrität, Innovation und einem zukunftsorientierten Ansatz.",
+  "mission": "Unsere Mission",
+  "missionDesc": "Den globalen Handel zu vereinfachen, indem wir zuverlässige, transparente und effiziente Import- und Exportlösungen anbieten, die Unternehmen international erfolgreich machen.",
+  "why": "Warum AGX International wählen?",
+  "whyDesc": "Dank unseres fundierten Branchenwissens, unseres robusten Logistiknetzwerks und unseres kundenorientierten Ansatzes sorgen wir bei jeder Transaktion für einen reibungslosen und sicheren Ablauf.",
+  "values": "Unsere Werte",
+  "valuesDesc": "Integrität, Zuverlässigkeit und Partnerschaft sind die Grundlagen unseres Handelns – jede Interaktion schafft dauerhafte Beziehungen und globale Chancen.",
+  "ctaTitle": "Bereit für den internationalen Handel mit AGX International?",
+  "ctaDesc": "Kontaktieren Sie uns noch heute und lassen Sie uns gemeinsam neue Möglichkeiten erschließen.",
+  "ctaBtn": "Kontaktieren Sie uns"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+,"blogs": {
+    "title": "Unsere neuesten Blogs",
+    "loading": "Blogs werden geladen...",
+    "error": "Fehler beim Laden der Blogs. Bitte versuchen Sie es später erneut.",
+    "noBlogs": "Keine Blogs gefunden.",
+    "readMore": "Weiterlesen →"
+  }
+
+
+,
+  "form": {
+    "buy": "Kaufen",
+    "sell": "Verkaufen",
+    "name": "Name",
+    "phone": "Telefon",
+    "email": "E-Mail",
+    "country": "Land",
+    "selectCountry": "Wählen Sie Ihr Land",
+    "industries": "Industrien auswählen",
+    "timing": "Bevorzugter Zeitraum",
+    "immediately": "Sofort",
+    "days0to20": "0-20 Tage",
+    "days20to45": "20-45 Tage",
+    "days45to60": "45-60 Tage",
+    "days60to90": "60-90 Tage",
+    "days90to120": "90-120 Tage",
+    "submitRequest": "Anfrage senden",
+    "submitting": "Wird gesendet...",
+    "successMessage": "🎉 Ihre Anfrage wurde erfolgreich übermittelt!",
+    "failureMessage": "❌ Übermittlung fehlgeschlagen. Bitte versuchen Sie es erneut.",
+    "errorMessage": "⚠️ Etwas ist schiefgelaufen. Bitte versuchen Sie es später erneut."
+  },
+  "industryOptions": {
+    "Agricultural Products": "Landwirtschaftliche Produkte",
+    "Textiles and Garments": "Textilien und Bekleidung",
+    "Automobiles and Parts": "Automobile und Teile",
+    "Machinery and Tools": "Maschinen und Werkzeuge",
+    "Home Decor": "Wohnkultur",
+    "Imitation Jewellery": "Modeschmuck",
+    "Cosmetics": "Kosmetik"
+  },
+  "countryOptions": {
+    "India": "Indien",
+    "United States": "Vereinigte Staaten",
+    "China": "China",
+    "Germany": "Deutschland",
+    "Brazil": "Brasilien",
+    "United Kingdom": "Vereinigtes Königreich",
+    "United Arab Emirates": "Vereinigte Arabische Emirate",
+    "Other": "Andere"
+  }
+
+
+, "dashboard": {
+      "title": "Dashboard-Inhalt",
+      "welcomeMessage": "Willkommen im Dashboard! Diese Seite verwaltet jetzt ihr eigenes Layout."
+    }
+
+,"product": {
+      "title": "Unsere Branchenlösungen",
+      "description": "Entdecken Sie unsere breite Palette an Branchenlösungen, die auf verschiedene Geschäftsanforderungen zugeschnitten sind. Erkunden Sie Kategorien, um das Passende für Sie zu finden.",
+      "button": "Entdecken",
+      "placeholderAlt": "Kein Bild",
+      "langToggle": "English"
+    }
+
+,
+  "productAdmin": {
+    "buttons": {
+      "addProduct": "Produkt hinzufügen",
+      "closeForm": "Formular schließen",
+      "cancelEdit": "Bearbeitung abbrechen",
+      "submitAdd": "Produkt hinzufügen",
+      "submitUpdate": "Produkt aktualisieren",
+      "edit": "Bearbeiten",
+      "delete": "Löschen"
+    },
+    "labels": {
+      "manageProducts": "Produkte verwalten",
+      "name": "Name",
+      "category": "Kategorie",
+      "description": "Beschreibung",
+      "coverImage": "Titelbild:",
+      "additionalImages": "Zusätzliche Bilder:"
+    },
+    "placeholders": {
+      "name": "Produktname eingeben",
+      "category": "Kategorie eingeben",
+      "description": "Produktbeschreibung eingeben"
+    },
+    "messages": {
+      "noProducts": "Keine Produkte gefunden. Beginnen Sie mit dem Hinzufügen eines neuen Produkts.",
+      "confirmDelete": "Möchten Sie dieses Produkt wirklich löschen?",
+      "saveError": "Produkt konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.",
+      "deleteError": "Produkt konnte nicht gelöscht werden"
+    },
+    "currentCoverImage": "Aktuelles Titelbild:",
+    "replaceFileHint": "Wählen Sie oben eine neue Datei aus, um sie zu ersetzen.",
+    "replaceAdditionalFilesHint": "Wählen Sie oben neue Dateien aus, um sie hinzuzufügen/zu ersetzen."
+  }
+
+
+,
+  "contactForm": {
+    "buttons": {
+      "submit": "Absenden"
+    },
+    "fields": {
+      "name": "Name",
+      "email": "E-Mail",
+      "phone": "Telefon",
+      "message": "Nachricht"
+    },
+    "placeholders": {
+      "name": "Ihr Name",
+      "email": "sie@beispiel.de",
+      "phone": "+49 123 4567890",
+      "message": "Schreiben Sie hier Ihre Nachricht..."
+    },
+    "title": "Kontaktieren Sie uns",
+    "successMessage": "Formular erfolgreich gesendet!",
+    "errorMessage": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut."
+  }
+
+,
+  "customerReviewForm": {
+    "title": "Bewertung abgeben",
+    "subtitle": "Wir würden uns über Ihr Feedback freuen!",
+    "fields": {
+      "name": "Ihr Name",
+      "email": "E-Mail-Adresse",
+      "review": "Schreiben Sie hier Ihre Bewertung...",
+      "ratingLabel": "Ihre Bewertung:"
+    },
+    "ratingStars": "★",
+    "buttons": {
+      "submit": "Bewertung absenden",
+      "submitting": "Wird gesendet..."
+    },
+    "messages": {
+      "thankYou": "Vielen Dank für Ihre Bewertung!",
+      "submitError": "Beim Absenden Ihrer Bewertung ist ein Fehler aufgetreten."
+    },
+    "reviewsSection": {
+      "header": "Kundenbewertungen",
+      "loading": "Bewertungen werden geladen...",
+      "error": "Fehler beim Laden der Bewertungen.",
+      "noReviews": "Noch keine Bewertungen. Seien Sie der Erste!",
+      "ratingDisplay": "({{rating}})"
+    }
+  }
+
+,
+  "reviewspage": {
+    "pageTitle": "Bewertungen Verwalten",
+    "form": {
+      "addTitle": "Neue Bewertung Hinzufügen",
+      "editTitle": "Bewertung Bearbeiten",
+      "fields": {
+        "name": "Name",
+        "rating": "Bewertung (1-5)",
+        "comment": "Kommentar"
+      },
+      "buttons": {
+        "submitAdd": "Bewertung Hinzufügen",
+        "submitEdit": "Bewertung Aktualisieren",
+        "cancel": "Abbrechen"
+      }
+    },
+    "existingReviewsTitle": "Vorhandene Bewertungen",
+    "noReviews": "Keine Bewertungen gefunden.",
+    "notifications": {
+      "added": "Bewertung erfolgreich hinzugefügt",
+      "updated": "Bewertung erfolgreich aktualisiert",
+      "deleted": "Bewertung erfolgreich gelöscht",
+      "errorSubmit": "Fehler beim Absenden der Bewertung",
+      "errorDelete": "Fehler beim Löschen der Bewertung"
+    },
+    "ratingLabel": "⭐ {{rating}}"
+  }
+
+}

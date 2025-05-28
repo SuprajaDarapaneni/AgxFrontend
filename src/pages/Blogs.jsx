@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const Blogs = () => {
+  const { t } = useTranslation();
+
   const [blogPosts, setBlogPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -15,18 +18,18 @@ const Blogs = () => {
         setError(null);
       } catch (err) {
         console.error('Failed to fetch blogs:', err);
-        setError('Failed to load blogs. Please try again later.');
+        setError(t('blogs.error'));
       } finally {
         setLoading(false);
       }
     };
 
     fetchBlogs();
-  }, []);
+  }, [t]);
 
   return (
     <section className="container mx-auto px-4 py-12">
-      <h2 className="text-3xl font-bold text-center text-gray-800 mb-10">Our Latest Blogs</h2>
+      <h2 className="text-3xl font-bold text-center text-gray-800 mb-10">{t('blogs.title')}</h2>
 
       {loading ? (
         <div className="flex justify-center items-center">
@@ -50,12 +53,12 @@ const Blogs = () => {
               d="M4 12a8 8 0 018-8v8z"
             />
           </svg>
-          <span className="ml-3 text-gray-500">Loading blogs...</span>
+          <span className="ml-3 text-gray-500">{t('blogs.loading')}</span>
         </div>
       ) : error ? (
         <p className="text-center text-red-500">{error}</p>
       ) : blogPosts.length === 0 ? (
-        <p className="text-center text-gray-500">No blogs found.</p>
+        <p className="text-center text-gray-500">{t('blogs.noBlogs')}</p>
       ) : (
         <div className="grid md:grid-cols-3 gap-8">
           {blogPosts.map(post => (
@@ -72,7 +75,7 @@ const Blogs = () => {
                 to={`/blogs/${post._id}`}
                 className="text-blue-500 hover:underline text-sm"
               >
-                Read More →
+                {t('blogs.readMore')}
               </Link>
             </div>
           ))}

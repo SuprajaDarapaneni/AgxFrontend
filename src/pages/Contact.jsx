@@ -1,6 +1,9 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 function ContactForm() {
+  const { t } = useTranslation();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -26,11 +29,11 @@ function ContactForm() {
 
       const data = await response.json();
 
-      setSubmitMessage(data.message || "Form submitted successfully!");
+      setSubmitMessage(data.message || t("contactForm.successMessage"));
       setIsSuccess(true);
       setFormData({ name: "", email: "", phone: "", message: "" });
     } catch (error) {
-      setSubmitMessage("Something went wrong. Please try again.");
+      setSubmitMessage(t("contactForm.errorMessage"));
       setIsSuccess(false);
     }
   };
@@ -38,7 +41,7 @@ function ContactForm() {
   return (
     <div className="max-w-lg mx-auto mt-12 p-8 bg-white rounded-3xl shadow-lg border border-pink-200">
       <h2 className="text-3xl font-extrabold mb-8 text-center text-pink-600 drop-shadow-sm">
-        Contact Us
+        {t("contactForm.title")}
       </h2>
 
       {submitMessage && (
@@ -57,13 +60,15 @@ function ContactForm() {
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Name */}
         <div>
-          <label className="block mb-2 font-semibold text-gray-700">Name</label>
+          <label className="block mb-2 font-semibold text-gray-700">
+            {t("contactForm.fields.name")}
+          </label>
           <input
             type="text"
             name="name"
             onChange={handleChange}
             value={formData.name}
-            placeholder="Your Name"
+            placeholder={t("contactForm.placeholders.name")}
             required
             className="w-full px-5 py-3 rounded-xl border border-gray-300 focus:border-pink-500 focus:ring-2 focus:ring-pink-300 transition outline-none shadow-sm"
           />
@@ -71,13 +76,15 @@ function ContactForm() {
 
         {/* Email */}
         <div>
-          <label className="block mb-2 font-semibold text-gray-700">Email</label>
+          <label className="block mb-2 font-semibold text-gray-700">
+            {t("contactForm.fields.email")}
+          </label>
           <input
             type="email"
             name="email"
             onChange={handleChange}
             value={formData.email}
-            placeholder="you@example.com"
+            placeholder={t("contactForm.placeholders.email")}
             required
             className="w-full px-5 py-3 rounded-xl border border-gray-300 focus:border-pink-500 focus:ring-2 focus:ring-pink-300 transition outline-none shadow-sm"
           />
@@ -85,13 +92,15 @@ function ContactForm() {
 
         {/* Phone */}
         <div>
-          <label className="block mb-2 font-semibold text-gray-700">Phone</label>
+          <label className="block mb-2 font-semibold text-gray-700">
+            {t("contactForm.fields.phone")}
+          </label>
           <input
             type="tel"
             name="phone"
             onChange={handleChange}
             value={formData.phone}
-            placeholder="+1 (555) 123-4567"
+            placeholder={t("contactForm.placeholders.phone")}
             required
             className="w-full px-5 py-3 rounded-xl border border-gray-300 focus:border-pink-500 focus:ring-2 focus:ring-pink-300 transition outline-none shadow-sm"
           />
@@ -99,12 +108,14 @@ function ContactForm() {
 
         {/* Message */}
         <div>
-          <label className="block mb-2 font-semibold text-gray-700">Message</label>
+          <label className="block mb-2 font-semibold text-gray-700">
+            {t("contactForm.fields.message")}
+          </label>
           <textarea
             name="message"
             onChange={handleChange}
             value={formData.message}
-            placeholder="Write your message here..."
+            placeholder={t("contactForm.placeholders.message")}
             rows="5"
             required
             className="w-full px-5 py-4 rounded-xl border border-gray-300 focus:border-pink-500 focus:ring-2 focus:ring-pink-300 transition outline-none shadow-sm resize-none"
@@ -116,7 +127,7 @@ function ContactForm() {
           type="submit"
           className="w-full py-4 bg-pink-600 text-white font-bold rounded-2xl shadow-lg hover:bg-pink-700 transition"
         >
-          Submit
+          {t("contactForm.buttons.submit")}
         </button>
       </form>
     </div>

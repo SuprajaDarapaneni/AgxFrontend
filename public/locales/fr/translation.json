@@ -1,0 +1,315 @@
+{
+  "hero": {
+    "title": "Relier les continents en toute confiance",
+    "cta": "Je veux acheter/vendre"
+  },
+  "services": {
+    "title": "Nos services",
+    "importAssistance": {
+      "title": "Assistance à l'importation",
+      "desc": "Naviguez dans la complexité des réglementations et des procédures d'importation internationales grâce à notre expertise."
+    },
+    "exportSolutions": {
+      "title": "Solutions d'exportation",
+      "desc": "Étendez votre portée sur les marchés mondiaux avec nos stratégies d'exportation sur mesure et notre soutien."
+    },
+    "businessBrokering": {
+      "title": "Intermédiation commerciale",
+      "desc": "Trouvez les bons partenaires commerciaux internationaux et opportunités grâce à notre réseau étendu."
+    },
+    "learnMore": "En savoir plus"
+  },
+  "testimonials": {
+    "title": "Ce que disent nos clients",
+    "ravi": "Leur soutien à l'exportation m'a aidé à développer mon entreprise à l'international. Très professionnel et fiable !",
+    "anjali": "Ils ont rendu le commerce international facile. Une équipe digne de confiance et expérimentée !",
+    "mohammed": "Service excellent et communication parfaite tout au long de notre processus d'importation."
+  },
+  "about": {
+    "title": "À propos de nous",
+    "description": "Notre aventure a commencé le 10 juillet 2022, avec une vision claire : créer un pont solide entre les industries indiennes et les marchés mondiaux grâce à des services d'exportation fiables...",
+    "learnMore": "En savoir plus"
+  },
+
+  "products": {
+    "title": "Nos produits",
+    "viewMore": "Voir plus",
+    "viewAll": "Voir tous les produits"
+  }
+,
+  "nav": {
+    "home": "Accueil",
+    "aboutUs": "À propos",
+    "services": "Services",
+    "products": "Produits",
+    "blog": "Blog",
+    "contactUs": "Contactez-nous",
+    "review": "Avis"
+  },
+ "sidebar": {
+    "dashboard": "Tableau de bord",
+    "products": "Produits",
+    "blogs": "Blogs",
+    "reviews": "Avis"
+  },
+   "topbar": {
+    "brandName": "AGX International",
+    "toggleTheme": "Changer le thème",
+    "settings": "Paramètres",
+    "account": "Compte",
+    "logout": "Déconnexion"
+  },
+  "nav": {
+    "home": "Accueil",
+    "aboutUs": "À propos",
+    "products": "Produits",
+    "blog": "Blog",
+    "contactUs": "Contactez-nous"
+  },
+  "footer": {
+    "brandInfo": "Nous offrons l'excellence grâce à l'innovation et à la stratégie. Découvrez notre gamme de solutions et restez inspiré.",
+    "quickLinks": "Liens rapides",
+    "legal": "Légal",
+    "termsOfService": "Conditions d'utilisation",
+    "privacyPolicy": "Politique de confidentialité",
+    "followUs": "Suivez-nous",
+    "rightsReserved": "Tous droits réservés."
+  },
+ 
+  "title": "À propos d'AGX International",
+  "intro1": "Bienvenue chez {{company}}, votre partenaire de confiance dans le commerce mondial, spécialisé dans les services d'importation et d'exportation fluides à travers divers secteurs.",
+  "intro2": "Que vous soyez une entreprise à la recherche de nouveaux marchés ou un acheteur à la recherche de produits internationaux de haute qualité, nous vous offrons l'expertise, l'infrastructure et la confiance nécessaires pour réussir à l'échelle mondiale.",
+  "ourStoryTitle": "Notre Histoire",
+  "ourStoryContent": "Fondée le {{date}}, {{company}} est née d’une vision : créer un pont solide entre les industries indiennes et les marchés mondiaux. Ce qui a commencé comme une petite idée est devenu un nom de confiance dans le secteur de l'import-export, guidé par l'engagement de fournir des produits de la plus haute qualité dans divers secteurs — de l’agriculture et des textiles aux machines industrielles et biens de consommation. Notre fondation repose sur l'expertise, l'intégrité et l'innovation. Chaque envoi que nous traitons transporte non seulement des produits, mais aussi la confiance, le partenariat et une valeur à long terme. En élargissant notre empreinte mondiale, nous restons déterminés à construire des relations significatives et à établir de nouvelles normes dans le commerce international.",
+  "founderTitle": "Rencontrez le Fondateur",
+  "founderName": "Anudeep – Fondateur & PDG, AGX International",
+  "founderBio1": "Anudeep est un entrepreneur visionnaire animé par une mission unique : connecter les acheteurs internationaux à des produits indiens de qualité via des partenariats commerciaux transparents, efficaces et fiables.",
+  "founderBio2": "Des produits agricoles et textiles aux outils industriels, à la décoration intérieure et aux cosmétiques, Anudeep a construit une plateforme d’exportation multi-catégories qui met la qualité, la conformité et la satisfaction client au premier plan.",
+  "founderQuote": "Le commerce mondial ne consiste pas seulement à importer — il s’agit de construire des ponts de confiance, de service et de croissance partagée.",
+  "founderVision": "Animé par un esprit entrepreneurial fort et une connaissance pratique de l'industrie, Anudeep continue de diriger AGX International avec intégrité, innovation et une vision tournée vers l'avenir.",
+  "mission": "Notre Mission",
+  "missionDesc": "Simplifier le commerce mondial en offrant des services d’import-export fiables, transparents et efficaces qui permettent aux entreprises de prospérer à l'international.",
+  "why": "Pourquoi Choisir AGX International ?",
+  "whyDesc": "Grâce à notre profonde connaissance sectorielle, notre réseau logistique solide et notre approche centrée sur le client, nous garantissons des transactions transfrontalières fluides et sécurisées — à chaque fois.",
+  "values": "Nos Valeurs",
+  "valuesDesc": "Intégrité, fiabilité et partenariat guident tout ce que nous faisons — chaque interaction construit des relations durables et ouvre des opportunités mondiales.",
+  "ctaTitle": "Prêt à commercer à l’international avec AGX International ?",
+  "ctaDesc": "Contactez-nous dès aujourd'hui et découvrons ensemble de nouvelles opportunités.",
+  "ctaBtn": "Contactez-nous"
+,
+  "title": "Nos Services Premium",
+  "intro": "Chez {{company}}, nous proposons des solutions d'import-export de classe mondiale qui ouvrent de nouveaux horizons pour votre entreprise à l'échelle mondiale.",
+  "services": [
+    {
+      "title": "Services d’exportation",
+      "desc": "Aide aux entreprises indiennes pour exporter des produits de qualité dans le monde entier avec conformité et logistique fluides."
+    },
+    {
+      "title": "Services d’importation",
+      "desc": "De la source à la livraison, vivez des importations internationales efficaces et sans tracas."
+    },
+    {
+      "title": "Approvisionnement mondial",
+      "desc": "Accédez à des fournisseurs internationaux fiables pour des produits de qualité à des prix compétitifs."
+    },
+    {
+      "title": "Gestion logistique",
+      "desc": "Logistique complète de bout en bout garantissant un transport sûr et rentable des marchandises."
+    }
+  ],
+  "industriesTitle": "Secteurs que nous desservons",
+  "industries": [
+    "Mode et textiles",
+    "Bijoux fantaisie",
+    "Produits agricoles",
+    "Automobiles et pièces détachées",
+    "Épices et ingrédients alimentaires",
+    "Machines industrielles"
+  ],
+  "ctaTitle": "Prêt à développer votre entreprise à l'international ?",
+  "ctaDesc": "Partenaire de AGX International et découvrez des solutions de commerce mondial sans faille conçues pour votre succès.",
+  "ctaBtn": "Contactez-nous"
+
+
+
+
+
+
+
+,
+  "form": {
+    "buy": "Acheter",
+    "sell": "Vendre",
+    "name": "Nom",
+    "phone": "Téléphone",
+    "email": "E-mail",
+    "country": "Pays",
+    "selectCountry": "Sélectionnez votre pays",
+    "industries": "Sélectionnez les industries",
+    "timing": "Délai préféré",
+    "immediately": "Immédiatement",
+    "days0to20": "0-20 jours",
+    "days20to45": "20-45 jours",
+    "days45to60": "45-60 jours",
+    "days60to90": "60-90 jours",
+    "days90to120": "90-120 jours",
+    "submitRequest": "Envoyer la demande",
+    "submitting": "Envoi en cours...",
+    "successMessage": "🎉 Votre demande a été soumise avec succès !",
+    "failureMessage": "❌ Échec de la soumission. Veuillez réessayer.",
+    "errorMessage": "⚠️ Quelque chose a mal tourné. Veuillez réessayer plus tard."
+  },
+  "industryOptions": {
+    "Agricultural Products": "Produits agricoles",
+    "Textiles and Garments": "Textiles et vêtements",
+    "Automobiles and Parts": "Automobiles et pièces",
+    "Machinery and Tools": "Machines et outils",
+    "Home Decor": "Décoration intérieure",
+    "Imitation Jewellery": "Bijoux fantaisie",
+    "Cosmetics": "Cosmétiques"
+  },
+  "countryOptions": {
+    "India": "Inde",
+    "United States": "États-Unis",
+    "China": "Chine",
+    "Germany": "Allemagne",
+    "Brazil": "Brésil",
+    "United Kingdom": "Royaume-Uni",
+    "United Arab Emirates": "Émirats arabes unis",
+    "Other": "Autre"
+  }
+
+
+, "dashboard": {
+      "title": "Contenu du tableau de bord",
+      "welcomeMessage": "Bienvenue sur le tableau de bord ! Cette page gère désormais sa propre mise en page."
+    }
+
+
+,"product": {
+      "title": "Nos solutions industrielles",
+      "description": "Découvrez notre large gamme de solutions industrielles adaptées aux différents besoins des entreprises. Explorez les catégories pour trouver ce qui vous convient le mieux.",
+      "button": "Explorer",
+      "placeholderAlt": "Pas d'image",
+      "langToggle": "Deutsch"
+    }
+
+
+,
+  "productAdmin": {
+    "buttons": {
+      "addProduct": "Ajouter un produit",
+      "closeForm": "Fermer le formulaire",
+      "cancelEdit": "Annuler la modification",
+      "submitAdd": "Ajouter le produit",
+      "submitUpdate": "Mettre à jour le produit",
+      "edit": "Modifier",
+      "delete": "Supprimer"
+    },
+    "labels": {
+      "manageProducts": "Gérer les produits",
+      "name": "Nom",
+      "category": "Catégorie",
+      "description": "Description",
+      "coverImage": "Image de couverture :",
+      "additionalImages": "Images supplémentaires :"
+    },
+    "placeholders": {
+      "name": "Entrez le nom du produit",
+      "category": "Entrez la catégorie",
+      "description": "Entrez la description du produit"
+    },
+    "messages": {
+      "noProducts": "Aucun produit trouvé. Commencez par ajouter un nouveau produit.",
+      "confirmDelete": "Êtes-vous sûr de vouloir supprimer ce produit ?",
+      "saveError": "Échec de l'enregistrement du produit. Veuillez réessayer.",
+      "deleteError": "Échec de la suppression du produit"
+    },
+    "currentCoverImage": "Image de couverture actuelle :",
+    "replaceFileHint": "Sélectionnez un nouveau fichier ci-dessus pour le remplacer.",
+    "replaceAdditionalFilesHint": "Sélectionnez de nouveaux fichiers ci-dessus pour les ajouter/remplacer."
+  }
+
+
+
+
+,
+  "contactForm": {
+    "buttons": {
+      "submit": "Envoyer"
+    },
+    "fields": {
+      "name": "Nom",
+      "email": "Email",
+      "phone": "Téléphone",
+      "message": "Message"
+    },
+    "placeholders": {
+      "name": "Votre nom",
+      "email": "vous@exemple.com",
+      "phone": "+33 1 23 45 67 89",
+      "message": "Écrivez votre message ici..."
+    },
+    "title": "Contactez-nous",
+    "successMessage": "Formulaire envoyé avec succès !",
+    "errorMessage": "Une erreur est survenue. Veuillez réessayer."
+  }
+
+,
+  "customerReviewForm": {
+    "title": "Laissez un avis",
+    "subtitle": "Nous aimerions avoir votre avis !",
+    "fields": {
+      "name": "Votre nom",
+      "email": "Adresse e-mail",
+      "review": "Écrivez votre avis ici...",
+      "ratingLabel": "Votre note :"
+    },
+    "ratingStars": "★",
+    "buttons": {
+      "submit": "Envoyer l'avis",
+      "submitting": "Envoi en cours..."
+    },
+    "messages": {
+      "thankYou": "Merci pour votre avis !",
+      "submitError": "Une erreur est survenue lors de l'envoi de votre avis."
+    },
+    "reviewsSection": {
+      "header": "Avis clients",
+      "loading": "Chargement des avis...",
+      "error": "Erreur lors du chargement des avis.",
+      "noReviews": "Aucun avis pour le moment. Soyez le premier à en laisser un !",
+      "ratingDisplay": "({{rating}})"
+    }
+  }
+
+  ,
+  "reviewspage": {
+    "pageTitle": "Gérer les Avis",
+    "form": {
+      "addTitle": "Ajouter un Nouvel Avis",
+      "editTitle": "Modifier l'Avis",
+      "fields": {
+        "name": "Nom",
+        "rating": "Note (1-5)",
+        "comment": "Commentaire"
+      },
+      "buttons": {
+        "submitAdd": "Ajouter l'Avis",
+        "submitEdit": "Mettre à Jour l'Avis",
+        "cancel": "Annuler"
+      }
+    },
+    "existingReviewsTitle": "Avis Existants",
+    "noReviews": "Aucun avis trouvé.",
+    "notifications": {
+      "added": "Avis ajouté avec succès",
+      "updated": "Avis mis à jour avec succès",
+      "deleted": "Avis supprimé avec succès",
+      "errorSubmit": "Échec de l'envoi de l'avis",
+      "errorDelete": "Échec de la suppression de l'avis"
+    },
+    "ratingLabel": "⭐ {{rating}}"
+  }
+
+}

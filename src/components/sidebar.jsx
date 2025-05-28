@@ -19,11 +19,13 @@ import {
   RateReviewOutlined,
   // SettingsOutlined // Not used currently, but kept for reference if you enable it
 } from '@mui/icons-material';
+import { useTranslation } from 'react-i18next';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const drawerWidth = 240;
 
 const Sidebar = ({ mobileOpen, onDrawerToggle }) => {
+   const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
   const theme = useTheme();
@@ -31,11 +33,10 @@ const Sidebar = ({ mobileOpen, onDrawerToggle }) => {
 
   // Define your navigation items with their relative paths
   const navItems = [
-    { text: 'Dashboard', icon: <DashboardOutlined />, path: '/' },
-    { text: 'Products', icon: <ShoppingCartOutlined />, path: '/products' }, // Corrected path
-    { text: 'Blogs', icon: <ArticleOutlined />, path: '/blogs' },
-    { text: 'Reviews', icon: <RateReviewOutlined />, path: '/reviews' },
-    // { text: 'Settings', icon: <SettingsOutlined />, path: '/settings' },
+    { text: t('sidebar.dashboard'), icon: <DashboardOutlined />, path: '/' },
+    { text: t('sidebar.products'), icon: <ShoppingCartOutlined />, path: '/products' },
+    { text: t('sidebar.blogs'), icon: <ArticleOutlined />, path: '/blogs' },
+    { text: t('sidebar.reviews'), icon: <RateReviewOutlined />, path: '/reviews' },
   ];
 
   const drawerContent = (

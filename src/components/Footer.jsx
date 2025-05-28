@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import { FaFacebookF, FaTwitter, FaInstagram } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 import logo from "../assets/logo.svg";
 
 const Footer = () => {
+  const { t } = useTranslation();
+
   return (
     <footer className="bg-pink-50 text-[#6b0657] font-sans mt-16">
       <div className="max-w-screen-xl mx-auto px-6 py-16">
@@ -15,21 +18,23 @@ const Footer = () => {
               {/* <span className="text-2xl font-bold text-pink-600">AGX Consulting</span> */}
             </Link>
             <p className="text-sm text-[#6b0657] leading-relaxed">
-              We deliver excellence through innovation and strategy. Discover our range of solutions and stay inspired.
+              {t('footer.brandInfo')}
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-lg font-semibold text-pink-700 mb-4">Quick Links</h3>
+            <h3 className="text-lg font-semibold text-pink-700 mb-4">{t('footer.quickLinks')}</h3>
             <ul className="space-y-2 text-sm">
-              {["Home", "About", "Products", "Contact"].map((text, i) => (
+              {[
+                { name: t('nav.home'), path: "/" },
+                { name: t('nav.aboutUs'), path: "/about" },
+                { name: t('nav.products'), path: "/products" },
+                { name: t('nav.contactUs'), path: "/contact" },
+              ].map(({ name, path }, i) => (
                 <li key={i}>
-                  <Link
-                    to={`/${text.toLowerCase() === "home" ? "" : text.toLowerCase()}`}
-                    className="hover:text-pink-600 transition-colors duration-200"
-                  >
-                    {text}
+                  <Link to={path} className="hover:text-pink-600 transition-colors duration-200">
+                    {name}
                   </Link>
                 </li>
               ))}
@@ -38,17 +43,14 @@ const Footer = () => {
 
           {/* Legal Links */}
           <div>
-            <h3 className="text-lg font-semibold text-pink-700 mb-4">Legal</h3>
+            <h3 className="text-lg font-semibold text-pink-700 mb-4">{t('footer.legal')}</h3>
             <ul className="space-y-2 text-sm">
               {[
-                { name: "Terms of Service", path: "/legal/terms" },
-                { name: "Privacy Policy", path: "/legal/privacy" },
+                { name: t('footer.termsOfService'), path: "/legal/terms" },
+                { name: t('footer.privacyPolicy'), path: "/legal/privacy" },
               ].map(({ name, path }, i) => (
                 <li key={i}>
-                  <Link
-                    to={path}
-                    className="hover:text-pink-600 transition-colors duration-200"
-                  >
+                  <Link to={path} className="hover:text-pink-600 transition-colors duration-200">
                     {name}
                   </Link>
                 </li>
@@ -58,7 +60,7 @@ const Footer = () => {
 
           {/* Social Media */}
           <div>
-            <h3 className="text-lg font-semibold text-pink-700 mb-4">Follow Us</h3>
+            <h3 className="text-lg font-semibold text-pink-700 mb-4">{t('footer.followUs')}</h3>
             <div className="flex space-x-5 text-xl">
               {[FaFacebookF, FaTwitter, FaInstagram].map((Icon, i) => (
                 <a
@@ -76,7 +78,7 @@ const Footer = () => {
 
         {/* Divider */}
         <div className="border-t border-pink-200 mt-12 pt-6 text-center text-sm text-[#6b0657]">
-          &copy; {new Date().getFullYear()} AGX Consulting. All rights reserved.
+          &copy; {new Date().getFullYear()} AGX Consulting. {t('footer.rightsReserved')}
         </div>
       </div>
     </footer>

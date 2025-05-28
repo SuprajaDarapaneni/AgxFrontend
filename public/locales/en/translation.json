@@ -1,0 +1,408 @@
+{
+  "welcome": "Welcome to the app!",
+  "login": "Please log in"
+,
+  "hero": {
+    "title": "Connecting Continents with Confidence",
+    "cta": "I Want To Buy/Sell"
+  },
+  "services": {
+    "title": "Our Services",
+    "importAssistance": {
+      "title": "Import Assistance",
+      "desc": "Navigate the complexities of international import regulations and processes with our expert guidance."
+    },
+    "exportSolutions": {
+      "title": "Export Solutions",
+      "desc": "Expand your market reach globally with our tailored export strategies and support."
+    },
+    "businessBrokering": {
+      "title": "Business Brokering",
+      "desc": "Find the right international business partners and opportunities through our extensive network."
+    },
+    "learnMore": "Learn More"
+  },
+  "testimonials": {
+    "title": "What Our Clients Say",
+    "ravi": "Their export support helped me expand my business overseas. Highly professional and dependable!",
+    "anjali": "They made international trade feel easy. Trustworthy and experienced team!",
+    "mohammed": "Great service and excellent communication throughout our import process."
+  },
+  "about": {
+    "title": "About Us",
+    "description": "Our journey began on July 10th, 2022, with a clear vision to create a strong bridge between Indian industries and global markets through reliable export services...",
+    "learnMore": "Learn More"
+  },
+  "products": {
+    "title": "Our Products",
+    "viewMore": "View More",
+    "viewAll": "View all products"
+  }
+
+,
+  "nav": {
+    "home": "Home",
+    "aboutUs": "About Us",
+    "services": "Services",
+    "products": "Products",
+    "blog": "Blog",
+    "contactUs": "Contact Us",
+    "review": "Review"
+  },
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "products": "Products",
+    "blogs": "Blogs",
+    "reviews": "Reviews"
+  }
+, 
+
+  "title": "About AGX International",
+  "intro1": "Welcome to {{company}}, your trusted partner in global trade, specializing in seamless import and export services across industries.",
+  "intro2": "Whether you are a business seeking new markets or a buyer looking for top-quality international products, we provide the expertise, infrastructure, and trust you need to succeed on the global stage.",
+  "ourStoryTitle": "Our Story",
+  "ourStoryContent": "Founded on {{date}}, {{company}} was born from a vision to create a strong bridge between Indian industries and global markets. What started as a small idea has grown into a trusted name in the import and export sector, driven by the commitment to deliver the highest quality products across diverse industries — from agriculture and textiles to industrial machinery and consumer goods. Our foundation is built on expertise, integrity, and innovation. Every shipment we handle carries not just products but also trust, partnership, and long-term value. As we continue to expand our global footprint, we remain dedicated to building meaningful relationships and setting new benchmarks in international trade.",
+  "founderTitle": "Meet the Founder",
+  "founderName": "Anudeep – Founder & CEO, AGX International",
+  "founderBio1": "Anudeep is a visionary entrepreneur driven by a singular mission — to connect global buyers with quality Indian products through transparent, efficient, and reliable trade partnerships.",
+  "founderBio2": "From agricultural commodities and textiles to industrial tools, home décor, and cosmetics, Anudeep has built a multi-category export platform that prioritizes quality, compliance, and client satisfaction.",
+  "founderQuote": "Global business isn’t just about imports—it’s about building bridges of trust, service, and shared growth.",
+  "founderVision": "With a strong entrepreneurial spirit and hands-on industry knowledge, Anudeep continues to lead AGX International with integrity, innovation, and a future-ready mindset.",
+  "mission": "Our Mission",
+  "missionDesc": "To simplify global trade by offering reliable, transparent, and efficient import-export services that empower businesses to thrive internationally.",
+  "why": "Why Choose AGX International?",
+  "whyDesc": "With our deep industry knowledge, robust logistics network, and customer-first approach, we ensure smooth and secure cross-border transactions — every time.",
+  "values": "Our Values",
+  "valuesDesc": "Integrity, reliability, and partnership guide everything we do — ensuring every interaction builds lasting relationships and global opportunities.",
+  "ctaTitle": "Ready to trade globally with AGX International?",
+  "ctaDesc": "Contact us today and let’s unlock new opportunities together.",
+  "ctaBtn": "Contact Us"
+,
+ "sidebar": {
+    "dashboard": "Dashboard",
+    "products": "Products",
+    "blogs": "Blogs",
+    "reviews": "Reviews"
+  },"topbar": {
+    "brandName": "AGX International",
+    "toggleTheme": "Toggle Theme",
+    "settings": "Settings",
+    "account": "Account",
+    "logout": "Logout"
+  },
+  "nav": {
+    "home": "Home",
+    "aboutUs": "About Us",
+    "products": "Products",
+     "services": "Services",
+      "review": "Review",
+      "blog": "Blog",
+    "contactUs": "Contact Us"
+  },
+  "footer": {
+    "brandInfo": "We deliver excellence through innovation and strategy. Discover our range of solutions and stay inspired.",
+    "quickLinks": "Quick Links",
+    "legal": "Legal",
+    "termsOfService": "Terms of Service",
+    "privacyPolicy": "Privacy Policy",
+    "followUs": "Follow Us",
+    "rightsReserved": "All rights reserved."
+  }
+,
+  "title": "Our Premium Services",
+  "intro": "At {{company}}, we specialize in providing world-class import & export solutions that open new horizons for your business globally.",
+  "services": [
+    {
+      "title": "Export Services",
+      "desc": "Helping Indian businesses export high-quality products worldwide with seamless compliance and logistics."
+    },
+    {
+      "title": "Import Services",
+      "desc": "From sourcing to doorstep delivery, experience efficient and hassle-free international imports."
+    },
+    {
+      "title": "Global Sourcing",
+      "desc": "Access reliable international suppliers for quality products at competitive prices."
+    },
+    {
+      "title": "Logistics Management",
+      "desc": "Comprehensive end-to-end logistics ensuring safe and cost-effective transportation of goods."
+    }
+  ],
+  "industriesTitle": "Industries We Serve",
+  "industries": [
+    "Fashion & Textiles",
+    "Imitation Jewellery",
+    "Agricultural Products",
+    "Automobiles & Auto Parts",
+    "Spices & Food Ingredients",
+    "Industrial Machinery"
+  ],
+  "ctaTitle": "Ready to grow your global business?",
+  "ctaDesc": "Partner with AGX International and experience seamless global trade solutions tailored for your success.",
+  "ctaBtn": "Get in Touch"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+,
+ "blogs": {
+    "title": "Our Latest Blogs",
+    "loading": "Loading blogs...",
+    "error": "Failed to load blogs. Please try again later.",
+    "noBlogs": "No blogs found.",
+    "readMore": "Read More →"
+  }
+,
+  "form": {
+    "buy": "Buy",
+    "sell": "Sell",
+    "name": "Name",
+    "phone": "Phone",
+    "email": "Email",
+    "country": "Country",
+    "selectCountry": "Select your country",
+    "industries": "Select Industries",
+    "timing": "Preferred Timing",
+    "immediately": "Immediately",
+    "days0to20": "0-20 days",
+    "days20to45": "20-45 days",
+    "days45to60": "45-60 days",
+    "days60to90": "60-90 days",
+    "days90to120": "90-120 days",
+    "submitRequest": "Submit Request",
+    "submitting": "Submitting...",
+    "successMessage": "🎉 Your request has been submitted successfully!",
+    "failureMessage": "❌ Submission failed. Please try again.",
+    "errorMessage": "⚠️ Something went wrong. Please try later."
+  },
+  "industryOptions": {
+    "Agricultural Products": "Agricultural Products",
+    "Textiles and Garments": "Textiles and Garments",
+    "Automobiles and Parts": "Automobiles and Parts",
+    "Machinery and Tools": "Machinery and Tools",
+    "Home Decor": "Home Decor",
+    "Imitation Jewellery": "Imitation Jewellery",
+    "Cosmetics": "Cosmetics"
+  },
+  "countryOptions": {
+    "India": "India",
+    "United States": "United States",
+    "China": "China",
+    "Germany": "Germany",
+    "Brazil": "Brazil",
+    "United Kingdom": "United Kingdom",
+    "United Arab Emirates": "United Arab Emirates",
+    "Other": "Other"
+  }
+
+
+
+
+,
+ "dashboard": {
+      "title": "Dashboard Content",
+      "welcomeMessage": "Welcome to the dashboard! This page now manages its own layout."
+    }
+ ,"product": {
+      "title": "Our Industry Solutions",
+      "description": "Discover our wide range of industry solutions tailored to meet various business needs. Explore categories to find what fits you best.",
+      "button": "Explore",
+      "placeholderAlt": "No Image",
+      "langToggle": "Français"
+    }
+,
+  "productAdmin": {
+    "buttons": {
+      "addProduct": "Add Product",
+      "closeForm": "Close Form",
+      "cancelEdit": "Cancel Edit",
+      "submitAdd": "Add Product",
+      "submitUpdate": "Update Product",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "labels": {
+      "manageProducts": "Manage Products",
+      "name": "Name",
+      "category": "Category",
+      "description": "Description",
+      "coverImage": "Cover Image:",
+      "additionalImages": "Additional Images:"
+    },
+    "placeholders": {
+      "name": "Enter product name",
+      "category": "Enter category",
+      "description": "Enter product description"
+    },
+    "messages": {
+      "noProducts": "No products found. Start by adding a new product.",
+      "confirmDelete": "Are you sure you want to delete this product?",
+      "saveError": "Failed to save product. Please try again.",
+      "deleteError": "Failed to delete product"
+    },
+    "currentCoverImage": "Current Cover Image:",
+    "replaceFileHint": "Select a new file above to replace it.",
+    "replaceAdditionalFilesHint": "Select new files above to add/replace them."
+  }
+
+
+,
+  "contactForm": {
+    "buttons": {
+      "submit": "Submit"
+    },
+    "fields": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "message": "Message"
+    },
+    "placeholders": {
+      "name": "Your Name",
+      "email": "you@example.com",
+      "phone": "+1 (555) 123-4567",
+      "message": "Write your message here..."
+    },
+    "title": "Contact Us",
+    "successMessage": "Form submitted successfully!",
+    "errorMessage": "Something went wrong. Please try again."
+  }
+
+
+
+
+,
+  "customerReviewForm": {
+    "title": "Leave a Review",
+    "subtitle": "We’d love to hear your feedback!",
+    "fields": {
+      "name": "Your Name",
+      "email": "Email Address",
+      "review": "Write your review here...",
+      "ratingLabel": "Your Rating:"
+    },
+    "ratingStars": "★",
+    "buttons": {
+      "submit": "Submit Review",
+      "submitting": "Submitting..."
+    },
+    "messages": {
+      "thankYou": "Thank you for your review!",
+      "submitError": "An error occurred while submitting your review."
+    },
+    "reviewsSection": {
+      "header": "Customer Reviews",
+      "loading": "Loading reviews...",
+      "error": "Error loading reviews.",
+      "noReviews": "No reviews yet. Be the first to leave one!",
+      "ratingDisplay": "({{rating}})"
+    }
+  }
+
+  ,
+  "reviewspage": {
+    "pageTitle": "Manage Reviews",
+    "form": {
+      "addTitle": "Add New Review",
+      "editTitle": "Edit Review",
+      "fields": {
+        "name": "Name",
+        "rating": "Rating (1-5)",
+        "comment": "Comment"
+      },
+      "buttons": {
+        "submitAdd": "Add Review",
+        "submitEdit": "Update Review",
+        "cancel": "Cancel"
+      }
+    },
+    "existingReviewsTitle": "Existing Reviews",
+    "noReviews": "No reviews found.",
+    "notifications": {
+      "added": "Review added successfully",
+      "updated": "Review updated successfully",
+      "deleted": "Review deleted successfully",
+      "errorSubmit": "Failed to submit review",
+      "errorDelete": "Failed to delete review"
+    },
+    "ratingLabel": "⭐ {{rating}}"
+  }
+}  
+
+

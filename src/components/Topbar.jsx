@@ -1,4 +1,3 @@
-// src/components/Topbar.jsx
 import React from 'react';
 import {
   AppBar,
@@ -19,8 +18,10 @@ import {
   Logout as LogoutIcon
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';  // <-- import i18n
 
 const Topbar = ({ onDrawerToggle, colorMode, mode }) => {
+  const { t } = useTranslation();  // <-- hook
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const navigate = useNavigate();
@@ -39,27 +40,27 @@ const Topbar = ({ onDrawerToggle, colorMode, mode }) => {
             </IconButton>
           )}
           <Typography variant="h6" noWrap>
-            AGX International
+            {t('topbar.brandName')}
           </Typography>
         </Box>
 
         <Box display="flex" alignItems="center" gap={2}>
-          <Tooltip title="Toggle Theme">
+          <Tooltip title={t('topbar.toggleTheme')}>
             <IconButton color="inherit" onClick={colorMode.toggleColorMode}>
               {mode === 'dark' ? <Brightness7 /> : <Brightness4 />}
             </IconButton>
           </Tooltip>
-          <Tooltip title="Settings">
+          <Tooltip title={t('topbar.settings')}>
             <IconButton color="inherit">
               <SettingsOutlined />
             </IconButton>
           </Tooltip>
-          <Tooltip title="Account">
+          <Tooltip title={t('topbar.account')}>
             <IconButton color="inherit">
               <AccountCircleOutlined />
             </IconButton>
           </Tooltip>
-          <Tooltip title="Logout">
+          <Tooltip title={t('topbar.logout')}>
             <IconButton color="inherit" onClick={handleLogout}>
               <LogoutIcon />
             </IconButton>

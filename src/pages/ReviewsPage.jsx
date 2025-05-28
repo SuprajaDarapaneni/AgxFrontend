@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';  // <-- import here
 import {
   Box,
   Button,
@@ -9,7 +10,6 @@ import {
   CardContent,
   CardActions,
   IconButton,
-  Divider,
   CssBaseline,
   useMediaQuery,
   ThemeProvider,
@@ -27,6 +27,8 @@ import Sidebar from '../components/sidebar';
 const drawerWidth = 240;
 
 const ReviewsPage = () => {
+  const { t, i18n } = useTranslation(); // <-- useTranslation hook
+
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   const [mode, setMode] = useState(prefersDarkMode ? 'dark' : 'light');
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -39,7 +41,7 @@ const ReviewsPage = () => {
     createTheme({
       palette: {
         mode,
-        primary: { main: '#4f46e5' }, // pinkish primary for liveliness
+        primary: { main: '#4f46e5' },
         background: {
           default: mode === 'light' ? '#fafafa' : '#121212',
           paper: mode === 'light' ? '#fff' : '#1e1e1e',
@@ -89,16 +91,16 @@ const ReviewsPage = () => {
         body: JSON.stringify(form),
       });
 
-      if (!res.ok) throw new Error('Failed to submit review');
+      if (!res.ok) throw new Error(t('reviewspage.notifications.errorSubmit'));
 
       const result = await res.json();
 
       if (editingId) {
         setReviews(reviews.map(r => (r._id === editingId ? result : r)));
-        showMessage('Review updated successfully');
+        showMessage(t('reviewspage.notifications.updated'));
       } else {
         setReviews([result, ...reviews]);
-        showMessage('Review added successfully');
+        showMessage(t('reviewspage.notifications.added'));
       }
 
       setForm({ name: '', rating: '', comment: '' });
@@ -116,10 +118,10 @@ const ReviewsPage = () => {
   const handleDelete = async (id) => {
     try {
       const res = await fetch(`https://agxbackend.onrender.com/reviews/${id}`, { method: 'DELETE' });
-      if (!res.ok) throw new Error('Failed to delete review');
+      if (!res.ok) throw new Error(t('reviewspage.notifications.errorDelete'));
 
       setReviews(reviews.filter(r => r._id !== id));
-      showMessage('Review deleted successfully');
+      showMessage(t('reviewspage.notifications.deleted'));
     } catch (error) {
       alert(error.message);
     }
@@ -145,17 +147,17 @@ const ReviewsPage = () => {
           }}
         >
           <Typography variant="h4" gutterBottom fontWeight="bold" color="primary">
-            Manage Reviews
+            {t('reviewspage.pageTitle')}
           </Typography>
 
           <Paper elevation={3} sx={{ p: 4, mb: 6, borderRadius: 3, backgroundColor: theme.palette.background.paper }}>
             <Typography variant="h6" mb={3} fontWeight="medium" color="primary">
-              {editingId ? 'Edit Review' : 'Add New Review'}
+              {editingId ? t('reviewspage.form.editTitle') : t('reviewspage.form.addTitle')}
             </Typography>
             <form onSubmit={handleSubmit}>
               <Stack spacing={3}>
                 <TextField
-                  label="Name"
+                  label={t('reviewspage.form.fields.name')}
                   name="name"
                   value={form.name}
                   onChange={handleInputChange}
@@ -164,7 +166,7 @@ const ReviewsPage = () => {
                   variant="outlined"
                 />
                 <TextField
-                  label="Rating (1-5)"
+                  label={t('reviewspage.form.fields.rating')}
                   name="rating"
                   value={form.rating}
                   onChange={handleInputChange}
@@ -175,7 +177,7 @@ const ReviewsPage = () => {
                   variant="outlined"
                 />
                 <TextField
-                  label="Comment"
+                  label={t('reviewspage.form.fields.comment')}
                   name="comment"
                   value={form.comment}
                   onChange={handleInputChange}
@@ -187,7 +189,7 @@ const ReviewsPage = () => {
                 />
                 <Stack direction="row" spacing={2}>
                   <Button type="submit" variant="contained" color="primary" size="large">
-                    {editingId ? 'Update Review' : 'Add Review'}
+                    {editingId ? t('reviewspage.form.buttons.submitEdit') : t('reviewspage.form.buttons.submitAdd')}
                   </Button>
                   {editingId && (
                     <Button
@@ -199,7 +201,7 @@ const ReviewsPage = () => {
                         setForm({ name: '', rating: '', comment: '' });
                       }}
                     >
-                      Cancel
+                      {t('reviewspage.form.buttons.cancel')}
                     </Button>
                   )}
                 </Stack>
@@ -208,13 +210,13 @@ const ReviewsPage = () => {
           </Paper>
 
           <Typography variant="h5" mb={3} fontWeight="bold" color="primary">
-            Existing Reviews
+            {t('reviewspage.existingReviewsTitle')}
           </Typography>
 
           <Stack spacing={3}>
             {reviews.length === 0 && (
               <Typography sx={{ p: 2, textAlign: 'center' }} color="text.secondary">
-                No reviews found.
+                {t('reviewspage.noReviews')}
               </Typography>
             )}
 
@@ -234,7 +236,7 @@ const ReviewsPage = () => {
                       {review.name}
                     </Typography>
                     <Chip
-                      label={`⭐ ${review.rating}`}
+                      label={t('reviewspage.ratingLabel', { rating: review.rating })}
                       color="secondary"
                       sx={{ fontWeight: 'bold', fontSize: '1rem' }}
                     />
