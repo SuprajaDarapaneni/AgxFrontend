@@ -4,7 +4,7 @@ import globalBusinessImage from '../assets/about.jpeg';
 import '../i18n'; // Make sure your i18n is properly configured
 
 const About = () => {
-  const { t } = useTranslation(); // No namespace, full keys with 'about.'
+  const { t } = useTranslation();
 
   const [animate, setAnimate] = useState(false);
 
@@ -32,20 +32,16 @@ const About = () => {
   const animClass = (delay) => (animate ? `fade-in-up ${delay}` : '');
 
   const company = 'AGX International';
-  const foundedDate = '10 juillet 2022';
+  const foundedDate = 'July 10th, 2022';
 
   return (
     <>
       <style>{styles}</style>
 
-      <section className="bg-gradient-to-b from-pink-50 to-white text-black min-h-screen flex flex-col items-center py-20 px-4 sm:px-6 lg:px-8">
+      <section className="bg-gradient-to-b from-pink-50 to-white text-black min-h-screen flex flex-col items-center p-0">
         <div className="container mx-auto max-w-7xl">
           {/* Title */}
-          <h2
-            className={`text-4xl sm:text-5xl font-extrabold text-center text-pink-500 mb-6 tracking-wide drop-shadow-md ${animClass(
-              'delay-100'
-            )}`}
-          >
+          <h2 className={`text-4xl sm:text-5xl font-extrabold text-center text-pink-500 mb-6 tracking-wide drop-shadow-md ${animClass('delay-100')}`}>
             {t('aboutus.title')}
           </h2>
 
@@ -62,11 +58,11 @@ const About = () => {
               </p>
               <p className="leading-relaxed text-gray-700 text-lg">{t('aboutus.intro2')}</p>
             </div>
-            <div className="mx-auto md:mx-0 max-w-md rounded-3xl shadow-2xl overflow-hidden transform hover:scale-105 transition-transform duration-500">
+            <div className="mx-auto md:mx-0 max-w-2xl rounded-3xl shadow-2xl overflow-hidden transform hover:scale-105 transition-transform duration-500">
               <img
                 src={globalBusinessImage}
                 alt="Global Business"
-                className="object-cover w-full h-80 sm:h-[420px]"
+                className="object-cover w-full h-64 sm:h-80 md:h-96 lg:h-[420px] rounded-3xl"
                 loading="lazy"
                 draggable={false}
               />
@@ -74,11 +70,7 @@ const About = () => {
           </div>
 
           {/* Our Story */}
-          <div
-            className={`bg-pink-100 rounded-3xl p-12 max-w-5xl mx-auto mb-24 shadow-xl border border-pink-300 ${animClass(
-              'delay-400'
-            )}`}
-          >
+          <div className={`bg-pink-100 rounded-3xl p-12 max-w-5xl mx-auto mb-24 shadow-xl border border-pink-300 ${animClass('delay-400')}`}>
             <h3 className="text-3xl font-semibold text-pink-500 mb-8 text-center tracking-wide drop-shadow-sm">
               {t('aboutus.ourStoryTitle')}
             </h3>
@@ -88,11 +80,7 @@ const About = () => {
           </div>
 
           {/* Founder Section */}
-          <div
-            className={`bg-gradient-to-br from-pink-50 to-white rounded-3xl p-12 max-w-5xl mx-auto mb-24 shadow-xl border border-pink-200 ${animClass(
-              'delay-500'
-            )}`}
-          >
+          <div className={`bg-gradient-to-br from-pink-50 to-white rounded-3xl p-12 max-w-5xl mx-auto mb-24 shadow-xl border border-pink-200 ${animClass('delay-500')}`}>
             <h3 className="text-4xl font-extrabold text-pink-600 mb-10 text-center drop-shadow-md tracking-wide">
               {t('aboutus.founderTitle')}
             </h3>
@@ -122,11 +110,7 @@ const About = () => {
           </div>
 
           {/* Mission / Why / Values */}
-          <div
-            className={`grid grid-cols-1 md:grid-cols-3 gap-12 max-w-6xl mx-auto text-center ${animClass(
-              'delay-600'
-            )}`}
-          >
+          <div className={`grid grid-cols-1 md:grid-cols-3 gap-12 max-w-6xl mx-auto text-center ${animClass('delay-600')}`}>
             {[
               { title: t('aboutus.mission'), content: t('aboutus.missionDesc') },
               { title: t('aboutus.why'), content: t('aboutus.whyDesc') },
@@ -143,7 +127,7 @@ const About = () => {
           </div>
 
           {/* Call to Action */}
-          <div className={`mt-24 text-center max-w-3xl mx-auto px-6 ${animClass('delay-600')}`}>
+          <div className={`mt-24 text-center max-w-3xl mx-auto ${animClass('delay-600')}`}>
             <h4 className="text-3xl font-extrabold text-pink-500 mb-6 tracking-wide">{t('aboutus.ctaTitle')}</h4>
             <p className="text-gray-800 mb-10 text-lg max-w-xl mx-auto">{t('aboutus.ctaDesc')}</p>
             <a
