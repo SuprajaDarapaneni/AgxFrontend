@@ -38,7 +38,7 @@ const About = () => {
     <>
       <style>{styles}</style>
 
-      <section className="bg-gradient-to-b from-pink-50 to-white text-black min-h-screen flex flex-col items-center p-0">
+      <section className="bg-gradient-to-b from-pink-50 to-white text-black min-h-screen flex flex-col items-center py-20">
         <div className="container mx-auto max-w-7xl">
           {/* Title */}
           <h2 className={`text-4xl sm:text-5xl font-extrabold text-center text-pink-500 mb-6 tracking-wide drop-shadow-md ${animClass('delay-100')}`}>

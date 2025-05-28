@@ -71,11 +71,11 @@ const Services = () => {
                 key={i}
                 className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300 text-center border border-pink-200"
               >
-                <img
+                {/* <img
                   src={industryImages[i]}
                   alt={industry}
                   className="w-full h-40 object-cover"
-                />
+                /> */}
                 <div className="p-5">
                   <h4 className="text-lg font-semibold text-pink-700">{industry}</h4>
                 </div>
