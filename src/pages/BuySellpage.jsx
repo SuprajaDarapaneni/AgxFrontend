@@ -45,6 +45,7 @@ const BuySellForm = () => {
     country: '',
     industries: [],
     timing: 'Immediately',
+    message: '',  // <-- Added message field here
   });
 
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(false);
@@ -84,6 +85,7 @@ const BuySellForm = () => {
           country: '',
           industries: [],
           timing: 'Immediately',
+          message: '',  // <-- Reset message here too
         });
       } else {
         setSuccessMessage(t('form.failureMessage'));
@@ -183,6 +185,22 @@ const BuySellForm = () => {
               <option value="60-90days">{t('form.days60to90')}</option>
               <option value="90-120days">{t('form.days90to120')}</option>
             </select>
+          </div>
+
+          {/* Message Textarea */}
+          <div>
+            <label className="block text-pink-600 font-medium mb-1">{t('form.message')}</label>
+            <textarea
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
+              placeholder={t('form.messagePlaceholder')}
+              rows={4}
+              className="w-full border border-pink-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-pink-400 focus:outline-none resize-none"
+            />
+            <p className="mt-1 text-sm text-pink-500 italic">
+              {t('form.messageNote')}
+            </p>
           </div>
 
           {/* Submit Button */}

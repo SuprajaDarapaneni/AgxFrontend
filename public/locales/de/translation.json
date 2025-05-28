@@ -117,7 +117,10 @@
     "submitting": "Wird gesendet...",
     "successMessage": "🎉 Ihre Anfrage wurde erfolgreich übermittelt!",
     "failureMessage": "❌ Übermittlung fehlgeschlagen. Bitte versuchen Sie es erneut.",
-    "errorMessage": "⚠️ Etwas ist schiefgelaufen. Bitte versuchen Sie es später erneut."
+    "errorMessage": "⚠️ Etwas ist schiefgelaufen. Bitte versuchen Sie es später erneut.",
+    "message": "Nachricht",
+    "messagePlaceholder": "Geben Sie hier Ihre Nachricht ein (optional)",
+    "messageNote": "Optional, aber hilfreich für uns."
   },
   "industryOptions": {
     "Agricultural Products": "Landwirtschaftliche Produkte",

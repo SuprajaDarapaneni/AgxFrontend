@@ -292,7 +292,10 @@
     "submitting": "Submitting...",
     "successMessage": "🎉 Your request has been submitted successfully!",
     "failureMessage": "❌ Submission failed. Please try again.",
-    "errorMessage": "⚠️ Something went wrong. Please try later."
+    "errorMessage": "⚠️ Something went wrong. Please try later.",
+    "message": "Message",
+    "messagePlaceholder": "Enter your message here (optional)",
+    "messageNote": "Optional, but helpful for us."
   },
   "industryOptions": {
     "Agricultural Products": "Agricultural Products",

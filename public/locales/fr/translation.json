@@ -221,7 +221,10 @@
     "submitting": "Envoi en cours...",
     "successMessage": "🎉 Votre demande a été soumise avec succès !",
     "failureMessage": "❌ Échec de la soumission. Veuillez réessayer.",
-    "errorMessage": "⚠️ Quelque chose a mal tourné. Veuillez réessayer plus tard."
+    "errorMessage": "⚠️ Quelque chose a mal tourné. Veuillez réessayer plus tard.",
+    "message": "Message",
+    "messagePlaceholder": "Entrez votre message ici (facultatif)",
+    "messageNote": "Facultatif, mais utile pour nous."
   },
   "industryOptions": {
     "Agricultural Products": "Produits agricoles",
