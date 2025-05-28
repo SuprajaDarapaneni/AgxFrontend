@@ -219,7 +219,27 @@
 
 
 
-
+, "homepage": {
+    "servicesTitle": "Our Services",
+    "service1Title": "Import Assistance",
+    "service1Desc": "Navigate international import regulations with expert help.",
+    "service2Title": "Export Solutions",
+    "service2Desc": "Expand your market reach globally with export strategies.",
+    "service3Title": "Business Brokering",
+    "service3Desc": "Find the right partners through our network.",
+    "learnMore": "Learn More",
+    "testimonialsTitle": "What Our Clients Say",
+    "testimonial1": "Their export support helped me expand overseas. Highly professional!",
+    "testimonial2": "They made international trade feel easy. Trustworthy and experienced!",
+    "testimonial3": "Excellent service throughout our import process.",
+    "heroTitle": "Connecting Continents with Confidence",
+    "heroButton": "I Want To Buy/Sell",
+    "aboutTitle": "About Us",
+    "aboutDesc": "Our journey began on July 10th, 2022...",
+    "productsTitle": "Our Products",
+    "viewMore": "View More",
+    "viewAllProducts": "View all products"
+  }
 ,
  "blogs": {
     "title": "Our Latest Blogs",

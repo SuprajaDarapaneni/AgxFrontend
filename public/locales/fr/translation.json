@@ -136,6 +136,46 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+  ,"homepage": {
+  "servicesTitle": "Nos Services",
+  "service1Title": "Assistance à l'Importation",
+  "service1Desc": "Naviguez dans les réglementations internationales avec l'aide d'experts.",
+  "service2Title": "Solutions d'Exportation",
+  "service2Desc": "Élargissez votre portée sur le marché mondial avec des stratégies d'exportation.",
+  "service3Title": "Courtage d'Affaires",
+  "service3Desc": "Trouvez les bons partenaires grâce à notre réseau.",
+  "learnMore": "En savoir plus",
+  "testimonialsTitle": "Ce que disent nos clients",
+  "testimonial1": "Leur soutien à l’exportation m’a aidé à m’étendre à l’étranger. Très professionnel !",
+  "testimonial2": "Ils ont rendu le commerce international facile. Fiables et expérimentés !",
+  "testimonial3": "Service excellent tout au long de notre processus d'importation.",
+  "heroTitle": "Connecter les continents en toute confiance",
+  "heroButton": "Je veux acheter/vendre",
+  "aboutTitle": "À propos de nous",
+  "aboutDesc": "Notre aventure a commencé le 10 juillet 2022...",
+  "productsTitle": "Nos Produits",
+  "viewMore": "Voir plus",
+  "viewAllProducts": "Voir tous les produits"
+}
+
+,"blogs": {
+    "title": "Nos derniers blogs",
+    "loading": "Chargement des blogs...",
+    "error": "Échec du chargement des blogs. Veuillez réessayer plus tard.",
+    "noBlogs": "Aucun blog trouvé.",
+    "readMore": "Lire la suite →"
+  }
+
 ,
   "form": {
     "buy": "Acheter",

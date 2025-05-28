@@ -55,9 +55,9 @@ const LanguageSwitcher = () => {
   return (
     <div style={{ position: 'fixed', top: 10, right: 10, zIndex: 1000 }}>
       <button onClick={() => changeLanguage('en')} style={{ marginRight: 10 }}>
-        English
+        
       </button>
-      <button onClick={() => changeLanguage('fr')}>Français</button>
+      <button onClick={() => changeLanguage('fr')}></button>
     </div>
   );
 };
