@@ -35,8 +35,7 @@ const Header = () => {
 
   return (
    
-  <header className="bg-white/80 backdrop-blur-md shadow-md fixed w-full top-2 left-0 z-50 border-b border-pink-200">
-    
+  <header className="bg-orange-500 shadow-md fixed w-full -top-4 left-0 z-50 border-b border-orange-700">
   <div className="max-w-screen-xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center space-x-3">
