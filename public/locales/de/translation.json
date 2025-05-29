@@ -62,7 +62,26 @@
     "ctaDesc": "Kontaktieren Sie uns noch heute und lassen Sie uns gemeinsam neue Chancen erschließen.",
     "ctaBtn": "Kontaktieren Sie uns"
   }
+,"nav": {
+  "home": "Startseite",
+  "aboutUs": "Über uns",
+  "services": "Dienstleistungen",
+  "products": "Produkte",
+  "blog": "Blog",
+  "contactUs": "Kontakt",
+  "review": "Bewertungen"
+}
 
+,
+"footer": {
+  "brandInfo": "Wir liefern Exzellenz durch Innovation und Strategie. Entdecken Sie unsere Lösungen und lassen Sie sich inspirieren.",
+  "quickLinks": "Schnellzugriff",
+  "legal": "Rechtliches",
+  "termsOfService": "Nutzungsbedingungen",
+  "privacyPolicy": "Datenschutzerklärung",
+  "followUs": "Folgen Sie uns",
+  "rightsReserved": "Alle Rechte vorbehalten."
+}
 
 ,"homepage": {
   "servicesTitle": "Unsere Dienstleistungen",

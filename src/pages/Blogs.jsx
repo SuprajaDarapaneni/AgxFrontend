@@ -29,8 +29,10 @@ const Blogs = () => {
 
   return (
     <section className="container mx-auto px-4 py-12">
-      <h2 className="text-3xl font-bold text-center text-gray-800 mb-10">{t('blogs.title')}</h2>
+      <h2 className="text-3xl font-bold text-center text-pink-800 mb-1">{t('blogs.title')}</h2>
 
+        <div className="w-20 h-1 bg-pink-500 mx-auto rounded mb-6 animate-pulse"></div>
+       
       {loading ? (
         <div className="flex justify-center items-center">
           <svg
