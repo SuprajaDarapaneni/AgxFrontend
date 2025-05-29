@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
-import ScrollToTop from './components/ScrollToTop';
+
 import globalBusinessImage from '../assets/about.jpeg';
 import '../i18n';
 
@@ -26,7 +26,7 @@ const About = () => {
   return (
     <section className="bg-gradient-to-b from-pink-50 to-white text-black min-h-screen flex flex-col items-center py-20">
       
-       <ScrollToTop />
+
        <div className="container mx-auto max-w-7xl">
         <motion.h2
           className="text-4xl sm:text-5xl font-extrabold text-center text-pink-500 mb-6 tracking-wide drop-shadow-md"
@@ -134,27 +134,89 @@ const About = () => {
         </motion.div>
 
         {/* Mission / Why / Values */}
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-6xl mx-auto text-center"
-          variants={fadeInUp}
-          initial="hidden"
-          animate="visible"
-          custom={6}
-        >
-          {[t('aboutus.mission'), t('aboutus.why'), t('aboutus.values')].map((title, i) => (
-            <motion.div
-              key={i}
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.3 }}
-              className="bg-white border border-pink-300 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-shadow duration-300"
-            >
-              <h4 className="text-2xl font-semibold text-pink-500 mb-5 tracking-wide">{title}</h4>
-              <p className="leading-relaxed text-gray-800 text-lg">
-                {t(`aboutus.${['missionDesc', 'whyDesc', 'valuesDesc'][i]}`)}
-              </p>
-            </motion.div>
-          ))}
-        </motion.div>
+       <motion.div
+  className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-28"
+  variants={{
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        delayChildren: 0.5,
+        staggerChildren: 0.2
+      }
+    }
+  }}
+  initial="hidden"
+  animate="visible"
+>
+  {[
+    { 
+      title: t('aboutus.mission'), 
+      content: t('aboutus.missionDesc'),
+      icon: '🚀',
+      color: 'from-blue-500 to-blue-600',
+      delay: 0.1
+    },
+    { 
+      title: t('aboutus.why'), 
+      content: t('aboutus.whyDesc'),
+      icon: '💡',
+      color: 'from-purple-500 to-purple-600',
+      delay: 0.3
+    },
+    { 
+      title: t('aboutus.values'), 
+      content: t('aboutus.valuesDesc'),
+      icon: '❤️',
+      color: 'from-pink-500 to-pink-600',
+      delay: 0.5
+    },
+  ].map(({ title, content, icon, color, delay }, i) => (
+    <motion.div
+      key={i}
+      variants={{
+        hidden: { y: 30, opacity: 0 },
+        visible: {
+          y: 0,
+          opacity: 1,
+          transition: { duration: 0.5, delay }
+        }
+      }}
+      whileHover={{ 
+        y: -10,
+        boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
+      }}
+      transition={{ type: "spring", stiffness: 300 }}
+      className="bg-white border-2 border-gray-100 rounded-3xl p-8 transition-all duration-300 hover:border-transparent relative overflow-hidden group"
+    >
+      {/* Gradient background overlay on hover */}
+      <div className={`absolute inset-0 bg-gradient-to-br ${color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
+      
+      {/* Icon with gradient background */}
+      <div className={`w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br ${color} flex items-center justify-center text-white text-3xl shadow-lg`}>
+        {icon}
+      </div>
+      
+      {/* Title with gradient text */}
+      <h4 className={`text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-br ${color} mb-5 text-center`}>
+        {title}
+      </h4>
+      
+      {/* Content with smooth appearance */}
+      <motion.p 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: delay + 0.2 }}
+        className="leading-relaxed text-gray-600 text-lg text-center"
+      >
+        {content}
+      </motion.p>
+      
+      {/* Decorative element */}
+      <div className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r ${color} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
+    </motion.div>
+  ))}
+</motion.div>
 
         {/* Call to Action */}
         <motion.div
