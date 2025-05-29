@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { FaFacebookF, FaTwitter, FaInstagram } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
-import logo from "../assets/logo.svg";
+import logo from "../assets/logo-removebg-preview.png";
 
 const Footer = () => {
   const { t } = useTranslation();
