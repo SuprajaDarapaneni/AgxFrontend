@@ -8,15 +8,16 @@ const ReadMore = ({ children, maxChars = 250 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   if (!text) return null;
-
   if (text.length <= maxChars) return <p>{text}</p>;
 
   return (
     <>
-      <p>{isExpanded ? text : text.slice(0, maxChars) + "..."}</p>
+      <p className="text-gray-700 leading-relaxed">
+        {isExpanded ? text : text.slice(0, maxChars) + "..."}
+      </p>
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="mt-2 text-indigo-600 font-semibold hover:underline"
+        className="mt-2 text-indigo-600 font-semibold hover:underline focus:outline-none"
         aria-label={isExpanded ? "Show less" : "View more"}
       >
         {isExpanded ? "Show Less" : "View More"}
@@ -128,17 +129,18 @@ const ProductDetails = () => {
           <motion.img
             src={zoomedImage}
             alt="Zoomed product"
-            className="max-h-screen max-w-screen object-contain"
+            className="max-h-screen max-w-screen object-contain rounded-lg shadow-2xl"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.2 }}
           />
           <button
-            className="absolute top-4 right-4 text-white text-3xl"
+            className="absolute top-4 right-4 text-white text-4xl font-bold"
             onClick={(e) => {
               e.stopPropagation();
               setZoomedImage(null);
             }}
+            aria-label="Close zoomed image"
           >
             &times;
           </button>
@@ -152,7 +154,10 @@ const ProductDetails = () => {
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20"
       >
         {/* Breadcrumb */}
-        <div className="flex items-center text-sm text-gray-500 mb-8">
+        <nav
+          className="flex items-center text-sm text-gray-500 mb-8"
+          aria-label="Breadcrumb"
+        >
           <Link to="/" className="hover:text-indigo-600">
             Home
           </Link>
@@ -162,25 +167,27 @@ const ProductDetails = () => {
           </Link>
           <span className="mx-2">/</span>
           <span className="text-gray-700 font-medium">{product.category}</span>
-        </div>
+        </nav>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           {/* Left Side: Images */}
           <div>
             {/* Main Image */}
             <motion.div
-              whileHover={{ scale: 1.01 }}
-              className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100 relative group"
+              whileHover={{ scale: 1.03 }}
+              className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100 relative group cursor-zoom-in"
+              onClick={() => setZoomedImage(mainImage)}
             >
               <img
                 src={mainImage}
                 alt={product.name}
-                className="w-full h-auto max-h-[600px] object-contain cursor-zoom-in transition-transform duration-300"
+                className="w-full h-auto max-h-[600px] object-contain"
                 loading="lazy"
-                onClick={() => setZoomedImage(mainImage)}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                <span className="text-white font-medium">Click to zoom</span>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6 rounded-3xl">
+                <span className="text-white font-semibold tracking-wide">
+                  Click to zoom
+                </span>
               </div>
             </motion.div>
 
@@ -260,85 +267,79 @@ const ProductDetails = () => {
             </div>
 
             {/* Product Title */}
-          <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">
-  <ReadMore maxChars={50} moreLabel="View More" lessLabel="Show Less">
-    {product.name}
-  </ReadMore>
-</h1>
-
+            <h1 className="text-4xl font-extrabold text-gray-900 mb-6 leading-tight">
+              <ReadMore maxChars={60}>{product.name}</ReadMore>
+            </h1>
 
             {/* Introduction */}
-           <div className="mb-8">
-  <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center">
-    <span className="w-6 h-6 bg-indigo-100 rounded-full flex items-center justify-center mr-2">
-      <span className="w-2 h-2 bg-indigo-600 rounded-full"></span>
-    </span>
-    Introduction
-  </h2>
-  <div className="bg-gray-50 rounded-xl p-6">
-    <ReadMore maxChars={300}>
-      {`Discover the excellence of our ${product.name}, a premium solution in the ${product.category} sector. Meticulously engineered for superior performance and durability.`}
-    </ReadMore>
-  </div>
-</div>
-
+            <section className="mb-10">
+              <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <span className="w-6 h-6 bg-indigo-100 rounded-full flex items-center justify-center mr-2">
+                  <span className="w-2 h-2 bg-indigo-600 rounded-full"></span>
+                </span>
+                Introduction
+              </h2>
+              <div className="bg-gray-50 rounded-xl p-6 shadow-inner border border-gray-200">
+                <ReadMore maxChars={300}>
+                  {`Discover the excellence of our ${product.name}, a premium solution in the ${product.category} sector. Meticulously engineered for superior performance and durability.`}
+                </ReadMore>
+              </div>
+            </section>
 
             {/* Key Features */}
             {product.description && (
-              <div className="mb-8">
+              <section className="mb-10">
                 <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center">
                   <span className="w-6 h-6 bg-indigo-100 rounded-full flex items-center justify-center mr-2">
                     <span className="w-2 h-2 bg-indigo-600 rounded-full"></span>
                   </span>
                   Key Features
                 </h2>
-                <div className="bg-gray-50 rounded-xl p-6">
+                <div className="bg-gray-50 rounded-xl p-6 shadow-inner border border-gray-200">
                   <ReadMore maxChars={300}>{product.description}</ReadMore>
                 </div>
-              </div>
+              </section>
             )}
 
             {/* Why Choose Us */}
             {product.whyChooseUsContent && (
-              <div className="mb-8">
+              <section className="mb-10">
                 <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center">
                   <span className="w-6 h-6 bg-indigo-100 rounded-full flex items-center justify-center mr-2">
                     <span className="w-2 h-2 bg-indigo-600 rounded-full"></span>
                   </span>
                   Why Choose Our Product
                 </h2>
-                <div className="bg-indigo-50 rounded-xl p-6">
-                  <ReadMore maxChars={300}>
-                    {product.whyChooseUsContent}
-                  </ReadMore>
+                <div className="bg-indigo-50 rounded-xl p-6 shadow-inner border border-indigo-200">
+                  <ReadMore maxChars={300}>{product.whyChooseUsContent}</ReadMore>
                 </div>
-              </div>
+              </section>
             )}
 
-            {/* Interior Content */}
+            {/* Interior Details */}
             {product.interiorContent && (
-              <div className="mb-8">
+              <section className="mb-10">
                 <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center">
                   <span className="w-6 h-6 bg-indigo-100 rounded-full flex items-center justify-center mr-2">
                     <span className="w-2 h-2 bg-indigo-600 rounded-full"></span>
                   </span>
                   Interior Details
                 </h2>
-                <div className="bg-white rounded-xl p-6 border border-gray-200">
+                <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-inner">
                   <ReadMore maxChars={300}>{product.interiorContent}</ReadMore>
                 </div>
-              </div>
+              </section>
             )}
 
             {/* Contact CTA */}
             <motion.div
               whileHover={{ scale: 1.01 }}
-              className="mt-10 border-t border-gray-200 pt-8 bg-gradient-to-r from-indigo-50 to-pink-50 rounded-2xl p-6"
+              className="mt-12 border-t border-gray-200 pt-8 bg-gradient-to-r from-indigo-50 to-pink-50 rounded-2xl p-6 shadow-md"
             >
               <h3 className="text-2xl font-bold text-gray-800 mb-3">
                 Interested in this product?
               </h3>
-              <p className="text-gray-600 mb-6">
+              <p className="text-gray-600 mb-6 leading-relaxed">
                 Get in touch for pricing, specifications, or to request a
                 sample. Our experts are ready to assist you.
               </p>
