@@ -2,7 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Mail, Phone, Globe } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import logo from "../assets/logo.svg";
+import logo from "../assets/logo-removebg-preview.png";
 
 const Header = () => {
   const { t, i18n } = useTranslation();
