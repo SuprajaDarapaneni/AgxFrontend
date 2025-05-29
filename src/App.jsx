@@ -71,7 +71,7 @@ const AppContent = () => {
       {!isAdminRoute && <Header />}
       <LanguageSwitcher />
 
-      <main className="flex-grow pt-24 px-4">
+      <main className="flex-grow pt-24 px-0">
         <Suspense fallback={<div>Loading...</div>}>
           <Routes>
             {/* Frontend Routes */}
