@@ -34,7 +34,9 @@ const Header = () => {
   }, [location.pathname]);
 
   return (
-   <header className="bg-white backdrop-blur-md shadow-md fixed w-full top-0 left-0 z-0 border-b border-pink-800">
+    {/* <header className="bg-white backdrop-blur-md shadow-md fixed w-full top-0 left-0 z-0 border-b border-pink-800">*/}
+
+    <header className="bg-white shadow-md fixed w-full top-0 left-0 z-50 border-b border-pink-800">
     
     {/* <header className="bg-white shadow-md fixed w-full top-0 left-0 z-0 border-b border-pink-200">*/}
     
