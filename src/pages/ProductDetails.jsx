@@ -9,7 +9,6 @@ const ProductDetails = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Render content blocks with heading and bullet points
   const renderFormattedContent = (content, mainHeading) => {
     if (!content) return null;
 
@@ -64,6 +63,7 @@ const ProductDetails = () => {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-50">
         <p className="text-gray-600 text-2xl font-semibold animate-pulse">Loading product details...</p>
+      
       </div>
     );
   }
@@ -171,12 +171,26 @@ const ProductDetails = () => {
           {/* Additional Information (Description) */}
           {renderFormattedContent(product.description, "Additional Information")}
 
-          {/* Why Choose Us Section */}
+                   {/* Why Choose Us Section */}
           {product.whyChooseUsContent && (
             <div className="mt-10 border-t border-gray-300 pt-6">
               {renderFormattedContent(product.whyChooseUsContent, "Why Choose Us")}
             </div>
           )}
+
+          {/* Contact CTA */}
+          <div className="mt-10 border-t border-gray-200 pt-8">
+            <h3 className="text-2xl font-bold text-gray-800 mb-4">Interested in this product?</h3>
+            <p className="text-gray-600 mb-6">
+              Contact us today to get more details, a quote, or place an order.
+            </p>
+            <a
+              href="/contact"
+              className="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-3 rounded-full transition duration-300 shadow-md"
+            >
+              Contact Us
+            </a>
+          </div>
         </div>
       </div>
     </section>
