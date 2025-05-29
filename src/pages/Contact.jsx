@@ -73,7 +73,7 @@ function ContactForm() {
               </div>
               <div>
                 <h3 className="text-xl font-semibold text-gray-800 mb-1">Address</h3>
-                <p className="text-gray-600">3rd Floor, yashsupraja building</p>
+                <p className="text-gray-600">3rd Floor, building</p>
                 <p className="text-gray-600">ongole, Andhra Pradesh</p>
               </div>
             </div>
