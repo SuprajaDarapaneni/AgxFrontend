@@ -64,7 +64,7 @@ const HomePage = () => {
   );
 
   const TestimonialsSection = () => (
-    <section className="py-16 bg-white animate-fade-in-up transition-opacity duration-700">
+    <section className="py-0 bg-white animate-fade-in-up transition-opacity duration-700">
       <div className="container mx-auto text-center">
         <h2 className="text-4xl font-bold text-gray-900 mb-6">{t('homepage.testimonialsTitle')}</h2>
         <div className="flex justify-center mb-10">
