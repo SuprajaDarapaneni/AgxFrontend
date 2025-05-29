@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
+import ScrollToTop from './components/ScrollToTop';
 import globalBusinessImage from '../assets/about.jpeg';
 import '../i18n';
 
@@ -24,7 +25,9 @@ const About = () => {
 
   return (
     <section className="bg-gradient-to-b from-pink-50 to-white text-black min-h-screen flex flex-col items-center py-20">
-      <div className="container mx-auto max-w-7xl">
+      
+       <ScrollToTop />
+       <div className="container mx-auto max-w-7xl">
         <motion.h2
           className="text-4xl sm:text-5xl font-extrabold text-center text-pink-500 mb-6 tracking-wide drop-shadow-md"
           variants={fadeInUp}
