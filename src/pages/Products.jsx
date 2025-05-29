@@ -49,7 +49,7 @@ const Products = () => {
   return (
     <section className="max-w-7xl mx-auto px-6 py-16 bg-gradient-to-b from-white to-indigo-50 min-h-screen">
       <header className="mb-14 text-center">
-        <h1 className="text-5xl font-extrabold text-pink-700 mb-4 drop-shadow-sm">
+        <h1 className="text-5xl font-extrabold text-pink-700 mb-4 drop-shadow-sm ">
           {t("product.title")}
         </h1>
         <div className="w-20 h-1 bg-pink-500 mx-auto rounded mb-6 animate-pulse"></div>
