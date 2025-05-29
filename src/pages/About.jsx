@@ -81,9 +81,10 @@ const About = () => {
           animate="visible"
           custom={4}
         >
-          <h3 className="text-3xl font-semibold text-pink-500 mb-8 text-center tracking-wide drop-shadow-sm">
-            {t('aboutus.ourStoryTitle')}
-          </h3>
+          <h3 className="text-3xl sm:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-600 mb-10 text-center tracking-tight">
+                ✨ {t('aboutus.ourStoryTitle')} ✨
+              </h3>
+             
           <p className="leading-relaxed text-gray-800 text-lg max-w-3xl mx-auto">
             {t('aboutus.ourStoryContent', { company, date: foundedDate })}
           </p>
