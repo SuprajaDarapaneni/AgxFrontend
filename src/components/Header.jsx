@@ -34,13 +34,7 @@ const Header = () => {
   }, [location.pathname]);
 
   return (
-    {/* <header className="bg-white backdrop-blur-md shadow-md fixed w-full top-0 left-0 z-0 border-b border-pink-800">
-
-    <header className="bg-white shadow-md fixed w-full top-0 left-0 z-50 border-b border-pink-800">
-    
-<header className="bg-orange-500 shadow-md fixed w-full top-0 left-0 z-50 border-b border-orange-700">*/}
-    {/* <header className="bg-white shadow-md fixed w-full top-0 left-0 z-0 border-b border-pink-200">*/}
-
+   
   <header className="bg-white/80 backdrop-blur-md shadow-md fixed w-full top-2 left-0 z-50 border-b border-pink-200">
     
   <div className="max-w-screen-xl mx-auto px-6 py-4 flex items-center justify-between">
