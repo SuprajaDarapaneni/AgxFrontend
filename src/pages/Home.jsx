@@ -18,6 +18,7 @@ import img6 from '../assets/IMG_3507.jpeg';
 const HomePage = () => {
   const { t } = useTranslation();
   const [products, setProducts] = useState([]);
+  const [viewportHeight, setViewportHeight] = useState(window.innerHeight);
   const images = [img1, img2, img3, img4, img5, img6];
 
   useEffect(() => {
@@ -33,6 +34,15 @@ const HomePage = () => {
     fetchProducts();
   }, []);
 
+  // Update viewport height on resize
+  useEffect(() => {
+    const handleResize = () => {
+      setViewportHeight(window.innerHeight);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
   const ServicesSection = () => (
@@ -43,8 +53,7 @@ const HomePage = () => {
           <div className="w-24 h-1 bg-gradient-to-r from-pink-500 via-red-400 to-yellow-300 rounded-full"></div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto px-4">
-          {[
-            { title: t('homepage.service1Title'), desc: t('homepage.service1Desc') },
+          {[{ title: t('homepage.service1Title'), desc: t('homepage.service1Desc') },
             { title: t('homepage.service2Title'), desc: t('homepage.service2Desc') },
             { title: t('homepage.service3Title'), desc: t('homepage.service3Desc') },
           ].map((service, idx) => (
@@ -73,22 +82,21 @@ const HomePage = () => {
           <div className="w-24 h-1 bg-gradient-to-r from-pink-500 via-red-400 to-yellow-300 rounded-full"></div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto px-4">
-          {[
-            {
-              name: 'Ravi Kumar',
-              feedback: t('homepage.testimonial1'),
-              image: 'https://randomuser.me/api/portraits/men/32.jpg',
-            },
-            {
-              name: 'Anjali Mehta',
-              feedback: t('homepage.testimonial2'),
-              image: 'https://randomuser.me/api/portraits/women/44.jpg',
-            },
-            {
-              name: 'Mohammed Irfan',
-              feedback: t('homepage.testimonial3'),
-              image: 'https://randomuser.me/api/portraits/men/85.jpg',
-            },
+          {[{
+            name: 'Ravi Kumar',
+            feedback: t('homepage.testimonial1'),
+            image: 'https://randomuser.me/api/portraits/men/32.jpg',
+          },
+          {
+            name: 'Anjali Mehta',
+            feedback: t('homepage.testimonial2'),
+            image: 'https://randomuser.me/api/portraits/women/44.jpg',
+          },
+          {
+            name: 'Mohammed Irfan',
+            feedback: t('homepage.testimonial3'),
+            image: 'https://randomuser.me/api/portraits/men/85.jpg',
+          },
           ].map((testi, index) => (
             <div key={index} className="bg-gray-100 p-6 rounded-lg shadow hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 hover:bg-white animate-fade-in-up">
               <img src={testi.image} alt={testi.name} className="w-16 h-16 mx-auto rounded-full mb-4" />
@@ -103,10 +111,11 @@ const HomePage = () => {
 
   return (
     <div className="bg-white text-gray-900 font-inter">
-      {/* Hero Section */}
-      {/* <section className="relative w-screen h-screen"> */}
-      <section className="relative w-full min-h-screen">
-
+      {/* Hero Section with Fixed Height */}
+      <section
+        style={{ height: `${viewportHeight}px` }}
+        className="relative w-screen overflow-hidden"
+      >
         <Swiper
           modules={[Navigation, Pagination, Autoplay]}
           navigation
@@ -135,7 +144,7 @@ const HomePage = () => {
         </Swiper>
       </section>
 
-      {/* About Us */}
+      {/* About Us Section */}
       <section className="flex flex-col md:flex-row items-center justify-between py-16 px-4 animate-fade-in-up transition-opacity duration-700">
         <div className="w-full md:w-1/2 mb-8 md:mb-0">
           <h2 className="text-4xl font-bold text-gray-900 mb-6">{t('homepage.aboutTitle')}</h2>
