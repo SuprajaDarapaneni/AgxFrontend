@@ -3,9 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/logo-removebg-preview.png" />
     <title>AGX International</title>
+    <script type="module">
+      import logo from './src/assets/logo.png';
+      const link = document.createElement('link');
+      link.rel = 'icon';
+      link.type = 'image/png';
+      link.href = logo;
+      document.head.appendChild(link);
+    </script>
   </head>
   <body>
     <div id="root"></div>
