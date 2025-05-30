@@ -33,6 +33,8 @@ const HomePage = () => {
     fetchProducts();
   }, []);
 
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
   const ServicesSection = () => (
     <section className="py-16 bg-white animate-fade-in-up transition-opacity duration-700">
       <div className="container mx-auto text-center">
@@ -53,7 +55,7 @@ const HomePage = () => {
           ))}
         </div>
         <div className="mt-10">
-          <Link to="/services" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })>
+          <Link to="/services" onClick={scrollToTop}>
             <button className="bg-pink-500 text-white px-6 py-3 rounded-md hover:bg-pink-600 transition duration-300 shadow-lg hover:shadow-2xl hover:scale-105">
               {t('homepage.learnMore')}
             </button>
@@ -101,9 +103,16 @@ const HomePage = () => {
 
   return (
     <div className="bg-white text-gray-900 font-inter">
-      {/* Hero Slider */}
-      <section className="relative w-screen h-screen p-0 m-0">
-        <Swiper modules={[Navigation, Pagination, Autoplay]} navigation pagination={{ clickable: true }} autoplay={{ delay: 3000, disableOnInteraction: false }} loop className="w-full h-full">
+      {/* Hero Section */}
+      <section className="relative w-screen h-screen">
+        <Swiper
+          modules={[Navigation, Pagination, Autoplay]}
+          navigation
+          pagination={{ clickable: true }}
+          autoplay={{ delay: 3000, disableOnInteraction: false }}
+          loop
+          className="w-full h-full"
+        >
           {images.map((src, index) => (
             <SwiperSlide key={index}>
               <div className="relative w-full h-full">
@@ -112,7 +121,7 @@ const HomePage = () => {
                   <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-4 drop-shadow-2xl animate-fade-in-up">
                     {t('homepage.heroTitle')}
                   </h2>
-                  <Link to="/buy-sell" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })>
+                  <Link to="/buy-sell" onClick={scrollToTop}>
                     <button className="bg-white text-pink-600 font-semibold px-8 py-4 text-lg rounded-md hover:bg-gray-100 transition duration-300 shadow-lg hover:shadow-xl hover:scale-105">
                       {t('homepage.heroButton')}
                     </button>
@@ -130,7 +139,7 @@ const HomePage = () => {
           <h2 className="text-4xl font-bold text-gray-900 mb-6">{t('homepage.aboutTitle')}</h2>
           <p className="text-lg text-gray-800 leading-relaxed">{t('homepage.aboutDesc')}</p>
           <div className="mt-6">
-            <Link to="/about" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })>
+            <Link to="/about" onClick={scrollToTop}>
               <button className="bg-pink-500 text-white px-6 py-3 rounded-md hover:bg-pink-600 transition duration-300 shadow-lg hover:shadow-2xl hover:scale-105">
                 {t('homepage.learnMore')}
               </button>
@@ -153,7 +162,12 @@ const HomePage = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 max-w-6xl mx-auto px-4">
           {products.map((product) => (
-            <Link to={`/product/${product._id}`} key={product._id} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' }) className="bg-white shadow-lg rounded-xl overflow-hidden hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-500 text-center cursor-pointer group flex flex-col">
+            <Link
+              to={`/product/${product._id}`}
+              key={product._id}
+              onClick={scrollToTop}
+              className="bg-white shadow-lg rounded-xl overflow-hidden hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-500 text-center cursor-pointer group flex flex-col"
+            >
               <div className="relative w-full h-48 overflow-hidden">
                 <img
                   src={
@@ -170,9 +184,7 @@ const HomePage = () => {
                 />
               </div>
               <div className="p-4 flex flex-col flex-grow justify-between">
-                <p className="text-lg font-semibold text-gray-800 mb-2 line-clamp-2">
-                  {product.category}
-                </p>
+                <p className="text-lg font-semibold text-gray-800 mb-2 line-clamp-2">{product.category}</p>
                 <button className="bg-pink-500 text-white font-bold py-3 px-6 rounded-full flex items-center justify-center gap-2 transition-all duration-300 hover:bg-pink-600 hover:shadow-xl shadow-lg">
                   {t('homepage.viewMore')}
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -185,7 +197,7 @@ const HomePage = () => {
         </div>
 
         <div className="flex justify-center mt-10">
-          <Link to="/products" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })>
+          <Link to="/products" onClick={scrollToTop}>
             <button className="bg-pink-500 text-white px-6 py-3 rounded-md hover:bg-pink-600 transition duration-300 shadow-lg hover:shadow-2xl hover:scale-105">
               {t('homepage.viewAllProducts')}
             </button>
