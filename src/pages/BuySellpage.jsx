@@ -99,7 +99,7 @@ const BuySellForm = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-pink-100 via-pink-50 to-pink-100 flex items-center justify-center px-0 py-0">
-      <div className="max-w-xl w-full bg-white p-10 rounded-3xl shadow-xl border border-pink-200 space-y-6">
+      <div className="max-w-xl w-full bg-white p-0 rounded-3xl shadow-xl border border-pink-200 space-y-6">
         <form onSubmit={handleSubmit} className="space-y-6">
 
           {/* Buy or Sell */}
