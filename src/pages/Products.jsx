@@ -7,17 +7,19 @@ import { motion } from "framer-motion";
 const Products = () => {
   const { t, i18n } = useTranslation();
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await axios.get(
-          "https://agxbackend.onrender.com/client/getproducts"
-        );
+        setLoading(true);
+        const res = await axios.get("https://agxbackend.onrender.com/client/getproducts");
         setProducts(res.data);
       } catch (err) {
         console.error("Error fetching products:", err);
+      } finally {
+        setLoading(false);
       }
     };
     fetchProducts();
@@ -26,12 +28,6 @@ const Products = () => {
   const handleCardClick = (productId) => {
     navigate(`/product/${productId}`);
   };
-
-  // const toggleLanguage = () => {
-  //   const nextLang =
-  //     i18n.language === "en" ? "fr" : i18n.language === "fr" ? "de" : "en";
-  //   i18n.changeLanguage(nextLang);
-  // };
 
   const cardVariant = {
     hidden: { opacity: 0, y: 30 },
@@ -46,22 +42,25 @@ const Products = () => {
     }),
   };
 
+  if (loading) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-white">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-pink-600 border-opacity-50"></div>
+        <span className="mt-4 text-pink-600 text-lg font-medium">Loading products...</span>
+      </div>
+    );
+  }
+
   return (
     <section className="max-w-7xl mx-auto px-6 py-16 bg-gradient-to-b from-white to-indigo-50 min-h-screen">
       <header className="mb-14 text-center">
-        <h1 className="text-5xl font-extrabold text-pink-700 mb-4 drop-shadow-sm ">
+        <h1 className="text-5xl font-extrabold text-pink-700 mb-4 drop-shadow-sm">
           {t("product.title")}
         </h1>
         <div className="w-20 h-1 bg-pink-500 mx-auto rounded mb-6 animate-pulse"></div>
         <p className="max-w-2xl mx-auto text-gray-600 text-lg leading-relaxed">
           {t("product.description")}
         </p>
-        {/* <button
-          onClick={toggleLanguage}
-          className="mt-6 px-5 py-2 bg-indigo-600 text-white rounded-full hover:bg-indigo-700 transition"
-        >
-          {t("product.langToggle")}
-        </button> */}
       </header>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
@@ -87,9 +86,7 @@ const Products = () => {
                 src={
                   product.coverImage
                     ? `https://agxbackend.onrender.com${product.coverImage}`
-                    : `https://via.placeholder.com/300x200?text=${encodeURIComponent(
-                        t("product.placeholderAlt")
-                      )}`
+                    : `https://via.placeholder.com/300x200?text=${encodeURIComponent(t("product.placeholderAlt"))}`
                 }
                 alt={product.category || t("product.placeholderAlt")}
                 className="object-contain max-h-full max-w-full transition-transform duration-300 group-hover:scale-110"
