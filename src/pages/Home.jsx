@@ -104,7 +104,9 @@ const HomePage = () => {
   return (
     <div className="bg-white text-gray-900 font-inter">
       {/* Hero Section */}
-      <section className="relative w-screen h-screen">
+      {/* <section className="relative w-screen h-screen"> */}
+      <section className="relative w-full min-h-screen">
+
         <Swiper
           modules={[Navigation, Pagination, Autoplay]}
           navigation
