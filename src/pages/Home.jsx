@@ -53,7 +53,7 @@ const HomePage = () => {
           ))}
         </div>
         <div className="mt-10">
-          <Link to="/services" window.scrollTo({ top: 0, behavior: 'smooth' })>
+          <Link to="/services" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })>
             <button className="bg-pink-500 text-white px-6 py-3 rounded-md hover:bg-pink-600 transition duration-300 shadow-lg hover:shadow-2xl hover:scale-105">
               {t('homepage.learnMore')}
             </button>
@@ -112,7 +112,7 @@ const HomePage = () => {
                   <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-4 drop-shadow-2xl animate-fade-in-up">
                     {t('homepage.heroTitle')}
                   </h2>
-                  <Link to="/buy-sell" window.scrollTo({ top: 0, behavior: 'smooth' })>
+                  <Link to="/buy-sell" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })>
                     <button className="bg-white text-pink-600 font-semibold px-8 py-4 text-lg rounded-md hover:bg-gray-100 transition duration-300 shadow-lg hover:shadow-xl hover:scale-105">
                       {t('homepage.heroButton')}
                     </button>
@@ -130,7 +130,7 @@ const HomePage = () => {
           <h2 className="text-4xl font-bold text-gray-900 mb-6">{t('homepage.aboutTitle')}</h2>
           <p className="text-lg text-gray-800 leading-relaxed">{t('homepage.aboutDesc')}</p>
           <div className="mt-6">
-            <Link to="/about" window.scrollTo({ top: 0, behavior: 'smooth' })>
+            <Link to="/about" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })>
               <button className="bg-pink-500 text-white px-6 py-3 rounded-md hover:bg-pink-600 transition duration-300 shadow-lg hover:shadow-2xl hover:scale-105">
                 {t('homepage.learnMore')}
               </button>
@@ -153,7 +153,7 @@ const HomePage = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 max-w-6xl mx-auto px-4">
           {products.map((product) => (
-            <Link to={`/product/${product._id}`} key={product._id} window.scrollTo({ top: 0, behavior: 'smooth' }) className="bg-white shadow-lg rounded-xl overflow-hidden hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-500 text-center cursor-pointer group flex flex-col">
+            <Link to={`/product/${product._id}`} key={product._id} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' }) className="bg-white shadow-lg rounded-xl overflow-hidden hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-500 text-center cursor-pointer group flex flex-col">
               <div className="relative w-full h-48 overflow-hidden">
                 <img
                   src={
@@ -185,7 +185,7 @@ const HomePage = () => {
         </div>
 
         <div className="flex justify-center mt-10">
-          <Link to="/products" window.scrollTo({ top: 0, behavior: 'smooth' })>
+          <Link to="/products" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })>
             <button className="bg-pink-500 text-white px-6 py-3 rounded-md hover:bg-pink-600 transition duration-300 shadow-lg hover:shadow-2xl hover:scale-105">
               {t('homepage.viewAllProducts')}
             </button>
