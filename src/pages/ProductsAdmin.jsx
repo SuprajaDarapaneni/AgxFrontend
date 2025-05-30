@@ -85,6 +85,11 @@ const ProductAdmin = () => {
     category: "",
     name: "",
     description: "",
+    bannerTitle: "",
+    introduction: "",
+    productRange: "",
+    additionalInfo: "",
+    whyChooseUs: "",
     coverImage: null,
     multipleImages: [],
   });
@@ -105,7 +110,18 @@ const ProductAdmin = () => {
   };
 
   const resetForm = () => {
-    setFormData({ name: "", category: "", description: "", coverImage: null, multipleImages: [] });
+    setFormData({ 
+      name: "", 
+      category: "", 
+      description: "",
+      bannerTitle: "",
+      introduction: "",
+      productRange: "",
+      additionalInfo: "",
+      whyChooseUs: "",
+      coverImage: null, 
+      multipleImages: [] 
+    });
     setIsEditMode(false);
     setEditingProductId(null);
     setShowForm(false);
@@ -131,6 +147,11 @@ const ProductAdmin = () => {
       name: product.name,
       category: product.category,
       description: product.description,
+      bannerTitle: product.bannerTitle || "",
+      introduction: product.introduction || "",
+      productRange: product.productRange || "",
+      additionalInfo: product.additionalInfo || "",
+      whyChooseUs: product.whyChooseUs || "",
       coverImage: null,
       multipleImages: [],
     });
@@ -150,13 +171,16 @@ const ProductAdmin = () => {
     data.append("name", formData.name);
     data.append("category", formData.category);
     data.append("description", formData.description);
+    data.append("bannerTitle", formData.bannerTitle);
+    data.append("introduction", formData.introduction);
+    data.append("productRange", formData.productRange);
+    data.append("additionalInfo", formData.additionalInfo);
+    data.append("whyChooseUs", formData.whyChooseUs);
 
-    // Append coverImage only if a new one was selected
     if (formData.coverImage) {
       data.append("coverImage", formData.coverImage);
     }
 
-    // Append multipleImages only if new files were selected
     if (formData.multipleImages.length > 0) {
       formData.multipleImages.forEach((file) => data.append("multipleImages", file));
     }
@@ -177,14 +201,38 @@ const ProductAdmin = () => {
 
   const renderBulletPoints = (text) => {
     if (!text) return null;
+    
+    // Check if text is already in bullet point format
+    if (text.includes('•') || text.includes('-')) {
+      return (
+        <ul style={{ paddingLeft: 20, marginTop: 6, marginBottom: 10 }}>
+          {text.split('\n').filter(line => line.trim()).map((line, idx) => (
+            <li key={idx} style={{ marginBottom: 4, lineHeight: 1.5 }}>
+              {line.trim().replace(/^[•-]\s*/, '')}
+            </li>
+          ))}
+        </ul>
+      );
+    }
+    
+    // Check if text is in numbered list format
+    if (text.match(/^\d+\./m)) {
+      return (
+        <ol style={{ paddingLeft: 20, marginTop: 6, marginBottom: 10 }}>
+          {text.split('\n').filter(line => line.trim()).map((line, idx) => (
+            <li key={idx} style={{ marginBottom: 4, lineHeight: 1.5 }}>
+              {line.trim().replace(/^\d+\.\s*/, '')}
+            </li>
+          ))}
+        </ol>
+      );
+    }
+    
+    // Default to regular text
     return (
-      <ul style={{ paddingLeft: 20, marginTop: 6, marginBottom: 10 }}>
-        {text.split("\n").map((line, idx) => (
-          <li key={idx} style={{ marginBottom: 4, lineHeight: 1.5 }}>
-            {line.trim()}
-          </li>
-        ))}
-      </ul>
+      <Typography variant="body2" sx={{ whiteSpace: 'pre-line' }}>
+        {text}
+      </Typography>
     );
   };
 
@@ -218,7 +266,18 @@ const ProductAdmin = () => {
               } else {
                 setShowForm(!showForm);
                 setIsEditMode(false);
-                setFormData({ name: "", category: "", description: "", coverImage: null, multipleImages: [] });
+                setFormData({ 
+                  name: "", 
+                  category: "", 
+                  description: "",
+                  bannerTitle: "",
+                  introduction: "",
+                  productRange: "",
+                  additionalInfo: "",
+                  whyChooseUs: "",
+                  coverImage: null, 
+                  multipleImages: [] 
+                });
                 setExistingCoverImageUrl("");
                 setExistingMultipleImageUrls([]);
               }
@@ -236,7 +295,7 @@ const ProductAdmin = () => {
                 display: "flex",
                 flexDirection: "column",
                 gap: 3,
-                width: isNonMobile ? "40%" : "100%",
+                width: isNonMobile ? "60%" : "100%",
                 mb: 4,
                 p: 3,
                 borderRadius: 3,
@@ -253,11 +312,10 @@ const ProductAdmin = () => {
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 required
-                multiline
-                minRows={2}
                 fullWidth
                 sx={{ bgcolor: mode === "light" ? "white" : "grey.900" }}
               />
+              
               <TextField
                 label="Category"
                 value={formData.category}
@@ -266,15 +324,70 @@ const ProductAdmin = () => {
                 fullWidth
                 sx={{ bgcolor: mode === "light" ? "white" : "grey.900" }}
               />
+              
+              <TextField
+                label="Banner Title"
+                value={formData.bannerTitle}
+                onChange={(e) => setFormData({ ...formData, bannerTitle: e.target.value })}
+                multiline
+                minRows={1}
+                fullWidth
+                sx={{ bgcolor: mode === "light" ? "white" : "grey.900" }}
+                helperText="Short catchy title for the banner (e.g., 'Powering Industry with Precision')"
+              />
+              
+              <TextField
+                label="Introduction"
+                multiline
+                minRows={3}
+                value={formData.introduction}
+                onChange={(e) => setFormData({ ...formData, introduction: e.target.value })}
+                fullWidth
+                sx={{ bgcolor: mode === "light" ? "white" : "grey.900" }}
+                helperText="Brief introduction about the product category"
+              />
+              
+              <TextField
+                label="Product Range"
+                multiline
+                minRows={3}
+                value={formData.productRange}
+                onChange={(e) => setFormData({ ...formData, productRange: e.target.value })}
+                fullWidth
+                sx={{ bgcolor: mode === "light" ? "white" : "grey.900" }}
+                helperText="List of products in this category. Use bullet points (•) or numbers (1.) for lists"
+              />
+              
+              <TextField
+                label="Additional Information"
+                multiline
+                minRows={2}
+                value={formData.additionalInfo}
+                onChange={(e) => setFormData({ ...formData, additionalInfo: e.target.value })}
+                fullWidth
+                sx={{ bgcolor: mode === "light" ? "white" : "grey.900" }}
+              />
+              
+              <TextField
+                label="Why Choose Us"
+                multiline
+                minRows={3}
+                value={formData.whyChooseUs}
+                onChange={(e) => setFormData({ ...formData, whyChooseUs: e.target.value })}
+                fullWidth
+                sx={{ bgcolor: mode === "light" ? "white" : "grey.900" }}
+                helperText="List the key benefits. Use bullet points (•) for better formatting"
+              />
+              
               <TextField
                 label="Description"
                 multiline
                 minRows={4}
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                required
                 fullWidth
                 sx={{ bgcolor: mode === "light" ? "white" : "grey.900" }}
+                helperText="Detailed description. Use bullet points (•) or numbers (1.) for lists"
               />
 
               <Box>
@@ -288,7 +401,6 @@ const ProductAdmin = () => {
                   style={{ marginBottom: 12 }}
                 />
 
-                {/* Preview selected new cover image */}
                 {formData.coverImage && (
                   <Box mt={1}>
                     <Typography variant="body2">New Cover Image Preview:</Typography>
@@ -307,7 +419,6 @@ const ProductAdmin = () => {
                   </Box>
                 )}
 
-                {/* Show existing cover image only if editing and no new cover image selected */}
                 {isEditMode && existingCoverImageUrl && !formData.coverImage && (
                   <Box sx={{ mt: 1 }}>
                     <Typography variant="body2" color="text.secondary" gutterBottom>
@@ -346,7 +457,6 @@ const ProductAdmin = () => {
                   style={{ marginBottom: 12 }}
                 />
 
-                {/* Preview newly selected multiple images */}
                 {formData.multipleImages.length > 0 && (
                   <Stack direction="row" flexWrap="wrap" gap={1} mt={1}>
                     {formData.multipleImages.map((file, idx) => (
@@ -368,7 +478,6 @@ const ProductAdmin = () => {
                   </Stack>
                 )}
 
-                {/* Show existing multiple images only if editing and no new images selected */}
                 {isEditMode && existingMultipleImageUrls.length > 0 && formData.multipleImages.length === 0 && (
                   <Stack direction="row" flexWrap="wrap" gap={1} mt={1}>
                     {existingMultipleImageUrls.map((url, index) => (
@@ -421,7 +530,7 @@ const ProductAdmin = () => {
                 <Card
                   key={product._id}
                   sx={{
-                    width: 320,
+                    width: 360,
                     borderRadius: 3,
                     boxShadow: 4,
                     transition: "transform 0.3s ease, box-shadow 0.3s ease",
@@ -435,7 +544,7 @@ const ProductAdmin = () => {
                 >
                   <CardMedia
                     component="img"
-                    height="180"
+                    height="200"
                     image={
                       product.coverImage
                         ? `https://agxbackend.onrender.com${product.coverImage}`
@@ -451,31 +560,55 @@ const ProductAdmin = () => {
                     <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
                       <strong>Category:</strong> {product.category}
                     </Typography>
-                    <Typography variant="body2" sx={{ mb: 1 }}>
-                      {renderBulletPoints(product.description)}
-                    </Typography>
-                    {product.multipleImages && product.multipleImages.length > 0 && (
-                      <Box sx={{ mt: 2 }}>
+                    
+                    {product.bannerTitle && (
+                      <Typography variant="subtitle2" color="primary" sx={{ mb: 1 }}>
+                        <strong>Banner:</strong> {product.bannerTitle}
+                      </Typography>
+                    )}
+                    
+                    {product.introduction && (
+                      <Box sx={{ mb: 2 }}>
                         <Typography variant="subtitle2" gutterBottom>
-                          Additional Images:
+                          Introduction:
                         </Typography>
-                        <Stack direction="row" flexWrap="wrap" gap={1}>
-                          {product.multipleImages.map((img, idx) => (
-                            <Box
-                              key={idx}
-                              component="img"
-                              src={`https://agxbackend.onrender.com${img}`}
-                              alt={`Additional ${idx}`}
-                              sx={{
-                                width: 70,
-                                height: 70,
-                                objectFit: "cover",
-                                borderRadius: 2,
-                                border: `1px solid ${theme.palette.divider}`,
-                              }}
-                            />
-                          ))}
-                        </Stack>
+                        {renderBulletPoints(product.introduction)}
+                      </Box>
+                    )}
+                    
+                    {product.productRange && (
+                      <Box sx={{ mb: 2 }}>
+                        <Typography variant="subtitle2" gutterBottom>
+                          Product Range:
+                        </Typography>
+                        {renderBulletPoints(product.productRange)}
+                      </Box>
+                    )}
+                    
+                    {product.additionalInfo && (
+                      <Box sx={{ mb: 2 }}>
+                        <Typography variant="subtitle2" gutterBottom>
+                          Additional Info:
+                        </Typography>
+                        {renderBulletPoints(product.additionalInfo)}
+                      </Box>
+                    )}
+                    
+                    {product.whyChooseUs && (
+                      <Box sx={{ mb: 2 }}>
+                        <Typography variant="subtitle2" gutterBottom>
+                          Why Choose Us:
+                        </Typography>
+                        {renderBulletPoints(product.whyChooseUs)}
+                      </Box>
+                    )}
+                    
+                    {product.description && (
+                      <Box sx={{ mb: 1 }}>
+                        <Typography variant="subtitle2" gutterBottom>
+                          Description:
+                        </Typography>
+                        {renderBulletPoints(product.description)}
                       </Box>
                     )}
                   </CardContent>
