@@ -33,10 +33,14 @@ const Footer = () => {
                 { name: t('nav.contactUs'), path: "/contact" },
               ].map(({ name, path }, i) => (
                 <li key={i}>
-                  <Link to={path} className="hover:text-pink-600 transition-colors duration-200">
-                    {name}
-                  </Link>
-                </li>
+  <Link
+    to={path}
+    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+    className="hover:text-pink-600 transition-colors duration-200"
+  >
+    {name}
+  </Link>
+</li>
               ))}
             </ul>
           </div>
