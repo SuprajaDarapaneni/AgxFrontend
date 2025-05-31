@@ -78,7 +78,7 @@ const ProductDetails = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 bg-white shadow-lg rounded-lg my-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-          {/* Left side: Images + Why Choose Us */}
+          {/* Left side: Images */}
           <div className="flex flex-col items-center">
             {mainImage && (
               <motion.img
@@ -116,7 +116,8 @@ const ProductDetails = () => {
               </div>
             )}
 
-            {/* Why Choose Us section below images */}
+            {/* Why Choose Us section below images - COMMENTED OUT */}
+            {/*
             <div className="mt-8 w-full max-w-lg">
               <h2 className="text-2xl font-semibold text-gray-900 mb-3">Why Choose Us</h2>
               {product.whyChooseUs ? (
@@ -125,9 +126,10 @@ const ProductDetails = () => {
                 <p className="text-gray-500 italic">No additional info.</p>
               )}
             </div>
+            */}
           </div>
 
-          {/* Right side: Product Details (without Why Choose Us) */}
+          {/* Right side: Product Details */}
           <div className="space-y-8">
             {product.bannerTitle && (
               <h1 className="text-4xl font-extrabold text-gray-900 leading-tight">
@@ -141,7 +143,7 @@ const ProductDetails = () => {
             )}
             {product.intro && <p className="text-gray-800 text-lg leading-relaxed">{product.intro}</p>}
 
-            {/* Collapsible Sections without Why Choose Us */}
+            {/* Collapsible Sections */}
             <ProductDetailSection title="Introduction" content={product.introduction} />
             <ProductDetailSection title="Product Range" content={product.productRange} />
             <ProductDetailSection title="Additional Info" content={product.additionalInfo} />
