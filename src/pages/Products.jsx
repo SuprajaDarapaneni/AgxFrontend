@@ -15,7 +15,13 @@ const Products = () => {
       try {
         setLoading(true);
         const res = await axios.get("https://agxbackend.onrender.com/client/getproducts");
-        setProducts(res.data);
+
+        // --- THE ONLY CHANGE IS HERE: SORTING LOGIC ---
+        // Sort products by creation date in ASCENDING order (oldest first, last added last)
+        const sortedProducts = res.data.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+        setProducts(sortedProducts);
+        // --- END OF CHANGE ---
+
       } catch (err) {
         console.error("Error fetching products:", err);
       } finally {

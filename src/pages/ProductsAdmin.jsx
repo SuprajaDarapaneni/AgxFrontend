@@ -33,7 +33,7 @@ const ProductAdmin = () => {
     () => ({
       toggleColorMode: () => setMode((prev) => (prev === "light" ? "dark" : "light")),
     }),
-    []
+    [],
   );
 
   const theme = useMemo(
@@ -69,7 +69,7 @@ const ProductAdmin = () => {
           },
         },
       }),
-    [mode]
+    [mode],
   );
 
   const handleDrawerToggle = () => {
@@ -95,6 +95,9 @@ const ProductAdmin = () => {
   });
   const [existingCoverImageUrl, setExistingCoverImageUrl] = useState("");
   const [existingMultipleImageUrls, setExistingMultipleImageUrls] = useState([]);
+  // The expandedProducts state is less critical now as CardContent itself will scroll,
+  // but we can keep it for an initial 'truncated' view if desired.
+  const [expandedProducts, setExpandedProducts] = useState({});
 
   useEffect(() => {
     fetchProducts();
@@ -103,24 +106,27 @@ const ProductAdmin = () => {
   const fetchProducts = async () => {
     try {
       const res = await axios.get("https://agxbackend.onrender.com/client/getproducts");
-      setProducts(res.data);
+      // Sort products by creation date in ASCENDING order (oldest first, last added last)
+      // Assuming your product objects have a 'createdAt' field.
+      const sortedProducts = res.data.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+      setProducts(sortedProducts);
     } catch (error) {
       console.error("Error fetching products:", error);
     }
   };
 
   const resetForm = () => {
-    setFormData({ 
-      name: "", 
-      category: "", 
+    setFormData({
+      name: "",
+      category: "",
       description: "",
       bannerTitle: "",
       introduction: "",
       productRange: "",
       additionalInfo: "",
       whyChooseUs: "",
-      coverImage: null, 
-      multipleImages: [] 
+      coverImage: null,
+      multipleImages: [],
     });
     setIsEditMode(false);
     setEditingProductId(null);
@@ -157,7 +163,7 @@ const ProductAdmin = () => {
     });
     setExistingCoverImageUrl(product.coverImage ? `https://agxbackend.onrender.com${product.coverImage}` : "");
     setExistingMultipleImageUrls(
-      product.multipleImages ? product.multipleImages.map((img) => `https://agxbackend.onrender.com${img}`) : []
+      product.multipleImages ? product.multipleImages.map((img) => `https://agxbackend.onrender.com${img}`) : [],
     );
 
     setIsEditMode(true);
@@ -199,47 +205,74 @@ const ProductAdmin = () => {
     }
   };
 
-  const renderBulletPoints = (text) => {
+  // This function is still useful for initial truncation if desired,
+  // but the primary scroll will now be on the CardContent itself.
+  const toggleExpand = (productId) => {
+    setExpandedProducts((prev) => ({
+      ...prev,
+      [productId]: !prev[productId],
+    }));
+  };
+
+  // Modified renderContentWithToggle to provide an initial truncated view,
+  // but rely on parent container's scroll for full content.
+  const renderContentWithToggle = (text, productId, initialLineLimit = 2) => {
     if (!text) return null;
-    
-    // Check if text is already in bullet point format
-    if (text.includes('•') || text.includes('-')) {
-      return (
-        <ul style={{ paddingLeft: 20, marginTop: 6, marginBottom: 10 }}>
-          {text.split('\n').filter(line => line.trim()).map((line, idx) => (
-            <li key={idx} style={{ marginBottom: 4, lineHeight: 1.5 }}>
-              {line.trim().replace(/^[•-]\s*/, '')}
-            </li>
-          ))}
-        </ul>
-      );
+
+    const lines = text.split("\n").filter(line => line.trim());
+    const isExpanded = expandedProducts[productId];
+    const needsToggle = lines.length > initialLineLimit;
+
+    const displayLines = needsToggle && !isExpanded ? lines.slice(0, initialLineLimit) : lines;
+
+    const renderList = (items, ordered = false) => {
+        const ListTag = ordered ? 'ol' : 'ul';
+        return (
+            <ListTag style={{ paddingLeft: 20, marginTop: 6, marginBottom: 10 }}>
+                {items.map((line, idx) => (
+                    <li key={idx} style={{ marginBottom: 4, lineHeight: 1.5 }}>
+                        {line.trim().replace(/^[•-]\s*|^(\d+\.)\s*/, "")}
+                    </li>
+                ))}
+            </ListTag>
+        );
+    };
+
+    let contentToRender;
+    if (text.includes("•") || text.includes("-")) {
+        contentToRender = renderList(displayLines, false);
+    } else if (text.match(/^\d+\./m)) {
+        contentToRender = renderList(displayLines, true);
+    } else {
+        // Fallback for plain text, truncate by words/characters
+        const words = text.split(/\s+/);
+        const displayContent = needsToggle && !isExpanded && words.length > 30 // More words than lines
+            ? words.slice(0, 30).join(" ") + "..."
+            : text;
+        contentToRender = (
+            <Typography variant="body2" sx={{ whiteSpace: "pre-line" }}>
+                {displayContent}
+            </Typography>
+        );
     }
-    
-    // Check if text is in numbered list format
-    if (text.match(/^\d+\./m)) {
-      return (
-        <ol style={{ paddingLeft: 20, marginTop: 6, marginBottom: 10 }}>
-          {text.split('\n').filter(line => line.trim()).map((line, idx) => (
-            <li key={idx} style={{ marginBottom: 4, lineHeight: 1.5 }}>
-              {line.trim().replace(/^\d+\.\s*/, '')}
-            </li>
-          ))}
-        </ol>
-      );
-    }
-    
-    // Default to regular text
+
     return (
-      <Typography variant="body2" sx={{ whiteSpace: 'pre-line' }}>
-        {text}
-      </Typography>
+        <>
+            {contentToRender}
+            {needsToggle && (
+                <Button size="small" onClick={() => toggleExpand(productId)} sx={{ p: 0, minWidth: 0, textTransform: "none" }}>
+                    {isExpanded ? "Show Less" : "View More"}
+                </Button>
+            )}
+        </>
     );
   };
+
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Box sx={{ display: "flex", height: "100vh", bgcolor: "background.default" }}>
+      <Box sx={{ display: "flex", height: "100vh", bgcolor: "background.default", overflow: "hidden" }}>
         <Topbar onDrawerToggle={handleDrawerToggle} colorMode={colorMode} mode={mode} drawerWidth={drawerWidth} />
         <Sidebar mobileOpen={mobileOpen} onDrawerToggle={handleDrawerToggle} drawerWidth={drawerWidth} />
 
@@ -251,6 +284,7 @@ const ProductAdmin = () => {
             mt: "64px",
             width: { sm: `calc(100% - ${drawerWidth}px)` },
             overflowY: "auto",
+            height: "calc(100vh - 64px)",
           }}
         >
           <Typography variant="h4" gutterBottom sx={{ fontWeight: 700, mb: 3 }}>
@@ -266,17 +300,17 @@ const ProductAdmin = () => {
               } else {
                 setShowForm(!showForm);
                 setIsEditMode(false);
-                setFormData({ 
-                  name: "", 
-                  category: "", 
+                setFormData({
+                  name: "",
+                  category: "",
                   description: "",
                   bannerTitle: "",
                   introduction: "",
                   productRange: "",
                   additionalInfo: "",
                   whyChooseUs: "",
-                  coverImage: null, 
-                  multipleImages: [] 
+                  coverImage: null,
+                  multipleImages: [],
                 });
                 setExistingCoverImageUrl("");
                 setExistingMultipleImageUrls([]);
@@ -301,6 +335,8 @@ const ProductAdmin = () => {
                 borderRadius: 3,
                 boxShadow: 3,
                 backgroundColor: theme.palette.background.paper,
+                maxHeight: '80vh',
+                overflowY: 'auto'
               }}
             >
               <Typography variant="h6" sx={{ fontWeight: 700 }}>
@@ -315,7 +351,7 @@ const ProductAdmin = () => {
                 fullWidth
                 sx={{ bgcolor: mode === "light" ? "white" : "grey.900" }}
               />
-              
+
               <TextField
                 label="Category"
                 value={formData.category}
@@ -324,7 +360,7 @@ const ProductAdmin = () => {
                 fullWidth
                 sx={{ bgcolor: mode === "light" ? "white" : "grey.900" }}
               />
-              
+
               <TextField
                 label="Banner Title"
                 value={formData.bannerTitle}
@@ -335,7 +371,7 @@ const ProductAdmin = () => {
                 sx={{ bgcolor: mode === "light" ? "white" : "grey.900" }}
                 helperText="Short catchy title for the banner (e.g., 'Powering Industry with Precision')"
               />
-              
+
               <TextField
                 label="Introduction"
                 multiline
@@ -346,7 +382,7 @@ const ProductAdmin = () => {
                 sx={{ bgcolor: mode === "light" ? "white" : "grey.900" }}
                 helperText="Brief introduction about the product category"
               />
-              
+
               <TextField
                 label="Product Range"
                 multiline
@@ -357,7 +393,7 @@ const ProductAdmin = () => {
                 sx={{ bgcolor: mode === "light" ? "white" : "grey.900" }}
                 helperText="List of products in this category. Use bullet points (•) or numbers (1.) for lists"
               />
-              
+
               <TextField
                 label="Additional Information"
                 multiline
@@ -367,7 +403,7 @@ const ProductAdmin = () => {
                 fullWidth
                 sx={{ bgcolor: mode === "light" ? "white" : "grey.900" }}
               />
-              
+
               <TextField
                 label="Why Choose Us"
                 multiline
@@ -378,7 +414,7 @@ const ProductAdmin = () => {
                 sx={{ bgcolor: mode === "light" ? "white" : "grey.900" }}
                 helperText="List the key benefits. Use bullet points (•) for better formatting"
               />
-              
+
               <TextField
                 label="Description"
                 multiline
@@ -459,6 +495,7 @@ const ProductAdmin = () => {
 
                 {formData.multipleImages.length > 0 && (
                   <Stack direction="row" flexWrap="wrap" gap={1} mt={1}>
+                    <Typography variant="body2" width="100%" mb={1}>New Additional Image Previews:</Typography>
                     {formData.multipleImages.map((file, idx) => (
                       <Box
                         key={idx}
@@ -480,6 +517,7 @@ const ProductAdmin = () => {
 
                 {isEditMode && existingMultipleImageUrls.length > 0 && formData.multipleImages.length === 0 && (
                   <Stack direction="row" flexWrap="wrap" gap={1} mt={1}>
+                    <Typography variant="body2" width="100%" mb={1} color="text.secondary">Current Additional Images:</Typography>
                     {existingMultipleImageUrls.map((url, index) => (
                       <Box
                         component="img"
@@ -530,7 +568,7 @@ const ProductAdmin = () => {
                 <Card
                   key={product._id}
                   sx={{
-                    width: 360,
+                    width: { xs: '100%', sm: 300, md: 280 },
                     borderRadius: 3,
                     boxShadow: 4,
                     transition: "transform 0.3s ease, box-shadow 0.3s ease",
@@ -544,7 +582,7 @@ const ProductAdmin = () => {
                 >
                   <CardMedia
                     component="img"
-                    height="200"
+                    height="160"
                     image={
                       product.coverImage
                         ? `https://agxbackend.onrender.com${product.coverImage}`
@@ -553,62 +591,88 @@ const ProductAdmin = () => {
                     alt={product.name}
                     sx={{ objectFit: "cover", borderTopLeftRadius: 12, borderTopRightRadius: 12 }}
                   />
-                  <CardContent sx={{ flexGrow: 1 }}>
-                    <Typography variant="h6" gutterBottom sx={{ fontWeight: 700, mb: 1 }}>
+                  <CardContent
+                    sx={{
+                      flexGrow: 1,
+                      pb: 1,
+                      // --- IMPORTANT CHANGES FOR CARD HEIGHT AND SCROLL ---
+                      maxHeight: 220, // Set a fixed maximum height for content area
+                      overflowY: 'auto', // Enable scrolling within the card content
+                      scrollbarWidth: 'thin', // For Firefox
+                      '&::-webkit-scrollbar': {
+                        width: '4px',
+                      },
+                      '&::-webkit-scrollbar-track': {
+                        background: '#f1f1f1',
+                      },
+                      '&::-webkit-scrollbar-thumb': {
+                        background: '#888',
+                        borderRadius: '2px',
+                      },
+                      '&::-webkit-scrollbar-thumb:hover': {
+                        background: '#555',
+                      },
+                      // ---------------------------------------------------
+                    }}
+                  >
+                    <Typography variant="h6" gutterBottom sx={{ fontWeight: 700, mb: 1, lineHeight: 1.2 }}>
                       {product.name}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                    <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
                       <strong>Category:</strong> {product.category}
                     </Typography>
-                    
+
                     {product.bannerTitle && (
-                      <Typography variant="subtitle2" color="primary" sx={{ mb: 1 }}>
-                        <strong>Banner:</strong> {product.bannerTitle}
-                      </Typography>
+                      <Box sx={{ mb: 1 }}>
+                          <Typography variant="subtitle2" color="primary" sx={{ display: 'inline' }}>
+                            <strong>Banner:</strong>
+                          </Typography>{" "}
+                        {renderContentWithToggle(product.bannerTitle, `${product._id}-bannerTitle`, 1)}
+                      </Box>
                     )}
-                    
+
                     {product.introduction && (
-                      <Box sx={{ mb: 2 }}>
-                        <Typography variant="subtitle2" gutterBottom>
+                      <Box sx={{ mb: 1 }}>
+                        <Typography variant="subtitle2" gutterBottom sx={{ mb: 0.5 }}>
                           Introduction:
                         </Typography>
-                        {renderBulletPoints(product.introduction)}
+                        {renderContentWithToggle(product.introduction, `${product._id}-introduction`)}
                       </Box>
                     )}
-                    
+
                     {product.productRange && (
-                      <Box sx={{ mb: 2 }}>
-                        <Typography variant="subtitle2" gutterBottom>
+                      <Box sx={{ mb: 1 }}>
+                        <Typography variant="subtitle2" gutterBottom sx={{ mb: 0.5 }}>
                           Product Range:
                         </Typography>
-                        {renderBulletPoints(product.productRange)}
+                        {renderContentWithToggle(product.productRange, `${product._id}-productRange`)}
                       </Box>
                     )}
-                    
+
                     {product.additionalInfo && (
-                      <Box sx={{ mb: 2 }}>
-                        <Typography variant="subtitle2" gutterBottom>
+                      <Box sx={{ mb: 1 }}>
+                        <Typography variant="subtitle2" gutterBottom sx={{ mb: 0.5 }}>
                           Additional Info:
                         </Typography>
-                        {renderBulletPoints(product.additionalInfo)}
+                        {renderContentWithToggle(product.additionalInfo, `${product._id}-additionalInfo`)}
                       </Box>
                     )}
-                    
+
                     {product.whyChooseUs && (
-                      <Box sx={{ mb: 2 }}>
-                        <Typography variant="subtitle2" gutterBottom>
+                      <Box sx={{ mb: 1 }}>
+                        <Typography variant="subtitle2" gutterBottom sx={{ mb: 0.5 }}>
                           Why Choose Us:
                         </Typography>
-                        {renderBulletPoints(product.whyChooseUs)}
+                        {renderContentWithToggle(product.whyChooseUs, `${product._id}-whyChooseUs`)}
                       </Box>
                     )}
-                    
+
                     {product.description && (
                       <Box sx={{ mb: 1 }}>
-                        <Typography variant="subtitle2" gutterBottom>
+                        <Typography variant="subtitle2" gutterBottom sx={{ mb: 0.5 }}>
                           Description:
                         </Typography>
-                        {renderBulletPoints(product.description)}
+                        {renderContentWithToggle(product.description, `${product._id}-description`)}
                       </Box>
                     )}
                   </CardContent>

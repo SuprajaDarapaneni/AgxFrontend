@@ -98,9 +98,14 @@ const BuySellForm = () => {
   };
 
   return (
-    <div className="min-h-screen  bg-gradient-to-r from-pink-100 via-pink-50 to-pink-100 flex items-center justify-center px-10 py-0 ">
+    <div className="min-h-screen bg-gradient-to-r from-pink-100 via-pink-50 to-pink-100 flex items-center justify-center px-10 py-0 ">
       <div className="max-w-xl w-full bg-white p-0 rounded-3xl shadow-xl border border-pink-200 space-y-6">
-        <form onSubmit={handleSubmit} className="space-y-6 ">
+        <form onSubmit={handleSubmit} className="space-y-6 px-8 py-10">
+
+          {/* Fixed Heading */}
+          <h2 className="text-3xl font-bold text-pink-600 mb-8 text-center">
+            Buy/Sell Request Form
+          </h2>
 
           {/* Buy or Sell */}
           <div className="flex justify-center space-x-6">
@@ -187,7 +192,7 @@ const BuySellForm = () => {
             </select>
           </div>
 
-          {/* Message Textarea */}
+          {/* Message Textarea (no optional note below) */}
           <div>
             <label className="block text-pink-600 font-medium mb-1">{t('form.message')}</label>
             <textarea
@@ -198,9 +203,6 @@ const BuySellForm = () => {
               rows={4}
               className="w-full border border-pink-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-pink-400 focus:outline-none resize-none"
             />
-            <p className="mt-1 text-sm text-pink-500 italic">
-              {t('form.messageNote')}
-            </p>
           </div>
 
           {/* Submit Button */}

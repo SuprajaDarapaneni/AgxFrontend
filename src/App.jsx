@@ -7,6 +7,7 @@ import {
   Navigate,
 } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -30,7 +31,7 @@ const ProductsAdmin = lazy(() => import('./pages/ProductsAdmin'));
 const AdminReview = lazy(() => import('./pages/ReviewsPage'));
 const AdminBlog = lazy(() => import('./pages/BlogsPages'));
 
-// Authentication hook (reads from localStorage)
+// Authentication hook
 const useAuth = () => {
   const isLoggedIn = localStorage.getItem('isAdminLoggedIn') === 'true';
   return { isLoggedIn };
@@ -45,6 +46,7 @@ const ProtectedRoute = ({ children }) => {
   return children;
 };
 
+// Language Switcher
 const LanguageSwitcher = () => {
   const { i18n } = useTranslation();
 
@@ -54,25 +56,31 @@ const LanguageSwitcher = () => {
 
   return (
     <div style={{ position: 'fixed', top: 10, right: 10, zIndex: 1000 }}>
-      <button onClick={() => changeLanguage('en')} style={{ marginRight: 10 }}>
-        
-      </button>
-      <button onClick={() => changeLanguage('fr')}></button>
+      <button onClick={() => changeLanguage('en')} style={{ marginRight: 10 }}>EN</button>
+      <button onClick={() => changeLanguage('fr')}>FR</button>
     </div>
   );
 };
 
+// App Content
 const AppContent = () => {
   const location = useLocation();
   const isAdminRoute = location.pathname.toLowerCase().startsWith('/admin');
 
   return (
     <div className="min-h-screen flex flex-col">
+      <Helmet>
+        <title>AGX Global</title>
+        <meta name="description" content="Discover AGX Global's international import/export business, offering high-quality products and exceptional services worldwide." />
+        <meta name="keywords" content="AGX Global, import, export, products, services, international trade" />
+        <meta name="robots" content="index, follow" />
+      </Helmet>
+
       {!isAdminRoute && <Header />}
       <LanguageSwitcher />
 
       <main className="flex-grow pt-24 px-0">
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<div className="text-center text-gray-500 py-10">Loading page...</div>}>
           <Routes>
             {/* Frontend Routes */}
             <Route path="/" element={<Home />} />
@@ -120,6 +128,17 @@ const AppContent = () => {
                 </ProtectedRoute>
               }
             />
+
+            {/* 404 Route */}
+            <Route path="*" element={
+              <>
+                <Helmet>
+                  <title>404 - Page Not Found</title>
+                  <meta name="robots" content="noindex" />
+                </Helmet>
+                <div className="text-center py-20 text-red-500">404 - Page Not Found</div>
+              </>
+            } />
           </Routes>
         </Suspense>
       </main>
@@ -130,10 +149,13 @@ const AppContent = () => {
   );
 };
 
+// App wrapper with SEO HelmetProvider
 const App = () => (
-  <Router>
-    <AppContent />
-  </Router>
+  <HelmetProvider>
+    <Router>
+      <AppContent />
+    </Router>
+  </HelmetProvider>
 );
 
 export default App;
