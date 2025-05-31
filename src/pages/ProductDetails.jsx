@@ -183,7 +183,7 @@ const ProductDetails = () => {
                 {product.category}
               </span>
               {/* Using ReadMore for the intro as well for consistency */}
-              <ReadMore maxChars={150}>
+              <ReadMore maxChars={5}>
                 {product.introduction || `Discover the excellence of our ${product.name}, a premium solution in the ${product.category} sector. Meticulously engineered for superior performance and durability.`}
               </ReadMore>
             </section>
@@ -191,21 +191,21 @@ const ProductDetails = () => {
             {product.description && (
               <section id="features" className="bg-indigo-50 p-6 rounded-xl shadow-sm border border-indigo-200">
                 <h2 className="text-2xl font-bold text-gray-800 mb-4">Key Features</h2> {/* Consistent heading style */}
-                <ReadMore maxChars={250}>{product.description}</ReadMore>
+                <ReadMore maxChars={5}>{product.description}</ReadMore>
               </section>
             )}
 
             {product.whyChooseUsContent && (
               <section id="why-us" className="bg-pink-50 p-6 rounded-xl shadow-sm border border-pink-200">
                 <h2 className="text-2xl font-bold text-gray-800 mb-4">Why Choose Us</h2>
-                <ReadMore maxChars={250}>{product.whyChooseUsContent}</ReadMore>
+                <ReadMore maxChars={2}>{product.whyChooseUsContent}</ReadMore>
               </section>
             )}
 
             {product.interiorContent && (
               <section id="interior" className="bg-gray-50 p-6 rounded-xl shadow-sm border border-gray-200">
                 <h2 className="text-2xl font-bold text-gray-800 mb-4">Interior Details</h2>
-                <ReadMore maxChars={300}>{product.interiorContent}</ReadMore>
+                <ReadMore maxChars={1}>{product.interiorContent}and this is a {product.productRange}</ReadMore>
               </section>
             )}
 
