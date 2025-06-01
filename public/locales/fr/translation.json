@@ -66,7 +66,20 @@
     "blog": "Blog",
     "contactUs": "Contactez-nous"
   },
-
+    "aboutus.whyChooseUsTitle": "Pourquoi nous choisir",
+    "aboutus.whyChooseUs.qualityTitle": "Basé au Canada, axé sur la qualité",
+    "aboutus.whyChooseUs.qualityContent": "En tant qu'importateur et distributeur basé au Canada, nous veillons à ce que tous les produits répondent aux normes, réglementations et attentes des clients canadiens.",
+    "aboutus.whyChooseUs.directSourcingTitle": "Approvisionnement direct auprès de fabricants mondiaux",
+    "aboutus.whyChooseUs.directSourcingContent": "Nous importons des produits de qualité supérieure auprès de producteurs mondiaux fiables pour vous offrir les meilleurs prix sans compromettre la qualité.",
+    "aboutus.whyChooseUs.distributionNetworkTitle": "Réseau de distribution rationalisé",
+    "aboutus.whyChooseUs.distributionNetworkContent": "Grâce à une chaîne d'approvisionnement croissante dans les principales villes canadiennes, nous assurons une livraison à temps, la disponibilité des stocks et un soutien logistique local.",
+    "aboutus.whyChooseUs.complianceTitle": "Conformité réglementaire et certifications",
+    "aboutus.whyChooseUs.complianceContent": "Tous les produits sont importés conformément aux protocoles de conformité canadiens — y compris l'ACIA, Santé Canada et d'autres certifications requises.",
+    "aboutus.whyChooseUs.b2bSupportTitle": "Soutien B2B personnalisé",
+    "aboutus.whyChooseUs.b2bSupportContent": "Que vous soyez un détaillant, un grossiste ou un acheteur B2B, nous offrons des quantités de commande flexibles, un soutien à la marque et un approvisionnement constant.",
+    "aboutus.whyChooseUs.customerCentricTitle": "Service axé sur le client",
+    "aboutus.whyChooseUs.customerCentricContent": "Des demandes de renseignements au service après-vente, nous valorisons la transparence, la confiance et les relations à long terme avec tous nos clients."
+ ,
   "footer": {
     "companyDescription": "AGX International est un fournisseur mondial de solutions logistiques et commerciales, offrant des services complets de transit de marchandises, de dédouanement et de gestion de la chaîne d'approvisionnement.",
    

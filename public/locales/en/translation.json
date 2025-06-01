@@ -111,6 +111,21 @@
     "rightsReserved": "All rights reserved."
   }
 ,
+
+  "aboutus.whyChooseUsTitle": "Why Choose Us",
+  "aboutus.whyChooseUs.qualityTitle": "Based in Canada, Focused on Quality",
+  "aboutus.whyChooseUs.qualityContent": "As a Canada-based importer and distributor, we ensure all products meet Canadian standards, regulations, and customer expectations.",
+  "aboutus.whyChooseUs.directSourcingTitle": "Direct Sourcing from Global Manufacturers",
+  "aboutus.whyChooseUs.directSourcingContent": "We import premium-quality products from reliable global producers to bring you the best prices without compromising on quality.",
+  "aboutus.whyChooseUs.distributionNetworkTitle": "Streamlined Distribution Network",
+  "aboutus.whyChooseUs.distributionNetworkContent": "With a growing supply chain across major Canadian cities, we ensure on-time delivery, inventory availability, and local warehousing support.",
+  "aboutus.whyChooseUs.complianceTitle": "Regulatory Compliance & Certifications",
+  "aboutus.whyChooseUs.complianceContent": "All products are imported following Canadian compliance protocols — including CFIA, Health Canada, and other required certifications.",
+  "aboutus.whyChooseUs.b2bSupportTitle": "Customized B2B Support",
+  "aboutus.whyChooseUs.b2bSupportContent": "Whether you're a retailer, wholesaler, or B2B buyer, we offer flexible order quantities, branding support, and consistent supply.",
+  "aboutus.whyChooseUs.customerCentricTitle": "Customer-Centric Service",
+  "aboutus.whyChooseUs.customerCentricContent": "From inquiries to after-sales support, we value transparency, trust, and long-term relationships with all our clients."
+,
   "title": "Our Premium Services",
   "intro": "At {{company}}, we specialize in providing world-class import & export solutions that open new horizons for your business globally.",
   "services": [

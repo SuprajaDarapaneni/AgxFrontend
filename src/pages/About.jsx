@@ -2,8 +2,20 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet';
-import globalBusinessImage from '../assets/about.jpeg';
-import '../i18n';
+
+// Import your actual images here:
+import globalBusinessImage from '../assets/about.jpeg'; // Existing image
+import founderImage from '../assets/badge.png'; // <--- ASSUME you have an image for Anudeep
+import qualityImage from '../assets/badge.png'; // <--- REPLACE with your actual image path
+import directSourcingImage from '../assets/customer-service.PNG'; // <--- REPLACE with your actual image path
+import distributionNetworkImage from '../assets/networking.PNG'; // <--- REPLACE with your actual image path
+import complianceImage from '../assets/networking1.png'; // <--- REPLACE with your actual image path
+import b2bSupportImage from '../assets/patent_9259111.png'; // <--- REPLACE with your actual image path
+import customerCentricImage from '../assets/process_12112367.png'; // <--- REPLACE with your actual image path
+
+
+
+import '../i18n'; // Assuming this correctly sets up i18next
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -25,54 +37,53 @@ const About = () => {
 
   return (
     <section className="bg-gradient-to-b from-pink-50 to-white text-black min-h-screen flex flex-col items-center py-20">
-    <Helmet>
-  <html lang="en" />
-  <title>About AGX International | Trusted Logistics Company</title>
-  <meta name="description" content="Learn about AGX International, our mission, vision, and the team driving global logistics innovation." />
-  <meta name="keywords" content="AGX International, import export company, global trade, founder Anudeep, our mission, our values" />
-  <meta name="robots" content="index, follow" />
+      <Helmet>
+        <html lang="en" />
+        <title>About AGX International | Trusted Logistics Company</title>
+        <meta name="description" content="Learn about AGX International, our mission, vision, and the team driving global logistics innovation." />
+        <meta name="keywords" content="AGX International, import export company, global trade, founder Anudeep, our mission, our values" />
+        <meta name="robots" content="index, follow" />
 
-  {/* Open Graph */}
-  <meta property="og:title" content="About AGX International | Trusted Logistics Company" />
-  <meta property="og:description" content="Learn about AGX International – a global import-export company founded in 2022, driven by innovation, trust, and a commitment to excellence." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://www.agx-international.com/about" />
-  <meta property="og:image" content="https://www.agx-international.com/images/social-about.jpg" />
+        {/* Open Graph */}
+        <meta property="og:title" content="About AGX International | Trusted Logistics Company" />
+        <meta property="og:description" content="Learn about AGX International – a global import-export company founded in 2022, driven by innovation, trust, and a commitment to excellence." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.agx-international.com/about" />
+        <meta property="og:image" content="https://www.agx-international.com/images/social-about.jpg" />
 
-  {/* Twitter Card */}
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="About AGX International | Trusted Logistics Company" />
-  <meta name="twitter:description" content="Learn about AGX International – a global import-export company founded in 2022, driven by innovation, trust, and a commitment to excellence." />
-  <meta name="twitter:image" content="https://www.agx-international.com/images/social-about.jpg" />
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="About AGX International | Trusted Logistics Company" />
+        <meta name="twitter:description" content="Learn about AGX International – a global import-export company founded in 2022, driven by innovation, trust, and a commitment to excellence." />
+        <meta name="twitter:image" content="https://www.agx-international.com/images/social-about.jpg" />
 
-  {/* JSON-LD Structured Data */}
-  <script type="application/ld+json">
-    {JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      name: "AGX International",
-      url: "https://www.agx-international.com",
-      logo: {
-        "@type": "ImageObject",
-        url: "https://www.agx-international.com/images/logo.png",
-        width: 250,
-        height: 60,
-      },
-      founder: {
-        "@type": "Person",
-        name: "Anudeep",
-      },
-      foundingDate: "2022-07-10",
-      description: "Global import-export company driven by innovation and trust.",
-      sameAs: [
-        "https://www.facebook.com/yourpage",
-        "https://twitter.com/yourprofile",
-        "https://www.linkedin.com/company/yourcompany"
-      ]
-    })}
-  </script>
-</Helmet>
-
+        {/* JSON-LD Structured Data */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            name: "AGX International",
+            url: "https://www.agx-international.com",
+            logo: {
+              "@type": "ImageObject",
+              url: "https://www.agx-international.com/images/logo.png",
+              width: 250,
+              height: 60,
+            },
+            founder: {
+              "@type": "Person",
+              name: "Anudeep",
+            },
+            foundingDate: "2022-07-10",
+            description: "Global import-export company driven by innovation and trust.",
+            sameAs: [
+              "https://www.facebook.com/yourpage", // Replace with actual social links
+              "https://twitter.com/yourprofile",   // Replace with actual social links
+              "https://www.linkedin.com/company/yourcompany" // Replace with actual social links
+            ]
+          })}
+        </script>
+      </Helmet>
 
       <main aria-label={`About ${company}`} className="container mx-auto max-w-7xl">
         <motion.h1
@@ -80,7 +91,7 @@ const About = () => {
           variants={fadeInUp}
           initial="hidden"
           animate="visible"
-          custom={1}
+          custom={1} // Start animation order
         >
           {t('aboutus.title')}
         </motion.h1>
@@ -90,7 +101,7 @@ const About = () => {
           variants={fadeInUp}
           initial="hidden"
           animate="visible"
-          custom={2}
+          custom={2} // Next in animation order
         >
           <div className="w-32 h-1 bg-pink-300 rounded-full animate-pulse"></div>
         </motion.div>
@@ -100,7 +111,7 @@ const About = () => {
           variants={fadeInUp}
           initial="hidden"
           animate="visible"
-          custom={3}
+          custom={3} // Next in animation order
         >
           <div className="max-w-xl mx-auto md:mx-0 text-center md:text-left space-y-6">
             <p className="text-lg leading-relaxed font-semibold text-gray-800">
@@ -129,7 +140,7 @@ const About = () => {
           variants={fadeInUp}
           initial="hidden"
           animate="visible"
-          custom={4}
+          custom={4} // Next in animation order
         >
           <h2 className="text-3xl sm:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-600 mb-10 text-center tracking-tight">
             ✨ {t('aboutus.ourStoryTitle')} ✨
@@ -138,8 +149,40 @@ const About = () => {
             {t('aboutus.ourStoryContent', { company, date: foundedDate })}
           </p>
         </motion.article>
+{/* 
+    
+        <motion.article
+          className="bg-white rounded-3xl p-12 max-w-5xl mx-auto mb-24 shadow-xl border border-pink-100"
+          variants={fadeInUp}
+          initial="hidden"
+          animate="visible"
+          custom={5} // Next in animation order
+        >
+          <h2 className="text-3xl sm:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600 mb-10 text-center tracking-tight">
+            🎯 {t('aboutus.missionVisionTitle')} 🌟
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+              <h3 className="text-2xl font-bold text-blue-700 mb-4 text-center md:text-left">
+                {t('aboutus.missionTitle')}
+              </h3>
+              <p className="leading-relaxed text-gray-700 text-lg">
+                {t('aboutus.missionContent')}
+              </p>
+            </div>
+            <div>
+              <h3 className="text-2xl font-bold text-blue-700 mb-4 text-center md:text-left">
+                {t('aboutus.visionTitle')}
+              </h3>
+              <p className="leading-relaxed text-gray-700 text-lg">
+                {t('aboutus.visionContent')}
+              </p>
+            </div>
+          </div>
+        </motion.article> */}
 
-        {/* Founder Section */}
+       
+
         <motion.article
           className="bg-gradient-to-br from-pink-50 to-white rounded-3xl p-12 max-w-5xl mx-auto mb-24 shadow-xl border border-pink-200"
           variants={fadeInUp}
@@ -178,13 +221,158 @@ const About = () => {
           </div>
         </motion.article>
 
+ {/* NEW: Why Choose Us Section */}
+        <motion.article
+          className="bg-gradient-to-br from-purple-50 to-white rounded-3xl p-12 max-w-5xl mx-auto mb-24 shadow-xl border border-purple-200"
+          variants={fadeInUp}
+          initial="hidden"
+          animate="visible"
+          custom={6} // Next in animation order
+        >
+          <h2 className="text-4xl font-extrabold text-purple-600 mb-12 text-center drop-shadow-md tracking-wide">
+            {t('aboutus.whyChooseUsTitle')}
+          </h2>
+          <div className="space-y-10">
+            {/* Based in Canada, Focused on Quality */}
+            <motion.div
+              variants={fadeInUp}
+              custom={6.1} // Sub-animation for this section
+              className="flex flex-col md:flex-row items-center md:items-start gap-6"
+            >
+              <img
+                src={qualityImage} // Your actual image for this point
+                alt={t('aboutus.whyChooseUs.qualityTitle')}
+                className="w-24 h-24 object-cover rounded-xl shadow-md border-2 border-purple-300 flex-shrink-0"
+                loading="lazy"
+              />
+              <div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                  {t('aboutus.whyChooseUs.qualityTitle')}
+                </h3>
+                <p className="leading-relaxed text-gray-700 text-lg">
+                  {t('aboutus.whyChooseUs.qualityContent')}
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Direct Sourcing from Global Manufacturers */}
+            <motion.div
+              variants={fadeInUp}
+              custom={6.2}
+              className="flex flex-col md:flex-row items-center md:items-start gap-6"
+            >
+              <img
+                src={directSourcingImage} // Your actual image for this point
+                alt={t('aboutus.whyChooseUs.directSourcingTitle')}
+                className="w-24 h-24 object-cover rounded-xl shadow-md border-2 border-purple-300 flex-shrink-0"
+                loading="lazy"
+              />
+              <div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                  {t('aboutus.whyChooseUs.directSourcingTitle')}
+                </h3>
+                <p className="leading-relaxed text-gray-700 text-lg">
+                  {t('aboutus.whyChooseUs.directSourcingContent')}
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Streamlined Distribution Network */}
+            <motion.div
+              variants={fadeInUp}
+              custom={6.3}
+              className="flex flex-col md:flex-row items-center md:items-start gap-6"
+            >
+              <img
+                src={distributionNetworkImage} // Your actual image for this point
+                alt={t('aboutus.whyChooseUs.distributionNetworkTitle')}
+                className="w-24 h-24 object-cover rounded-xl shadow-md border-2 border-purple-300 flex-shrink-0"
+                loading="lazy"
+              />
+              <div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                  {t('aboutus.whyChooseUs.distributionNetworkTitle')}
+                </h3>
+                <p className="leading-relaxed text-gray-700 text-lg">
+                  {t('aboutus.whyChooseUs.distributionNetworkContent')}
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Regulatory Compliance & Certifications */}
+            <motion.div
+              variants={fadeInUp}
+              custom={6.4}
+              className="flex flex-col md:flex-row items-center md:items-start gap-6"
+            >
+              <img
+                src={complianceImage} // Your actual image for this point
+                alt={t('aboutus.whyChooseUs.complianceTitle')}
+                className="w-24 h-24 object-cover rounded-xl shadow-md border-2 border-purple-300 flex-shrink-0"
+                loading="lazy"
+              />
+              <div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                  {t('aboutus.whyChooseUs.complianceTitle')}
+                </h3>
+                <p className="leading-relaxed text-gray-700 text-lg">
+                  {t('aboutus.whyChooseUs.complianceContent')}
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Customized B2B Support */}
+            <motion.div
+              variants={fadeInUp}
+              custom={6.5}
+              className="flex flex-col md:flex-row items-center md:items-start gap-6"
+            >
+              <img
+                src={b2bSupportImage} // Your actual image for this point
+                alt={t('aboutus.whyChooseUs.b2bSupportTitle')}
+                className="w-24 h-24 object-cover rounded-xl shadow-md border-2 border-purple-300 flex-shrink-0"
+                loading="lazy"
+              />
+              <div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                  {t('aboutus.whyChooseUs.b2bSupportTitle')}
+                </h3>
+                <p className="leading-relaxed text-gray-700 text-lg">
+                  {t('aboutus.whyChooseUs.b2bSupportContent')}
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Customer-Centric Service */}
+            <motion.div
+              variants={fadeInUp}
+              custom={6.6}
+              className="flex flex-col md:flex-row items-center md:items-start gap-6"
+            >
+              <img
+                src={customerCentricImage} // Your actual image for this point
+                alt={t('aboutus.whyChooseUs.customerCentricTitle')}
+                className="w-24 h-24 object-cover rounded-xl shadow-md border-2 border-purple-300 flex-shrink-0"
+                loading="lazy"
+              />
+              <div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                  {t('aboutus.whyChooseUs.customerCentricTitle')}
+                </h3>
+                <p className="leading-relaxed text-gray-700 text-lg">
+                  {t('aboutus.whyChooseUs.customerCentricContent')}
+                </p>
+              </div>
+            </motion.div>
+          </div>
+        </motion.article>
         {/* Call to Action */}
         <motion.div
           className="mt-24 text-center max-w-3xl mx-auto"
           variants={fadeInUp}
           initial="hidden"
           animate="visible"
-          custom={7}
+          custom={8} // Next in animation order
         >
           <h3 className="text-3xl font-extrabold text-pink-500 mb-6 tracking-wide">{t('aboutus.ctaTitle')}</h3>
           <p className="text-gray-800 mb-10 text-lg max-w-xl mx-auto">{t('aboutus.ctaDesc')}</p>
