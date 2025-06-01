@@ -77,7 +77,7 @@ const AppContent = () => {
       </Helmet>
 
       {!isAdminRoute && <Header />}
-      <LanguageSwitcher />
+      {/* <LanguageSwitcher /> */}
 
       <main className="flex-grow pt-24 px-0">
         <Suspense fallback={<div className="text-center text-gray-500 py-10">Loading page...</div>}>
