@@ -71,7 +71,7 @@ const BuySellForm = () => {
     setErrorMessage('');
 
     try {
-      const response = await fetch('https://agxbackend-1.onrender.com/buyform', {
+      const response = await fetch('https://agxbackend.onrender.com/buyform', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),

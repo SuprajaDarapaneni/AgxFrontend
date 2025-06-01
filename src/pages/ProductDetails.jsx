@@ -11,7 +11,7 @@ const ProductDetails = () => {
   const [zoomedImage, setZoomedImage] = useState(null);
   const navigate = useNavigate();
 
-  const baseUrl = "https://agxbackend-1.onrender.com";
+  const baseUrl = "https://agxbackend.onrender.com";
 
   useEffect(() => {
     const fetchProduct = async () => {
