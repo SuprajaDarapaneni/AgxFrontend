@@ -13,8 +13,7 @@ import complianceImage from '../assets/networking1.png'; // <--- REPLACE with yo
 import b2bSupportImage from '../assets/patent_9259111.png'; // <--- REPLACE with your actual image path
 import customerCentricImage from '../assets/process_12112367.png'; // <--- REPLACE with your actual image path
 
-
-
+import { FaCheckCircle } from "react-icons/fa"; // Icon for titles
 import '../i18n'; // Assuming this correctly sets up i18next
 
 const fadeInUp = {
@@ -222,150 +221,103 @@ const About = () => {
         </motion.article>
 
  {/* NEW: Why Choose Us Section */}
-        <motion.article
-          className="bg-gradient-to-br from-purple-50 to-white rounded-3xl p-12 max-w-5xl mx-auto mb-24 shadow-xl border border-purple-200"
-          variants={fadeInUp}
-          initial="hidden"
-          animate="visible"
-          custom={6} // Next in animation order
-        >
-          <h2 className="text-4xl font-extrabold text-purple-600 mb-12 text-center drop-shadow-md tracking-wide">
-            {t('aboutus.whyChooseUsTitle')}
-          </h2>
-          <div className="space-y-10">
-            {/* Based in Canada, Focused on Quality */}
-            <motion.div
-              variants={fadeInUp}
-              custom={6.1} // Sub-animation for this section
-              className="flex flex-col md:flex-row items-center md:items-start gap-6"
-            >
-              <img
-                src={qualityImage} // Your actual image for this point
-                alt={t('aboutus.whyChooseUs.qualityTitle')}
-                className="w-24 h-24 object-cover rounded-xl shadow-md border-2 border-purple-300 flex-shrink-0"
-                loading="lazy"
-              />
-              <div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                  {t('aboutus.whyChooseUs.qualityTitle')}
-                </h3>
-                <p className="leading-relaxed text-gray-700 text-lg">
-                  {t('aboutus.whyChooseUs.qualityContent')}
-                </p>
-              </div>
-            </motion.div>
 
-            {/* Direct Sourcing from Global Manufacturers */}
-            <motion.div
-              variants={fadeInUp}
-              custom={6.2}
-              className="flex flex-col md:flex-row items-center md:items-start gap-6"
-            >
-              <img
-                src={directSourcingImage} // Your actual image for this point
-                alt={t('aboutus.whyChooseUs.directSourcingTitle')}
-                className="w-24 h-24 object-cover rounded-xl shadow-md border-2 border-purple-300 flex-shrink-0"
-                loading="lazy"
-              />
-              <div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                  {t('aboutus.whyChooseUs.directSourcingTitle')}
-                </h3>
-                <p className="leading-relaxed text-gray-700 text-lg">
-                  {t('aboutus.whyChooseUs.directSourcingContent')}
-                </p>
-              </div>
-            </motion.div>
+<motion.article
+  className="relative bg-gradient-to-br from-pink-750 via-pink to-pink rounded-3xl p-12 max-w-6xl mx-auto mb-24 shadow-xl border border-pink-100 overflow-hidden"
+  variants={fadeInUp}
+  initial="hidden"
+  animate="visible"
+  custom={0}
+>
+  {/* 🔮 Soft Background SVG */}
+  <svg
+    className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 600 600"
+    fill="none"
+  >
+    <circle cx="400" cy="200" r="200" fill="url(#grad)" />
+    <defs>
+      <radialGradient id="grad" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(400 200) rotate(90) scale(200)">
+        <stop stopColor="#f9a8d4" />
+        <stop offset="1" stopColor="#f3e8ff" stopOpacity="0" />
+      </radialGradient>
+    </defs>
+  </svg>
 
-            {/* Streamlined Distribution Network */}
-            <motion.div
-              variants={fadeInUp}
-              custom={6.3}
-              className="flex flex-col md:flex-row items-center md:items-start gap-6"
-            >
-              <img
-                src={distributionNetworkImage} // Your actual image for this point
-                alt={t('aboutus.whyChooseUs.distributionNetworkTitle')}
-                className="w-24 h-24 object-cover rounded-xl shadow-md border-2 border-purple-300 flex-shrink-0"
-                loading="lazy"
-              />
-              <div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                  {t('aboutus.whyChooseUs.distributionNetworkTitle')}
-                </h3>
-                <p className="leading-relaxed text-gray-700 text-lg">
-                  {t('aboutus.whyChooseUs.distributionNetworkContent')}
-                </p>
-              </div>
-            </motion.div>
+  {/* 🎯 Heading */}
+  <h2 className="relative text-5xl font-extrabold text-pink-500 mb-16 text-center drop-shadow-md tracking-wide z-10">
+    {t("aboutus.whyChooseUsTitle")}
+  </h2>
 
-            {/* Regulatory Compliance & Certifications */}
-            <motion.div
-              variants={fadeInUp}
-              custom={6.4}
-              className="flex flex-col md:flex-row items-center md:items-start gap-6"
-            >
-              <img
-                src={complianceImage} // Your actual image for this point
-                alt={t('aboutus.whyChooseUs.complianceTitle')}
-                className="w-24 h-24 object-cover rounded-xl shadow-md border-2 border-purple-300 flex-shrink-0"
-                loading="lazy"
-              />
-              <div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                  {t('aboutus.whyChooseUs.complianceTitle')}
-                </h3>
-                <p className="leading-relaxed text-gray-700 text-lg">
-                  {t('aboutus.whyChooseUs.complianceContent')}
-                </p>
-              </div>
-            </motion.div>
+  <div className="relative space-y-14 z-10">
+    {[
+      {
+        img: qualityImage,
+        title: "aboutus.whyChooseUs.qualityTitle",
+        content: "aboutus.whyChooseUs.qualityContent",
+        custom: 1,
+      },
+      {
+        img: directSourcingImage,
+        title: "aboutus.whyChooseUs.directSourcingTitle",
+        content: "aboutus.whyChooseUs.directSourcingContent",
+        custom: 2,
+      },
+      {
+        img: distributionNetworkImage,
+        title: "aboutus.whyChooseUs.distributionNetworkTitle",
+        content: "aboutus.whyChooseUs.distributionNetworkContent",
+        custom: 3,
+      },
+      {
+        img: complianceImage,
+        title: "aboutus.whyChooseUs.complianceTitle",
+        content: "aboutus.whyChooseUs.complianceContent",
+        custom: 4,
+      },
+      {
+        img: b2bSupportImage,
+        title: "aboutus.whyChooseUs.b2bSupportTitle",
+        content: "aboutus.whyChooseUs.b2bSupportContent",
+        custom: 5,
+      },
+      {
+        img: customerCentricImage,
+        title: "aboutus.whyChooseUs.customerCentricTitle",
+        content: "aboutus.whyChooseUs.customerCentricContent",
+        custom: 6,
+      },
+    ].map(({ img, title, content, custom }) => (
+      <motion.div
+        key={title}
+        className="flex flex-col md:flex-row items-center md:items-start gap-8"
+        variants={fadeInUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        custom={custom}
+      >
+        <img
+          src={img}
+          alt={t(title)}
+          className="w-28 h-28 object-cover rounded-2xl shadow-lg border-4 border-pink-200 transition-transform duration-300 hover:scale-105"
+          loading="lazy"
+        />
+        <div>
+          <h3 className="flex items-center gap-3 text-2xl md:text-3xl font-semibold text-pink-900 mb-3">
+            <FaCheckCircle className="text-pink-400 text-xl" />
+            {t(title)}
+          </h3>
+          <p className="text-gray-700 leading-relaxed text-lg max-w-2xl">
+            {t(content)}
+          </p>
+        </div>
+      </motion.div>
+    ))}
+  </div>
+</motion.article>
 
-            {/* Customized B2B Support */}
-            <motion.div
-              variants={fadeInUp}
-              custom={6.5}
-              className="flex flex-col md:flex-row items-center md:items-start gap-6"
-            >
-              <img
-                src={b2bSupportImage} // Your actual image for this point
-                alt={t('aboutus.whyChooseUs.b2bSupportTitle')}
-                className="w-24 h-24 object-cover rounded-xl shadow-md border-2 border-purple-300 flex-shrink-0"
-                loading="lazy"
-              />
-              <div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                  {t('aboutus.whyChooseUs.b2bSupportTitle')}
-                </h3>
-                <p className="leading-relaxed text-gray-700 text-lg">
-                  {t('aboutus.whyChooseUs.b2bSupportContent')}
-                </p>
-              </div>
-            </motion.div>
-
-            {/* Customer-Centric Service */}
-            <motion.div
-              variants={fadeInUp}
-              custom={6.6}
-              className="flex flex-col md:flex-row items-center md:items-start gap-6"
-            >
-              <img
-                src={customerCentricImage} // Your actual image for this point
-                alt={t('aboutus.whyChooseUs.customerCentricTitle')}
-                className="w-24 h-24 object-cover rounded-xl shadow-md border-2 border-purple-300 flex-shrink-0"
-                loading="lazy"
-              />
-              <div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                  {t('aboutus.whyChooseUs.customerCentricTitle')}
-                </h3>
-                <p className="leading-relaxed text-gray-700 text-lg">
-                  {t('aboutus.whyChooseUs.customerCentricContent')}
-                </p>
-              </div>
-            </motion.div>
-          </div>
-        </motion.article>
         {/* Call to Action */}
         <motion.div
           className="mt-24 text-center max-w-3xl mx-auto"
