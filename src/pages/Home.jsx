@@ -138,7 +138,7 @@ const HomePage = () => {
       <main id="main-content" tabIndex={-1}>
 
         {/* About Section */}
-        <section
+        {/*    <section
           aria-label={t('homepage.aboutSectionAriaLabel') || 'About AGX Global'}
           className="flex flex-col md:flex-row items-center justify-between py-16 px-4 animate-fade-in-up transition-opacity duration-700"
         >
@@ -160,7 +160,7 @@ const HomePage = () => {
             <img src={globalBusinessImage} alt={t('homepage.aboutImageAlt') || 'AGX Global business team meeting'} className="rounded-md shadow-xl" />
           </div>
         </section>
-
+*/}
 
 
         {/* About Section */}
