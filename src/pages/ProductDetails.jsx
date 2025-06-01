@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
+import { Helmet } from "react-helmet-async";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -36,6 +37,23 @@ const ProductDetails = () => {
     navigate("/buy-sell");
   };
 
+  // Accessibility: close zoom with Escape key
+  const handleKeyDown = useCallback(
+    (e) => {
+      if (e.key === "Escape" && zoomedImage) {
+        setZoomedImage(null);
+      }
+    },
+    [zoomedImage]
+  );
+
+  useEffect(() => {
+    if (zoomedImage) {
+      window.addEventListener("keydown", handleKeyDown);
+      return () => window.removeEventListener("keydown", handleKeyDown);
+    }
+  }, [zoomedImage, handleKeyDown]);
+
   if (!product) {
     return (
       <div className="flex justify-center items-center min-h-screen bg-gray-50">
@@ -44,8 +62,39 @@ const ProductDetails = () => {
     );
   }
 
+  // SEO metadata
+  const pageTitle = product.bannerTitle
+    ? `${product.bannerTitle} | AGX Global`
+    : "Product Details | AGX Global";
+
+  const metaDescription =
+    product.intro || product.additionalInfo || "Discover our product at AGX Global";
+
+  // JSON-LD structured data for Product
+  const jsonLd = {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    name: product.bannerTitle || "Product",
+    image: [mainImage, ...(product.multipleImages?.map(img => baseUrl + img) || [])],
+    description: metaDescription,
+    category: product.category || "",
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "USD",
+      price: product.price || "0",
+      availability: "https://schema.org/InStock",
+      url: window.location.href,
+    },
+  };
+
   return (
     <>
+      <Helmet>
+        <title>{pageTitle}</title>
+        <meta name="description" content={metaDescription} />
+        <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
+      </Helmet>
+
       {/* Zoomed Image */}
       <AnimatePresence>
         {zoomedImage && (
@@ -55,10 +104,14 @@ const ProductDetails = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setZoomedImage(null)}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`${product.bannerTitle || "Product"} - zoomed image`}
+            tabIndex={-1}
           >
             <motion.img
               src={zoomedImage}
-              alt="Zoomed"
+              alt={`${product.bannerTitle || "Product"} zoomed image`}
               className="max-w-[90%] max-h-[90%] rounded-lg shadow-2xl object-contain"
               initial={{ scale: 0.9 }}
               animate={{ scale: 1 }}
@@ -90,6 +143,14 @@ const ProductDetails = () => {
                 initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.3 }}
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    setZoomedImage(mainImage);
+                  }
+                }}
+                role="button"
+                aria-label={`Zoom in on ${product.bannerTitle || "product"} image`}
               />
             )}
 
@@ -101,7 +162,7 @@ const ProductDetails = () => {
                     <motion.img
                       key={index}
                       src={fullImg}
-                      alt={`Thumbnail ${index + 1}`}
+                      alt={`Thumbnail ${index + 1} of ${product.bannerTitle || "product"}`}
                       className={`h-24 w-full object-cover rounded-lg cursor-pointer transition-all duration-200 shadow-sm
                         ${fullImg === mainImage
                           ? "border-3 border-indigo-600 ring-2 ring-indigo-300 transform scale-105"
@@ -110,23 +171,19 @@ const ProductDetails = () => {
                       onClick={() => setMainImage(fullImg)}
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
+                      tabIndex={0}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          setMainImage(fullImg);
+                        }
+                      }}
+                      role="button"
+                      aria-pressed={fullImg === mainImage}
                     />
                   );
                 })}
               </div>
             )}
-
-            {/* Why Choose Us section below images - COMMENTED OUT */}
-            {/*
-            <div className="mt-8 w-full max-w-lg">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-3">Why Choose Us</h2>
-              {product.whyChooseUs ? (
-                <p className="text-gray-700 leading-relaxed whitespace-pre-line">{product.whyChooseUs}</p>
-              ) : (
-                <p className="text-gray-500 italic">No additional info.</p>
-              )}
-            </div>
-            */}
           </div>
 
           {/* Right side: Product Details */}
@@ -188,6 +245,8 @@ const ProductDetailSection = ({ title, content }) => {
       <button
         className="flex justify-between items-center w-full text-left text-xl font-semibold text-gray-800 focus:outline-none"
         onClick={() => setIsOpen(!isOpen)}
+        aria-expanded={isOpen}
+        aria-controls={`section-${title.replace(/\s+/g, "-").toLowerCase()}`}
       >
         <span>{title}</span>
         <motion.span
@@ -204,6 +263,7 @@ const ProductDetailSection = ({ title, content }) => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            id={`section-${title.replace(/\s+/g, "-").toLowerCase()}`}
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}

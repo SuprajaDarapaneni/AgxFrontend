@@ -13,6 +13,7 @@ function ContactForm() {
   });
   const [submitMessage, setSubmitMessage] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -27,10 +28,13 @@ function ContactForm() {
       !formData.message.trim() ||
       (!formData.email.trim() && !formData.phone.trim())
     ) {
-      setSubmitMessage("Please fill Name, Message and Email or Phone.");
+      setSubmitMessage(t("contactForm.validationError") || "Please fill Name, Message and Email or Phone.");
       setIsSuccess(false);
       return;
     }
+
+    setIsSubmitting(true);
+    setSubmitMessage("");
 
     try {
       const response = await fetch("https://agxbackend.onrender.com/contact", {
@@ -45,74 +49,80 @@ function ContactForm() {
       setIsSuccess(true);
       setFormData({ name: "", email: "", phone: "", message: "" });
     } catch (error) {
-      setSubmitMessage(t("contactForm.errorMessage"));
+      setSubmitMessage(t("contactForm.errorMessage") || "There was an error submitting the form.");
       setIsSuccess(false);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="max-w-6xl mx-auto my-12 px-4">
-
-      <h1 className="text-5xl font-extrabold text-pink-700 mb-4 drop-shadow-sm text-center">
-          {t("contactForm.title") }
+    <section className="max-w-6xl mx-auto my-12 px-4" aria-label={t("contactForm.title") || "Contact Form"}>
+      <header>
+        <h1 className="text-5xl font-extrabold text-pink-700 mb-4 drop-shadow-sm text-center">
+          {t("contactForm.title") || "Contact Us"}
         </h1>
-        <div className="w-20 h-1 bg-pink-500 mx-auto rounded mb-6 animate-pulse"></div>
-        
-
-     <p className="text-center mb-12 text-gray-600 max-w-2xl mx-auto">
-  Connect with AGX International — your trusted global trade partner. Whether you're looking to import quality products or expand your business across borders, our expert team is here to support you every step of the way. Let's grow together, globally.
-</p>
+        <div className="w-20 h-1 bg-pink-500 mx-auto rounded mb-6 animate-pulse" aria-hidden="true"></div>
+        <p className="text-center mb-12 text-gray-600 max-w-2xl mx-auto">
+          {t("contactForm.description") || "Connect with AGX International — your trusted global trade partner. Whether you're looking to import quality products or expand your business across borders, our expert team is here to support you every step of the way. Let's grow together, globally."}
+        </p>
+      </header>
 
       <div className="flex flex-col lg:flex-row gap-12">
         {/* Left Side - Contact Info */}
-        <div className="lg:w-1/3 bg-white p-8 rounded-lg shadow-md">
+        <address className="lg:w-1/3 bg-white p-8 rounded-lg shadow-md not-italic">
           <div className="space-y-8">
             <div className="flex items-start gap-4">
-              <div className="bg-blue-100 p-4 rounded-full">
+              <div className="bg-blue-100 p-4 rounded-full" aria-hidden="true">
                 <FaMapMarkerAlt className="text-blue-600 text-3xl" />
               </div>
               <div>
-                <h3 className="text-xl font-semibold text-gray-800 mb-1">Address</h3>
+                <h2 className="text-xl font-semibold text-gray-800 mb-1">{t("contactForm.address") || "Address"}</h2>
                 <p className="text-gray-600">3rd Floor, building</p>
-                <p className="text-gray-600">ongole, Andhra Pradesh</p>
+                <p className="text-gray-600">Ongole, Andhra Pradesh</p>
               </div>
             </div>
 
             <div className="flex items-start gap-4">
-              <div className="bg-green-100 p-4 rounded-full">
+              <div className="bg-green-100 p-4 rounded-full" aria-hidden="true">
                 <FaPhone className="text-green-600 text-3xl" />
               </div>
               <div>
-                <h3 className="text-xl font-semibold text-gray-800 mb-1">Call Us</h3>
-                <p className="text-gray-600">+49 152 1815 4435</p>
-               
+                <h2 className="text-xl font-semibold text-gray-800 mb-1">{t("contactForm.callUs") || "Call Us"}</h2>
+                <p className="text-gray-600">
+                  <a href="tel:+4915218154435" className="hover:underline focus:outline-none focus:ring-2 focus:ring-pink-500 rounded">
+                    +49 152 1815 4435
+                  </a>
+                </p>
               </div>
             </div>
 
             <div className="flex items-start gap-4">
-              <div className="bg-purple-100 p-4 rounded-full">
+              <div className="bg-purple-100 p-4 rounded-full" aria-hidden="true">
                 <FaEnvelope className="text-purple-600 text-3xl" />
               </div>
               <div>
-                <h3 className="text-xl font-semibold text-gray-800 mb-1">Email Us</h3>
-                <p className="text-gray-600">contact@consulting.com
-</p>
-             
+                <h2 className="text-xl font-semibold text-gray-800 mb-1">{t("contactForm.emailUs") || "Email Us"}</h2>
+                <p className="text-gray-600">
+                  <a href="mailto:contact@consulting.com" className="hover:underline focus:outline-none focus:ring-2 focus:ring-pink-500 rounded">
+                    contact@consulting.com
+                  </a>
+                </p>
               </div>
             </div>
 
             <div className="flex items-start gap-4">
-              <div className="bg-orange-100 p-4 rounded-full">
+              <div className="bg-orange-100 p-4 rounded-full" aria-hidden="true">
                 <FaClock className="text-orange-600 text-3xl" />
               </div>
               <div>
-                <h3 className="text-xl font-semibold text-gray-800 mb-1">Open Hours</h3>
-                <p className="text-gray-600">Monday - Friday</p>
-                <p className="text-gray-600">9:00AM - 10:00PM</p>
+                <h2 className="text-xl font-semibold text-gray-800 mb-1">{t("contactForm.openHours") || "Open Hours"}</h2>
+                <p className="text-gray-600">{t("contactForm.days") || "Monday - Friday"}</p>
+                <p className="text-gray-600">{t("contactForm.hours") || "9:00AM - 10:00PM"}</p>
               </div>
             </div>
           </div>
-        </div>
+        </address>
 
         {/* Right Side - Form */}
         <div className="lg:w-2/3 bg-white p-8 rounded-lg shadow-md">
@@ -124,62 +134,70 @@ function ContactForm() {
                   : "bg-red-100 text-red-800 border border-red-200"
               }`}
               role="alert"
+              aria-live="assertive"
             >
               {submitMessage}
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6" noValidate>
             <div>
-              <label className="block mb-2 font-medium text-gray-700">
+              <label htmlFor="name" className="block mb-2 font-medium text-gray-700">
                 {t("contactForm.fields.name") || "Name"}
               </label>
               <input
+                id="name"
                 type="text"
                 name="name"
                 onChange={handleChange}
                 value={formData.name}
                 placeholder={t("contactForm.placeholders.name") || "Your name"}
                 required
+                autoComplete="name"
                 className="w-full px-5 py-3 rounded-xl border border-gray-300 focus:border-pink-500 focus:ring-2 focus:ring-pink-300 transition outline-none shadow-sm"
               />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block mb-2 font-medium text-gray-700">
+                <label htmlFor="email" className="block mb-2 font-medium text-gray-700">
                   {t("contactForm.fields.email") || "Email"}
                 </label>
                 <input
+                  id="email"
                   type="email"
                   name="email"
                   onChange={handleChange}
                   value={formData.email}
                   placeholder={t("contactForm.placeholders.email") || "Your email"}
+                  autoComplete="email"
                   className="w-full px-5 py-3 rounded-xl border border-gray-300 focus:border-pink-500 focus:ring-2 focus:ring-pink-300 transition outline-none shadow-sm"
                 />
               </div>
 
               <div>
-                <label className="block mb-2 font-medium text-gray-700">
+                <label htmlFor="phone" className="block mb-2 font-medium text-gray-700">
                   {t("contactForm.fields.phone") || "Phone"}
                 </label>
                 <input
+                  id="phone"
                   type="tel"
                   name="phone"
                   onChange={handleChange}
                   value={formData.phone}
                   placeholder={t("contactForm.placeholders.phone") || "Your phone"}
+                  autoComplete="tel"
                   className="w-full px-5 py-3 rounded-xl border border-gray-300 focus:border-pink-500 focus:ring-2 focus:ring-pink-300 transition outline-none shadow-sm"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block mb-2 font-medium text-gray-700">
+              <label htmlFor="message" className="block mb-2 font-medium text-gray-700">
                 {t("contactForm.fields.message") || "Message"}
               </label>
               <textarea
+                id="message"
                 name="message"
                 onChange={handleChange}
                 value={formData.message}
@@ -192,14 +210,18 @@ function ContactForm() {
 
             <button
               type="submit"
-              className="w-full py-4 bg-pink-600 text-white font-bold rounded-2xl shadow-lg hover:bg-pink-700 transition"
+              disabled={isSubmitting}
+              className={`w-full py-4 text-white font-bold rounded-2xl shadow-lg transition ${
+                isSubmitting ? "bg-pink-300 cursor-not-allowed" : "bg-pink-600 hover:bg-pink-700"
+              }`}
+              aria-busy={isSubmitting}
             >
-              {t("contactForm.buttons.submit") || "Submit"}
+              {isSubmitting ? (t("contactForm.buttons.submitting") || "Submitting...") : (t("contactForm.buttons.submit") || "Submit")}
             </button>
           </form>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

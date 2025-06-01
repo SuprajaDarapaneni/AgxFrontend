@@ -1,4 +1,3 @@
-// src/pages/Dashboard.jsx
 import React, { useMemo, useState } from 'react';
 import {
   Box,
@@ -9,7 +8,8 @@ import {
   useMediaQuery
 } from '@mui/material';
 
-import { useTranslation } from 'react-i18next';  // import useTranslation
+import { useTranslation } from 'react-i18next';
+import { Helmet } from 'react-helmet-async';  // <-- import Helmet
 
 import Topbar from '../components/Topbar';
 import Sidebar from '../components/sidebar';
@@ -17,7 +17,7 @@ import Sidebar from '../components/sidebar';
 const drawerWidth = 240;
 
 const Dashboard = () => {
-  const { t } = useTranslation(); // initialize translation hook
+  const { t } = useTranslation();
 
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   const [mode, setMode] = useState(prefersDarkMode ? 'dark' : 'light');
@@ -37,7 +37,10 @@ const Dashboard = () => {
         background: {
           default: mode === 'light' ? '#f9fafb' : '#121212',
           paper: mode === 'light' ? '#f9fafb' : '#121212',
-        }
+        },
+      },
+      typography: {
+        // Improve font sizes or weights for better readability if needed
       },
     }), [mode]);
 
@@ -48,6 +51,15 @@ const Dashboard = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      <Helmet>
+        <title>{t('dashboard.title')} | AGX International</title>
+        <meta
+          name="description"
+          content={t('dashboard.metaDescription') || 'Welcome to the AGX International Dashboard where you manage your account and activities.'}
+        />
+        <html lang={t('lang') || 'en'} />
+      </Helmet>
+
       <Box sx={{ display: 'flex', height: '100vh', width: '100%' }}>
         <Topbar
           onDrawerToggle={handleDrawerToggle}
@@ -63,6 +75,7 @@ const Dashboard = () => {
 
         <Box
           component="main"
+          role="main"
           sx={{
             flexGrow: 1,
             p: 3,
@@ -73,7 +86,12 @@ const Dashboard = () => {
             color: theme.palette.text.primary,
           }}
         >
-          <Typography variant="h4" gutterBottom>
+          <Typography
+            component="h1"
+            variant="h4"
+            gutterBottom
+            tabIndex={-1} // for skip-link focus management if you have skip links
+          >
             {t('dashboard.title')}
           </Typography>
           <Typography variant="body1" paragraph>

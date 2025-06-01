@@ -21,23 +21,23 @@ const Auth = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
-    setErrorMsg('');
+    setErrorMsg(''); // clear previous errors
 
     const url =
       mode === 'login'
-         ? 'https://agxbackend.onrender.com/auth/login'
+        ? 'https://agxbackend.onrender.com/auth/login'
         : 'https://agxbackend.onrender.com/auth/signup';
 
     try {
       const res = await axios.post(url, { email, password });
       const { token, data } = res.data;
 
-      // Save token and user info
+      // Save token and user info securely (localStorage used here for simplicity)
       localStorage.setItem('admin-token', token);
       localStorage.setItem('admin-user', JSON.stringify(data));
-      localStorage.setItem('isAdminLoggedIn', 'true'); // <-- Important flag
+      localStorage.setItem('isAdminLoggedIn', 'true');
 
-      // Navigate to admin dashboard (match route casing)
+      // Navigate to admin dashboard (make sure route is correct)
       navigate('/admin/admindashboard');
     } catch (err) {
       console.error(`${mode} request failed:`, err);
@@ -55,7 +55,13 @@ const Auth = () => {
   return (
     <Container maxWidth="xs" sx={{ mt: 8 }}>
       <Paper elevation={3} sx={{ p: 4, borderRadius: 2 }}>
-        <Typography variant="h5" align="center" gutterBottom>
+        <Typography
+          variant="h5"
+          component="h1"
+          align="center"
+          gutterBottom
+          tabIndex={0} // accessibility focus
+        >
           {mode === 'login' ? 'Admin Login' : 'Admin Sign Up'}
         </Typography>
 
@@ -64,15 +70,16 @@ const Auth = () => {
           exclusive
           onChange={(e, value) => value && setMode(value)}
           fullWidth
+          aria-label="Select authentication mode"
           sx={{ mb: 2 }}
         >
-          <ToggleButton value="login">Login</ToggleButton>
-          {/* Uncomment if you enable signup */}
-          {/* <ToggleButton value="signup">Sign Up</ToggleButton> */}
+          <ToggleButton value="login" aria-label="Login mode">Login</ToggleButton>
+          {/* Uncomment if sign-up enabled */}
+          {/* <ToggleButton value="signup" aria-label="Sign up mode">Sign Up</ToggleButton> */}
         </ToggleButtonGroup>
 
         {errorMsg && (
-          <Alert severity="error" sx={{ mb: 2 }}>
+          <Alert severity="error" sx={{ mb: 2 }} role="alert" aria-live="assertive">
             {errorMsg}
           </Alert>
         )}
@@ -84,6 +91,8 @@ const Auth = () => {
             handleSubmit();
           }}
           sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
+          noValidate
+          aria-describedby={errorMsg ? 'error-message' : undefined}
         >
           <TextField
             label="Email"
@@ -91,9 +100,11 @@ const Auth = () => {
             type="email"
             required
             fullWidth
+            autoComplete="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             InputProps={{ style: { borderRadius: 4 } }}
+            inputProps={{ 'aria-label': 'Email address' }}
           />
           <TextField
             label="Password"
@@ -101,9 +112,11 @@ const Auth = () => {
             type="password"
             required
             fullWidth
+            autoComplete="current-password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             InputProps={{ style: { borderRadius: 4 } }}
+            inputProps={{ 'aria-label': 'Password' }}
           />
           <Button
             variant="contained"
@@ -111,6 +124,7 @@ const Auth = () => {
             type="submit"
             fullWidth
             sx={{ borderRadius: 4 }}
+            aria-label={mode === 'login' ? 'Log in' : 'Sign up'}
           >
             {mode === 'login' ? 'Login' : 'Sign Up'}
           </Button>

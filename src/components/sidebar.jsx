@@ -1,4 +1,3 @@
-// src/components/Sidebar.jsx
 import React from 'react';
 import {
   Drawer,
@@ -17,7 +16,6 @@ import {
   ShoppingCartOutlined,
   ArticleOutlined,
   RateReviewOutlined,
-  // SettingsOutlined // Not used currently, but kept for reference if you enable it
 } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -25,13 +23,12 @@ import { useNavigate, useLocation } from 'react-router-dom';
 const drawerWidth = 240;
 
 const Sidebar = ({ mobileOpen, onDrawerToggle }) => {
-   const { t } = useTranslation();
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-  // Define your navigation items with their relative paths
   const navItems = [
     { text: t('sidebar.dashboard'), icon: <DashboardOutlined />, path: '/' },
     { text: t('sidebar.products'), icon: <ShoppingCartOutlined />, path: '/products' },
@@ -40,26 +37,28 @@ const Sidebar = ({ mobileOpen, onDrawerToggle }) => {
   ];
 
   const drawerContent = (
-    <>
+    <nav aria-label="Admin sidebar navigation">
       <Box sx={{ padding: 2, backgroundColor: theme.palette.primary.main, color: '#fff' }}>
-        <Typography variant="h6">Admin Panel</Typography>
+        <Typography variant="h6" role="heading" aria-level={1}>
+          Admin Panel
+        </Typography>
       </Box>
       <Divider />
       <List>
         {navItems.map((item) => {
-          // Construct the full path for the admin dashboard routes
           const fullPath = `/Admin/Admindashboard${item.path}`;
+          const isSelected = location.pathname === fullPath;
 
           return (
             <ListItem
               button
               key={item.text}
               onClick={() => {
-                navigate(fullPath); // Navigate to the full path
-                if (isMobile) onDrawerToggle(); // Auto-close on mobile
+                navigate(fullPath);
+                if (isMobile) onDrawerToggle();
               }}
-              // Highlight the selected item based on the full path
-              selected={location.pathname === fullPath}
+              selected={isSelected}
+              aria-current={isSelected ? 'page' : undefined}
               sx={{
                 '&.Mui-selected': {
                   backgroundColor: 'rgba(255,255,255,0.2)',
@@ -72,7 +71,7 @@ const Sidebar = ({ mobileOpen, onDrawerToggle }) => {
           );
         })}
       </List>
-    </>
+    </nav>
   );
 
   return isMobile ? (
@@ -88,6 +87,7 @@ const Sidebar = ({ mobileOpen, onDrawerToggle }) => {
           color: '#fff',
         },
       }}
+      aria-label="Mobile sidebar"
     >
       {drawerContent}
     </Drawer>
@@ -104,6 +104,7 @@ const Sidebar = ({ mobileOpen, onDrawerToggle }) => {
           color: '#fff',
         },
       }}
+      aria-label="Desktop sidebar"
     >
       {drawerContent}
     </Drawer>

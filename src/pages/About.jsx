@@ -25,8 +25,8 @@ const About = () => {
 
   return (
     <section className="bg-gradient-to-b from-pink-50 to-white text-black min-h-screen flex flex-col items-center py-20">
-      {/* SEO Meta Tags */}
       <Helmet>
+        <html lang="en" />
         <title>About Us | AGX International</title>
         <meta
           name="description"
@@ -37,9 +37,57 @@ const About = () => {
           content="AGX International, import export company, global trade, founder Anudeep, our mission, our values"
         />
         <meta name="robots" content="index, follow" />
+
+        {/* Open Graph */}
+        <meta property="og:title" content={`About Us | ${company}`} />
+        <meta
+          property="og:description"
+          content="Learn about AGX International – a global import-export company founded in 2022, driven by innovation, trust, and a commitment to excellence."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://yourdomain.com/about" />
+        <meta property="og:image" content="https://yourdomain.com/social-image.jpg" />
+
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`About Us | ${company}`} />
+        <meta
+          name="twitter:description"
+          content="Learn about AGX International – a global import-export company founded in 2022, driven by innovation, trust, and a commitment to excellence."
+        />
+        <meta name="twitter:image" content="https://yourdomain.com/social-image.jpg" />
+
+        {/* JSON-LD Structured Data */}
+        <script type="application/ld+json">
+          {`
+            {
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "${company}",
+              "url": "https://yourdomain.com",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "https://yourdomain.com/logo.png",
+                "width": 250,
+                "height": 60
+              },
+              "founder": {
+                "@type": "Person",
+                "name": "Anudeep"
+              },
+              "foundingDate": "2022-07-10",
+              "description": "Global import-export company driven by innovation and trust.",
+              "sameAs": [
+                "https://www.facebook.com/yourpage",
+                "https://twitter.com/yourprofile",
+                "https://www.linkedin.com/company/yourcompany"
+              ]
+            }
+          `}
+        </script>
       </Helmet>
 
-      <div className="container mx-auto max-w-7xl">
+      <main aria-label={`About ${company}`} className="container mx-auto max-w-7xl">
         <motion.h1
           className="text-4xl sm:text-5xl font-extrabold text-center text-pink-500 mb-6 tracking-wide drop-shadow-md"
           variants={fadeInUp}
@@ -133,7 +181,7 @@ const About = () => {
               <h3 className="text-3xl font-bold text-gray-900 mb-5 leading-tight tracking-tight">
                 {t('aboutus.founderName')}
               </h3>
-              {/* Removed founderBio1 and founderBio2 paragraphs here */}
+
               <blockquote className="italic text-gray-800 border-l-4 border-pink-500 pl-6 py-4 mt-8 bg-pink-50 rounded-r-lg shadow-inner drop-shadow-sm">
                 <p className="text-xl font-semibold">“{t('aboutus.founderQuote')}”</p>
                 <footer className="mt-3 text-pink-600 font-bold text-lg">— Anudeep</footer>
@@ -142,9 +190,6 @@ const About = () => {
             </div>
           </div>
         </motion.article>
-
-        {/* Mission / Why / Values */}
-        {/* (This block remains unchanged from your current version, already well-structured for SEO) */}
 
         {/* Call to Action */}
         <motion.div
@@ -158,12 +203,13 @@ const About = () => {
           <p className="text-gray-800 mb-10 text-lg max-w-xl mx-auto">{t('aboutus.ctaDesc')}</p>
           <a
             href="/contact"
+            aria-label={t('aboutus.ctaBtn')}
             className="inline-block bg-pink-500 text-white text-lg font-semibold px-10 py-4 rounded-full shadow-lg hover:bg-pink-600 transition-colors duration-300"
           >
             {t('aboutus.ctaBtn')}
           </a>
         </motion.div>
-      </div>
+      </main>
     </section>
   );
 };

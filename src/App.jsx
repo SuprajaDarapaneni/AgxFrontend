@@ -1,11 +1,5 @@
 import React, { lazy, Suspense } from 'react';
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useLocation,
-  Navigate,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 
@@ -13,7 +7,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
 
-// Lazy-loaded pages
+// Lazy loaded pages
 const Home = lazy(() => import('./pages/Home'));
 const About = lazy(() => import('./pages/About'));
 const Blogs = lazy(() => import('./pages/Blogs'));
@@ -32,37 +26,37 @@ const AdminReview = lazy(() => import('./pages/ReviewsPage'));
 const AdminBlog = lazy(() => import('./pages/BlogsPages'));
 
 // Authentication hook
-const useAuth = () => {
-  const isLoggedIn = localStorage.getItem('isAdminLoggedIn') === 'true';
-  return { isLoggedIn };
-};
+const useAuth = () => ({
+  isLoggedIn: localStorage.getItem('isAdminLoggedIn') === 'true',
+});
 
-// Protected route wrapper
+// Protected Route component
 const ProtectedRoute = ({ children }) => {
-  const auth = useAuth();
-  if (!auth.isLoggedIn) {
-    return <Navigate to="/admin" replace />;
-  }
-  return children;
+  const { isLoggedIn } = useAuth();
+  return isLoggedIn ? children : <Navigate to="/admin" replace />;
 };
 
-// Language Switcher
+// Language Switcher component
 const LanguageSwitcher = () => {
   const { i18n } = useTranslation();
 
-  const changeLanguage = (lng) => {
-    i18n.changeLanguage(lng);
-  };
-
   return (
     <div style={{ position: 'fixed', top: 10, right: 10, zIndex: 1000 }}>
-      <button onClick={() => changeLanguage('en')} style={{ marginRight: 10 }}>EN</button>
-      <button onClick={() => changeLanguage('fr')}>FR</button>
+      {['en', 'fr'].map((lng) => (
+        <button
+          key={lng}
+          onClick={() => i18n.changeLanguage(lng)}
+          style={{ marginRight: lng === 'en' ? 10 : 0 }}
+          aria-label={`Switch language to ${lng.toUpperCase()}`}
+        >
+          {lng.toUpperCase()}
+        </button>
+      ))}
     </div>
   );
 };
 
-// App Content
+// Main App Content
 const AppContent = () => {
   const location = useLocation();
   const isAdminRoute = location.pathname.toLowerCase().startsWith('/admin');
@@ -71,7 +65,10 @@ const AppContent = () => {
     <div className="min-h-screen flex flex-col">
       <Helmet>
         <title>AGX Global</title>
-        <meta name="description" content="Discover AGX Global's international import/export business, offering high-quality products and exceptional services worldwide." />
+        <meta
+          name="description"
+          content="Discover AGX Global's international import/export business, offering high-quality products and exceptional services worldwide."
+        />
         <meta name="keywords" content="AGX Global, import, export, products, services, international trade" />
         <meta name="robots" content="index, follow" />
       </Helmet>
@@ -82,7 +79,7 @@ const AppContent = () => {
       <main className="flex-grow pt-24 px-0">
         <Suspense fallback={<div className="text-center text-gray-500 py-10">Loading page...</div>}>
           <Routes>
-            {/* Frontend Routes */}
+            {/* Public Routes */}
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/blogs" element={<Blogs />} />
@@ -129,16 +126,19 @@ const AppContent = () => {
               }
             />
 
-            {/* 404 Route */}
-            <Route path="*" element={
-              <>
-                <Helmet>
-                  <title>404 - Page Not Found</title>
-                  <meta name="robots" content="noindex" />
-                </Helmet>
-                <div className="text-center py-20 text-red-500">404 - Page Not Found</div>
-              </>
-            } />
+            {/* 404 Page */}
+            <Route
+              path="*"
+              element={
+                <>
+                  <Helmet>
+                    <title>404 - Page Not Found</title>
+                    <meta name="robots" content="noindex" />
+                  </Helmet>
+                  <div className="text-center py-20 text-red-500">404 - Page Not Found</div>
+                </>
+              }
+            />
           </Routes>
         </Suspense>
       </main>
@@ -149,7 +149,7 @@ const AppContent = () => {
   );
 };
 
-// App wrapper with SEO HelmetProvider
+// App wrapper with HelmetProvider and Router
 const App = () => (
   <HelmetProvider>
     <Router>
