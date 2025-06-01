@@ -31,7 +31,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-10">
           {/* Logo & Description */}
           <div className="col-span-2 flex flex-col space-y-4">
-            <Link to="/" className="flex items-center space-x-3">
+            <Link to="/" className="flex items-center space-x-3" aria-label={t('homepage.home')}>
               <img
                 src={logo}
                 alt="AGX International Logo"
@@ -41,13 +41,13 @@ const Footer = () => {
                 loading="lazy"
               />
             </Link>
-            <p className="text-sm text-[#6b0657] leading-relaxed">
+            <p className="text-sm leading-relaxed">
               AGX International is a global logistics and trade solutions provider, offering end-to-end freight forwarding, customs clearance, and supply chain services.
             </p>
           </div>
 
           {/* Quick Links */}
-          <div>
+          <nav aria-label={t('footer.quickLinks')}>
             <h3 className="text-lg font-semibold text-pink-700 mb-4">{t('footer.quickLinks')}</h3>
             <ul className="space-y-2 text-sm">
               {[
@@ -67,10 +67,10 @@ const Footer = () => {
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
 
           {/* Legal */}
-          <div>
+          <nav aria-label={t('footer.legal')}>
             <h3 className="text-lg font-semibold text-pink-700 mb-4">{t('footer.legal')}</h3>
             <ul className="space-y-2 text-sm">
               {[
@@ -87,7 +87,7 @@ const Footer = () => {
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
 
           {/* Social Media */}
           <div>
@@ -125,8 +125,8 @@ const Footer = () => {
         </div>
 
         {/* Footer Bottom */}
-        <div className="border-t border-pink-200 mt-12 pt-6 text-center text-sm text-[#6b0657]">
-          &copy; {new Date().getFullYear()} AGX International. {t('footer.rightsReserved')}
+        <div className="border-t border-pink-200 mt-12 pt-6 text-center text-sm">
+          <p className="text-[#6b0657]">&copy; {new Date().getFullYear()} AGX International. {t('footer.rightsReserved')}</p>
         </div>
       </div>
     </footer>

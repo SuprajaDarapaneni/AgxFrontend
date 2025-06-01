@@ -12,6 +12,10 @@ export default {
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
       },
+      colors: {
+        'dark-purple': '#6b0657',  // Better footer text color contrast
+        'light-gray': '#999999',   // Improved text contrast for light colors
+      },
     },
   },
   plugins: [

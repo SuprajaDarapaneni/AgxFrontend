@@ -240,9 +240,11 @@
     "ctaDesc": "Get in touch today and let's unlock new opportunities together.",
     "ctaBtn": "Contact Us"
   }
-
-
-, "homepage": {
+,
+"homepage": {
+   "seoTitle": "AGX Global | International Trade Experts",
+    "seoDescription": "Trusted global trade partner providing efficient import/export logistics."
+,
     "servicesTitle": "Our Services",
     "service1Title": "Import Assistance",
     "service1Desc": "Navigate international import regulations with expert help.",

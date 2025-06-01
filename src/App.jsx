@@ -71,6 +71,9 @@ const AppContent = () => {
         />
         <meta name="keywords" content="AGX Global, import, export, products, services, international trade" />
         <meta name="robots" content="index, follow" />
+
+        {/* Override the generator meta tag (removes 'Vite 4.0') */}
+        <meta name="generator" content="" />
       </Helmet>
 
       {!isAdminRoute && <Header />}
