@@ -1,4 +1,18 @@
+
 {
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "destination": "https://www.agx-international.com/$1",
+      "has": [
+        {
+          "type": "host",
+          "value": "agx-international.com"
+        }
+      ],
+      "statusCode": 301
+    }
+  ],
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ]
