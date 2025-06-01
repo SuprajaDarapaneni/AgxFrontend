@@ -7,8 +7,8 @@ import { Helmet } from 'react-helmet';
 import globalBusinessImage from '../assets/about.jpeg'; // Existing image
 import founderImage from '../assets/badge.png'; // <--- ASSUME you have an image for Anudeep
 import qualityImage from '../assets/badge.png'; // <--- REPLACE with your actual image path
-import directSourcingImage from '../assets/customer-service.PNG'; // <--- REPLACE with your actual image path
-import distributionNetworkImage from '../assets/networking.PNG'; // <--- REPLACE with your actual image path
+import directSourcingImage from '../assets/customer-service.png'; // <--- REPLACE with your actual image path
+import distributionNetworkImage from '../assets/networking.png'; // <--- REPLACE with your actual image path
 import complianceImage from '../assets/networking1.png'; // <--- REPLACE with your actual image path
 import b2bSupportImage from '../assets/patent_9259111.png'; // <--- REPLACE with your actual image path
 import customerCentricImage from '../assets/process_12112367.png'; // <--- REPLACE with your actual image path
