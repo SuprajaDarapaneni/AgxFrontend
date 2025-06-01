@@ -9,19 +9,19 @@ const Footer = () => {
 
   return (
     <footer className="bg-pink-50 text-[#6b0657] font-sans mt-16" role="contentinfo">
-      {/* JSON-LD Schema */}
+      {/* SEO JSON-LD Structured Data for Organization */}
       <Helmet>
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Organization",
-            name: "AGX Consulting",
-            url: "https://yourdomain.com",
-            logo: "https://yourdomain.com/assets/logo-removebg-preview.png",
-            sameAs: [
-              "https://www.facebook.com/yourpage",
-              "https://twitter.com/yourpage",
-              "https://www.instagram.com/yourpage"
+            "name": "AGX International",
+            "url": "https://www.agx-international.com",
+            "logo": "https://www.agx-international.com/assets/logo-removebg-preview.png",
+            "sameAs": [
+              "https://www.facebook.com/your-real-page",
+              "https://twitter.com/your-real-page",
+              "https://www.instagram.com/your-real-page"
             ]
           })}
         </script>
@@ -29,13 +29,12 @@ const Footer = () => {
 
       <div className="max-w-screen-xl mx-auto px-6 py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-10">
-          
-          {/* Logo & Brand Info */}
+          {/* Logo & Description */}
           <div className="col-span-2 flex flex-col space-y-4">
             <Link to="/" className="flex items-center space-x-3">
               <img
                 src={logo}
-                alt="AGX Consulting Logo"
+                alt="AGX International Logo"
                 className="h-16 w-auto object-contain"
                 width="128"
                 height="64"
@@ -43,7 +42,7 @@ const Footer = () => {
               />
             </Link>
             <p className="text-sm text-[#6b0657] leading-relaxed">
-              AGX Consulting is a leading digital and business consulting firm, specializing in automation, strategy, and innovative product solutions.
+              AGX International is a global logistics and trade solutions provider, offering end-to-end freight forwarding, customs clearance, and supply chain services.
             </p>
           </div>
 
@@ -70,7 +69,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Legal Links */}
+          {/* Legal */}
           <div>
             <h3 className="text-lg font-semibold text-pink-700 mb-4">{t('footer.legal')}</h3>
             <ul className="space-y-2 text-sm">
@@ -95,7 +94,7 @@ const Footer = () => {
             <h3 className="text-lg font-semibold text-pink-700 mb-4">{t('footer.followUs')}</h3>
             <div className="flex space-x-5 text-xl">
               <a
-                href="https://www.facebook.com/yourpage"
+                href="https://www.facebook.com/your-real-page"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
@@ -104,7 +103,7 @@ const Footer = () => {
                 <FaFacebookF />
               </a>
               <a
-                href="https://twitter.com/yourpage"
+                href="https://twitter.com/your-real-page"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Twitter"
@@ -113,7 +112,7 @@ const Footer = () => {
                 <FaTwitter />
               </a>
               <a
-                href="https://www.instagram.com/yourpage"
+                href="https://www.instagram.com/your-real-page"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
@@ -125,9 +124,9 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Divider */}
+        {/* Footer Bottom */}
         <div className="border-t border-pink-200 mt-12 pt-6 text-center text-sm text-[#6b0657]">
-          &copy; {new Date().getFullYear()} AGX Consulting. {t('footer.rightsReserved')}
+          &copy; {new Date().getFullYear()} AGX International. {t('footer.rightsReserved')}
         </div>
       </div>
     </footer>

@@ -38,9 +38,11 @@ const Services = () => {
   return (
     <>
       <Helmet>
-        <title>{t('title')} - {company}</title>
-        <meta name="description" content={t('intro', { company })} />
-        <meta name="keywords" content="services, industries, cosmetics, AGX International" />
+       <Helmet>
+  <title>Our Services | Freight Forwarding & Trade Consulting - AGX</title>
+  <meta name="description" content="Explore AGX's logistics services including customs clearance, freight forwarding, and supply chain consulting." />
+</Helmet>
+ <meta name="keywords" content="services, industries, cosmetics, AGX International" />
         <meta name="author" content={company} />
         <meta property="og:title" content={`${t('title')} - ${company}`} />
         <meta property="og:description" content={t('intro', { company })} />

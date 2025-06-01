@@ -39,11 +39,16 @@ const About = () => {
         <meta name="robots" content="index, follow" />
 
         {/* Open Graph */}
-        <meta property="og:title" content={`About Us | ${company}`} />
+        {/* <meta property="og:title" content={`About Us | ${company}`} />
         <meta
           property="og:description"
           content="Learn about AGX International – a global import-export company founded in 2022, driven by innovation, trust, and a commitment to excellence."
-        />
+        /> */}
+        <Helmet>
+  <title>About AGX International | Trusted Logistics Company</title>
+  <meta name="description" content="Learn about AGX International, our mission, vision, and the team driving global logistics innovation." />
+</Helmet>
+
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://yourdomain.com/about" />
         <meta property="og:image" content="https://yourdomain.com/social-image.jpg" />

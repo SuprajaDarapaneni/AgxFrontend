@@ -47,11 +47,16 @@ const HomePage = () => {
     <div className="bg-white text-gray-900 font-inter">
       <Helmet>
         <html lang={i18n.language || 'en'} />
-        <title>{t('homepage.seoTitle') || 'AGX Global | Import Export, Products & Services'}</title>
+        {/* <title>{t('homepage.seoTitle') || 'AGX Global | Import Export, Products & Services'}</title>
         <meta
           name="description"
           content={t('homepage.seoDescription') || "Explore AGX Global's international trade services, premium products, and global import/export solutions. Trusted by clients worldwide."}
-        />
+        /> */}
+        <Helmet>
+  <title>AGX International | Global Freight & Trade Experts</title>
+  <meta name="description" content="AGX International provides worldwide logistics, import-export, and consulting services." />
+</Helmet>
+
         <meta name="keywords" content="AGX Global, import export, international trade, global products, logistics services, export company" />
         {/* Open Graph tags */}
         <meta property="og:title" content={t('homepage.seoTitle') || 'AGX Global | Import Export Experts'} />
