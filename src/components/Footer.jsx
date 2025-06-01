@@ -1,11 +1,19 @@
 import { Link } from "react-router-dom";
-import { FaFacebookF, FaTwitter, FaInstagram } from "react-icons/fa";
+import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from "react-icons/fa"; // Added FaLinkedinIn
 import { useTranslation } from "react-i18next";
-import { Helmet } from "react-helmet";
-import logo from "../assets/logo-removebg-preview.png";
+import { Helmet } from "react-helmet-async"; // Changed from 'react-helmet' to 'react-helmet-async'
+import logo from "../assets/logo-removebg-preview.png"; // Assuming you've renamed your logo file to something clearer and transparent.
 
 const Footer = () => {
   const { t } = useTranslation();
+
+  // Define your social media links here
+  const socialLinks = {
+    facebook: "https://www.facebook.com/agxinternational", // Replace with actual Facebook page
+    twitter: "https://twitter.com/agx_international",     // Replace with actual Twitter page
+    instagram: "https://www.instagram.com/agx_international", // Replace with actual Instagram page
+    linkedin: "https://www.linkedin.com/company/agx-international" // Replace with actual LinkedIn page
+  };
 
   return (
     <footer className="bg-pink-50 text-[#6b0657] font-sans mt-16" role="contentinfo">
@@ -17,11 +25,13 @@ const Footer = () => {
             "@type": "Organization",
             "name": "AGX International",
             "url": "https://www.agx-international.com",
-            "logo": "https://www.agx-international.com/assets/logo-removebg-preview.png",
+            // Ensure this URL is correct and points to your transparent logo in the public directory
+            "logo": "https://www.agx-international.com/logo-agx-transparent.png",
             "sameAs": [
-              "https://www.facebook.com/your-real-page",
-              "https://twitter.com/your-real-page",
-              "https://www.instagram.com/your-real-page"
+              socialLinks.facebook,
+              socialLinks.twitter,
+              socialLinks.instagram,
+              socialLinks.linkedin // Added LinkedIn
             ]
           })}
         </script>
@@ -31,18 +41,18 @@ const Footer = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-10">
           {/* Logo & Description */}
           <div className="col-span-2 flex flex-col space-y-4">
-            <Link to="/" className="flex items-center space-x-3" aria-label={t('homepage.home')}>
+            <Link to="/" className="flex items-center space-x-3" aria-label={t('nav.home')}>
               <img
-                src={logo}
+                src={logo} // This will be the hashed/optimized path by your bundler (Vite/Webpack)
                 alt="AGX International Logo"
                 className="h-16 w-auto object-contain"
-                width="128"
-                height="64"
+                width="128" // Explicit width for CLS
+                height="64" // Explicit height for CLS
                 loading="lazy"
               />
             </Link>
             <p className="text-sm leading-relaxed">
-              AGX International is a global logistics and trade solutions provider, offering end-to-end freight forwarding, customs clearance, and supply chain services.
+              {t('footer.companyDescription')} {/* Translated description */}
             </p>
           </div>
 
@@ -53,8 +63,10 @@ const Footer = () => {
               {[
                 { name: t('nav.home'), path: "/" },
                 { name: t('nav.aboutUs'), path: "/about" },
+                { name: t('nav.services'), path: "/services" }, // Added Services to quick links
                 { name: t('nav.products'), path: "/products" },
                 { name: t('nav.contactUs'), path: "/contact" },
+                { name: t('nav.blog'), path: "/blog" } // Added Blog
               ].map(({ name, path }, i) => (
                 <li key={i}>
                   <Link
@@ -94,7 +106,7 @@ const Footer = () => {
             <h3 className="text-lg font-semibold text-pink-700 mb-4">{t('footer.followUs')}</h3>
             <div className="flex space-x-5 text-xl">
               <a
-                href="https://www.facebook.com/your-real-page"
+                href={socialLinks.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
@@ -103,7 +115,7 @@ const Footer = () => {
                 <FaFacebookF />
               </a>
               <a
-                href="https://twitter.com/your-real-page"
+                href={socialLinks.twitter}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Twitter"
@@ -112,13 +124,22 @@ const Footer = () => {
                 <FaTwitter />
               </a>
               <a
-                href="https://www.instagram.com/your-real-page"
+                href={socialLinks.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
                 className="text-[#6b0657] hover:text-pink-600 transition-colors duration-200"
               >
                 <FaInstagram />
+              </a>
+              <a
+                href={socialLinks.linkedin} // Added LinkedIn
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+                className="text-[#6b0657] hover:text-pink-600 transition-colors duration-200"
+              >
+                <FaLinkedinIn />
               </a>
             </div>
           </div>
