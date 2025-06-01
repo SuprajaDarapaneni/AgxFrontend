@@ -25,72 +25,54 @@ const About = () => {
 
   return (
     <section className="bg-gradient-to-b from-pink-50 to-white text-black min-h-screen flex flex-col items-center py-20">
-      <Helmet>
-        <html lang="en" />
-        <title>About Us | AGX International</title>
-        <meta
-          name="description"
-          content="Learn about AGX International – a global import-export company founded in 2022, driven by innovation, trust, and a commitment to excellence."
-        />
-        <meta
-          name="keywords"
-          content="AGX International, import export company, global trade, founder Anudeep, our mission, our values"
-        />
-        <meta name="robots" content="index, follow" />
-
-        {/* Open Graph */}
-        {/* <meta property="og:title" content={`About Us | ${company}`} />
-        <meta
-          property="og:description"
-          content="Learn about AGX International – a global import-export company founded in 2022, driven by innovation, trust, and a commitment to excellence."
-        /> */}
-        <Helmet>
+    <Helmet>
+  <html lang="en" />
   <title>About AGX International | Trusted Logistics Company</title>
   <meta name="description" content="Learn about AGX International, our mission, vision, and the team driving global logistics innovation." />
+  <meta name="keywords" content="AGX International, import export company, global trade, founder Anudeep, our mission, our values" />
+  <meta name="robots" content="index, follow" />
+
+  {/* Open Graph */}
+  <meta property="og:title" content="About AGX International | Trusted Logistics Company" />
+  <meta property="og:description" content="Learn about AGX International – a global import-export company founded in 2022, driven by innovation, trust, and a commitment to excellence." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.agx-international.com/about" />
+  <meta property="og:image" content="https://www.agx-international.com/images/social-about.jpg" />
+
+  {/* Twitter Card */}
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="About AGX International | Trusted Logistics Company" />
+  <meta name="twitter:description" content="Learn about AGX International – a global import-export company founded in 2022, driven by innovation, trust, and a commitment to excellence." />
+  <meta name="twitter:image" content="https://www.agx-international.com/images/social-about.jpg" />
+
+  {/* JSON-LD Structured Data */}
+  <script type="application/ld+json">
+    {JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      name: "AGX International",
+      url: "https://www.agx-international.com",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://www.agx-international.com/images/logo.png",
+        width: 250,
+        height: 60,
+      },
+      founder: {
+        "@type": "Person",
+        name: "Anudeep",
+      },
+      foundingDate: "2022-07-10",
+      description: "Global import-export company driven by innovation and trust.",
+      sameAs: [
+        "https://www.facebook.com/yourpage",
+        "https://twitter.com/yourprofile",
+        "https://www.linkedin.com/company/yourcompany"
+      ]
+    })}
+  </script>
 </Helmet>
 
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://yourdomain.com/about" />
-        <meta property="og:image" content="https://yourdomain.com/social-image.jpg" />
-
-        {/* Twitter Card */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`About Us | ${company}`} />
-        <meta
-          name="twitter:description"
-          content="Learn about AGX International – a global import-export company founded in 2022, driven by innovation, trust, and a commitment to excellence."
-        />
-        <meta name="twitter:image" content="https://yourdomain.com/social-image.jpg" />
-
-        {/* JSON-LD Structured Data */}
-        <script type="application/ld+json">
-          {`
-            {
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              "name": "${company}",
-              "url": "https://yourdomain.com",
-              "logo": {
-                "@type": "ImageObject",
-                "url": "https://yourdomain.com/logo.png",
-                "width": 250,
-                "height": 60
-              },
-              "founder": {
-                "@type": "Person",
-                "name": "Anudeep"
-              },
-              "foundingDate": "2022-07-10",
-              "description": "Global import-export company driven by innovation and trust.",
-              "sameAs": [
-                "https://www.facebook.com/yourpage",
-                "https://twitter.com/yourprofile",
-                "https://www.linkedin.com/company/yourcompany"
-              ]
-            }
-          `}
-        </script>
-      </Helmet>
 
       <main aria-label={`About ${company}`} className="container mx-auto max-w-7xl">
         <motion.h1

@@ -45,27 +45,46 @@ const HomePage = () => {
 
   return (
     <div className="bg-white text-gray-900 font-inter">
-      <Helmet>
-        <html lang={i18n.language || 'en'} />
-        {/* <title>{t('homepage.seoTitle') || 'AGX Global | Import Export, Products & Services'}</title>
-        <meta
-          name="description"
-          content={t('homepage.seoDescription') || "Explore AGX Global's international trade services, premium products, and global import/export solutions. Trusted by clients worldwide."}
-        /> */}
-        <Helmet>
-  <title>AGX International | Global Freight & Trade Experts</title>
-  <meta name="description" content="AGX International provides worldwide logistics, import-export, and consulting services." />
+    <Helmet>
+  <html lang={i18n.language || 'en'} />
+  <title>{t('homepage.seoTitle') || 'AGX International | Global Freight & Trade Experts'}</title>
+  <meta
+    name="description"
+    content={
+      t('homepage.seoDescription') ||
+      "Explore AGX Global's international trade services, premium products, and global import/export solutions. Trusted by clients worldwide."
+    }
+  />
+  <meta
+    name="keywords"
+    content="AGX Global, AGX International, import export, international trade, global logistics, freight services, global products"
+  />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.agx-international.com/" />
+
+  {/* Open Graph / Facebook */}
+  <meta
+    property="og:title"
+    content={t('homepage.seoTitle') || 'AGX International | Global Freight & Trade Experts'}
+  />
+  <meta
+    property="og:description"
+    content={
+      t('homepage.seoDescription') ||
+      'Explore our premium services and international products. Discover why AGX Global is your ideal partner in trade.'
+    }
+  />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.agx-international.com/" />
+  <meta property="og:image" content="https://www.agx-international.com/assets/og-banner.jpg" />
+
+  {/* Twitter Card */}
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={t('homepage.seoTitle') || 'AGX Global | International Trade Experts'} />
+  <meta name="twitter:description" content={t('homepage.seoDescription') || 'Trusted global trade partner.'} />
+  <meta name="twitter:image" content="https://www.agx-international.com/assets/og-banner.jpg" />
 </Helmet>
 
-        <meta name="keywords" content="AGX Global, import export, international trade, global products, logistics services, export company" />
-        {/* Open Graph tags */}
-        <meta property="og:title" content={t('homepage.seoTitle') || 'AGX Global | Import Export Experts'} />
-        <meta property="og:description" content={t('homepage.seoDescription') || 'Explore our premium services and international products. Discover why AGX Global is your ideal partner in trade.'} />
-        {/* Replace the URL below with your actual hosted image */}
-        <meta property="og:image" content="https://yourdomain.com/og-image.jpg" />
-        <meta property="og:url" content="https://yourdomain.com/" />
-        <meta name="robots" content="index, follow" />
-      </Helmet>
 
       {/* Skip to main content link (optional) */}
       <a href="#main-content" className="sr-only focus:not-sr-only p-2 bg-pink-600 text-white fixed top-2 left-2 rounded z-50">
