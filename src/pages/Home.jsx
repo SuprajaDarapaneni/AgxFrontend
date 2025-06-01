@@ -161,6 +161,38 @@ const HomePage = () => {
           </div>
         </section>
 
+
+
+        {/* About Section */}
+      <section className="py-16 bg-white animate-fade-in-up">
+        <div className="container mx-auto text-center">
+          <h2 className="text-4xl font-bold text-gray-900 mb-6">About Us</h2>
+          <div className="flex justify-center mb-8">
+            <div className="w-24 h-1 bg-pink-500 rounded-full"></div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center max-w-5xl mx-auto px-4 text-left">
+            <div>
+              <p className="text-lg text-gray-900">
+                Our journey began on July 10th, 2022, with a clear vision to create a strong bridge
+                between Indian industries and global markets through reliable export services...
+              </p>
+              <div className="mt-6">
+                <Link to="/about">
+                  <button className="bg-pink-500 text-white px-6 py-3 rounded-md hover:bg-pink-600 transition duration-300">
+                    Learn More
+                  </button>
+                </Link>
+              </div>
+            </div>
+            <div>
+              <img src={globalBusinessImage} alt="About Us" className="rounded-md shadow-lg" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+        
         {/* Services Section */}
         <section
           aria-label={t('homepage.servicesSectionAriaLabel') || 'Our Services'}
