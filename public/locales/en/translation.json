@@ -20,7 +20,7 @@
       "title": "Business Brokering",
       "desc": "Find the right international business partners and opportunities through our extensive network."
     },
-    "learnMore": "Learn more about our logistics services"
+    "learnMore": "Learn more Services"
   },
   "testimonials": {
     "title": "What Our Clients Say",
@@ -31,7 +31,7 @@
   "about": {
     "title": "About Us",
     "description": "Our journey began on July 10th, 2022, with a clear vision to create a strong bridge between Indian industries and global markets through reliable export services...",
-    "learnMore": "Learn more about our logistics services"
+    "learnMore": "Learn more about"
   },
   "products": {
     "title": "Our Products",
@@ -252,7 +252,8 @@
     "service2Desc": "Expand your market reach globally with export strategies.",
     "service3Title": "Business Brokering",
     "service3Desc": "Find the right partners through our network.",
-    "learnMore": "Learn more about our logistics services",
+    "learnMoreabout": "Discover Our Story",
+     "learnMoreserice": "Explore All Services",
     "testimonialsTitle": "What Our Clients Say",
     "testimonial1": "Their export support helped me expand overseas. Highly professional!",
     "testimonial2": "They made international trade feel easy. Trustworthy and experienced!",

@@ -151,7 +151,7 @@ const HomePage = () => {
                   className="bg-pink-500 text-white px-6 py-3 rounded-md hover:bg-pink-600 transition duration-300 shadow-lg hover:shadow-2xl hover:scale-105"
                   aria-label={t('homepage.learnMoreAriaLabel') || 'Learn more about AGX Global'}
                 >
-                  {t('homepage.learnMore')}
+                  {t('homepage.learnMoreabout')}
                 </button>
               </Link>
             </div>
@@ -191,7 +191,7 @@ const HomePage = () => {
                   className="bg-pink-500 text-white px-6 py-3 rounded-md hover:bg-pink-600 transition duration-300 shadow-lg hover:shadow-2xl hover:scale-105"
                   aria-label={t('homepage.learnMoreAriaLabel')}
                 >
-                  {t('homepage.learnMore')}
+                  {t('homepage.learnMoreserice')}
                 </button>
               </Link>
             </div>
