@@ -43,13 +43,14 @@ const Footer = () => {
           <div className="col-span-2 flex flex-col space-y-4">
             <Link to="/" className="flex items-center space-x-3" aria-label={t('nav.home')}>
               <img
-                src={logo} // This will be the hashed/optimized path by your bundler (Vite/Webpack)
-                alt="AGX International Logo"
-                className="h-16 w-auto object-contain"
-                width="128" // Explicit width for CLS
-                height="64" // Explicit height for CLS
-                loading="lazy"
-              />
+  src={logo}
+  alt="AGX International Logo"
+  className="h-16 w-auto object-contain"
+  width="128"
+  height="64"
+  loading="lazy"
+  decoding="async"
+/>
             </Link>
             <p className="text-sm leading-relaxed">
               {t('footer.companyDescription')} {/* Translated description */}
