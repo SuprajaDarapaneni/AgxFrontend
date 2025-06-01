@@ -71,9 +71,25 @@
   "contactUs": "Kontakt",
   "review": "Bewertungen"
 }
-
+,"aboutus.whyChooseUsTitle": "Warum uns wählen",
+    "aboutus.whyChooseUs.qualityTitle": "In Kanada ansässig, auf Qualität fokussiert",
+    "aboutus.whyChooseUs.qualityContent": "Als in Kanada ansässiger Importeur und Distributor stellen wir sicher, dass alle Produkte den kanadischen Standards, Vorschriften und Kundenerwartungen entsprechen.",
+    "aboutus.whyChooseUs.directSourcingTitle": "Direktbezug von globalen Herstellern",
+    "aboutus.whyChooseUs.directSourcingContent": "Wir importieren hochwertige Produkte von zuverlässigen globalen Produzenten, um Ihnen die besten Preise ohne Kompromisse bei der Qualität zu bieten.",
+    "aboutus.whyChooseUs.distributionNetworkTitle": "Optimiertes Vertriebsnetz",
+    "aboutus.whyChooseUs.distributionNetworkContent": "Mit einer wachsenden Lieferkette in den wichtigsten kanadischen Städten stellen wir pünktliche Lieferung, Lagerverfügbarkeit und lokale Lagerunterstützung sicher.",
+    "aboutus.whyChooseUs.complianceTitle": "Regulatorische Compliance & Zertifizierungen",
+    "aboutus.whyChooseUs.complianceContent": "Alle Produkte werden gemäß kanadischen Compliance-Protokollen importiert – einschließlich CFIA, Health Canada und anderer erforderlicher Zertifizierungen.",
+    "aboutus.whyChooseUs.b2bSupportTitle": "Maßgeschneiderter B2B-Support",
+    "aboutus.whyChooseUs.b2bSupportContent": "Ob Sie ein Einzelhändler, Großhändler oder B2B-Einkäufer sind, wir bieten flexible Bestellmengen, Markenunterstützung und konstante Lieferung.",
+    "aboutus.whyChooseUs.customerCentricTitle": "Kundenorientierter Service",
+    "aboutus.whyChooseUs.customerCentricContent": "Von Anfragen bis zum After-Sales-Support legen wir Wert auf Transparenz, Vertrauen und langfristige Beziehungen zu all unseren Kunden."
+ 
 ,
 "footer": {
+  "companyDescription": "AGX International ist ein globaler Anbieter von Logistik- und Handelslösungen, der umfassende Dienstleistungen in den Bereichen Spedition, Zollabfertigung und Lieferkettenmanagement anbietet."
+
+,
   "brandInfo": "Wir liefern Exzellenz durch Innovation und Strategie. Entdecken Sie unsere Lösungen und lassen Sie sich inspirieren.",
   "quickLinks": "Schnellzugriff",
   "legal": "Rechtliches",
