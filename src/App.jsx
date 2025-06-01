@@ -36,7 +36,7 @@ const ProtectedRoute = ({ children }) => {
   return isLoggedIn ? children : <Navigate to="/admin" replace />;
 };
 
-// Language Switcher component
+// Language Switcher component (Keeping as is, not relevant to the gap issue)
 const LanguageSwitcher = () => {
   const { i18n } = useTranslation();
 
@@ -76,10 +76,20 @@ const AppContent = () => {
         <meta name="generator" content="" />
       </Helmet>
 
-      {!isAdminRoute && <Header />}
+      {/* HERE IS THE KEY CHANGE FOR THE HEADER!
+        Apply 'fixed top-0 w-full z-50' to your Header component.
+        Also, ensure your Header component itself has a defined height (e.g., h-16, h-20).
+        For this example, let's assume your Header has a height of 'h-20' (80px).
+      */}
+      {!isAdminRoute && <Header className="fixed top-0 w-full z-50 bg-white shadow-md" />} {/* ADDED CLASSES HERE */}
       {/* <LanguageSwitcher /> */}
 
-      <main className="flex-grow pt-24 px-0">
+      {/* HERE IS THE KEY CHANGE FOR THE MAIN CONTENT!
+        The 'pt-20' (padding-top: 80px) pushes the content down to make space for the fixed header.
+        Adjust 'pt-20' if your Header has a different height (e.g., if Header is h-16 (64px), use pt-16).
+        The 'px-0' was already there, keeping it.
+      */}
+      <main className="flex-grow pt-20 px-0"> {/* ADJUSTED PT-XX HERE */}
         <Suspense fallback={<div className="text-center text-gray-500 py-10">Loading page...</div>}>
           <Routes>
             {/* Public Routes */}
