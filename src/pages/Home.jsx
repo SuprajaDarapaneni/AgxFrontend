@@ -137,31 +137,7 @@ const HomePage = () => {
 
       <main id="main-content" tabIndex={-1}>
 
-        {/* About Section */}
-        {/*    <section
-          aria-label={t('homepage.aboutSectionAriaLabel') || 'About AGX Global'}
-          className="flex flex-col md:flex-row items-center justify-between py-16 px-4 animate-fade-in-up transition-opacity duration-700"
-        >
-          <div className="w-full md:w-1/2 mb-8 md:mb-0">
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">{t('homepage.aboutTitle')}</h2>
-            <p className="text-lg text-gray-800 leading-relaxed">{t('homepage.aboutDesc')}</p>
-            <div className="mt-6">
-              <Link to="/about" onClick={scrollToTop}>
-                <button
-                  className="bg-pink-500 text-white px-6 py-3 rounded-md hover:bg-pink-600 transition duration-300 shadow-lg hover:shadow-2xl hover:scale-105"
-                  aria-label={t('homepage.learnMoreAriaLabel') || 'Learn more about AGX Global'}
-                >
-                  {t('homepage.learnMoreabout')}
-                </button>
-              </Link>
-            </div>
-          </div>
-          <div className="w-full md:w-1/2">
-            <img src={globalBusinessImage} alt={t('homepage.aboutImageAlt') || 'AGX Global business team meeting'} className="rounded-md shadow-xl" />
-          </div>
-        </section>
-*/}
-
+      
 
         {/* About Section */}
       <section className="py-16 bg-white animate-fade-in-up">
