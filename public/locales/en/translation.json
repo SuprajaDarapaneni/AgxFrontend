@@ -294,6 +294,7 @@
 ,
   "form": {
    "heading": "Buy/Sell Request Form",
+   "pageTitle":"Buy/Sell Request Form - AGX International",
     "buy": "Buy",
     "sell": "Sell",
     "name": "Name",
@@ -301,6 +302,7 @@
     "email": "Email",
     "country": "Country",
     "selectCountry": "Select your country",
+    "industriesHelper":"Select one or more industries",
     "industries": "Select Industries",
     "timing": "Preferred Timing",
     "immediately": "Immediately",
@@ -395,6 +397,12 @@
     "buttons": {
       "submit": "Submit"
     },
+    "address":"3rd Floor, building Ongole, Andhra Pradesh",
+    "callUs":"+49 152 1815 4435",
+    "emailUs":"contact@consulting.com",
+    "Open Hours":"Open Hours",
+    "days":"Monday - Friday",
+    "hours": "9:00AM - 10:00PM",
     "pageTitle":"Buy/Sell Request Form",
     "description":"Connect with AGX International — your trusted global trade partner. Whether you're looking to import quality products or expand your business across borders, our expert team is here to support you every step of the way. Let's grow together, globally.",
     "fields": {

@@ -136,6 +136,8 @@
     "buy": "Kaufen",
     "sell": "Verkaufen",
     "name": "Name",
+    "industriesHelper": "Wählen Sie eine oder mehrere Branchen aus"
+,
     "phone": "Telefon",
     "email": "E-Mail",
     "country": "Land",
@@ -232,6 +234,13 @@
     "buttons": {
       "submit": "Absenden"
     },
+     "adresse": "3. Etage, Gebäude Ongole, Andhra Pradesh",
+  "rufenSieUnsAn": "+49 152 1815 4435",
+  "email": "contact@consulting.com",
+  "öffnungszeiten": "Öffnungszeiten",
+  "tage": "Montag - Freitag",
+  "stunden": "9:00 Uhr - 22:00 Uhr"
+    ,
     "fields": {
       "name": "Name",
       "email": "E-Mail",

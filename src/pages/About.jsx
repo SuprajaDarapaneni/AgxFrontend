@@ -223,13 +223,13 @@ const About = () => {
  {/* NEW: Why Choose Us Section */}
 
 <motion.article
-  className="relative bg-gradient-to-br from-pink-750 via-pink to-pink rounded-3xl p-12 max-w-6xl mx-auto mb-24 shadow-xl border border-pink-100 overflow-hidden"
+  className="relative bg-gradient-to-br from-pink-100 via-pink-200 to-pink-300 rounded-3xl p-12 max-w-7xl mx-auto mb-24 shadow-2xl border border-pink-200 overflow-hidden"
   variants={fadeInUp}
   initial="hidden"
   animate="visible"
   custom={0}
 >
-  {/* 🔮 Soft Background SVG */}
+  {/* 🔮 Background SVG */}
   <svg
     className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none"
     xmlns="http://www.w3.org/2000/svg"
@@ -246,11 +246,12 @@ const About = () => {
   </svg>
 
   {/* 🎯 Heading */}
-  <h2 className="relative text-5xl font-extrabold text-pink-500 mb-16 text-center drop-shadow-md tracking-wide z-10">
+  <h2 className="relative text-5xl font-extrabold text-pink-600 mb-20 text-center drop-shadow-lg tracking-wide z-10">
     {t("aboutus.whyChooseUsTitle")}
   </h2>
 
-  <div className="relative space-y-14 z-10">
+  {/* 📦 Features Grid */}
+  <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-3 relative z-10">
     {[
       {
         img: qualityImage,
@@ -291,28 +292,26 @@ const About = () => {
     ].map(({ img, title, content, custom }) => (
       <motion.div
         key={title}
-        className="flex flex-col md:flex-row items-center md:items-start gap-8"
+        className="flex flex-col items-center bg-white/70 backdrop-blur-md rounded-2xl p-6 shadow-md border border-pink-200 hover:shadow-xl transition-all duration-300"
         variants={fadeInUp}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
+        viewport={{ once: true, amount: 0.2 }}
         custom={custom}
       >
         <img
           src={img}
           alt={t(title)}
-          className="w-28 h-28 object-cover rounded-2xl shadow-lg border-4 border-pink-200 transition-transform duration-300 hover:scale-105"
+          className="w-24 h-24 rounded-xl object-cover border-4 border-pink-300 mb-4 shadow"
           loading="lazy"
         />
-        <div>
-          <h3 className="flex items-center gap-3 text-2xl md:text-3xl font-semibold text-pink-900 mb-3">
-            <FaCheckCircle className="text-pink-400 text-xl" />
-            {t(title)}
-          </h3>
-          <p className="text-gray-700 leading-relaxed text-lg max-w-2xl">
-            {t(content)}
-          </p>
-        </div>
+        <h3 className="text-2xl font-semibold text-pink-800 mb-2 text-center flex items-center justify-center gap-2">
+          <FaCheckCircle className="text-pink-500" />
+          {t(title)}
+        </h3>
+        <p className="text-gray-700 text-center text-base leading-relaxed">
+          {t(content)}
+        </p>
       </motion.div>
     ))}
   </div>

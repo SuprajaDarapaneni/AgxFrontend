@@ -60,7 +60,7 @@ const Products = () => {
           content={t("product.seoDescription", "Explore our wide range of products at AGX Global. Quality guaranteed and tailored for you.")}
         />
         <meta name="keywords" content="AGX Global, products, import, export, international trade" />
-        <link rel="canonical" href="https://yourdomain.com/products" />
+        <link rel="canonical" href="https://www.agx-international.com/products" />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -68,7 +68,7 @@ const Products = () => {
             "itemListElement": products.map((product, index) => ({
               "@type": "ListItem",
               "position": index + 1,
-              "url": `https://yourdomain.com/product/${product._id}`,
+              "url": `https://www.agx-international.com/product/${product._id}`,
               "name": product.bannerTitle || product.category,
               "image": product.coverImage ? `https://agxbackend.onrender.com${product.coverImage}` : undefined,
             })),

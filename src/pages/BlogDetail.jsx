@@ -47,13 +47,13 @@ const BlogDetail = () => {
       <Helmet>
         <title>{blog.title} | AGX International</title>
         <meta name="description" content={metaDescription} />
-        <link rel="canonical" href={`https://yourdomain.com/blogs/${id}`} />
+        <link rel="canonical" href={`https://www.agx-international.com/blogs/${id}`} />
         <meta name="robots" content="index, follow" />
         {/* Optional Open Graph tags */}
         <meta property="og:title" content={blog.title} />
         <meta property="og:description" content={metaDescription} />
         <meta property="og:type" content="article" />
-        <meta property="og:url" content={`https://yourdomain.com/blogs/${id}`} />
+        <meta property="og:url" content={`https://www.agx-international.com/blogs/${id}`} />
       </Helmet>
 
       <main
