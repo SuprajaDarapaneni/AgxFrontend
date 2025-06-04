@@ -3,18 +3,17 @@ import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet';
 
-// Import your actual images here:
-import globalBusinessImage from '../assets/about.jpeg'; // Existing image
-import founderImage from '../assets/badge.png'; // <--- ASSUME you have an image for Anudeep
-import qualityImage from '../assets/badge.png'; // <--- REPLACE with your actual image path
-import directSourcingImage from '../assets/customer-service.png'; // <--- REPLACE with your actual image path
-import distributionNetworkImage from '../assets/networking.png'; // <--- REPLACE with your actual image path
-import complianceImage from '../assets/networking1.png'; // <--- REPLACE with your actual image path
-import b2bSupportImage from '../assets/patent_9259111.png'; // <--- REPLACE with your actual image path
-import customerCentricImage from '../assets/process_12112367.png'; // <--- REPLACE with your actual image path
+// Import your actual images
+import globalBusinessImage from '../assets/about.jpeg';
+import founderImage from '../assets/badge.png';
+import qualityImage from '../assets/badge.png';
+import directSourcingImage from '../assets/customer-service.png';
+import distributionNetworkImage from '../assets/networking.png';
+import complianceImage from '../assets/networking1.png';
+import b2bSupportImage from '../assets/patent_9259111.png';
+import customerCentricImage from '../assets/process_12112367.png';
 
-import { FaCheckCircle } from "react-icons/fa"; // Icon for titles
-import '../i18n'; // Assuming this correctly sets up i18next
+import '../i18n';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -76,21 +75,22 @@ const About = () => {
             foundingDate: "2022-07-10",
             description: "Global import-export company driven by innovation and trust.",
             sameAs: [
-              "https://www.facebook.com/yourpage", // Replace with actual social links
-              "https://twitter.com/yourprofile",   // Replace with actual social links
-              "https://www.linkedin.com/company/yourcompany" // Replace with actual social links
+              "https://www.facebook.com/yourpage",
+              "https://twitter.com/yourprofile",
+              "https://www.linkedin.com/company/yourcompany"
             ]
           })}
         </script>
       </Helmet>
 
-      <main aria-label={`About ${company}`} className="container mx-auto max-w-7xl">
+      <main className="container mx-auto max-w-7xl">
+        {/* Title */}
         <motion.h1
           className="text-4xl sm:text-5xl font-extrabold text-center text-pink-500 mb-6 tracking-wide drop-shadow-md"
           variants={fadeInUp}
           initial="hidden"
           animate="visible"
-          custom={1} // Start animation order
+          custom={1}
         >
           {t('aboutus.title')}
         </motion.h1>
@@ -100,17 +100,18 @@ const About = () => {
           variants={fadeInUp}
           initial="hidden"
           animate="visible"
-          custom={2} // Next in animation order
+          custom={2}
         >
           <div className="w-32 h-1 bg-pink-300 rounded-full animate-pulse"></div>
         </motion.div>
 
+        {/* Intro Section */}
         <motion.article
           className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-20"
           variants={fadeInUp}
           initial="hidden"
           animate="visible"
-          custom={3} // Next in animation order
+          custom={3}
         >
           <div className="max-w-xl mx-auto md:mx-0 text-center md:text-left space-y-6">
             <p className="text-lg leading-relaxed font-semibold text-gray-800">
@@ -121,7 +122,7 @@ const About = () => {
           <motion.figure
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.4 }}
-            className="mx-auto md:mx-0 max-w-2xl rounded-3xl shadow-2xl overflow-hidden"
+            className="mx-auto max-w-2xl rounded-3xl shadow-2xl overflow-hidden"
           >
             <img
               src={globalBusinessImage}
@@ -139,7 +140,7 @@ const About = () => {
           variants={fadeInUp}
           initial="hidden"
           animate="visible"
-          custom={4} // Next in animation order
+          custom={4}
         >
           <h2 className="text-3xl sm:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-600 mb-10 text-center tracking-tight">
             ✨ {t('aboutus.ourStoryTitle')} ✨
@@ -148,14 +149,14 @@ const About = () => {
             {t('aboutus.ourStoryContent', { company, date: foundedDate })}
           </p>
         </motion.article>
-{/* 
-    
+
+        {/* Mission & Vision */}
         <motion.article
           className="bg-white rounded-3xl p-12 max-w-5xl mx-auto mb-24 shadow-xl border border-pink-100"
           variants={fadeInUp}
           initial="hidden"
           animate="visible"
-          custom={5} // Next in animation order
+          custom={5}
         >
           <h2 className="text-3xl sm:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600 mb-10 text-center tracking-tight">
             🎯 {t('aboutus.missionVisionTitle')} 🌟
@@ -178,16 +179,15 @@ const About = () => {
               </p>
             </div>
           </div>
-        </motion.article> */}
+        </motion.article>
 
-       
-
+        {/* Founder Section */}
         <motion.article
           className="bg-gradient-to-br from-pink-50 to-white rounded-3xl p-12 max-w-5xl mx-auto mb-24 shadow-xl border border-pink-200"
           variants={fadeInUp}
           initial="hidden"
           animate="visible"
-          custom={5}
+          custom={6}
         >
           <h2 className="text-4xl font-extrabold text-pink-600 mb-10 text-center drop-shadow-md tracking-wide">
             {t('aboutus.founderTitle')}
@@ -199,7 +199,7 @@ const About = () => {
               transition={{ duration: 0.4 }}
             >
               <img
-                src="https://placehold.co/224x224/FCE7F3/EC4899?text=Anudeep"
+                src={founderImage}
                 alt="Anudeep – Founder of AGX International"
                 className="w-full h-full object-cover"
                 draggable={false}
@@ -210,131 +210,13 @@ const About = () => {
               <h3 className="text-3xl font-bold text-gray-900 mb-5 leading-tight tracking-tight">
                 {t('aboutus.founderName')}
               </h3>
-
               <blockquote className="italic text-gray-800 border-l-4 border-pink-500 pl-6 py-4 mt-8 bg-pink-50 rounded-r-lg shadow-inner drop-shadow-sm">
                 <p className="text-xl font-semibold">“{t('aboutus.founderQuote')}”</p>
-                <footer className="mt-3 text-pink-600 font-bold text-lg">— Anudeep</footer>
+                <footer className="mt-3 text-pink-600 font-bold text-lg">— {t('aboutus.founderName')}</footer>
               </blockquote>
-              <p className="leading-relaxed text-gray-700 mt-8 text-lg">{t('aboutus.founderVision')}</p>
             </div>
           </div>
         </motion.article>
-
- {/* NEW: Why Choose Us Section */}
-
-<motion.article
-  className="relative bg-gradient-to-br from-pink-100 via-pink-200 to-pink-300 rounded-3xl p-12 max-w-7xl mx-auto mb-24 shadow-2xl border border-pink-200 overflow-hidden"
-  variants={fadeInUp}
-  initial="hidden"
-  animate="visible"
-  custom={0}
->
-  {/* 🔮 Background SVG */}
-  <svg
-    className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none"
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 600 600"
-    fill="none"
-  >
-    <circle cx="400" cy="200" r="200" fill="url(#grad)" />
-    <defs>
-      <radialGradient id="grad" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(400 200) rotate(90) scale(200)">
-        <stop stopColor="#f9a8d4" />
-        <stop offset="1" stopColor="#f3e8ff" stopOpacity="0" />
-      </radialGradient>
-    </defs>
-  </svg>
-
-  {/* 🎯 Heading */}
-  <h2 className="relative text-5xl font-extrabold text-pink-600 mb-20 text-center drop-shadow-lg tracking-wide z-10">
-    {t("aboutus.whyChooseUsTitle")}
-  </h2>
-
-  {/* 📦 Features Grid */}
-  <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-3 relative z-10">
-    {[
-      {
-        img: qualityImage,
-        title: "aboutus.whyChooseUs.qualityTitle",
-        content: "aboutus.whyChooseUs.qualityContent",
-        custom: 1,
-      },
-      {
-        img: directSourcingImage,
-        title: "aboutus.whyChooseUs.directSourcingTitle",
-        content: "aboutus.whyChooseUs.directSourcingContent",
-        custom: 2,
-      },
-      {
-        img: distributionNetworkImage,
-        title: "aboutus.whyChooseUs.distributionNetworkTitle",
-        content: "aboutus.whyChooseUs.distributionNetworkContent",
-        custom: 3,
-      },
-      {
-        img: complianceImage,
-        title: "aboutus.whyChooseUs.complianceTitle",
-        content: "aboutus.whyChooseUs.complianceContent",
-        custom: 4,
-      },
-      {
-        img: b2bSupportImage,
-        title: "aboutus.whyChooseUs.b2bSupportTitle",
-        content: "aboutus.whyChooseUs.b2bSupportContent",
-        custom: 5,
-      },
-      {
-        img: customerCentricImage,
-        title: "aboutus.whyChooseUs.customerCentricTitle",
-        content: "aboutus.whyChooseUs.customerCentricContent",
-        custom: 6,
-      },
-    ].map(({ img, title, content, custom }) => (
-      <motion.div
-        key={title}
-        className="flex flex-col items-center bg-white/70 backdrop-blur-md rounded-2xl p-6 shadow-md border border-pink-200 hover:shadow-xl transition-all duration-300"
-        variants={fadeInUp}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        custom={custom}
-      >
-        <img
-          src={img}
-          alt={t(title)}
-          className="w-24 h-24 rounded-xl object-cover border-4 border-pink-300 mb-4 shadow"
-          loading="lazy"
-        />
-        <h3 className="text-2xl font-semibold text-pink-800 mb-2 text-center flex items-center justify-center gap-2">
-          <FaCheckCircle className="text-pink-500" />
-          {t(title)}
-        </h3>
-        <p className="text-gray-700 text-center text-base leading-relaxed">
-          {t(content)}
-        </p>
-      </motion.div>
-    ))}
-  </div>
-</motion.article>
-
-        {/* Call to Action */}
-        <motion.div
-          className="mt-24 text-center max-w-3xl mx-auto"
-          variants={fadeInUp}
-          initial="hidden"
-          animate="visible"
-          custom={8} // Next in animation order
-        >
-          <h3 className="text-3xl font-extrabold text-pink-500 mb-6 tracking-wide">{t('aboutus.ctaTitle')}</h3>
-          <p className="text-gray-800 mb-10 text-lg max-w-xl mx-auto">{t('aboutus.ctaDesc')}</p>
-          <a
-            href="/contact"
-            aria-label={t('aboutus.ctaBtn')}
-            className="inline-block bg-pink-500 text-white text-lg font-semibold px-10 py-4 rounded-full shadow-lg hover:bg-pink-600 transition-colors duration-300"
-          >
-            {t('aboutus.ctaBtn')}
-          </a>
-        </motion.div>
       </main>
     </section>
   );
