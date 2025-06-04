@@ -48,6 +48,8 @@ const BuySellForm = () => {
     message: '',
   });
 
+  const [files, setFiles] = useState([]); // new state for uploaded files
+
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -64,6 +66,10 @@ const BuySellForm = () => {
     }));
   };
 
+  const handleFileChange = (e) => {
+    setFiles(Array.from(e.target.files)); // store files as array
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitDisabled(true);
@@ -71,10 +77,27 @@ const BuySellForm = () => {
     setErrorMessage('');
 
     try {
+      // Using FormData for file upload + other data
+      const formPayload = new FormData();
+
+      // Append regular fields to FormData
+      for (const key in formData) {
+        if (key === 'industries') {
+          formData.industries.forEach(industry => formPayload.append('industries[]', industry));
+        } else {
+          formPayload.append(key, formData[key]);
+        }
+      }
+
+      // Append files
+      files.forEach((file, index) => {
+        formPayload.append('files', file);
+      });
+
       const response = await fetch('https://agxbackend.onrender.com/buyform', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: formPayload,
+        // NOTE: No 'Content-Type' header needed for FormData; browser sets it automatically
       });
 
       if (response.ok) {
@@ -89,6 +112,8 @@ const BuySellForm = () => {
           timing: 'Immediately',
           message: '',
         });
+        setFiles([]);
+        // Also clear file input field if needed, by using ref or key prop
       } else {
         setErrorMessage(t('form.failureMessage'));
       }
@@ -125,7 +150,7 @@ const BuySellForm = () => {
             {t('form.heading') || 'Buy/Sell Request Form'}
           </h1>
 
-          <form onSubmit={handleSubmit} noValidate>
+          <form onSubmit={handleSubmit} noValidate encType="multipart/form-data">
             {/* Buy or Sell */}
             <fieldset className="flex justify-center space-x-6 mb-6" aria-label={t('form.buySellGroupAria') || 'Select buy or sell'}>
               <legend className="sr-only">{t('form.buySellLegend') || 'Buy or Sell'}</legend>
@@ -246,6 +271,26 @@ const BuySellForm = () => {
                 rows={4}
                 className="w-full border border-pink-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-pink-400 focus:outline-none resize-none"
               />
+            </div>
+
+            {/* File Upload */}
+            <div className="mb-6">
+              <label htmlFor="files" className="block text-pink-600 font-medium mb-1">
+                {t('form.attachFiles') || 'Attach Photos or Files'}
+              </label>
+              <input
+                id="files"
+                name="files"
+                type="file"
+                onChange={handleFileChange}
+                multiple
+                accept="image/*,application/pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx"
+                className="w-full"
+                aria-describedby="files-desc"
+              />
+              <p id="files-desc" className="text-sm text-gray-500 mt-1">
+                {t('form.attachFilesHelper') || 'You can upload multiple files including images and documents.'}
+              </p>
             </div>
 
             {/* Submit Button */}
