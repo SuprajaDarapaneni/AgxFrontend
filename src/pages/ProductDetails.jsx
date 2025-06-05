@@ -200,7 +200,7 @@ const ProductDetails = () => {
             )}
             {product.intro && <p className="text-gray-800 text-lg leading-relaxed">{product.intro}</p>}
 
-            {/* Collapsible Sections */}
+            {/* Collapsible Sections with bullet lists */}
             <ProductDetailSection title="Introduction" content={product.introduction} />
             <ProductDetailSection title="Product Range" content={product.productRange} />
             <ProductDetailSection title="Additional Info" content={product.additionalInfo} />
@@ -234,11 +234,16 @@ const ProductDetails = () => {
   );
 };
 
-// Helper component for collapsible sections
+// Updated ProductDetailSection component to render bullet points
 const ProductDetailSection = ({ title, content }) => {
   const [isOpen, setIsOpen] = useState(true);
 
   if (!content) return null;
+
+  // Split content by bullet character '•', trim, filter empties
+  const contentArray = typeof content === "string"
+    ? content.split("•").map(item => item.trim()).filter(Boolean)
+    : [];
 
   return (
     <div className="border-t border-gray-200 pt-4">
@@ -260,6 +265,7 @@ const ProductDetailSection = ({ title, content }) => {
           </svg>
         </motion.span>
       </button>
+
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -270,7 +276,11 @@ const ProductDetailSection = ({ title, content }) => {
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="mt-3 text-gray-700 leading-relaxed"
           >
-            {content}
+            <ul className="list-disc list-inside space-y-2">
+              {contentArray.map((item, i) => (
+                <li key={i}>{item}</li>
+              ))}
+            </ul>
           </motion.div>
         )}
       </AnimatePresence>

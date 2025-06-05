@@ -150,7 +150,7 @@ const HomePage = () => {
             <div>
               <p className="text-lg text-gray-900">
                 Our journey began on July 10th, 2022, with a clear vision to create a strong bridge
-                between Indian industries and global markets through reliable export services...
+                between Global industries and Global markets through reliable export services...
               </p>
               <div className="mt-6">
                 <Link to="/about">
