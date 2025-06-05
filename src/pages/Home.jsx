@@ -273,9 +273,9 @@ const HomePage = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto px-4">
             {[
-              { name: 'Ravi Kumar', feedback: t('homepage.testimonial1'), image: 'https://randomuser.me/api/portraits/men/32.jpg' },
-              { name: 'Anjali Mehta', feedback: t('homepage.testimonial2'), image: 'https://randomuser.me/api/portraits/women/44.jpg' },
-              { name: 'Mohammed Irfan', feedback: t('homepage.testimonial3'), image: 'https://randomuser.me/api/portraits/men/85.jpg' }
+              { name: 'Steve', feedback: t('homepage.testimonial1'), image: 'https://randomuser.me/api/portraits/men/32.jpg' },
+              { name: 'Hannah', feedback: t('homepage.testimonial2'), image: 'https://randomuser.me/api/portraits/women/44.jpg' },
+              { name: 'Goerge', feedback: t('homepage.testimonial3'), image: 'https://randomuser.me/api/portraits/men/85.jpg' }
             ].map((testi, index) => (
               <div key={index} className="bg-gray-100 p-6 rounded-lg shadow hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 hover:bg-white animate-fade-in-up">
                 <img src={testi.image} alt={`Testimonial by ${testi.name}`} className="w-16 h-16 mx-auto rounded-full mb-4" />
