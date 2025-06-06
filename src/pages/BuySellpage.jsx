@@ -113,12 +113,12 @@ const BuySellForm = () => {
       });
 
       if (response.ok) {
-        // setSuccessMessage(
-        //   t('form.successMessage') +
-        //   (uploadedImageUrls.length > 0
-        //     ? `\n\n${t('form.uploadedImages') || 'Uploaded Images:'}\n${uploadedImageUrls.join('\n')}`
-        //     : '')
-        // );
+        setSuccessMessage(
+          t('form.successMessage') +
+          (uploadedImageUrls.length > 0
+            ? `\n\n${t('form.uploadedImages') || 'Uploaded Images:'}\n${uploadedImageUrls.join('\n')}`
+            : '')
+        );
 
         setFormData({
           buySell: 'buy',
