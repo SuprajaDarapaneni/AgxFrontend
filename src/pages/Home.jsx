@@ -25,7 +25,7 @@ const HomePage = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch('https://agxbackend.onrender.com/client/getproducts');
+        const response = await fetch('https://agxbackend-1.onrender.com/client/getproducts');
         const data = await response.json();
         setProducts(data);
       } catch (error) {
@@ -233,7 +233,7 @@ const HomePage = () => {
                     src={
                       product.coverImage?.startsWith('http')
                         ? product.coverImage
-                        : `https://agxbackend.onrender.com/${product.coverImage?.replace(/^\/+/, '')}`
+                        : `https://agxbackend-1.onrender.com/${product.coverImage?.replace(/^\/+/, '')}`
                     }
                     alt={product.name || 'Product Image'}
                     className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"

@@ -293,6 +293,7 @@
   }
 ,
   "form": {
+    "attachFiles":"Image upload",
    "heading": "Buy/Sell Request Form",
    "pageTitle":"Buy/Sell Request Form - AGX International",
     "buy": "Buy",
