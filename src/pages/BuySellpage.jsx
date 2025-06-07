@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState ,useRef  } from 'react';
 import Select from 'react-select';
 import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet';
@@ -29,7 +29,7 @@ const COUNTRY_OPTIONS_RAW = [
 
 const BuySellForm = () => {
   const { t } = useTranslation();
-
+const fileInputRef = useRef(null); 
   const INDUSTRY_OPTIONS = INDUSTRY_OPTIONS_RAW.map(item => ({
     value: item,
     label: t(`industryOptions.${item}`),
@@ -131,6 +131,9 @@ const BuySellForm = () => {
           message: '',
         });
         setFiles([]);
+         if (fileInputRef.current) {
+    fileInputRef.current.value = null;
+  }
       } else {
         setErrorMessage(t('form.failureMessage'));
       }
@@ -185,16 +188,17 @@ const BuySellForm = () => {
             ].map(({ labelKey, name, type }) => (
               <div key={name} className="mb-6">
                 <label htmlFor={name} className="block text-pink-600 font-medium mb-1">
-                  {t(`form.${labelKey}`)}
+                  {t(`form.${labelKey}`)}<span className="text-red-500">*</span>
                 </label>
                 <input
                   id={name}
                   name={name}
                   type={type}
+                  required
                   value={formData[name]}
                   onChange={handleChange}
                   placeholder={t(`form.${labelKey}`)}
-                  required
+                  
                   className="w-full border border-pink-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-pink-400"
                 />
               </div>
@@ -203,14 +207,15 @@ const BuySellForm = () => {
             {/* Country Dropdown */}
             <div className="mb-6">
               <label htmlFor="country" className="block text-pink-600 font-medium mb-1">
-                {t('form.country')}
+                {t('form.country')}<span className="text-red-500">*</span>
               </label>
               <select
                 id="country"
                 name="country"
+                required
                 value={formData.country}
                 onChange={handleChange}
-                required
+               
                 className="w-full border border-pink-300 px-4 py-3 rounded-lg text-gray-700 focus:ring-2 focus:ring-pink-400"
               >
                 <option value="" disabled>{t('form.selectCountry')}</option>
@@ -223,11 +228,12 @@ const BuySellForm = () => {
             {/* Industries Multi-Select */}
             <div className="mb-6">
               <label htmlFor="industries" className="block text-pink-600 font-medium mb-1">
-                {t('form.industries')}
+                {t('form.industries')}<span className="text-red-500">*</span>
               </label>
               <Select
                 inputId="industries"
                 isMulti
+                required
                 options={INDUSTRY_OPTIONS}
                 value={INDUSTRY_OPTIONS.filter(opt => formData.industries.includes(opt.value))}
                 onChange={handleIndustrySelect}
@@ -238,11 +244,12 @@ const BuySellForm = () => {
             {/* Timing */}
             <div className="mb-6">
               <label htmlFor="timing" className="block text-pink-600 font-medium mb-1">
-                {t('form.timing')}
+                {t('form.timing')}<span className="text-red-500">*</span>
               </label>
               <select
                 id="timing"
                 name="timing"
+                required
                 value={formData.timing}
                 onChange={handleChange}
                 className="w-full border border-pink-300 px-4 py-3 rounded-lg"
@@ -259,7 +266,7 @@ const BuySellForm = () => {
             {/* Message */}
             <div className="mb-6">
               <label htmlFor="message" className="block text-pink-600 font-medium mb-1">
-                {t('form.message')}
+                {t('form.message')}<span className="text-red-500">*</span>
               </label>
               <textarea
                 id="message"
@@ -267,6 +274,7 @@ const BuySellForm = () => {
                 value={formData.message}
                 onChange={handleChange}
                 rows={4}
+                required
                 className="w-full border border-pink-300 px-4 py-3 rounded-lg resize-none"
               />
             </div>
@@ -277,14 +285,16 @@ const BuySellForm = () => {
                 {t('form.attachFiles')}
               </label>
               <input
-                id="files"
-                name="files"
-                type="file"
-                multiple
-                accept="image/*"
-                onChange={handleFileChange}
-                className="w-full"
-              />
+              id="files"
+              name="files"
+              type="file"
+              multiple
+              accept="image/*"
+              onChange={handleFileChange}
+              ref={fileInputRef} // ✅ Add this line
+              className="w-full"
+            />
+
             </div>
 
             {/* Submit Button */}

@@ -37,15 +37,11 @@ const ProductDetails = () => {
     navigate("/buy-sell");
   };
 
-  // Accessibility: close zoom with Escape key
-  const handleKeyDown = useCallback(
-    (e) => {
-      if (e.key === "Escape" && zoomedImage) {
-        setZoomedImage(null);
-      }
-    },
-    [zoomedImage]
-  );
+  const handleKeyDown = useCallback((e) => {
+    if (e.key === "Escape" && zoomedImage) {
+      setZoomedImage(null);
+    }
+  }, [zoomedImage]);
 
   useEffect(() => {
     if (zoomedImage) {
@@ -62,15 +58,12 @@ const ProductDetails = () => {
     );
   }
 
-  // SEO metadata
   const pageTitle = product.bannerTitle
     ? `${product.bannerTitle} | AGX Global`
     : "Product Details | AGX Global";
 
-  const metaDescription =
-    product.intro || product.additionalInfo || "Discover our product at AGX Global";
+  const metaDescription = product.intro || product.additionalInfo || "Discover our product at AGX Global";
 
-  // JSON-LD structured data for Product
   const jsonLd = {
     "@context": "https://schema.org/",
     "@type": "Product",
@@ -106,12 +99,11 @@ const ProductDetails = () => {
             onClick={() => setZoomedImage(null)}
             role="dialog"
             aria-modal="true"
-            aria-label={`${product.bannerTitle || "Product"} - zoomed image`}
             tabIndex={-1}
           >
             <motion.img
               src={zoomedImage}
-              alt={`${product.bannerTitle || "Product"} zoomed image`}
+              alt="Zoomed"
               className="max-w-[90%] max-h-[90%] rounded-lg shadow-2xl object-contain"
               initial={{ scale: 0.9 }}
               animate={{ scale: 1 }}
@@ -120,8 +112,8 @@ const ProductDetails = () => {
             />
             <button
               onClick={() => setZoomedImage(null)}
-              className="absolute top-6 right-6 text-white text-4xl font-bold transition-transform duration-200 hover:scale-110"
-              aria-label="Close zoomed image"
+              className="absolute top-6 right-6 text-white text-4xl font-bold"
+              aria-label="Close"
             >
               &times;
             </button>
@@ -131,29 +123,21 @@ const ProductDetails = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 bg-white shadow-lg rounded-lg my-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-          {/* Left side: Images */}
+          {/* Left Images */}
           <div className="flex flex-col items-center">
             {mainImage && (
               <motion.img
                 key={mainImage}
                 src={mainImage}
-                alt={product.bannerTitle || "Product main image"}
+                alt="Main"
                 className="w-full h-96 object-contain rounded-xl shadow-md cursor-zoom-in border border-gray-200"
                 onClick={() => setZoomedImage(mainImage)}
                 initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.3 }}
-                tabIndex={0}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    setZoomedImage(mainImage);
-                  }
-                }}
                 role="button"
-                aria-label={`Zoom in on ${product.bannerTitle || "product"} image`}
               />
             )}
-
             {product.multipleImages?.length > 0 && (
               <div className="grid grid-cols-4 gap-3 mt-6 w-full max-w-lg">
                 {product.multipleImages.map((img, index) => {
@@ -162,23 +146,16 @@ const ProductDetails = () => {
                     <motion.img
                       key={index}
                       src={fullImg}
-                      alt={`Thumbnail ${index + 1} of ${product.bannerTitle || "product"}`}
-                      className={`h-24 w-full object-cover rounded-lg cursor-pointer transition-all duration-200 shadow-sm
+                      alt={`Thumb ${index + 1}`}
+                      className={`h-24 w-full object-cover rounded-lg cursor-pointer transition-all duration-200
                         ${fullImg === mainImage
-                          ? "border-3 border-indigo-600 ring-2 ring-indigo-300 transform scale-105"
+                          ? "border-2 border-indigo-600 ring-2 ring-indigo-300 scale-105"
                           : "border border-gray-300 hover:border-indigo-400"
                         }`}
                       onClick={() => setMainImage(fullImg)}
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      tabIndex={0}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter" || e.key === " ") {
-                          setMainImage(fullImg);
-                        }
-                      }}
                       role="button"
-                      aria-pressed={fullImg === mainImage}
                     />
                   );
                 })}
@@ -186,44 +163,29 @@ const ProductDetails = () => {
             )}
           </div>
 
-          {/* Right side: Product Details */}
+          {/* Right Details */}
           <div className="space-y-8">
-            {product.bannerTitle && (
-              <h1 className="text-4xl font-extrabold text-gray-900 leading-tight">
-                {product.bannerTitle}
-              </h1>
-            )}
+            <h1 className="text-4xl font-extrabold text-gray-900">{product.bannerTitle}</h1>
             {product.category && (
-              <p className="text-md text-indigo-700 font-semibold bg-indigo-50 inline-block px-3 py-1 rounded-full shadow-sm">
+              <p className="text-md text-indigo-700 font-semibold bg-indigo-50 inline-block px-3 py-1 rounded-full">
                 {product.category}
               </p>
             )}
             {product.intro && <p className="text-gray-800 text-lg leading-relaxed">{product.intro}</p>}
 
-            {/* Collapsible Sections with bullet lists */}
+            {/* Custom Sections */}
             <ProductDetailSection title="Introduction" content={product.introduction} />
             <ProductDetailSection title="Product Range" content={product.productRange} />
             <ProductDetailSection title="Additional Info" content={product.additionalInfo} />
 
-            <div className="flex flex-wrap gap-4 mt-8">
-              <Link
-                to="/products"
-                className="px-6 py-3 bg-indigo-600 text-white font-medium rounded-lg shadow-md hover:bg-indigo-700 transition duration-300 ease-in-out transform hover:scale-105"
-              >
+            <div className="flex gap-4 mt-8 flex-wrap">
+              <Link to="/products" className="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
                 Back to Products
               </Link>
-
-              <Link
-                to="/contact"
-                className="px-6 py-3 border-2 border-indigo-600 text-indigo-600 font-medium rounded-lg shadow-md hover:bg-indigo-50 transition duration-300 ease-in-out transform hover:scale-105"
-              >
+              <Link to="/contact" className="px-6 py-3 border border-indigo-600 text-indigo-600 rounded-lg hover:bg-indigo-50">
                 Contact Us
               </Link>
-
-              <button
-                onClick={goToBuySell}
-                className="px-6 py-3 border-2 border-green-600 text-green-600 font-medium rounded-lg shadow-md hover:bg-green-50 transition duration-300 ease-in-out transform hover:scale-105"
-              >
+              <button onClick={goToBuySell} className="px-6 py-3 border border-green-600 text-green-600 rounded-lg hover:bg-green-50">
                 Go to Buy/Sell
               </button>
             </div>
@@ -234,29 +196,26 @@ const ProductDetails = () => {
   );
 };
 
-// Updated ProductDetailSection component to render bullet points
+// 🔧 Only "Product Range" uses bullets
 const ProductDetailSection = ({ title, content }) => {
   const [isOpen, setIsOpen] = useState(true);
-
   if (!content) return null;
 
-  // Split content by bullet character '•', trim, filter empties
-  const contentArray = typeof content === "string"
+  const isBulletList = title.toLowerCase() === "product range";
+  const contentArray = isBulletList
     ? content.split("•").map(item => item.trim()).filter(Boolean)
-    : [];
+    : null;
 
   return (
     <div className="border-t border-gray-200 pt-4">
       <button
-        className="flex justify-between items-center w-full text-left text-xl font-semibold text-gray-800 focus:outline-none"
+        className="flex justify-between items-center w-full text-left text-xl font-semibold text-gray-800"
         onClick={() => setIsOpen(!isOpen)}
         aria-expanded={isOpen}
-        aria-controls={`section-${title.replace(/\s+/g, "-").toLowerCase()}`}
       >
         <span>{title}</span>
         <motion.span
           className="text-gray-500"
-          initial={false}
           animate={{ rotate: isOpen ? 90 : 0 }}
           transition={{ duration: 0.2 }}
         >
@@ -269,18 +228,21 @@ const ProductDetailSection = ({ title, content }) => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            id={`section-${title.replace(/\s+/g, "-").toLowerCase()}`}
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
+            transition={{ duration: 0.3 }}
             className="mt-3 text-gray-700 leading-relaxed"
           >
-            <ul className="list-disc list-inside space-y-2">
-              {contentArray.map((item, i) => (
-                <li key={i}>{item}</li>
-              ))}
-            </ul>
+            {isBulletList ? (
+              <ul className="list-disc list-inside space-y-2">
+                {contentArray.map((item, index) => (
+                  <li key={index}>{item}</li>
+                ))}
+              </ul>
+            ) : (
+              <p>{content}</p>
+            )}
           </motion.div>
         )}
       </AnimatePresence>
