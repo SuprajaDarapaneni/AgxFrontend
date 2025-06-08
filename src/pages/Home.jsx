@@ -20,6 +20,8 @@ const HomePage = () => {
   const { t, i18n } = useTranslation();
   const [products, setProducts] = useState([]);
   const [viewportHeight, setViewportHeight] = useState(window.innerHeight);
+  const [reviews, setReviews] = useState([]);
+
   const images = [img1, img2, img3, img4, img5, img6];
 
   useEffect(() => {
@@ -34,6 +36,19 @@ const HomePage = () => {
     };
     fetchProducts();
   }, []);
+   useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const response = await fetch('https://agxbackend-1.onrender.com/reviews');
+        const data = await response.json();
+        setReviews(data);
+      } catch (error) {
+        console.error('Error fetching reviews:', error);
+      }
+    };
+    fetchReviews();
+  }, []); // Empty dependency array means this runs once on mount
+
 
   useEffect(() => {
     const handleResize = () => setViewportHeight(window.innerHeight);
@@ -265,62 +280,92 @@ const HomePage = () => {
           </div>
         </section>
          {/* Testimonials Section */}
-      <section className="py-16 bg-white animate-fade-in-up transition-opacity duration-700">
-        <div className="container mx-auto text-center">
-          <h2 className="text-4xl font-bold text-gray-900 mb-6">{t('homepage.testimonialsTitle')}</h2>
-          <div className="flex justify-center mb-10">
-            <div className="w-24 h-1 bg-gradient-to-r from-pink-500 via-red-400 to-yellow-300 rounded-full"></div>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto px-4">
-            {[
-              { name: 'Steve', feedback: t('homepage.testimonial1'), image: 'https://randomuser.me/api/portraits/men/32.jpg' },
-              { name: 'Hannah', feedback: t('homepage.testimonial2'), image: 'https://randomuser.me/api/portraits/women/44.jpg' },
-              { name: 'George', feedback: t('homepage.testimonial3'), image: 'https://randomuser.me/api/portraits/men/85.jpg' }
-            ].map((testi, index) => (
-              <div key={index} className="bg-gray-100 p-6 rounded-lg shadow hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 hover:bg-white animate-fade-in-up">
-                <img src={testi.image} alt={`Testimonial by ${testi.name}`} className="w-16 h-16 mx-auto rounded-full mb-4" />
-                <p className="text-gray-700 italic">"{testi.feedback}"</p>
-                <h4 className="mt-4 text-lg font-semibold text-pink-600">{testi.name}</h4>
-              </div>
-            ))}
-          </div>
+         <section
+      aria-label={t('homepage.testimonialsSectionAriaLabel') || 'What Our Clients Say'}
+      className="py-16 bg-white animate-fade-in-up transition-opacity duration-700"
+    >
+      <div className="container mx-auto text-center">
+        {/* Section Title */}
+        <h2 className="text-4xl font-bold text-gray-900 mb-6">
+          {t('homepage.testimonialsTitle') || 'What Our Clients Say'}
+        </h2>
+        {/* Decorative divider */}
+        <div className="flex justify-center mb-8">
+          <div className="w-24 h-1 bg-gradient-to-r from-pink-500 via-red-400 to-yellow-300 rounded-full"></div>
         </div>
-      </section>
 
-        {/* Testimonials Section */}
-        {/* <section
-          aria-label={t('homepage.testimonialsSectionAriaLabel') || 'Customer Testimonials'}
-          className="py-16 bg-white animate-fade-in-up transition-opacity duration-700"
-          aria-live="polite"
-        >
-          <div className="container mx-auto text-center">
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">{t('homepage.testimonialsTitle')}</h2>
-            <div className="flex justify-center mb-10">
-              <div className="w-24 h-1 bg-gradient-to-r from-pink-500 via-red-400 to-yellow-300 rounded-full"></div>
-            </div>
+        {/* Conditionally render Swiper if there are reviews, otherwise show a message */}
+        {reviews.length > 0 ? (
+          <Swiper
+            // Swiper modules for navigation, pagination, and autoplay
+            modules={[Navigation, Pagination, Autoplay]}
+            spaceBetween={30} // Space between slides
+            slidesPerView={1} // Number of slides visible at once for mobile
+            navigation // Enable navigation arrows (appear outside the cards)
+            pagination={{ clickable: true }} // Enable clickable pagination dots (appear below the carousel)
+            autoplay={{ delay: 5000, disableOnInteraction: false }} // Autoplay with 5-second delay
+            loop // Loop the slides continuously
+            // Responsive breakpoints for different screen sizes
+            breakpoints={{
+              640: { slidesPerView: 1 }, // 1 slide on screens >= 640px
+              768: { slidesPerView: 2 }, // 2 slides on screens >= 768px
+              1024: { slidesPerView: 3 }, // 3 slides on screens >= 1024px
+            }}
+            className="max-w-6xl mx-auto px-4 py-8" // Max width, auto margins, padding
+          >
+            {/* Map through the reviews array to create each testimonial slide */}
+            {reviews.map((review) => (
+              <SwiperSlide key={review._id}>
+                {/* Testimonial Card with outline and improved styling */}
+                <div className="bg-white border border-gray-200 rounded-lg p-8 flex flex-col items-center text-center shadow-md hover:shadow-lg transition-shadow duration-300 h-full transform hover:scale-105">
+                  {/* Quote icon SVG */}
+                  <svg
+                    className="w-12 h-12 text-pink-500 mb-4" // Tailwind classes for size, color, and margin
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    {/* Path data for the double quote icon (fixed for better display) */}
+                    <path d="M9.25 15.5l1.5-3.5L9 8.25V6.5h4.5v1.75L12 11.5l1.5 3.5zm5.5 0l1.5-3.5L14.5 8.25V6.5h4.5v1.75L17.5 11.5l1.5 3.5z"/>
+                  </svg>
+                  {/* Testimonial comment */}
+                  <p className="text-lg text-gray-800 italic mb-6 leading-relaxed flex-grow">
+                    "{review.comment}"
+                  </p>
 
-            <Swiper
-              modules={[Navigation, Pagination, Autoplay]}
-              navigation
-              pagination={{ clickable: true }}
-              autoplay={{ delay: 5000, disableOnInteraction: false }}
-              loop
-              className="max-w-4xl mx-auto"
-              aria-label={t('homepage.testimonialsAriaLabel')}
-            >
-              {[1, 2, 3].map((num) => (
-                <SwiperSlide key={num}>
-                  <blockquote className="text-gray-700 italic px-6 md:px-12">
-                    <p className="mb-4">{t(`homepage.testimonial${num}Text`)}</p>
-                    <footer className="font-semibold text-gray-900">{t(`homepage.testimonial${num}Author`)}</footer>
-                     
-               
-                  </blockquote>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
-        </section> */}
+                  {/* Name and Rating - pushed to the bottom of the card using flex-grow on p and mt-auto on this div */}
+                  <div className="mt-auto">
+                    <p className="font-semibold text-pink-600 text-xl mb-2">{review.name}</p>
+                    {/* Rating stars - generated based on review.rating */}
+                    <div className="text-yellow-500 flex justify-center">
+                      {[...Array(5)].map((_, i) => (
+                        <svg
+                          key={i}
+                          className={`w-6 h-6 ${
+                            i < review.rating ? 'text-yellow-400' : 'text-gray-300'
+                          }`}
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.959a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.37 2.448a1 1 0 00-.364 1.118l1.287 3.959c.3.921-.755 1.688-1.54 1.118l-3.37-2.448a1 1 0 00-1.175 0l-3.37 2.448c-.784.57-1.838-.197-1.54-1.118l1.287-3.959a1 1 0 00-.364-1.118L2.074 9.386c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69l1.286-3.96z" />
+                        </svg>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        ) : (
+          <p className="text-gray-600 text-lg">
+            {t('homepage.noTestimonials') || 'No testimonials available yet.'}
+          </p>
+        )}
+      </div>
+    </section>
+
+      
+ 
       </main>
     </div>
   );
