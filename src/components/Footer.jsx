@@ -14,11 +14,11 @@ const Footer = () => {
   const { t } = useTranslation();
 
   const socialLinks = {
-    facebook: "https://www.facebook.com/agxinternational",
-    twitter: "https://twitter.com/agx_international",
-    pinterest: "https://www.pinterest.com/agxinternational", // Corrected spelling and URL
-    instagram: "https://www.instagram.com/agx_international",
-    linkedin: "https://www.linkedin.com/company/agx-international",
+    facebook: " ",
+    twitter: " ",
+    pinterest: " ", // Corrected spelling and URL
+    instagram: " ",
+    linkedin: " ",
   };
 
   return (
