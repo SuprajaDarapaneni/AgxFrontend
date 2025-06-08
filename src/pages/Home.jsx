@@ -25,7 +25,7 @@ const HomePage = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch('https://agxbackend.onrender.com/client/getproducts');
+        const response = await fetch('https://agxbackend-1.onrender.com/client/getproducts');
         const data = await response.json();
         setProducts(data);
       } catch (error) {
@@ -137,30 +137,41 @@ const HomePage = () => {
 
       <main id="main-content" tabIndex={-1}>
 
+      
+
         {/* About Section */}
-        <section
-          aria-label={t('homepage.aboutSectionAriaLabel') || 'About AGX Global'}
-          className="flex flex-col md:flex-row items-center justify-between py-16 px-4 animate-fade-in-up transition-opacity duration-700"
-        >
-          <div className="w-full md:w-1/2 mb-8 md:mb-0">
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">{t('homepage.aboutTitle')}</h2>
-            <p className="text-lg text-gray-800 leading-relaxed">{t('homepage.aboutDesc')}</p>
-            <div className="mt-6">
-              <Link to="/about" onClick={scrollToTop}>
-                <button
-                  className="bg-pink-500 text-white px-6 py-3 rounded-md hover:bg-pink-600 transition duration-300 shadow-lg hover:shadow-2xl hover:scale-105"
-                  aria-label={t('homepage.learnMoreAriaLabel') || 'Learn more about AGX Global'}
-                >
-                  {t('homepage.learnMoreabout')}
-                </button>
-              </Link>
+      <section className="py-16 bg-white animate-fade-in-up">
+        <div className="container mx-auto text-center">
+          <h2 className="text-4xl font-bold text-gray-900 mb-6">About Us</h2>
+          <div className="flex justify-center mb-8">
+            <div className="w-24 h-1 bg-pink-500 rounded-full"></div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center max-w-5xl mx-auto px-4 text-left">
+            <div>
+              <p className="text-lg text-gray-900">
+                Our journey began on July 10th, 2022, with a clear vision to create a strong bridge
+                between Global industries and Global markets through reliable export services...
+              </p>
+              <div className="mt-6">
+                <Link to="/about">
+                  <button
+  className="bg-pink-500 text-white px-6 py-3 rounded-md hover:bg-pink-600 transition duration-300 shadow-lg hover:shadow-2xl hover:scale-105"
+  aria-label={t('homepage.learnMoreabout')}
+>
+  {t('homepage.learnMoreabout')}
+</button>
+                </Link>
+              </div>
+            </div>
+            <div>
+              <img src={globalBusinessImage} alt="About Us" className="rounded-md shadow-lg" />
             </div>
           </div>
-          <div className="w-full md:w-1/2">
-            <img src={globalBusinessImage} alt={t('homepage.aboutImageAlt') || 'AGX Global business team meeting'} className="rounded-md shadow-xl" />
-          </div>
-        </section>
+        </div>
+      </section>
 
+
+        
         {/* Services Section */}
         <section
           aria-label={t('homepage.servicesSectionAriaLabel') || 'Our Services'}
@@ -222,7 +233,7 @@ const HomePage = () => {
                     src={
                       product.coverImage?.startsWith('http')
                         ? product.coverImage
-                        : `https://agxbackend.onrender.com/${product.coverImage?.replace(/^\/+/, '')}`
+                        : `https://agxbackend-1.onrender.com/${product.coverImage?.replace(/^\/+/, '')}`
                     }
                     alt={product.name || 'Product Image'}
                     className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
@@ -262,9 +273,9 @@ const HomePage = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto px-4">
             {[
-              { name: 'Ravi Kumar', feedback: t('homepage.testimonial1'), image: 'https://randomuser.me/api/portraits/men/32.jpg' },
-              { name: 'Anjali Mehta', feedback: t('homepage.testimonial2'), image: 'https://randomuser.me/api/portraits/women/44.jpg' },
-              { name: 'Mohammed Irfan', feedback: t('homepage.testimonial3'), image: 'https://randomuser.me/api/portraits/men/85.jpg' }
+              { name: 'Steve', feedback: t('homepage.testimonial1'), image: 'https://randomuser.me/api/portraits/men/32.jpg' },
+              { name: 'Hannah', feedback: t('homepage.testimonial2'), image: 'https://randomuser.me/api/portraits/women/44.jpg' },
+              { name: 'Goerge', feedback: t('homepage.testimonial3'), image: 'https://randomuser.me/api/portraits/men/85.jpg' }
             ].map((testi, index) => (
               <div key={index} className="bg-gray-100 p-6 rounded-lg shadow hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 hover:bg-white animate-fade-in-up">
                 <img src={testi.image} alt={`Testimonial by ${testi.name}`} className="w-16 h-16 mx-auto rounded-full mb-4" />

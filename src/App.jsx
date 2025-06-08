@@ -2,11 +2,12 @@ import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-
+import ScrollToTop from "./components/ScrollToTop";
 import Header from './components/Header';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
-
+import TermsOfService from "./pages/legal/TermsOfService";
+import PrivacyPolicy from "./pages/legal/PrivacyPolicy";
 // Lazy loaded pages
 const Home = lazy(() => import('./pages/Home'));
 const About = lazy(() => import('./pages/About'));
@@ -91,6 +92,7 @@ const AppContent = () => {
       */}
       <main className="flex-grow pt-20 px-0"> {/* ADJUSTED PT-XX HERE */}
         <Suspense fallback={<div className="text-center text-gray-500 py-10">Loading page...</div>}>
+           <ScrollToTop />
           <Routes>
             {/* Public Routes */}
             <Route path="/" element={<Home />} />
@@ -103,6 +105,8 @@ const AppContent = () => {
             <Route path="/contact" element={<Contact />} />
             <Route path="/buy-sell" element={<BuySellpage />} />
             <Route path="/review" element={<Review />} />
+              <Route path="/legal/terms" element={<TermsOfService />} />
+  <Route path="/legal/privacy" element={<PrivacyPolicy />} />
 
             {/* Admin Routes */}
             <Route path="/admin" element={<Admin />} />

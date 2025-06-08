@@ -105,7 +105,7 @@ const ProductAdmin = () => {
 
   const fetchProducts = async () => {
     try {
-      const res = await axios.get("https://agxbackend.onrender.com/client/getproducts");
+      const res = await axios.get("https://agxbackend-1.onrender.com/client/getproducts");
       // Sort products by creation date in ASCENDING order (oldest first, last added last)
       // Assuming your product objects have a 'createdAt' field.
       const sortedProducts = res.data.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
@@ -140,7 +140,7 @@ const ProductAdmin = () => {
     if (!confirmDelete) return;
 
     try {
-      await axios.delete(`https://agxbackend.onrender.com/client/deleteproduct/${id}`);
+      await axios.delete(`https://agxbackend-1.onrender.com/client/deleteproduct/${id}`);
       fetchProducts();
     } catch (error) {
       console.error("Error deleting product:", error);
@@ -161,9 +161,9 @@ const ProductAdmin = () => {
       coverImage: null,
       multipleImages: [],
     });
-    setExistingCoverImageUrl(product.coverImage ? `https://agxbackend.onrender.com${product.coverImage}` : "");
+    setExistingCoverImageUrl(product.coverImage ? `https://agxbackend-1.onrender.com${product.coverImage}` : "");
     setExistingMultipleImageUrls(
-      product.multipleImages ? product.multipleImages.map((img) => `https://agxbackend.onrender.com${img}`) : [],
+      product.multipleImages ? product.multipleImages.map((img) => `https://agxbackend-1.onrender.com${img}`) : [],
     );
 
     setIsEditMode(true);
@@ -193,9 +193,9 @@ const ProductAdmin = () => {
 
     try {
       if (isEditMode) {
-        await axios.patch(`https://agxbackend.onrender.com/client/updateproduct/${editingProductId}`, data);
+        await axios.patch(`https://agxbackend-1.onrender.com/client/updateproduct/${editingProductId}`, data);
       } else {
-        await axios.post("https://agxbackend.onrender.com/client/addproduct", data);
+        await axios.post("https://agxbackend-1.onrender.com/client/addproduct", data);
       }
       fetchProducts();
       resetForm();
@@ -585,7 +585,7 @@ const ProductAdmin = () => {
                     height="160"
                     image={
                       product.coverImage
-                        ? `https://agxbackend.onrender.com${product.coverImage}`
+                        ? `https://agxbackend-1.onrender.com${product.coverImage}`
                         : "/placeholder.jpg"
                     }
                     alt={product.name}

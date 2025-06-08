@@ -17,7 +17,7 @@ const Products = () => {
       try {
         setLoading(true);
         setError(null);
-        const res = await axios.get("https://agxbackend.onrender.com/client/getproducts");
+        const res = await axios.get("https://agxbackend-1.onrender.com/client/getproducts");
         const sortedProducts = res.data.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
         setProducts(sortedProducts);
       } catch (err) {
@@ -60,7 +60,7 @@ const Products = () => {
           content={t("product.seoDescription", "Explore our wide range of products at AGX Global. Quality guaranteed and tailored for you.")}
         />
         <meta name="keywords" content="AGX Global, products, import, export, international trade" />
-        <link rel="canonical" href="https://yourdomain.com/products" />
+        <link rel="canonical" href="https://www.agx-international.com/products" />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -68,9 +68,9 @@ const Products = () => {
             "itemListElement": products.map((product, index) => ({
               "@type": "ListItem",
               "position": index + 1,
-              "url": `https://yourdomain.com/product/${product._id}`,
+              "url": `https://www.agx-international.com/product/${product._id}`,
               "name": product.bannerTitle || product.category,
-              "image": product.coverImage ? `https://agxbackend.onrender.com${product.coverImage}` : undefined,
+              "image": product.coverImage ? `https://agxbackend-1.onrender.com${product.coverImage}` : undefined,
             })),
           })}
         </script>
@@ -108,7 +108,7 @@ const Products = () => {
                 <img
                   src={
                     product.coverImage
-                      ? `https://agxbackend.onrender.com${product.coverImage}`
+                      ? `https://agxbackend-1.onrender.com${product.coverImage}`
                       : `https://via.placeholder.com/300x200?text=${encodeURIComponent(t("product.placeholderAlt"))}`
                   }
                   alt={product.bannerTitle ? `${product.bannerTitle} - ${product.category}` : t("product.placeholderAlt")}

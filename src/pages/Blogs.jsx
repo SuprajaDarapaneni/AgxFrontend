@@ -14,7 +14,7 @@ const Blogs = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await axios.get('https://agxbackend.onrender.com/blogs');
+        const response = await axios.get('https://agxbackend-1.onrender.com/blogs');
         setBlogPosts(response.data);
         setError(null);
       } catch (err) {
