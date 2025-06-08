@@ -1,4 +1,4 @@
-import React, { useState ,useRef  } from 'react';
+import React, { useState, useRef } from 'react';
 import Select from 'react-select';
 import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet';
@@ -29,7 +29,7 @@ const COUNTRY_OPTIONS_RAW = [
 
 const BuySellForm = () => {
   const { t } = useTranslation();
-const fileInputRef = useRef(null); 
+  const fileInputRef = useRef(null);
   const INDUSTRY_OPTIONS = INDUSTRY_OPTIONS_RAW.map(item => ({
     value: item,
     label: t(`industryOptions.${item}`),
@@ -45,6 +45,7 @@ const fileInputRef = useRef(null);
     name: '',
     phone: '',
     email: '',
+    location: '', // State for location
     country: '',
     industries: [],
     timing: 'Immediately',
@@ -125,15 +126,16 @@ const fileInputRef = useRef(null);
           name: '',
           phone: '',
           email: '',
+          location: '', // Reset location field
           country: '',
           industries: [],
           timing: 'Immediately',
           message: '',
         });
         setFiles([]);
-         if (fileInputRef.current) {
-    fileInputRef.current.value = null;
-  }
+        if (fileInputRef.current) {
+          fileInputRef.current.value = null;
+        }
       } else {
         setErrorMessage(t('form.failureMessage'));
       }
@@ -144,6 +146,8 @@ const fileInputRef = useRef(null);
       setIsSubmitDisabled(false);
     }
   };
+
+  const locationLabelKey = formData.buySell === 'buy' ? 'DropOffLocation' : 'PickUpLocation';
 
   return (
     <>
@@ -198,11 +202,28 @@ const fileInputRef = useRef(null);
                   value={formData[name]}
                   onChange={handleChange}
                   placeholder={t(`form.${labelKey}`)}
-                  
                   className="w-full border border-pink-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-pink-400"
                 />
               </div>
             ))}
+
+            {/* Location Field (Drop off/Pick up) */}
+            <div className="mb-6">
+              <label htmlFor="location" className="block text-pink-600 font-medium mb-1">
+                {/* Removed .toUpperCase() */}
+                {t(locationLabelKey)}<span className="text-red-500">*</span>
+              </label>
+              <input
+                id="location"
+                name="location"
+                type="text"
+                required
+                value={formData.location}
+                onChange={handleChange}
+                placeholder="Town/City/State"
+                className="w-full border border-pink-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-pink-400"
+              />
+            </div>
 
             {/* Country Dropdown */}
             <div className="mb-6">
@@ -215,7 +236,6 @@ const fileInputRef = useRef(null);
                 required
                 value={formData.country}
                 onChange={handleChange}
-               
                 className="w-full border border-pink-300 px-4 py-3 rounded-lg text-gray-700 focus:ring-2 focus:ring-pink-400"
               >
                 <option value="" disabled>{t('form.selectCountry')}</option>
@@ -285,15 +305,15 @@ const fileInputRef = useRef(null);
                 {t('form.attachFiles')}
               </label>
               <input
-              id="files"
-              name="files"
-              type="file"
-              multiple
-              accept="image/*"
-              onChange={handleFileChange}
-              ref={fileInputRef} // ✅ Add this line
-              className="w-full"
-            />
+                id="files"
+                name="files"
+                type="file"
+                multiple
+                accept="image/*"
+                onChange={handleFileChange}
+                ref={fileInputRef}
+                className="w-full"
+              />
 
             </div>
 
