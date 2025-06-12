@@ -1,13 +1,13 @@
 import React from 'react';
 
-const WhatsAppButton = ({ phoneNumber = "918374330906" }) => {
+const WhatsAppButton = ({ phoneNumber = "+16479049839" }) => {
   return (
     <a
       href={`https://wa.me/${phoneNumber}`}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Chat with us on WhatsApp"
-      title="Chat with us on WhatsApp"
+      //aria-label="Chat with us on WhatsApp"
+      //title="Chat with us on WhatsApp"
       className="fixed bottom-6 right-6 bg-green-500 text-white p-3 rounded-full shadow-lg hover:bg-green-600 transition-all duration-300 z-50"
     >
       <svg

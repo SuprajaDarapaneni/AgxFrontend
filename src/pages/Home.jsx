@@ -125,7 +125,7 @@ const HomePage = () => {
               <div className="relative w-full h-full">
                 <img
                   src={src}
-                  alt={t(`homepage.heroImageAlt${index + 1}`) || `AGX Hero Banner ${index + 1}`}
+                  alt={t(`homepage.heroImageAlt${index + 1}`) || `AGX Hero Banner ${index + 2}`}
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-center items-center text-center px-4">

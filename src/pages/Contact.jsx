@@ -22,7 +22,6 @@ function ContactForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Custom validation: name, message required, plus email OR phone required
     if (
       !formData.name.trim() ||
       !formData.message.trim() ||
@@ -64,7 +63,8 @@ function ContactForm() {
         </h1>
         <div className="w-20 h-1 bg-pink-500 mx-auto rounded mb-6 animate-pulse" aria-hidden="true"></div>
         <p className="text-center mb-12 text-gray-600 max-w-2xl mx-auto">
-          {t("contactForm.description") || "Connect with AGX International — your trusted global trade partner. Whether you're looking to import quality products or expand your business across borders, our expert team is here to support you every step of the way. Let's grow together, globally."}
+          {t("contactForm.description") ||
+            "Connect with AGX International — your trusted global trade partner. Whether you're looking to import quality products or expand your business across borders, our expert team is here to support you every step of the way. Let's grow together, globally."}
         </p>
       </header>
 
@@ -73,52 +73,57 @@ function ContactForm() {
         <address className="lg:w-1/3 bg-white p-8 rounded-lg shadow-md not-italic">
           <div className="space-y-8">
             <div className="flex items-start gap-4">
-              <div className="bg-blue-100 p-4 rounded-full" aria-hidden="true">
+              <div className="bg-blue-100 p-4 rounded-full">
                 <FaMapMarkerAlt className="text-blue-600 text-3xl" />
               </div>
               <div>
-                <h2 className="text-xl font-semibold text-gray-800 mb-1">{t("contactForm.address") || "Address"}</h2>
-                <p className="text-gray-600">3rd Floor, building</p>
-                <p className="text-gray-600">Ongole, Andhra Pradesh</p>
+                <h2 className="text-xl font-semibold text-gray-800 mb-1">Address</h2>
+                <p className="text-gray-600">North York, M2J 1M6</p>
+                <p className="text-gray-600">Canada</p>
               </div>
             </div>
 
             <div className="flex items-start gap-4">
-              <div className="bg-green-100 p-4 rounded-full" aria-hidden="true">
+              <div className="bg-green-100 p-4 rounded-full">
                 <FaPhone className="text-green-600 text-3xl" />
               </div>
               <div>
-                <h2 className="text-xl font-semibold text-gray-800 mb-1">{t("contactForm.callUs") || "Call Us"}</h2>
+                <h2 className="text-xl font-semibold text-gray-800 mb-1">Call / WhatsApp</h2>
                 <p className="text-gray-600">
-                  <a href="tel:+4915218154435" className="hover:underline focus:outline-none focus:ring-2 focus:ring-pink-500 rounded">
-                    +49 152 1815 4435
+                  <a href="tel:+16479049839" className="hover:underline">
+                    +1 647 904 9839
+                  </a>
+                </p>
+                <p className="text-gray-600">
+                  <a href="https://wa.me/16479049839" target="_blank" rel="noopener noreferrer" className="text-green-600 hover:underline">
+                    Chat on WhatsApp
                   </a>
                 </p>
               </div>
             </div>
 
             <div className="flex items-start gap-4">
-              <div className="bg-purple-100 p-4 rounded-full" aria-hidden="true">
+              <div className="bg-purple-100 p-4 rounded-full">
                 <FaEnvelope className="text-purple-600 text-3xl" />
               </div>
               <div>
-                <h2 className="text-xl font-semibold text-gray-800 mb-1">{t("contactForm.emailUs") || "Email Us"}</h2>
+                <h2 className="text-xl font-semibold text-gray-800 mb-1">Email Us</h2>
                 <p className="text-gray-600">
-                  <a href="mailto:contact@consulting.com" className="hover:underline focus:outline-none focus:ring-2 focus:ring-pink-500 rounded">
-                    contact@consulting.com
+                  <a href="mailto:info@agx-international.com" className="hover:underline">
+                    info@agx-international.com
                   </a>
                 </p>
               </div>
             </div>
 
             <div className="flex items-start gap-4">
-              <div className="bg-orange-100 p-4 rounded-full" aria-hidden="true">
+              <div className="bg-orange-100 p-4 rounded-full">
                 <FaClock className="text-orange-600 text-3xl" />
               </div>
               <div>
-                <h2 className="text-xl font-semibold text-gray-800 mb-1">{t("contactForm.openHours") || "Open Hours"}</h2>
-                <p className="text-gray-600">{t("contactForm.days") || "Monday - Friday"}</p>
-                <p className="text-gray-600">{t("contactForm.hours") || "9:00AM - 10:00PM"}</p>
+                <h2 className="text-xl font-semibold text-gray-800 mb-1">Open Hours</h2>
+                <p className="text-gray-600">Monday - Sunday</p>
+                <p className="text-gray-600">9:00AM - 10:00PM</p>
               </div>
             </div>
           </div>
@@ -134,7 +139,6 @@ function ContactForm() {
                   : "bg-red-100 text-red-800 border border-red-200"
               }`}
               role="alert"
-              aria-live="assertive"
             >
               {submitMessage}
             </div>
@@ -143,7 +147,7 @@ function ContactForm() {
           <form onSubmit={handleSubmit} className="space-y-6" noValidate>
             <div>
               <label htmlFor="name" className="block mb-2 font-medium text-gray-700">
-                {t("contactForm.fields.name") || "Name"}
+                Name
               </label>
               <input
                 id="name"
@@ -151,9 +155,8 @@ function ContactForm() {
                 name="name"
                 onChange={handleChange}
                 value={formData.name}
-                placeholder={t("contactForm.placeholders.name") || "Your name"}
+                placeholder="Your name"
                 required
-                autoComplete="name"
                 className="w-full px-5 py-3 rounded-xl border border-gray-300 focus:border-pink-500 focus:ring-2 focus:ring-pink-300 transition outline-none shadow-sm"
               />
             </div>
@@ -161,7 +164,7 @@ function ContactForm() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label htmlFor="email" className="block mb-2 font-medium text-gray-700">
-                  {t("contactForm.fields.email") || "Email"}
+                  Email
                 </label>
                 <input
                   id="email"
@@ -169,15 +172,14 @@ function ContactForm() {
                   name="email"
                   onChange={handleChange}
                   value={formData.email}
-                  placeholder={t("contactForm.placeholders.email") || "Your email"}
-                  autoComplete="email"
+                  placeholder="Your email"
                   className="w-full px-5 py-3 rounded-xl border border-gray-300 focus:border-pink-500 focus:ring-2 focus:ring-pink-300 transition outline-none shadow-sm"
                 />
               </div>
 
               <div>
                 <label htmlFor="phone" className="block mb-2 font-medium text-gray-700">
-                  {t("contactForm.fields.phone") || "Phone"}
+                  Phone
                 </label>
                 <input
                   id="phone"
@@ -185,8 +187,7 @@ function ContactForm() {
                   name="phone"
                   onChange={handleChange}
                   value={formData.phone}
-                  placeholder={t("contactForm.placeholders.phone") || "Your phone"}
-                  autoComplete="tel"
+                  placeholder="Your phone"
                   className="w-full px-5 py-3 rounded-xl border border-gray-300 focus:border-pink-500 focus:ring-2 focus:ring-pink-300 transition outline-none shadow-sm"
                 />
               </div>
@@ -194,14 +195,14 @@ function ContactForm() {
 
             <div>
               <label htmlFor="message" className="block mb-2 font-medium text-gray-700">
-                {t("contactForm.fields.message") || "Message"}
+                Message
               </label>
               <textarea
                 id="message"
                 name="message"
                 onChange={handleChange}
                 value={formData.message}
-                placeholder={t("contactForm.placeholders.message") || "Your message"}
+                placeholder="Your message"
                 rows="5"
                 required
                 className="w-full px-5 py-4 rounded-xl border border-gray-300 focus:border-pink-500 focus:ring-2 focus:ring-pink-300 transition outline-none shadow-sm resize-none"
@@ -214,9 +215,8 @@ function ContactForm() {
               className={`w-full py-4 text-white font-bold rounded-2xl shadow-lg transition ${
                 isSubmitting ? "bg-pink-300 cursor-not-allowed" : "bg-pink-600 hover:bg-pink-700"
               }`}
-              aria-busy={isSubmitting}
             >
-              {isSubmitting ? (t("contactForm.buttons.submitting") || "Submitting...") : (t("contactForm.buttons.submit") || "Submit")}
+              {isSubmitting ? "Submitting..." : "Submit"}
             </button>
           </form>
         </div>

@@ -1,7 +1,6 @@
 {
   "welcome": "Welcome to the app!",
-  "login": "Please log in"
-,
+  "login": "Please log in",
   "hero": {
     "title": "Connecting Continents with Confidence",
     "cta": "I Want To Buy/Sell"
@@ -37,14 +36,13 @@
     "title": "Our Products",
     "viewMore": "View More",
     "viewAll": "View all products"
-  }
-
-,
+  },
   "nav": {
     "home": "Home",
     "aboutUs": "About Us",
     "services": "Services",
     "products": "Products",
+    "careers": "Careers",
     "blog": "Blog",
     "contactUs": "Contact Us",
     "review": "Review"
@@ -53,10 +51,9 @@
     "dashboard": "Dashboard",
     "products": "Products",
     "blogs": "Blogs",
-    "reviews": "Reviews"
-  }
-, 
-
+    "reviews": "Reviews",
+    "careers": "Careers"
+  },
   "title": "About AGX International",
   "intro1": "Welcome to {{company}}, your trusted partner in global trade, specializing in seamless import and export services across industries.",
   "intro2": "Whether you are a business seeking new markets or a buyer looking for top-quality international products, we provide the expertise, infrastructure, and trust you need to succeed on the global stage.",
@@ -76,32 +73,16 @@
   "valuesDesc": "Integrity, reliability, and partnership guide everything we do — ensuring every interaction builds lasting relationships and global opportunities.",
   "ctaTitle": "Ready to trade globally with AGX International?",
   "ctaDesc": "Contact us today and let’s unlock new opportunities together.",
-  "ctaBtn": "Contact Us"
-,
- "sidebar": {
-    "dashboard": "Dashboard",
-    "products": "Products",
-    "blogs": "Blogs",
-    "reviews": "Reviews"
-  },"topbar": {
+  "ctaBtn": "Contact Us",
+  "topbar": {
     "brandName": "AGX International",
     "toggleTheme": "Toggle Theme",
     "settings": "Settings",
     "account": "Account",
     "logout": "Logout"
   },
-  "nav": {
-    "home": "Home",
-    "aboutUs": "About Us",
-    "products": "Products",
-     "services": "Services",
-      "review": "Review",
-      "blog": "Blog",
-    "contactUs": "Contact Us"
-  },
   "footer": {
-     "companyDescription": "AGX International is a global logistics and trade solutions provider, offering end-to-end freight forwarding, customs clearance, and supply chain services.",
-   
+    "companyDescription": "AGX International is a global logistics and trade solutions provider, offering end-to-end freight forwarding, customs clearance, and supply chain services.",
     "brandInfo": "We deliver excellence through innovation and strategy. Discover our range of solutions and stay inspired.",
     "quickLinks": "Quick Links",
     "legal": "Legal",
@@ -109,9 +90,7 @@
     "privacyPolicy": "Privacy Policy",
     "followUs": "Follow Us",
     "rightsReserved": "All rights reserved."
-  }
-,
-
+  },
   "aboutus.whyChooseUsTitle": "Why Choose Us",
   "aboutus.whyChooseUs.qualityTitle": "Based in Canada, Focused on Quality",
   "aboutus.whyChooseUs.qualityContent": "As a Canada-based importer and distributor, we ensure all products meet Canadian standards, regulations, and customer expectations.",
@@ -124,8 +103,7 @@
   "aboutus.whyChooseUs.b2bSupportTitle": "Customized B2B Support",
   "aboutus.whyChooseUs.b2bSupportContent": "Whether you're a retailer, wholesaler, or B2B buyer, we offer flexible order quantities, branding support, and consistent supply.",
   "aboutus.whyChooseUs.customerCentricTitle": "Customer-Centric Service",
-  "aboutus.whyChooseUs.customerCentricContent": "From inquiries to after-sales support, we value transparency, trust, and long-term relationships with all our clients."
-,
+  "aboutus.whyChooseUs.customerCentricContent": "From inquiries to after-sales support, we value transparency, trust, and long-term relationships with all our clients.",
   "title": "Our Premium Services",
   "intro": "At {{company}}, we specialize in providing world-class import & export solutions that open new horizons for your business globally.",
   "services": [
@@ -157,84 +135,7 @@
   ],
   "ctaTitle": "Ready to grow your global business?",
   "ctaDesc": "Partner with AGX International and experience seamless global trade solutions tailored for your success.",
-  "ctaBtn": "Get in Touch"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-,
+  "ctaBtn": "Get in Touch",
   "aboutus": {
     "title": "About AGX-International",
     "intro1": "Welcome to AGX-International, your trusted partner in global trade, specializing in seamless import and export services across various industries.",
@@ -256,12 +157,10 @@
     "ctaTitle": "Ready to Trade Globally with AGX-International?",
     "ctaDesc": "Get in touch today and let's unlock new opportunities together.",
     "ctaBtn": "Contact Us"
-  }
-,
-"homepage": {
-   "seoTitle": "AGX Global | International Trade Experts",
-    "seoDescription": "Trusted global trade partner providing efficient import/export logistics."
-,
+  },
+  "homepage": {
+    "seoTitle": "AGX Global | International Trade Experts",
+    "seoDescription": "Trusted global trade partner providing efficient import/export logistics.",
     "servicesTitle": "Our Services",
     "service1Title": "Import Assistance",
     "service1Desc": "Navigate international import regulations with expert help.",
@@ -270,7 +169,7 @@
     "service3Title": "Business Brokering",
     "service3Desc": "Find the right partners through our network.",
     "learnMoreabout": "Discover Our Story",
-     "learnMoreserice": "Explore All Services",
+    "learnMoreserice": "Explore All Services",
     "testimonialsTitle": "What Our Clients Say",
     "testimonial1": "Their export support helped me expand overseas. Highly professional!",
     "testimonial2": "They made international trade feel easy. Trustworthy and experienced!",
@@ -282,20 +181,18 @@
     "productsTitle": "Our Products",
     "viewMore": "View More",
     "viewAllProducts": "View all products"
-  }
-,
- "blogs": {
+  },
+  "blogs": {
     "title": "Our Latest Blogs",
     "loading": "Loading blogs...",
     "error": "Failed to load blogs. Please try again later.",
     "noBlogs": "No blogs found.",
     "readMore": "Read More →"
-  }
-,
+  },
   "form": {
-    "attachFiles":"Image upload",
-   "heading": "Buy/Sell Request Form",
-   "pageTitle":"Buy/Sell Request Form - AGX International",
+    "attachFiles": "Image upload",
+    "heading": "Buy/Sell Request Form",
+    "pageTitle": "Buy/Sell Request Form - AGX International",
     "buy": "Buy",
     "sell": "Sell",
     "name": "Name/Company Name",
@@ -303,7 +200,7 @@
     "email": "Email",
     "country": "Country",
     "selectCountry": "Select your country",
-    "industriesHelper":"Select one or more industries",
+    "industriesHelper": "Select one or more industries",
     "industries": "Select Industries",
     "timing": "Preferred Timing",
     "immediately": "Immediately",
@@ -339,25 +236,18 @@
     "United Kingdom": "United Kingdom",
     "United Arab Emirates": "United Arab Emirates",
     "Other": "Other"
-  }
-
-
-
-
-,
- "dashboard": {
-      "title": "Dashboard Content",
-      "welcomeMessage": "Welcome to the dashboard! This page now manages its own layout."
-    }
-    
- ,"product": {
-      "title": "Our Industry Solutions",
-      "description": "Discover our wide range of industry solutions tailored to meet various business needs. Explore categories to find what fits you best.",
-      "button": "Explore",
-      "placeholderAlt": "No Image",
-      "langToggle": "Français"
-    }
-,
+  },
+  "dashboard": {
+    "title": "Dashboard Content",
+    "welcomeMessage": "Welcome to the dashboard! This page now manages its own layout."
+  },
+  "product": {
+    "title": "Our Industry Solutions",
+    "description": "Discover our wide range of industry solutions tailored to meet various business needs. Explore categories to find what fits you best.",
+    "button": "Explore",
+    "placeholderAlt": "No Image",
+    "langToggle": "Français"
+  },
   "productAdmin": {
     "buttons": {
       "addProduct": "Add Product",
@@ -390,22 +280,19 @@
     "currentCoverImage": "Current Cover Image:",
     "replaceFileHint": "Select a new file above to replace it.",
     "replaceAdditionalFilesHint": "Select new files above to add/replace them."
-  }
-
-
-,
+  },
   "contactForm": {
     "buttons": {
       "submit": "Submit"
     },
-    "address":"3rd Floor, building Ongole, Andhra Pradesh",
-    "callUs":"+49 152 1815 4435",
-    "emailUs":"contact@consulting.com",
-    "Open Hours":"Open Hours",
-    "days":"Monday - Friday",
+    "address": "3rd Floor, building Ongole, Andhra Pradesh",
+    "callUs": "+49 152 1815 4435",
+    "emailUs": "contact@consulting.com",
+    "Open Hours": "Open Hours",
+    "days": "Monday - Friday",
     "hours": "9:00AM - 10:00PM",
-    "pageTitle":"Buy/Sell Request Form",
-    "description":"Connect with AGX International — your trusted global trade partner. Whether you're looking to import quality products or expand your business across borders, our expert team is here to support you every step of the way. Let's grow together, globally.",
+    "pageTitle": "Buy/Sell Request Form",
+    "description": "Connect with AGX International — your trusted global trade partner. Whether you're looking to import quality products or expand your business across borders, our expert team is here to support you every step of the way. Let's grow together, globally.",
     "fields": {
       "name": "Name",
       "email": "Email",
@@ -421,12 +308,7 @@
     "title": "Contact Us",
     "successMessage": "Form submitted successfully!",
     "errorMessage": "Something went wrong. Please try again."
-  }
-
-
-
-
-,
+  },
   "customerReviewForm": {
     "title": "Leave a Review",
     "subtitle": "We’d love to hear your feedback!",
@@ -452,9 +334,7 @@
       "noReviews": "No reviews yet. Be the first to leave one!",
       "ratingDisplay": "({{rating}})"
     }
-  }
-
-  ,
+  },
   "reviewspage": {
     "pageTitle": "Manage Reviews",
     "form": {
@@ -482,6 +362,4 @@
     },
     "ratingLabel": "⭐ {{rating}}"
   }
-}  
-
-
+}
