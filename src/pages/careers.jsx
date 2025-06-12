@@ -1,6 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet-async";
 
+
 const Careers = () => {
   return (
     <div className="bg-gradient-to-b from-blue-50 to-white min-h-screen font-sans text-gray-800">

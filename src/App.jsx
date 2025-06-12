@@ -20,7 +20,7 @@ const Services = lazy(() => import('./pages/services'));
 const Contact = lazy(() => import('./pages/Contact'));
 const BuySellpage = lazy(() => import('./pages/BuySellpage'));
 const Review = lazy(() => import('./pages/Review'));
-const Careers = lazy(() => import('./pages/Careers')); // <-- IMPORT THE NEW PAGE
+const Careers = lazy(() => import('./pages/careers')); // <-- IMPORT THE NEW PAGE
 
 const Admin = lazy(() => import('./pages/Auth'));
 const AdminDashboard = lazy(() => import('./pages/Dashboard'));
