@@ -62,7 +62,7 @@ const HomePage = () => {
     <div className="bg-white text-gray-900 font-inter">
     <Helmet>
   <html lang={i18n.language || 'en'} />
-  <title>{t('homepage.seoTitle') || 'AGX International | Global Freight & Trade Experts'}</title>
+  <title>{t('homepage.seoTitle') || 'AGX-International | Global Freight & Trade Experts'}</title>
   <meta
     name="description"
     content={
@@ -72,7 +72,7 @@ const HomePage = () => {
   />
   <meta
     name="keywords"
-    content="AGX Global, AGX International, import export, international trade, global logistics, freight services, global products"
+    content="AGX Global, AGX-International, import export, international trade, global logistics, freight services, global products"
   />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://www.agx-international.com/" />
@@ -80,7 +80,7 @@ const HomePage = () => {
   {/* Open Graph / Facebook */}
   <meta
     property="og:title"
-    content={t('homepage.seoTitle') || 'AGX International | Global Freight & Trade Experts'}
+    content={t('homepage.seoTitle') || 'AGX-International | Global Freight & Trade Experts'}
   />
   <meta
     property="og:description"

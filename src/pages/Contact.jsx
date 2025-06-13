@@ -64,7 +64,7 @@ function ContactForm() {
         <div className="w-20 h-1 bg-pink-500 mx-auto rounded mb-6 animate-pulse" aria-hidden="true"></div>
         <p className="text-center mb-12 text-gray-600 max-w-2xl mx-auto">
           {t("contactForm.description") ||
-            "Connect with AGX International — your trusted global trade partner. Whether you're looking to import quality products or expand your business across borders, our expert team is here to support you every step of the way. Let's grow together, globally."}
+            "Connect with AGX-International — your trusted global trade partner. Whether you're looking to import quality products or expand your business across borders, our expert team is here to support you every step of the way. Let's grow together, globally."}
         </p>
       </header>
 

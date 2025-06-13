@@ -16,11 +16,7 @@ const translations = {
         "values-title": "Our Values",
         "values-text": "We value a workplace built on trust, growth, diversity, collaboration, and a commitment to excellence. At AGX-International, every team member contributes to a culture that supports learning, innovation, and mutual success.",
         "why-work-title": "Why Work With Us?",
-        "why-work-item1": "Global exposure across markets and industries",
-        "why-work-item2": "Career advancement through real-world experience",
-        "why-work-item3": "Opportunity to contribute to international-scale operations",
-        "why-work-item4": "Access to mentorship, cross-functional training & leadership development",
-        "why-work-item5": "Inclusive and collaborative work culture",
+        "why-work-text-full": "At AGX-International, we offer more than just a job — we offer a pathway to global exposure, leadership development, and a culture rooted in collaboration and inclusion. We support your growth with hands-on experience, mentorship, and real-world challenges that prepare you for long-term success.",
         "apply-ready-title": "Ready to Apply?",
         "apply-ready-text": "Click the Apply Now button to submit your application via our job form. Our team will review your profile and get in touch if you’re a match.",
         "apply-button": "Apply Now",
@@ -40,11 +36,7 @@ const translations = {
         "values-title": "Nos Valeurs",
         "values-text": "Nous valorisons un environnement de travail fondé sur la confiance, la croissance, la diversité, la collaboration et un engagement envers l'excellence. Chez AGX-International, chaque membre de l'équipe contribue à une culture qui soutient l'apprentissage, l'innovation et le succès mutuel.",
         "why-work-title": "Pourquoi Travailler Avec Nous ?",
-        "why-work-item1": "Exposition mondiale sur les marchés et dans les industries",
-        "why-work-item2": "Avancement de carrière grâce à l'expérience du monde réel",
-        "why-work-item3": "Opportunité de contribuer à des opérations à l'échelle internationale",
-        "why-work-item4": "Access to mentorship, cross-functional training & leadership development",
-        "why-work-item5": "Inclusive and collaborative work culture",
+        "why-work-text-full": "Chez AGX-International, nous offrons plus qu'un simple emploi — nous offrons un cheminement vers une exposition mondiale, le développement du leadership et une culture enracinée dans la collaboration et l'inclusion. Nous soutenons votre croissance avec une expérience pratique, du mentorat et des défis réels qui vous préparent à un succès à long terme.",
         "apply-ready-title": "Prêt à Postuler ?",
         "apply-ready-text": "Cliquez sur le bouton Postuler maintenant pour soumettre votre candidature via notre formulaire d'emploi. Notre équipe examinera votre profil et vous contactera si vous correspondez.",
         "apply-button": "Postuler Maintenant",
@@ -65,10 +57,7 @@ const App = () => {
     // Effect to update document title and potentially other meta tags
     useEffect(() => {
         document.title = getTranslatedText("heading-main") + " - " + getTranslatedText("heading-sub");
-        // For more comprehensive SEO in React, consider a library like React Helmet (or React Helmet Async)
-        // to manage meta tags within the component, dynamically updating them based on language.
-        // For this example, description and keywords are set in the public/index.html file.
-    }, [currentLang]); // Re-run when currentLang changes
+    }, [currentLang]);
 
     // Handler for language switcher change
     const handleLanguageChange = (event) => {
@@ -93,7 +82,7 @@ const App = () => {
                 </div>
             </div>
 
-            <header className="relative bg-gradient-to-r from-pink-500 to-rose-600 text-white py-12 px-4 sm:px-6 lg:px-8 overflow-hidden">
+            <header className="relative bg-gradient-to-r from-pink-500 to-rose-600 text-white py-12 px-4 sm:px-8 lg:px-8 overflow-hidden">
                 {/* Background Image */}
                 {/* Assuming images are in the public/uploads folder */}
                 <div className="absolute inset-0 bg-cover bg-center opacity-30"
@@ -172,19 +161,16 @@ const App = () => {
                 <section className="bg-gray-100 p-6 md:p-8 rounded-xl shadow-lg mb-8 flex flex-col md:flex-row items-center md:items-start text-center md:text-left">
                     <img src="/uploads/business-people-partnership-support-team-urban-scene-concept.jpg"
                          alt="Business people collaborating in an urban scene"
-                         className="w-40 h-40 object-cover rounded-xl mt-0 mb-4 md:mb-0 md:mr-8 shadow-md flex-shrink-0" // Medium size, rectangular
-                         onError={(e) => e.target.src = 'https://placehold.co/160x160/808080/ffffff?text=Image'} />
+                         className="w-48 h-48 object-cover rounded-xl mt-0 mb-4 md:mb-0 md:mr-8 shadow-md flex-shrink-0"
+                         onError={(e) => e.target.src = 'https://placehold.co/192x192/808080/ffffff?text=Image'} />
                     <div className="flex-grow">
                         <h2 className="text-2xl md:text-3xl font-bold text-rose-700 mb-4">
                             {getTranslatedText("why-work-title")}
                         </h2>
-                        <ul className="list-disc list-inside text-base space-y-2 max-w-prose mx-auto md:mx-0">
-                            <li>{getTranslatedText("why-work-item1")}</li>
-                            <li>{getTranslatedText("why-work-item2")}</li>
-                            <li>{getTranslatedText("why-work-item3")}</li>
-                            <li>{getTranslatedText("why-work-item4")}</li>
-                            <li>{getTranslatedText("why-work-item5")}</li>
-                        </ul>
+                        {/* Content for Why Work With Us as a single paragraph */}
+                        <p className="text-base leading-relaxed max-w-prose mx-auto md:mx-0">
+                            {getTranslatedText("why-work-text-full")}
+                        </p>
                     </div>
                 </section>
 
@@ -192,8 +178,8 @@ const App = () => {
                 <section className="text-center bg-pink-100 text-gray-800 p-6 md:p-8 rounded-xl shadow-lg flex flex-col md:flex-row items-center md:items-start md:text-left">
                     <img src="/uploads/recruitment-hiring-career-job-emplyment-concept.jpg"
                          alt="Recruitment and hiring concept image"
-                         className="w-40 h-40 object-cover rounded-xl mt-0 mb-4 md:mb-0 md:mr-8 shadow-md flex-shrink-0" // Medium size, rectangular
-                         onError={(e) => e.target.src = 'https://placehold.co/160x160/808080/ffffff?text=Image'} />
+                         className="w-48 h-48 object-cover rounded-xl mt-0 mb-4 md:mb-0 md:mr-8 shadow-md flex-shrink-0"
+                         onError={(e) => e.target.src = 'https://placehold.co/192x192/808080/ffffff?text=Image'} />
                     <div className="flex-grow">
                         <h2 className="text-2xl md:text-3xl font-bold mb-4 text-rose-700">
                             {getTranslatedText("apply-ready-title")}
@@ -216,7 +202,7 @@ const App = () => {
 
             </main>
 
-            
+             
         </div>
     );
 };

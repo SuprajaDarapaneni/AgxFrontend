@@ -29,7 +29,7 @@ const Footer = () => {
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Organization",
-            name: "AGX International",
+            name: "AGX-International",
             url: "https://www.agx-international.com",
             logo: "https://www.agx-international.com/logo-agx-transparent.png",
             sameAs: Object.values(socialLinks),
@@ -44,7 +44,7 @@ const Footer = () => {
             <Link to="/" className="flex items-center space-x-3" aria-label={t("nav.home")}>
               <img
                 src={logo}
-                alt="AGX International Logo"
+                alt="AGX-International Logo"
                 className="h-16 w-auto object-contain"
                 width="128"
                 height="64"
@@ -158,7 +158,7 @@ const Footer = () => {
         {/* Footer Bottom */}
         <div className="border-t border-pink-200 mt-12 pt-6 text-center text-sm">
           <p className="text-[#6b0657]">
-            &copy; {new Date().getFullYear()} AGX International. {t("footer.rightsReserved")}
+            &copy; {new Date().getFullYear()} AGX-International. {t("footer.rightsReserved")}
           </p>
         </div>
       </div>

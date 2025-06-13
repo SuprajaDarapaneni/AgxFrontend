@@ -168,10 +168,10 @@ const BlogsPage = () => {
           }}
         >
           <Helmet>
-            <title>Manage Blogs | AGX International</title>
+            <title>Manage Blogs | AGX-International</title>
             <meta
               name="description"
-              content="Manage blog posts on AGX International platform. Add, edit, or delete blogs easily."
+              content="Manage blog posts on AGX-International platform. Add, edit, or delete blogs easily."
             />
             {/* If this page is admin-only, uncomment next line */}
             {/* <meta name="robots" content="noindex, nofollow" /> */}

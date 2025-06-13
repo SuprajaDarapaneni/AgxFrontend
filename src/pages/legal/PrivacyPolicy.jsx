@@ -7,7 +7,7 @@ const PrivacyPolicy = () => {
   return (
     <main className="bg-white text-gray-800 font-sans pt-20 pb-32 px-6 lg:px-0">
       <Helmet>
-        <title>Privacy Policy | AGX International</title>
+        <title>Privacy Policy | AGX-International</title>
       </Helmet>
 
       <div className="max-w-5xl mx-auto">
@@ -20,7 +20,7 @@ const PrivacyPolicy = () => {
           <section>
             <h2 className="text-2xl font-semibold text-pink-700 mb-3">Introduction</h2>
             <p className="text-gray-700 leading-relaxed">
-              AGX International values your privacy. This policy explains how we collect, use, and protect your personal data when you use our website and services.
+              AGX-International values your privacy. This policy explains how we collect, use, and protect your personal data when you use our website and services.
             </p>
           </section>
 
@@ -71,7 +71,7 @@ const PrivacyPolicy = () => {
           <section>
             <h2 className="text-2xl font-semibold text-pink-700 mb-3">7. Changes to this Policy</h2>
             <p className="text-gray-700 leading-relaxed">
-              AGX International reserves the right to update this policy. All changes will be reflected here along with the updated date.
+              AGX-International reserves the right to update this policy. All changes will be reflected here along with the updated date.
             </p>
           </section>
 

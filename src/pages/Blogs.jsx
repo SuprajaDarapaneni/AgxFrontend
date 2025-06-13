@@ -31,10 +31,10 @@ const Blogs = () => {
   return (
     <section className="container mx-auto px-4 py-12">
       <Helmet>
-        <title>{t('blogs.title')} | AGX International</title>
+        <title>{t('blogs.title')} | AGX-International</title>
         <meta
           name="description"
-          content="Read the latest blog posts from AGX International about global trade, innovation, and business insights."
+          content="Read the latest blog posts from AGX-International about global trade, innovation, and business insights."
         />
         <meta name="robots" content="index, follow" />
       </Helmet>

@@ -152,10 +152,10 @@ const BuySellForm = () => {
   return (
     <>
       <Helmet>
-        <title>{t('form.pageTitle') || 'Buy/Sell Request Form - AGX International'}</title>
+        <title>{t('form.pageTitle') || 'Buy/Sell Request Form - AGX-International'}</title>
         <meta
           name="description"
-          content={t('form.pageDescription') || 'Submit your buy or sell request with AGX International using our easy-to-use form.'}
+          content={t('form.pageDescription') || 'Submit your buy or sell request with AGX-International using our easy-to-use form.'}
         />
         <meta name="robots" content="index, follow" />
       </Helmet>

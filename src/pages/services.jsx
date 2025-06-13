@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 const Services = () => {
   const { t } = useTranslation();
-  const company = 'AGX International';
+  const company = 'AGX-International';
 
   const serviceIcons = [
     (
@@ -42,7 +42,7 @@ const Services = () => {
   <title>Our Services | Freight Forwarding & Trade Consulting - AGX</title>
   <meta name="description" content="Explore AGX's logistics services including customs clearance, freight forwarding, and supply chain consulting." />
 </Helmet>
- <meta name="keywords" content="services, industries, cosmetics, AGX International" />
+ <meta name="keywords" content="services, industries, cosmetics, AGX-International" />
         <meta name="author" content={company} />
         <meta property="og:title" content={`${t('title')} - ${company}`} />
         <meta property="og:description" content={t('intro', { company })} />

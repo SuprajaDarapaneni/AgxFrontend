@@ -52,10 +52,10 @@ const Dashboard = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Helmet>
-        <title>{t('dashboard.title')} | AGX International</title>
+        <title>{t('dashboard.title')} | AGX-International</title>
         <meta
           name="description"
-          content={t('dashboard.metaDescription') || 'Welcome to the AGX International Dashboard where you manage your account and activities.'}
+          content={t('dashboard.metaDescription') || 'Welcome to the AGX-International Dashboard where you manage your account and activities.'}
         />
         <html lang={t('lang') || 'en'} />
       </Helmet>

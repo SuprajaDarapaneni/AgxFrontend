@@ -40,12 +40,12 @@ const BlogDetail = () => {
   // Create a short description (first 150 chars, fallback)
   const metaDescription = blog.content
     ? blog.content.replace(/<\/?[^>]+(>|$)/g, '').slice(0, 150) + '...'
-    : `Read this blog post titled "${blog.title}" on AGX International.`;
+    : `Read this blog post titled "${blog.title}" on AGX-International.`;
 
   return (
     <>
       <Helmet>
-        <title>{blog.title} | AGX International</title>
+        <title>{blog.title} | AGX-International</title>
         <meta name="description" content={metaDescription} />
         <link rel="canonical" href={`https://www.agx-international.com/blogs/${id}`} />
         <meta name="robots" content="index, follow" />
