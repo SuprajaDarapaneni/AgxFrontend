@@ -21,6 +21,7 @@ import {
 } from '@mui/material';
 import { Edit, Delete, Description } from '@mui/icons-material';
 import { Helmet } from 'react-helmet';
+import { useTranslation } from 'react-i18next';
 
 import Topbar from '../components/Topbar';
 import Sidebar from '../components/sidebar';
@@ -28,6 +29,8 @@ import Sidebar from '../components/sidebar';
 const drawerWidth = 240;
 
 const BlogsPage = () => {
+  const { t } = useTranslation();
+
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   const [mode, setMode] = useState(prefersDarkMode ? 'dark' : 'light');
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -44,7 +47,7 @@ const BlogsPage = () => {
       createTheme({
         palette: {
           mode,
-          primary: { main: '#4f46e5' }, // Purple-ish
+          primary: { main: '#4f46e5' },
           background: {
             default: mode === 'light' ? '#f9fafb' : '#121212',
             paper: mode === 'light' ? '#ffffff' : '#1d1d1d',
@@ -109,16 +112,16 @@ const BlogsPage = () => {
         body: JSON.stringify(form),
       });
 
-      if (!res.ok) throw new Error('Failed to submit blog');
+      if (!res.ok) throw new Error(t('blogspage.failedToSubmitBlog'));
 
       const result = await res.json();
 
       if (editingId) {
         setBlogs(blogs.map((b) => (b._id === editingId ? result : b)));
-        setMessage('Blog updated successfully');
+        setMessage(t('blogspage.blogUpdatedSuccess'));
       } else {
         setBlogs([result, ...blogs]);
-        setMessage('Blog added successfully');
+        setMessage(t('blogspage.blogAddedSuccess'));
       }
 
       setForm({ title: '', excerpt: '', content: '' });
@@ -137,10 +140,10 @@ const BlogsPage = () => {
   const handleDelete = async (id) => {
     try {
       const res = await fetch(`https://agxbackend-1.onrender.com/blogs/${id}`, { method: 'DELETE' });
-      if (!res.ok) throw new Error('Failed to delete blog');
+      if (!res.ok) throw new Error(t('blogspage.failedToDeleteBlog'));
 
       setBlogs(blogs.filter((b) => b._id !== id));
-      setMessage('Blog deleted successfully');
+      setMessage(t('blogspage.blogDeletedSuccess'));
       setTimeout(() => setMessage(''), 3000);
     } catch (error) {
       alert(error.message);
@@ -156,7 +159,7 @@ const BlogsPage = () => {
 
         <Box
           component="main"
-          aria-label="Manage Blogs"
+          aria-label={t('blogspage.manageBlogs')}
           sx={{
             flexGrow: 1,
             p: 4,
@@ -168,27 +171,25 @@ const BlogsPage = () => {
           }}
         >
           <Helmet>
-            <title>Manage Blogs | AGX-International</title>
+            <title>{`${t('blogspage.manageBlogs')} | AGX-International`}</title>
             <meta
               name="description"
               content="Manage blog posts on AGX-International platform. Add, edit, or delete blogs easily."
             />
-            {/* If this page is admin-only, uncomment next line */}
-            {/* <meta name="robots" content="noindex, nofollow" /> */}
           </Helmet>
 
           <Typography variant="h3" fontWeight={700} gutterBottom>
-            Manage Blogs
+            {t('blogspage.manageBlogs')}
           </Typography>
 
           <Paper sx={{ p: 3, mb: 6, borderRadius: 3, boxShadow: 4 }}>
             <Typography variant="h5" fontWeight={700} gutterBottom>
-              {editingId ? 'Edit Blog' : 'Add New Blog'}
+              {editingId ? t('blogspage.editBlog') : t('blogspage.addNewBlog')}
             </Typography>
             <Box component="form" onSubmit={handleSubmit} noValidate>
               <Stack spacing={3}>
                 <TextField
-                  label="Title"
+                  label={t('blogspage.title')}
                   name="title"
                   value={form.title}
                   onChange={handleInputChange}
@@ -196,29 +197,29 @@ const BlogsPage = () => {
                   required
                   autoFocus
                   inputProps={{ maxLength: 100 }}
-                  aria-label="Blog Title"
+                  aria-label={t('blogspage.title')}
                 />
                 <TextField
-                  label="Excerpt"
+                  label={t('blogspage.excerpt')}
                   name="excerpt"
                   value={form.excerpt}
                   onChange={handleInputChange}
                   fullWidth
                   required
-                  helperText="Short summary of the blog (max 200 characters)"
+                  helperText={t('blogspage.shortSummary')}
                   inputProps={{ maxLength: 200 }}
-                  aria-label="Blog Excerpt"
+                  aria-label={t('blogspage.excerpt')}
                 />
                 <TextField
-                  label="Content"
+                  label={t('blogspage.content')}
                   name="content"
                   value={form.content}
                   onChange={handleInputChange}
                   fullWidth
                   multiline
                   rows={8}
-                  placeholder="Write the full content here..."
-                  aria-label="Blog Content"
+                  placeholder={t('blogspage.writeFullContentHere')}
+                  aria-label={t('blogspage.content')}
                 />
                 <Box sx={{ display: 'flex', gap: 2 }}>
                   <Button
@@ -227,9 +228,9 @@ const BlogsPage = () => {
                     color="primary"
                     size="large"
                     sx={{ flexGrow: 1 }}
-                    aria-label={editingId ? 'Update Blog' : 'Add Blog'}
+                    aria-label={editingId ? t('blogspage.updateBlog') : t('blogspage.addBlog')}
                   >
-                    {editingId ? 'Update Blog' : 'Add Blog'}
+                    {editingId ? t('blogspage.updateBlog') : t('blogspage.addBlog')}
                   </Button>
                   {editingId && (
                     <Button
@@ -241,9 +242,9 @@ const BlogsPage = () => {
                         setEditingId(null);
                         setForm({ title: '', excerpt: '', content: '' });
                       }}
-                      aria-label="Cancel editing"
+                      aria-label={t('blogspage.cancelEditing')}
                     >
-                      Cancel
+                      {t('blogspage.cancelEditing')}
                     </Button>
                   )}
                 </Box>
@@ -258,11 +259,13 @@ const BlogsPage = () => {
           </Paper>
 
           <Typography variant="h5" mb={2} fontWeight={700}>
-            Existing Blogs
+            {t('blogspage.manageBlogs')}
           </Typography>
 
           {blogs.length === 0 ? (
-            <Typography sx={{ p: 2, textAlign: 'center', color: 'text.secondary' }}>No blogs found.</Typography>
+            <Typography sx={{ p: 2, textAlign: 'center', color: 'text.secondary' }}>
+              {t('blogspage.noBlogsFound')}
+            </Typography>
           ) : (
             <Stack spacing={3}>
               {blogs.map((blog) => (
@@ -289,7 +292,6 @@ const BlogsPage = () => {
                         {blog.title}
                       </Typography>
                     </Box>
-                    {/* Optional blog date */}
                     {blog.date && (
                       <Typography variant="caption" color="text.secondary" sx={{ mb: 1 }}>
                         <time dateTime={new Date(blog.date).toISOString()}>
@@ -307,16 +309,16 @@ const BlogsPage = () => {
                   </CardContent>
                   <Divider />
                   <CardActions disableSpacing sx={{ justifyContent: 'flex-end' }}>
-                    <Tooltip title="Edit" arrow TransitionComponent={Fade}>
-                      <IconButton color="primary" onClick={() => handleEdit(blog)} aria-label="edit blog">
+                    <Tooltip title={t('blogspage.edit')} arrow TransitionComponent={Fade}>
+                      <IconButton color="primary" onClick={() => handleEdit(blog)} aria-label={t('blogspage.edit')}>
                         <Edit />
                       </IconButton>
                     </Tooltip>
-                    <Tooltip title="Delete" arrow TransitionComponent={Fade}>
+                    <Tooltip title={t('blogspage.delete')} arrow TransitionComponent={Fade}>
                       <IconButton
                         color="error"
                         onClick={() => handleDelete(blog._id)}
-                        aria-label="delete blog"
+                        aria-label={t('blogspage.delete')}
                       >
                         <Delete />
                       </IconButton>

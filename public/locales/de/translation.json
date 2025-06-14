@@ -98,7 +98,14 @@
   "followUs": "Folgen Sie uns",
   "rightsReserved": "Alle Rechte vorbehalten."
 }
-
+, "admin": {
+    "title": "Admin-Seite",
+    "uploadLabel": "Ein Bild hochladen:",
+    "preview": "Bildvorschau:",
+    "previewAlt": "Vorschau",
+    "clear": "Bild löschen",
+    "invalidImage": "Bitte wählen Sie eine gültige Bilddatei aus."
+  }
 ,"homepage": {
   "servicesTitle": "Unsere Dienstleistungen",
   "service1Title": "Importunterstützung",
@@ -120,7 +127,26 @@
   "viewMore": "Mehr anzeigen",
   "viewAllProducts": "Alle Produkte anzeigen"
 }
-
+,
+ "blogspage": {
+    "manageBlogs": "Blogs verwalten",
+    "editBlog": "Blog bearbeiten",
+    "addNewBlog": "Neuen Blog hinzufügen",
+    "title": "Titel",
+    "excerpt": "Auszug",
+    "content": "Inhalt",
+    "shortSummary": "Kurze Zusammenfassung des Blogs (max. 200 Zeichen)",
+    "updateBlog": "Blog aktualisieren",
+    "addBlog": "Blog hinzufügen",
+    "cancelEditing": "Abbrechen",
+    "noBlogsFound": "Keine Blogs gefunden.",
+    "edit": "Bearbeiten",
+    "delete": "Löschen",
+    "blogAddedSuccess": "Blog erfolgreich hinzugefügt",
+    "blogUpdatedSuccess": "Blog erfolgreich aktualisiert",
+    "blogDeletedSuccess": "Blog erfolgreich gelöscht",
+    "writeFullContentHere": "Schreiben Sie hier den vollständigen Inhalt..."
+  }
 
 ,"blogs": {
     "title": "Unsere neuesten Blogs",
@@ -179,6 +205,13 @@
     "Other": "Andere"
   }
 
+,"sidebar": {
+  "dashboard": "Instrumententafel",
+  "products": "Produkte",
+  "blogs": "Blogs",
+  "reviews": "Bewertungen",
+  "careers": "Karriere"
+}
 
 , "dashboard": {
       "title": "Dashboard-Inhalt",
