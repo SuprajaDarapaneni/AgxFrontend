@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { Mail, Phone } from "lucide-react";
+import { Mail, Phone, Menu, X } from "lucide-react"; // Import Menu and X icons for hamburger/close
 import { useTranslation } from "react-i18next";
 import { Helmet } from "react-helmet";
 import logo from "../assets/logo-removebg-preview.png";
@@ -35,7 +35,7 @@ const Header = () => {
           new window.google.translate.TranslateElement(
             {
               pageLanguage: "en",
-              includedLanguages: "en,fr,de,nl,zh-CN,es,pt,vi,fa,ar,hi",
+              includedLanguages: "en,fr,de,nl,zh-CN,es,pt,vi,fa,ar,hi", // Ensure 'en' is included
               layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
               autoDisplay: false,
             },
@@ -47,6 +47,11 @@ const Header = () => {
 
     addGoogleTranslate();
   }, []);
+
+  // Close mobile menu when navigating
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [location.pathname]);
 
   return (
     <>
@@ -71,6 +76,7 @@ const Header = () => {
                 <a href="tel:+16479049839">+1 647 904 9839</a>
               </div>
             </div>
+            {/* Google Translate element */}
             <div id="google_translate_element" className="text-gray-700" />
           </div>
         </div>
@@ -85,7 +91,7 @@ const Header = () => {
               className="h-12 w-auto object-contain"
               loading="lazy"
               onError={(e) => {
-                e.currentTarget.src = "/fallback-logo.png";
+                e.currentTarget.src = "/fallback-logo.png"; // Fallback in case logo fails to load
               }}
             />
           </Link>
@@ -108,13 +114,13 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* Mobile Toggle Button */}
+          {/* Mobile Toggle Button - Moved to the right */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden focus:outline-none text-pink-700 text-3xl"
+            className="md:hidden focus:outline-none text-pink-700 text-3xl ml-auto" // ml-auto pushes it to the right
             aria-label="Toggle mobile menu"
           >
-            ☰
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />} {/* Change icon based on menu state */}
           </button>
         </div>
 
@@ -126,7 +132,7 @@ const Header = () => {
                 <Link
                   key={path}
                   to={path}
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={() => setIsMenuOpen(false)} // Close menu on item click
                   className={`font-medium ${
                     currentPath === path ? "text-pink-700" : "text-[#42002E] hover:text-pink-600"
                   }`}
@@ -134,6 +140,7 @@ const Header = () => {
                   {t(key)}
                 </Link>
               ))}
+              {/* Contact info in mobile menu */}
               <div className="border-t border-pink-200 pt-3 space-y-2 text-sm">
                 <div className="flex items-center gap-2">
                   <Mail size={16} className="text-pink-700" />
