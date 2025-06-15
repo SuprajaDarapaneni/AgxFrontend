@@ -1,0 +1,53 @@
+#google_translate_element {
+    display: none;
+    /* Hidden by default */
+    position: absolute;
+    /* Position relative to parent */
+    top: 40px;
+    /* Adjust based on the icon size to stick right below it */
+    right: 10px;
+    background-color: white;
+    border: 1px solid #ccc;
+    z-index: 1000;
+    padding: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    width: auto;
+    min-width: 200px;
+    border-radius: 5px;
+    /* Keep the dropdown fixed to its parent element */
+}
+
+#google_translate_element.show {
+    display: block;
+}
+
+.goog-te-menu-frame {
+    width: 100% !important;
+    position: absolute !important;
+    /* Ensure the menu is positioned correctly */
+    top: 0;
+    /* Stick it to the top of its container */
+    left: 0;
+    /* Align to the left */
+    z-index: 1000 !important;
+}
+
+.goog-te-gadget-simple {
+    font-size: 16px !important;
+    /* Ensure the text size is readable */
+    padding: 10px !important;
+    /* Add padding for better spacing */
+    display: block;
+    width: 90% !important;
+    border-radius: 5px;
+}
+
+.goog-te-combo {
+    width: 100% !important;
+    /* Ensure the dropdown takes up full width */
+    padding: 5px;
+}
+
+.goog-te-gadget-icon {
+    display: none !important;
+}
