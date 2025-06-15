@@ -35,7 +35,7 @@ const Header = () => {
           new window.google.translate.TranslateElement(
             {
               pageLanguage: "en",
-              includedLanguages: "en,fr,de,nl,zh-CN,es,pt,vi,fa,ar,hi", // Ensure 'en' is included
+              includedLanguages: "en,fr,de,nl,zh-CN,es,pt,vi,fa,ar,hi", // English is included as an option
               layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
               autoDisplay: false,
             },
@@ -65,19 +65,20 @@ const Header = () => {
       <header className="bg-white shadow-md fixed w-full top-0 left-0 z-50">
         {/* Topbar - Visible on All Devices */}
         <div className="bg-white py-1 px-4 border-b border-gray-200">
-          <div className="max-w-screen-xl mx-auto flex flex-wrap justify-between items-center gap-3 text-sm">
-            <div className="flex items-center gap-4 text-gray-700 flex-wrap">
+          <div className="max-w-screen-xl mx-auto flex items-center justify-between text-sm flex-nowrap overflow-x-auto">
+            {/* Contact Information */}
+            <div className="flex items-center gap-4 text-gray-700 flex-shrink-0">
               <div className="flex items-center gap-1">
                 <Mail size={16} className="text-pink-600" />
-                <a href="mailto:info@agx-international.com">info@agx-international.com</a>
+                <a href="mailto:info@agx-international.com" className="whitespace-nowrap">info@agx-international.com</a>
               </div>
               <div className="flex items-center gap-1">
                 <Phone size={16} className="text-pink-600" />
-                <a href="tel:+16479049839">+1 647 904 9839</a>
+                <a href="tel:+16479049839" className="whitespace-nowrap">+1 647 904 9839</a>
               </div>
             </div>
-            {/* Google Translate element */}
-            <div id="google_translate_element" className="text-gray-700" />
+            {/* Google Translate element - Pushed to the right */}
+            <div id="google_translate_element" className="text-gray-700 flex-shrink-0 ml-auto" />
           </div>
         </div>
 
@@ -114,7 +115,7 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* Mobile Toggle Button - Moved to the right */}
+          {/* Mobile Toggle Button - Placed after logo and pushed to the right */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="md:hidden focus:outline-none text-pink-700 text-3xl ml-auto" // ml-auto pushes it to the right
@@ -140,7 +141,7 @@ const Header = () => {
                   {t(key)}
                 </Link>
               ))}
-              {/* Contact info in mobile menu */}
+              {/* Contact info in mobile menu for consistency */}
               <div className="border-t border-pink-200 pt-3 space-y-2 text-sm">
                 <div className="flex items-center gap-2">
                   <Mail size={16} className="text-pink-700" />
