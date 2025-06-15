@@ -68,26 +68,27 @@ const Header = () => {
       <header className="bg-white shadow-md fixed w-full top-0 left-0 z-50">
         {/* Topbar - Visible on All Devices */}
         <div className="bg-white py-1 px-4 border-b border-gray-200">
-          <div className="max-w-screen-xl mx-auto flex items-center justify-between text-sm flex-nowrap overflow-x-auto">
+          {/* Reverted to flex-wrap for better visibility if content is too wide */}
+          <div className="max-w-screen-xl mx-auto flex flex-wrap justify-between items-center gap-3 text-sm">
             {/* Contact Information */}
-            <div className="flex items-center gap-4 text-gray-700 flex-shrink-0">
+            <div className="flex items-center gap-4 text-gray-700 flex-wrap flex-grow"> {/* flex-grow added */}
               <div className="flex items-center gap-1">
                 <Mail size={16} className="text-pink-600" />
-                <a href="mailto:info@agx-international.com" className="whitespace-nowrap">info@agx-international.com</a>
+                <a href="mailto:info@agx-international.com">info@agx-international.com</a>
               </div>
               <div className="flex items-center gap-1">
                 <Phone size={16} className="text-pink-600" />
-                <a href="tel:+16479049839" className="whitespace-nowrap">+1 647 904 9839</a>
+                <a href="tel:+16479049839">+1 647 904 9839</a>
               </div>
             </div>
-            {/* Google Translate element - Pushed to the right */}
-            <div id="google_translate_element" className="text-gray-700 flex-shrink-0 ml-auto" />
+            {/* Google Translate element */}
+            <div id="google_translate_element" className="text-gray-700 flex-shrink-0" />
           </div>
         </div>
 
         {/* Main Header */}
-        {/* Adjusted to ensure hamburger is beside logo on mobile, and desktop nav is separate */}
-        <div className="max-w-screen-xl mx-auto px-4 py-3 flex items-center justify-between md:justify-end flex-wrap gap-4">
+        {/* Changed justify-between md:justify-end back to just justify-between */}
+        <div className="max-w-screen-xl mx-auto px-4 py-3 flex items-center justify-between flex-wrap gap-4">
           {/* Wrapper for Logo and Mobile Toggle Button - shown only on mobile */}
           <div className="flex items-center gap-4 md:hidden">
             {/* Logo for mobile */}
@@ -112,7 +113,7 @@ const Header = () => {
             </button>
           </div>
 
-          {/* Desktop Logo - shown only on desktop */}
+          {/* Desktop Logo - shown only on desktop, positioned to the left by justify-between */}
           <Link to="/" className="hidden md:flex items-center space-x-3">
             <img
               src={logo}
@@ -125,7 +126,7 @@ const Header = () => {
             />
           </Link>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation - shown only on desktop, positioned to the right by justify-between */}
           <nav className="hidden md:flex flex-wrap gap-5 lg:gap-6 text-sm">
             {mainNavItems.map(({ key, path }) => (
               <Link
