@@ -6,7 +6,7 @@ import { Helmet } from "react-helmet";
 import logo from "../assets/logo-removebg-preview.png";
 
 const Header = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
   const currentPath = location.pathname;
@@ -32,12 +32,15 @@ const Header = () => {
         document.body.appendChild(script);
 
         window.googleTranslateElementInit = () => {
-          new window.google.translate.TranslateElement({
-            pageLanguage: "en",
-            includedLanguages: "en,fr,de,nl,zh-CN,es,pt,vi,fa,ar,hi",
-            layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
-            autoDisplay: false,
-          }, "google_translate_element");
+          new window.google.translate.TranslateElement(
+            {
+              pageLanguage: "en",
+              includedLanguages: "en,fr,de,nl,zh-CN,es,pt,vi,fa,ar,hi",
+              layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
+              autoDisplay: false,
+            },
+            "google_translate_element"
+          );
         };
       }
     };
@@ -55,23 +58,25 @@ const Header = () => {
       </Helmet>
 
       <header className="bg-white shadow-md fixed w-full top-0 left-0 z-50">
-        {/* Top Bar */}
-        <div className="hidden md:block bg-white py-1 px-6 border-b border-gray-200">
-          <div className="max-w-screen-xl mx-auto flex justify-end items-center gap-6 text-sm">
-            <div className="flex items-center gap-1 text-gray-700">
-              <Mail size={16} className="text-pink-600" />
-              <a href="mailto:info@agx-international.com">info@agx-international.com</a>
+        {/* Topbar - Visible on All Devices */}
+        <div className="bg-white py-1 px-4 border-b border-gray-200">
+          <div className="max-w-screen-xl mx-auto flex flex-wrap justify-between items-center gap-3 text-sm">
+            <div className="flex items-center gap-4 text-gray-700 flex-wrap">
+              <div className="flex items-center gap-1">
+                <Mail size={16} className="text-pink-600" />
+                <a href="mailto:info@agx-international.com">info@agx-international.com</a>
+              </div>
+              <div className="flex items-center gap-1">
+                <Phone size={16} className="text-pink-600" />
+                <a href="tel:+16479049839">+1 647 904 9839</a>
+              </div>
             </div>
-            <div className="flex items-center gap-1 text-gray-700">
-              <Phone size={16} className="text-pink-600" />
-              <a href="tel:+16479049839">+1 647 904 9839</a>
-            </div>
-            <div id="google_translate_element" className="text-gray-700 text-sm"></div>
+            <div id="google_translate_element" className="text-gray-700" />
           </div>
         </div>
 
         {/* Main Header */}
-        <div className="max-w-screen-xl mx-auto px-6 py-3 flex items-center justify-between flex-wrap gap-4">
+        <div className="max-w-screen-xl mx-auto px-4 py-3 flex items-center justify-between flex-wrap gap-4">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
             <img
@@ -103,7 +108,7 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* Mobile Menu Toggle */}
+          {/* Mobile Toggle Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="md:hidden focus:outline-none text-pink-700 text-3xl"
@@ -114,40 +119,37 @@ const Header = () => {
         </div>
 
         {/* Mobile Menu */}
-        <div
-          className={`md:hidden transition-all duration-300 ease-in-out bg-white px-6 overflow-hidden ${
-            isMenuOpen ? "max-h-screen py-4" : "max-h-0 py-0"
-          }`}
-        >
-          <nav className="flex flex-col gap-4 text-sm">
-            {mainNavItems.map(({ key, path }) => (
-              <Link
-                key={path}
-                to={path}
-                onClick={() => setIsMenuOpen(false)}
-                className={`font-medium ${
-                  currentPath === path ? "text-pink-700" : "text-[#42002E] hover:text-pink-600"
-                }`}
-              >
-                {t(key)}
-              </Link>
-            ))}
-            <div className="mt-4 border-t border-pink-200 pt-3 space-y-2 text-sm">
-              <div className="flex items-center gap-2">
-                <Mail size={16} className="text-pink-700" />
-                <span>info@agx-international.com</span>
+        {isMenuOpen && (
+          <div className="md:hidden px-6 py-4 bg-white border-t">
+            <nav className="flex flex-col gap-4 text-sm">
+              {mainNavItems.map(({ key, path }) => (
+                <Link
+                  key={path}
+                  to={path}
+                  onClick={() => setIsMenuOpen(false)}
+                  className={`font-medium ${
+                    currentPath === path ? "text-pink-700" : "text-[#42002E] hover:text-pink-600"
+                  }`}
+                >
+                  {t(key)}
+                </Link>
+              ))}
+              <div className="border-t border-pink-200 pt-3 space-y-2 text-sm">
+                <div className="flex items-center gap-2">
+                  <Mail size={16} className="text-pink-700" />
+                  <span>info@agx-international.com</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Phone size={16} className="text-pink-700" />
+                  <span>+1 647 904 9839</span>
+                </div>
               </div>
-              <div className="flex items-center gap-2">
-                <Phone size={16} className="text-pink-700" />
-                <span>+1 647 904 9839</span>
-              </div>
-              <div id="google_translate_element_mobile" className="text-gray-700"></div>
-            </div>
-          </nav>
-        </div>
+            </nav>
+          </div>
+        )}
       </header>
 
-      {/* Style to minimize Google branding */}
+      {/* Google Translate Style Cleanup */}
       <style>{`
         .goog-logo-link,
         .goog-te-gadget span {
@@ -159,7 +161,7 @@ const Header = () => {
         .goog-te-combo {
           font-size: 14px !important;
           border: 1px solid #e2e8f0;
-          padding: 4px;
+          padding: 4px 6px;
           border-radius: 4px;
         }
       `}</style>
