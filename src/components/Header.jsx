@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { Mail, Phone, Menu, X } from "lucide-react"; // Import Menu and X icons for hamburger/close
+import { Mail, Phone, Menu, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Helmet } from "react-helmet";
 import logo from "../assets/logo-removebg-preview.png";
@@ -35,7 +35,7 @@ const Header = () => {
           new window.google.translate.TranslateElement(
             {
               pageLanguage: "en",
-              includedLanguages: "en,fr,de,nl,zh-CN,es,pt,vi,fa,ar,hi", // English is included as an option
+              includedLanguages: "en,fr,de,nl,zh-CN,es,pt,vi,fa,ar,hi",
               layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
               autoDisplay: false,
             },
@@ -48,7 +48,6 @@ const Header = () => {
     addGoogleTranslate();
   }, []);
 
-  // Close mobile menu when navigating
   useEffect(() => {
     setIsMenuOpen(false);
   }, [location.pathname]);
@@ -83,22 +82,48 @@ const Header = () => {
         </div>
 
         {/* Main Header */}
-        <div className="max-w-screen-xl mx-auto px-4 py-3 flex items-center justify-between flex-wrap gap-4">
-          {/* Logo */}
-          <Link to="/" className="flex items-center space-x-3">
+        {/* Changed justify-between to gap-4 for desktop, and added a wrapper for logo + mobile menu */}
+        <div className="max-w-screen-xl mx-auto px-4 py-3 flex items-center justify-between md:justify-end flex-wrap gap-4">
+          {/* Wrapper for Logo and Mobile Toggle Button - visible only on mobile (md:hidden) */}
+          {/* On desktop, this wrapper effectively disappears, and the logo stands alone as the first item */}
+          <div className="flex items-center gap-4 md:hidden"> {/* Removed ml-auto from button, added gap to this wrapper */}
+            {/* Logo */}
+            <Link to="/" className="flex items-center space-x-3">
+              <img
+                src={logo}
+                alt="AGX-International Logo"
+                className="h-12 w-auto object-contain"
+                loading="lazy"
+                onError={(e) => {
+                  e.currentTarget.src = "/fallback-logo.png";
+                }}
+              />
+            </Link>
+            {/* Mobile Toggle Button - now directly beside the logo on mobile */}
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="focus:outline-none text-pink-700 text-3xl" // Removed md:hidden and ml-auto from here
+              aria-label="Toggle mobile menu"
+            >
+              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
+
+          {/* Desktop Logo (hidden on mobile, replaces the mobile logo/hamburger wrapper) */}
+          <Link to="/" className="hidden md:flex items-center space-x-3">
             <img
               src={logo}
               alt="AGX-International Logo"
               className="h-12 w-auto object-contain"
               loading="lazy"
               onError={(e) => {
-                e.currentTarget.src = "/fallback-logo.png"; // Fallback in case logo fails to load
+                e.currentTarget.src = "/fallback-logo.png";
               }}
             />
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex flex-wrap gap-5 lg:gap-6 text-sm">
+          <nav className="hidden md:flex flex-wrap gap-5 lg:gap-6 text-sm"> {/* md:flex ensures it's desktop only */}
             {mainNavItems.map(({ key, path }) => (
               <Link
                 key={path}
@@ -114,15 +139,6 @@ const Header = () => {
               </Link>
             ))}
           </nav>
-
-          {/* Mobile Toggle Button - Placed after logo and pushed to the right */}
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden focus:outline-none text-pink-700 text-3xl ml-auto" // ml-auto pushes it to the right
-            aria-label="Toggle mobile menu"
-          >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />} {/* Change icon based on menu state */}
-          </button>
         </div>
 
         {/* Mobile Menu */}
@@ -133,7 +149,7 @@ const Header = () => {
                 <Link
                   key={path}
                   to={path}
-                  onClick={() => setIsMenuOpen(false)} // Close menu on item click
+                  onClick={() => setIsMenuOpen(false)}
                   className={`font-medium ${
                     currentPath === path ? "text-pink-700" : "text-[#42002E] hover:text-pink-600"
                   }`}
@@ -141,7 +157,6 @@ const Header = () => {
                   {t(key)}
                 </Link>
               ))}
-              {/* Contact info in mobile menu for consistency */}
               <div className="border-t border-pink-200 pt-3 space-y-2 text-sm">
                 <div className="flex items-center gap-2">
                   <Mail size={16} className="text-pink-700" />
