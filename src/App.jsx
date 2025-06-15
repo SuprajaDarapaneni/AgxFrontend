@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
@@ -39,30 +39,44 @@ const ProtectedRoute = ({ children }) => {
   return isLoggedIn ? children : <Navigate to="/admin" replace />;
 };
 
-// Language Switcher component (Keeping as is, not relevant to the gap issue)
-const LanguageSwitcher = () => {
-  const { i18n } = useTranslation();
+// Language Switcher component (always visible)
+// const LanguageSwitcher = () => {
+//   const { i18n } = useTranslation();
 
-  return (
-    <div style={{ position: 'fixed', top: 10, right: 10, zIndex: 1000 }}>
-      {['en', 'fr'].map((lng) => (
-        <button
-          key={lng}
-          onClick={() => i18n.changeLanguage(lng)}
-          style={{ marginRight: lng === 'en' ? 10 : 0 }}
-          aria-label={`Switch language to ${lng.toUpperCase()}`}
-        >
-          {lng.toUpperCase()}
-        </button>
-      ))}
-    </div>
-  );
-};
+//   const changeLanguage = (lng) => {
+//     i18n.changeLanguage(lng);
+//     localStorage.setItem('language', lng); // persist language choice
+//   };
+
+  // return (
+  //   <div style={{ position: 'fixed', top: 10, right: 10, zIndex: 1000 }}>
+  //     {['en', 'fr'].map((lng) => (
+  //       <button
+  //         key={lng}
+  //         onClick={() => changeLanguage(lng)}
+  //         style={{ marginRight: lng === 'en' ? 10 : 0 }}
+  //         aria-label={`Switch language to ${lng.toUpperCase()}`}
+  //       >
+  //         {lng.toUpperCase()}
+  //       </button>
+  //     ))}
+  //   </div>
+  // );
+//};
 
 // Main App Content
 const AppContent = () => {
   const location = useLocation();
   const isAdminRoute = location.pathname.toLowerCase().startsWith('/admin');
+  const { i18n } = useTranslation();
+
+  // On mount, set language from localStorage if present
+  useEffect(() => {
+    const savedLang = localStorage.getItem('language');
+    if (savedLang && savedLang !== i18n.language) {
+      i18n.changeLanguage(savedLang);
+    }
+  }, [i18n]);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -74,17 +88,17 @@ const AppContent = () => {
         />
         <meta name="keywords" content="AGX Global, import, export, products, services, international trade" />
         <meta name="robots" content="index, follow" />
-
-        {/* Override the generator meta tag (removes 'Vite 4.0') */}
         <meta name="generator" content="" />
       </Helmet>
 
+      {/* Show header only on public routes */}
       {!isAdminRoute && <Header className="fixed top-0 w-full z-50 bg-white shadow-md" />}
-      {/* <LanguageSwitcher /> */}
+
+      
 
       <main className="flex-grow pt-20 px-0">
         <Suspense fallback={<div className="text-center text-gray-500 py-10">Loading page...</div>}>
-            <ScrollToTop />
+          <ScrollToTop />
           <Routes>
             {/* Public Routes */}
             <Route path="/" element={<Home />} />
@@ -97,7 +111,7 @@ const AppContent = () => {
             <Route path="/contact" element={<Contact />} />
             <Route path="/buy-sell" element={<BuySellpage />} />
             <Route path="/review" element={<Review />} />
-            <Route path="/careers" element={<Careers />} /> {/* <-- ADD THE NEW ROUTE HERE */}
+            <Route path="/careers" element={<Careers />} />
             <Route path="/legal/terms" element={<TermsOfService />} />
             <Route path="/legal/privacy" element={<PrivacyPolicy />} />
 
@@ -153,6 +167,7 @@ const AppContent = () => {
         </Suspense>
       </main>
 
+      {/* Footer and WhatsApp button only on public routes */}
       {!isAdminRoute && <WhatsAppButton />}
       {!isAdminRoute && <Footer />}
     </div>

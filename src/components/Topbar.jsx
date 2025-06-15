@@ -21,14 +21,18 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 const Topbar = ({ onDrawerToggle, colorMode, mode }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const navigate = useNavigate();
 
+  // Re-render on language change
+  React.useEffect(() => {
+    // Just to listen for language changes and cause re-render
+  }, [i18n.language]);
+
   const handleLogout = () => {
-    // Future: Add auth cleanup, analytics, etc.
-    navigate('/'); // This route should have <Helmet> SEO tags set
+    navigate('/');
   };
 
   return (
@@ -39,7 +43,6 @@ const Topbar = ({ onDrawerToggle, colorMode, mode }) => {
       sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
     >
       <Toolbar sx={{ justifyContent: 'space-between' }}>
-        {/* Left section: Brand & Menu */}
         <Box display="flex" alignItems="center" gap={2}>
           {isMobile && (
             <IconButton
@@ -62,7 +65,6 @@ const Topbar = ({ onDrawerToggle, colorMode, mode }) => {
           </Typography>
         </Box>
 
-        {/* Right section: Actions */}
         <Box display="flex" alignItems="center" gap={2}>
           <Tooltip title={t('topbar.toggleTheme')}>
             <IconButton

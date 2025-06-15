@@ -45,6 +45,26 @@
     "contactUs": "Contactez-nous",
     "review": "Avis"
   },
+  "blogspage": {
+    "manageBlogs": "Gérer les blogs",
+    "editBlog": "Modifier le blog",
+    "addNewBlog": "Ajouter un nouveau blog",
+    "title": "Titre",
+    "excerpt": "Extrait",
+    "content": "Contenu",
+    "shortSummary": "Résumé court du blog (max 200 caractères)",
+    "updateBlog": "Mettre à jour le blog",
+    "addBlog": "Ajouter le blog",
+    "cancelEditing": "Annuler",
+    "noBlogsFound": "Aucun blog trouvé.",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "blogAddedSuccess": "Blog ajouté avec succès",
+    "blogUpdatedSuccess": "Blog mis à jour avec succès",
+    "blogDeletedSuccess": "Blog supprimé avec succès",
+    "writeFullContentHere": "Écrivez le contenu complet ici..."
+  }
+  ,
   "sidebar": {
     "dashboard": "Tableau de bord",
     "products": "Produits",
@@ -217,6 +237,14 @@
     "Home Decor": "Décoration intérieure",
     "Imitation Jewellery": "Bijoux fantaisie",
     "Cosmetics": "Cosmétiques"
+  },
+  "admin": {
+    "title": "Page d'administration",
+    "uploadLabel": "Téléverser une image :",
+    "preview": "Aperçu de l'image :",
+    "previewAlt": "Aperçu",
+    "clear": "Effacer l'image",
+    "invalidImage": "Veuillez sélectionner un fichier image valide."
   },
   "countryOptions": {
     "India": "Inde",

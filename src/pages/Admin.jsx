@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const Admin = () => {
   const [image, setImage] = useState(null);
+  const { t } = useTranslation();
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -12,7 +14,7 @@ const Admin = () => {
       };
       reader.readAsDataURL(file);
     } else {
-      alert('Please select a valid image file.');
+      alert(t('admin.invalidImage'));
     }
   };
 
@@ -20,10 +22,10 @@ const Admin = () => {
 
   return (
     <div style={{ padding: '2rem', maxWidth: 600, margin: '0 auto', fontFamily: 'Arial, sans-serif' }}>
-      <h1>Admin Page</h1>
+      <h1>{t('admin.title')}</h1>
 
       <label htmlFor="imageUpload" style={{ display: 'block', marginBottom: 8, fontWeight: 'bold' }}>
-        Upload an Image:
+        {t('admin.uploadLabel')}
       </label>
       <input
         id="imageUpload"
@@ -35,11 +37,17 @@ const Admin = () => {
 
       {image && (
         <div>
-          <h2>Image Preview:</h2>
+          <h2>{t('admin.preview')}</h2>
           <img
             src={image}
-            alt="Preview"
-            style={{ width: '100%', maxWidth: 300, height: 'auto', borderRadius: 8, boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}
+            alt={t('admin.previewAlt')}
+            style={{
+              width: '100%',
+              maxWidth: 300,
+              height: 'auto',
+              borderRadius: 8,
+              boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+            }}
           />
           <button
             onClick={clearImage}
@@ -53,7 +61,7 @@ const Admin = () => {
               cursor: 'pointer',
             }}
           >
-            Clear Image
+            {t('admin.clear')}
           </button>
         </div>
       )}

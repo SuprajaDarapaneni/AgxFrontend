@@ -47,7 +47,7 @@
     "contactUs": "Contact Us",
     "review": "Review"
   },
-  "sidebar": {
+   "sidebar": {
     "dashboard": "Dashboard",
     "products": "Products",
     "blogs": "Blogs",
@@ -287,6 +287,15 @@
     "replaceFileHint": "Select a new file above to replace it.",
     "replaceAdditionalFilesHint": "Select new files above to add/replace them."
   },
+
+  "admin": {
+    "title": "Admin Page",
+    "uploadLabel": "Upload an Image:",
+    "preview": "Image Preview:",
+    "previewAlt": "Preview",
+    "clear": "Clear Image",
+    "invalidImage": "Please select a valid image file."
+  },
   "contactForm": {
     "buttons": {
       "submit": "Submit"
@@ -341,6 +350,26 @@
       "ratingDisplay": "({{rating}})"
     }
   },
+    "blogspage": {
+    "manageBlogs": "Manage Blogs",
+    "editBlog": "Edit Blog",
+    "addNewBlog": "Add New Blog",
+    "title": "Title",
+    "excerpt": "Excerpt",
+    "content": "Content",
+    "shortSummary": "Short summary of the blog (max 200 characters)",
+    "updateBlog": "Update Blog",
+    "addBlog": "Add Blog",
+    "cancelEditing": "Cancel",
+    "noBlogsFound": "No blogs found.",
+    "edit": "Edit",
+    "delete": "Delete",
+    "blogAddedSuccess": "Blog added successfully",
+    "blogUpdatedSuccess": "Blog updated successfully",
+    "blogDeletedSuccess": "Blog deleted successfully",
+    "writeFullContentHere": "Write the full content here..."
+  }
+  ,
   "reviewspage": {
     "pageTitle": "Manage Reviews",
     "form": {
