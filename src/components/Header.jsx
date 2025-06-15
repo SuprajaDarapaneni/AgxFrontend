@@ -32,15 +32,18 @@ const Header = () => {
         document.body.appendChild(script);
 
         window.googleTranslateElementInit = () => {
-          new window.google.translate.TranslateElement(
-            {
-              pageLanguage: "en",
-              includedLanguages: "en,fr,de,nl,zh-CN,es,pt,vi,fa,ar,hi",
-              layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
-              autoDisplay: false,
-            },
-            "google_translate_element"
-          );
+          // Added a small timeout for robustness in script loading/DOM readiness
+          setTimeout(() => {
+            new window.google.translate.TranslateElement(
+              {
+                pageLanguage: "en", // Ensures the original language is English
+                includedLanguages: "en,fr,de,nl,zh-CN,es,pt,vi,fa,ar,hi", // English is an available option
+                layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false,
+              },
+              "google_translate_element"
+            );
+          }, 100); // 100ms delay
         };
       }
     };
@@ -48,6 +51,7 @@ const Header = () => {
     addGoogleTranslate();
   }, []);
 
+  // Close mobile menu when navigating
   useEffect(() => {
     setIsMenuOpen(false);
   }, [location.pathname]);
@@ -82,12 +86,11 @@ const Header = () => {
         </div>
 
         {/* Main Header */}
-        {/* Changed justify-between to gap-4 for desktop, and added a wrapper for logo + mobile menu */}
+        {/* Adjusted to ensure hamburger is beside logo on mobile, and desktop nav is separate */}
         <div className="max-w-screen-xl mx-auto px-4 py-3 flex items-center justify-between md:justify-end flex-wrap gap-4">
-          {/* Wrapper for Logo and Mobile Toggle Button - visible only on mobile (md:hidden) */}
-          {/* On desktop, this wrapper effectively disappears, and the logo stands alone as the first item */}
-          <div className="flex items-center gap-4 md:hidden"> {/* Removed ml-auto from button, added gap to this wrapper */}
-            {/* Logo */}
+          {/* Wrapper for Logo and Mobile Toggle Button - shown only on mobile */}
+          <div className="flex items-center gap-4 md:hidden">
+            {/* Logo for mobile */}
             <Link to="/" className="flex items-center space-x-3">
               <img
                 src={logo}
@@ -99,17 +102,17 @@ const Header = () => {
                 }}
               />
             </Link>
-            {/* Mobile Toggle Button - now directly beside the logo on mobile */}
+            {/* Mobile Toggle Button - now directly beside the logo */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="focus:outline-none text-pink-700 text-3xl" // Removed md:hidden and ml-auto from here
+              className="focus:outline-none text-pink-700 text-3xl"
               aria-label="Toggle mobile menu"
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
 
-          {/* Desktop Logo (hidden on mobile, replaces the mobile logo/hamburger wrapper) */}
+          {/* Desktop Logo - shown only on desktop */}
           <Link to="/" className="hidden md:flex items-center space-x-3">
             <img
               src={logo}
@@ -123,7 +126,7 @@ const Header = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex flex-wrap gap-5 lg:gap-6 text-sm"> {/* md:flex ensures it's desktop only */}
+          <nav className="hidden md:flex flex-wrap gap-5 lg:gap-6 text-sm">
             {mainNavItems.map(({ key, path }) => (
               <Link
                 key={path}
