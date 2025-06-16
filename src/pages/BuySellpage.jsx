@@ -14,6 +14,7 @@ const INDUSTRY_OPTIONS_RAW = [
   'Home Decor',
   'Imitation Jewellery',
   'Cosmetics',
+  'Other',
 ];
 
 const COUNTRY_OPTIONS_RAW = [
@@ -30,6 +31,7 @@ const COUNTRY_OPTIONS_RAW = [
 const BuySellForm = () => {
   const { t } = useTranslation();
   const fileInputRef = useRef(null);
+
   const INDUSTRY_OPTIONS = INDUSTRY_OPTIONS_RAW.map(item => ({
     value: item,
     label: t(`industryOptions.${item}`),
@@ -45,9 +47,10 @@ const BuySellForm = () => {
     name: '',
     phone: '',
     email: '',
-    location: '', // State for location
+    location: '',
     country: '',
     industries: [],
+    otherIndustry: '',
     timing: 'Immediately',
     message: '',
   });
@@ -102,6 +105,9 @@ const BuySellForm = () => {
 
       const finalData = {
         ...formData,
+        industries: formData.industries.includes('Other') && formData.otherIndustry
+          ? [...formData.industries.filter(ind => ind !== 'Other'), formData.otherIndustry]
+          : formData.industries,
         imageUrls: uploadedImageUrls,
       };
 
@@ -126,9 +132,10 @@ const BuySellForm = () => {
           name: '',
           phone: '',
           email: '',
-          location: '', // Reset location field
+          location: '',
           country: '',
           industries: [],
+          otherIndustry: '',
           timing: 'Immediately',
           message: '',
         });
@@ -167,7 +174,6 @@ const BuySellForm = () => {
           </h1>
 
           <form onSubmit={handleSubmit} noValidate>
-            {/* Buy/Sell Radio */}
             <fieldset className="flex justify-center space-x-6 mb-6">
               {['buy', 'sell'].map(option => (
                 <label key={option} className="inline-flex items-center text-lg font-medium text-pink-600 cursor-pointer">
@@ -184,33 +190,26 @@ const BuySellForm = () => {
               ))}
             </fieldset>
 
-            {/* Input Fields */}
-            {[
-              { labelKey: 'name', name: 'name', type: 'text' },
-              { labelKey: 'phone', name: 'phone', type: 'tel' },
-              { labelKey: 'email', name: 'email', type: 'email' },
-            ].map(({ labelKey, name, type }) => (
+            {['name', 'phone', 'email'].map(name => (
               <div key={name} className="mb-6">
                 <label htmlFor={name} className="block text-pink-600 font-medium mb-1">
-                  {t(`form.${labelKey}`)}<span className="text-red-500">*</span>
+                  {t(`form.${name}`)}<span className="text-red-500">*</span>
                 </label>
                 <input
                   id={name}
                   name={name}
-                  type={type}
+                  type={name === 'email' ? 'email' : 'text'}
                   required
                   value={formData[name]}
                   onChange={handleChange}
-                  placeholder={t(`form.${labelKey}`)}
+                  placeholder={t(`form.${name}`)}
                   className="w-full border border-pink-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-pink-400"
                 />
               </div>
             ))}
 
-            {/* Location Field (Drop off/Pick up) */}
             <div className="mb-6">
               <label htmlFor="location" className="block text-pink-600 font-medium mb-1">
-                {/* Removed .toUpperCase() */}
                 {t(locationLabelKey)}<span className="text-red-500">*</span>
               </label>
               <input
@@ -225,7 +224,6 @@ const BuySellForm = () => {
               />
             </div>
 
-            {/* Country Dropdown */}
             <div className="mb-6">
               <label htmlFor="country" className="block text-pink-600 font-medium mb-1">
                 {t('form.country')}<span className="text-red-500">*</span>
@@ -245,7 +243,6 @@ const BuySellForm = () => {
               </select>
             </div>
 
-            {/* Industries Multi-Select */}
             <div className="mb-6">
               <label htmlFor="industries" className="block text-pink-600 font-medium mb-1">
                 {t('form.industries')}<span className="text-red-500">*</span>
@@ -259,9 +256,20 @@ const BuySellForm = () => {
                 onChange={handleIndustrySelect}
                 classNamePrefix="select"
               />
+
+              {/* Show extra field if "Other" is selected */}
+              {formData.industries.includes("Other") && (
+                <input
+                  type="text"
+                  name="otherIndustry"
+                  placeholder="Please specify other industry"
+                  value={formData.otherIndustry}
+                  onChange={handleChange}
+                  className="mt-3 w-full border border-pink-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-pink-400"
+                />
+              )}
             </div>
 
-            {/* Timing */}
             <div className="mb-6">
               <label htmlFor="timing" className="block text-pink-600 font-medium mb-1">
                 {t('form.timing')}<span className="text-red-500">*</span>
@@ -283,7 +291,6 @@ const BuySellForm = () => {
               </select>
             </div>
 
-            {/* Message */}
             <div className="mb-6">
               <label htmlFor="message" className="block text-pink-600 font-medium mb-1">
                 {t('form.message')}<span className="text-red-500">*</span>
@@ -299,7 +306,6 @@ const BuySellForm = () => {
               />
             </div>
 
-            {/* File Upload */}
             <div className="mb-6">
               <label htmlFor="files" className="block text-pink-600 font-medium mb-1">
                 {t('form.attachFiles')}
@@ -314,23 +320,18 @@ const BuySellForm = () => {
                 ref={fileInputRef}
                 className="w-full"
               />
-
             </div>
 
-            {/* Submit Button */}
-            <div>
-              <button
-                type="submit"
-                disabled={isSubmitDisabled}
-                className={`w-full py-3 font-bold text-white rounded-lg transition duration-300
-                  ${isSubmitDisabled ? 'bg-pink-300 cursor-not-allowed' : 'bg-pink-600 hover:bg-pink-700'}
-                `}
-              >
-                {isSubmitDisabled ? t('form.submitting') : t('form.submitRequest')}
-              </button>
-            </div>
+            <button
+              type="submit"
+              disabled={isSubmitDisabled}
+              className={`w-full py-3 font-bold text-white rounded-lg transition duration-300
+                ${isSubmitDisabled ? 'bg-pink-300 cursor-not-allowed' : 'bg-pink-600 hover:bg-pink-700'}
+              `}
+            >
+              {isSubmitDisabled ? t('form.submitting') : t('form.submitRequest')}
+            </button>
 
-            {/* Messages */}
             {(successMessage || errorMessage) && (
               <div className="mt-4 text-center whitespace-pre-line">
                 <p className={`font-semibold ${successMessage ? 'text-green-600' : 'text-red-600'}`}>

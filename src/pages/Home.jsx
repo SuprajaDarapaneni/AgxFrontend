@@ -9,13 +9,19 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 import globalBusinessImage from '../assets/Import-....jpg';
-//import img1 from '../assets/IMG_3489.png';
-import img2 from '../assets/budha.jpg';
-import img3 from '../assets/Hussain_Sagar_Lake2C_Hyderabad_20230309151019.jpg';
-// import img4 from '../assets/IB_image.jpg';
-// import img5 from '../assets/Import-Export.jpg';
-// import img6 from '../assets/IB_image.jpg'; 
+ 
+import img3 from '../assets/budha.jpg';
+import img5 from '../assets/Hussain_Sagar_Lake2C_Hyderabad_20230309151019.jpg';
+import img2 from '../assets/IMG_3489.png';
 
+import img1 from '../assets/budha2.jpg';
+ import img4 from '../assets/IMG_3502.jpeg'; 
+ //import img5 from '../assets/IMG_3503.jpeg';
+ import img6 from '../assets/IMG_3504.jpeg';
+ import img7 from '../assets/IMG_3506.jpeg';
+ //import img8 from '../assets/IMG_3507.jpeg';
+ 
+ 
 
 const HomePage = () => {
   const { t, i18n } = useTranslation();
@@ -23,7 +29,7 @@ const HomePage = () => {
   const [viewportHeight, setViewportHeight] = useState(window.innerHeight);
   const [reviews, setReviews] = useState([]);
 
-  const images = [  img2, img3];
+  const images = [  img1, img2,img3,img4,img5,img6,img7, ];
 
   useEffect(() => {
     const fetchProducts = async () => {
