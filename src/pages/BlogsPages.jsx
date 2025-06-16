@@ -111,8 +111,8 @@ const BlogsPage = () => {
   const uploadFile = async (file, type) => {
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('upload_preset', 'your_upload_preset'); // Replace with your Cloudinary upload preset
-    const cloudName = 'your_cloud_name'; // Replace with your Cloudinary cloud name
+    formData.append('upload_preset', 'blogss'); // Replace with your Cloudinary upload preset
+    const cloudName = 'suppu'; // Replace with your Cloudinary cloud name
 
     const res = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/${type}/upload`, {
       method: 'POST',
