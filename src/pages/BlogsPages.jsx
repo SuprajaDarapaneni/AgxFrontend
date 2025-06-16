@@ -17,10 +17,8 @@ import {
   Tooltip,
   Fade,
   Avatar,
-  TextField // <-- ✅ Add this here
+  TextField
 } from '@mui/material';
-
- 
 import { Edit, Delete, Description } from '@mui/icons-material';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
@@ -34,63 +32,47 @@ const drawerWidth = 240;
 
 const BlogsPage = () => {
   const { t } = useTranslation();
-
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   const [mode, setMode] = useState(prefersDarkMode ? 'dark' : 'light');
   const [mobileOpen, setMobileOpen] = useState(false);
-
-  const colorMode = useMemo(
-    () => ({
-      toggleColorMode: () => setMode((prev) => (prev === 'light' ? 'dark' : 'light')),
-    }),
-    []
-  );
-
-  const theme = useMemo(
-    () =>
-      createTheme({
-        palette: {
-          mode,
-          primary: { main: '#4f46e5' },
-          background: {
-            default: mode === 'light' ? '#f9fafb' : '#121212',
-            paper: mode === 'light' ? '#ffffff' : '#1d1d1d',
-          },
-          text: {
-            primary: mode === 'light' ? '#1a1a1a' : '#fafafa',
-            secondary: mode === 'light' ? '#555' : '#bbb',
-          },
-        },
-        typography: {
-          fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-        },
-        shape: {
-          borderRadius: 16,
-        },
-        components: {
-          MuiButton: {
-            styleOverrides: {
-              root: {
-                textTransform: 'none',
-                fontWeight: 600,
-                borderRadius: 12,
-              },
-            },
-          },
-        },
-      }),
-    [mode]
-  );
-
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
-
   const [blogs, setBlogs] = useState([]);
   const [form, setForm] = useState({ title: '', excerpt: '', content: '' });
   const [editingId, setEditingId] = useState(null);
   const [message, setMessage] = useState('');
   const [files, setFiles] = useState({ image: null, video: null });
+
+  const colorMode = useMemo(() => ({
+    toggleColorMode: () => setMode((prev) => (prev === 'light' ? 'dark' : 'light')),
+  }), []);
+
+  const theme = useMemo(() =>
+    createTheme({
+      palette: {
+        mode,
+        primary: { main: '#4f46e5' },
+        background: {
+          default: mode === 'light' ? '#f9fafb' : '#121212',
+          paper: mode === 'light' ? '#ffffff' : '#1d1d1d',
+        },
+        text: {
+          primary: mode === 'light' ? '#1a1a1a' : '#fafafa',
+          secondary: mode === 'light' ? '#555' : '#bbb',
+        },
+      },
+      typography: { fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif" },
+      shape: { borderRadius: 16 },
+      components: {
+        MuiButton: {
+          styleOverrides: {
+            root: {
+              textTransform: 'none',
+              fontWeight: 600,
+              borderRadius: 12,
+            },
+          },
+        },
+      },
+    }), [mode]);
 
   useEffect(() => {
     fetch('https://agxbackend-1.onrender.com/blogs')
@@ -98,6 +80,8 @@ const BlogsPage = () => {
       .then((data) => setBlogs(data))
       .catch((err) => console.error('Failed to fetch blogs:', err));
   }, []);
+
+  const handleDrawerToggle = () => setMobileOpen(!mobileOpen);
 
   const handleInputChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -111,8 +95,8 @@ const BlogsPage = () => {
   const uploadFile = async (file, type) => {
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('upload_preset', 'blogss'); // Replace with your Cloudinary upload preset
-    const cloudName = 'suppu'; // Replace with your Cloudinary cloud name
+    formData.append('upload_preset', 'blogss'); // Your unsigned preset
+    const cloudName = 'suppu'; // Your Cloudinary cloud name
 
     const res = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/${type}/upload`, {
       method: 'POST',
@@ -130,12 +114,12 @@ const BlogsPage = () => {
 
       if (files.image) {
         const imageUrl = await uploadFile(files.image, 'image');
-        contentWithMedia += `<p><img src="${imageUrl}" alt="Uploaded image" /></p>`;
+        contentWithMedia += `<p><img src="${imageUrl}" alt="Uploaded image" style="max-width: 100%;" /></p>`;
       }
 
       if (files.video) {
         const videoUrl = await uploadFile(files.video, 'video');
-        contentWithMedia += `<p><video controls src="${videoUrl}" width="100%"></video></p>`;
+        contentWithMedia += `<p><video controls src="${videoUrl}" style="width: 100%;"></video></p>`;
       }
 
       const url = editingId
@@ -150,16 +134,17 @@ const BlogsPage = () => {
       });
 
       if (!res.ok) throw new Error(t('blogspage.failedToSubmitBlog'));
-
       const result = await res.json();
 
-      if (editingId) {
-        setBlogs(blogs.map((b) => (b._id === editingId ? result : b)));
-        setMessage(t('blogspage.blogUpdatedSuccess'));
-      } else {
-        setBlogs([result, ...blogs]);
-        setMessage(t('blogspage.blogAddedSuccess'));
-      }
+      setBlogs(editingId
+        ? blogs.map((b) => (b._id === editingId ? result : b))
+        : [result, ...blogs]
+      );
+
+      setMessage(editingId
+        ? t('blogspage.blogUpdatedSuccess')
+        : t('blogspage.blogAddedSuccess')
+      );
 
       setForm({ title: '', excerpt: '', content: '' });
       setFiles({ image: null, video: null });
@@ -179,7 +164,6 @@ const BlogsPage = () => {
     try {
       const res = await fetch(`https://agxbackend-1.onrender.com/blogs/${id}`, { method: 'DELETE' });
       if (!res.ok) throw new Error(t('blogspage.failedToDeleteBlog'));
-
       setBlogs(blogs.filter((b) => b._id !== id));
       setMessage(t('blogspage.blogDeletedSuccess'));
       setTimeout(() => setMessage(''), 3000);
@@ -220,72 +204,26 @@ const BlogsPage = () => {
             <Typography variant="h5" fontWeight={700} gutterBottom>
               {editingId ? t('blogspage.editBlog') : t('blogspage.addNewBlog')}
             </Typography>
+
             <Box component="form" onSubmit={handleSubmit} noValidate>
               <Stack spacing={3}>
-                <TextField
-                  label={t('blogspage.title')}
-                  name="title"
-                  value={form.title}
-                  onChange={handleInputChange}
-                  fullWidth
-                  required
-                />
-                <TextField
-                  label={t('blogspage.excerpt')}
-                  name="excerpt"
-                  value={form.excerpt}
-                  onChange={handleInputChange}
-                  fullWidth
-                  required
-                  helperText={t('blogspage.shortSummary')}
-                />
+                <TextField label={t('blogspage.title')} name="title" value={form.title} onChange={handleInputChange} fullWidth required />
+                <TextField label={t('blogspage.excerpt')} name="excerpt" value={form.excerpt} onChange={handleInputChange} fullWidth required helperText={t('blogspage.shortSummary')} />
 
                 <Typography>{t('blogspage.content')}</Typography>
-                <ReactQuill
-                  value={form.content}
-                  onChange={(value) => setForm({ ...form, content: value })}
-                  placeholder={t('blogspage.writeFullContentHere')}
-                  theme="snow"
-                />
+                <ReactQuill value={form.content} onChange={(value) => setForm({ ...form, content: value })} placeholder={t('blogspage.writeFullContentHere')} theme="snow" />
 
                 {/* Image Upload */}
                 <Box>
-                  <Typography variant="subtitle1" sx={{ mb: 1 }}>
-                    Upload Image (Optional)
-                  </Typography>
-                  <input
-                    type="file"
-                    name="image"
-                    accept="image/*"
-                    onChange={handleFileChange}
-                    style={{
-                      display: 'block',
-                      padding: '8px 12px',
-                      border: '1px solid #ccc',
-                      borderRadius: 8,
-                      width: '100%',
-                    }}
-                  />
+                  <Typography variant="subtitle1" sx={{ mb: 1 }}>Upload Image (Optional)</Typography>
+                  <input type="file" name="image" accept="image/*" onChange={handleFileChange} />
+                  {files.image && <img src={URL.createObjectURL(files.image)} alt="Preview" style={{ marginTop: 10, maxWidth: '100%' }} />}
                 </Box>
 
                 {/* Video Upload */}
                 <Box>
-                  <Typography variant="subtitle1" sx={{ mb: 1 }}>
-                    Upload Video (Optional)
-                  </Typography>
-                  <input
-                    type="file"
-                    name="video"
-                    accept="video/*"
-                    onChange={handleFileChange}
-                    style={{
-                      display: 'block',
-                      padding: '8px 12px',
-                      border: '1px solid #ccc',
-                      borderRadius: 8,
-                      width: '100%',
-                    }}
-                  />
+                  <Typography variant="subtitle1" sx={{ mb: 1 }}>Upload Video (Optional)</Typography>
+                  <input type="file" name="video" accept="video/*" onChange={handleFileChange} />
                 </Box>
 
                 <Box sx={{ display: 'flex', gap: 2 }}>
@@ -293,16 +231,11 @@ const BlogsPage = () => {
                     {editingId ? t('blogspage.updateBlog') : t('blogspage.addBlog')}
                   </Button>
                   {editingId && (
-                    <Button
-                      variant="outlined"
-                      color="secondary"
-                      fullWidth
-                      onClick={() => {
-                        setEditingId(null);
-                        setForm({ title: '', excerpt: '', content: '' });
-                        setFiles({ image: null, video: null });
-                      }}
-                    >
+                    <Button variant="outlined" color="secondary" fullWidth onClick={() => {
+                      setEditingId(null);
+                      setForm({ title: '', excerpt: '', content: '' });
+                      setFiles({ image: null, video: null });
+                    }}>
                       {t('blogspage.cancelEditing')}
                     </Button>
                   )}
@@ -334,35 +267,23 @@ const BlogsPage = () => {
                       <Avatar sx={{ bgcolor: theme.palette.primary.main, mr: 2 }}>
                         <Description />
                       </Avatar>
-                      <Typography variant="h6" fontWeight={700}>
-                        {blog.title}
-                      </Typography>
+                      <Typography variant="h6" fontWeight={700}>{blog.title}</Typography>
                     </Box>
-                    {blog.date && (
-                      <Typography variant="caption" color="text.secondary">
-                        <time dateTime={new Date(blog.date).toISOString()}>
-                          {new Date(blog.date).toLocaleDateString()}
-                        </time>
-                      </Typography>
-                    )}
-                    <Box
-                      sx={{ mt: 1 }}
-                      dangerouslySetInnerHTML={{
-                        __html: blog.content.substring(0, 300) + (blog.content.length > 300 ? '...' : ''),
-                      }}
-                    />
+
+                    <Typography variant="caption" color="text.secondary">
+                      {blog.date && <time dateTime={new Date(blog.date).toISOString()}>{new Date(blog.date).toLocaleDateString()}</time>}
+                    </Typography>
+
+                    <Box sx={{ mt: 2 }} dangerouslySetInnerHTML={{ __html: blog.content }} />
                   </CardContent>
+
                   <Divider />
                   <CardActions sx={{ justifyContent: 'flex-end' }}>
                     <Tooltip title={t('blogspage.edit')} arrow TransitionComponent={Fade}>
-                      <IconButton color="primary" onClick={() => handleEdit(blog)}>
-                        <Edit />
-                      </IconButton>
+                      <IconButton color="primary" onClick={() => handleEdit(blog)}><Edit /></IconButton>
                     </Tooltip>
                     <Tooltip title={t('blogspage.delete')} arrow TransitionComponent={Fade}>
-                      <IconButton color="error" onClick={() => handleDelete(blog._id)}>
-                        <Delete />
-                      </IconButton>
+                      <IconButton color="error" onClick={() => handleDelete(blog._id)}><Delete /></IconButton>
                     </Tooltip>
                   </CardActions>
                 </Card>
