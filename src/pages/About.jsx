@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet';
 
 // Import your actual images here:
-import globalBusinessImage from '../assets/about.jpeg'; // Existing image
+import globalBusinessImage from '../assets/Import-....jpg'; // Existing image
 import qualityImage from '../assets/badge.png'; // <--- REPLACE with your actual image path
 import directSourcingImage from '../assets/customer-service.png'; // <--- REPLACE with your actual image path
 import distributionNetworkImage from '../assets/networking.png'; // <--- REPLACE with your actual image path

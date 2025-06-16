@@ -5,7 +5,8 @@ import {
   FaPinterest,
   FaInstagram,
   FaLinkedinIn,
-} from "react-icons/fa6"; // Use 'fa6' for latest icons
+} from "react-icons/fa6";
+import { Mail, Phone, MapPin } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Helmet } from "react-helmet-async";
 import logo from "../assets/logo-removebg-preview.png";
@@ -16,14 +17,13 @@ const Footer = () => {
   const socialLinks = {
     facebook: " ",
     twitter: " ",
-    pinterest: " ", // Corrected spelling and URL
+    pinterest: " ",
     instagram: " ",
     linkedin: " ",
   };
 
   return (
     <footer className="bg-pink-50 text-[#6b0657] font-sans mt-16" role="contentinfo">
-      {/* SEO Structured Data */}
       <Helmet>
         <script type="application/ld+json">
           {JSON.stringify({
@@ -66,8 +66,9 @@ const Footer = () => {
                 { name: t("nav.aboutUs"), path: "/about" },
                 { name: t("nav.services"), path: "/services" },
                 { name: t("nav.products"), path: "/products" },
+                { name: t("nav.careers") || "Careers", path: "/careers" },
                 { name: t("nav.contactUs"), path: "/contact" },
-                { name: t("nav.blog"), path: "/blog" },
+                { name: t("nav.blog"), path: "/blogs" },
               ].map(({ name, path }, index) => (
                 <li key={index}>
                   <Link
@@ -82,7 +83,7 @@ const Footer = () => {
             </ul>
           </nav>
 
-          {/* Legal */}
+          {/* Legal Links */}
           <nav aria-label={t("footer.legal")}>
             <h3 className="text-lg font-semibold text-pink-700 mb-4">{t("footer.legal")}</h3>
             <ul className="space-y-2 text-sm">
@@ -102,57 +103,77 @@ const Footer = () => {
             </ul>
           </nav>
 
-          {/* Social Media */}
+          {/* Contact Info (No heading) */}
           <div>
-            <h3 className="text-lg font-semibold text-pink-700 mb-4">{t("footer.followUs")}</h3>
-            <div className="flex space-x-5 text-xl">
-              <a
-                href={socialLinks.facebook}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Facebook"
-                className="hover:text-pink-600 transition-colors duration-200"
-              >
-                <FaFacebookF />
-              </a>
-              <a
-                href={socialLinks.twitter}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Twitter"
-                className="hover:text-pink-600 transition-colors duration-200"
-              >
-                <FaXTwitter />
-              </a>
-              <a
-                href={socialLinks.pinterest}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Pinterest"
-                className="hover:text-pink-600 transition-colors duration-200"
-              >
-                <FaPinterest />
-              </a>
-              <a
-                href={socialLinks.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Instagram"
-                className="hover:text-pink-600 transition-colors duration-200"
-              >
-                <FaInstagram />
-              </a>
-              <a
-                href={socialLinks.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LinkedIn"
-                className="hover:text-pink-600 transition-colors duration-200"
-              >
-                <FaLinkedinIn />
-              </a>
-            </div>
+            <ul className="space-y-3 text-sm">
+              <li className="flex items-start space-x-2">
+                <Mail className="mt-1" size={16} />
+                <a
+                  href="mailto:info@agx-international.com"
+                  className="hover:text-pink-600 break-all"
+                >
+                  info@agx-international.com
+                </a>
+              </li>
+              <li className="flex items-start space-x-2">
+                <Phone className="mt-1" size={16} />
+                <span>+1 647 904 9839</span>
+              </li>
+              <li className="flex items-start space-x-2">
+                <MapPin className="mt-1" size={16} />
+                <span>Toronto, Ontario, Canada</span>
+              </li>
+            </ul>
           </div>
+        </div>
+
+        {/* Social Media */}
+        <div className="mt-10 flex justify-center md:justify-end space-x-5 text-xl">
+          <a
+            href={socialLinks.facebook}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Facebook"
+            className="hover:text-pink-600 transition-colors duration-200"
+          >
+            <FaFacebookF />
+          </a>
+          <a
+            href={socialLinks.twitter}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Twitter"
+            className="hover:text-pink-600 transition-colors duration-200"
+          >
+            <FaXTwitter />
+          </a>
+          <a
+            href={socialLinks.pinterest}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Pinterest"
+            className="hover:text-pink-600 transition-colors duration-200"
+          >
+            <FaPinterest />
+          </a>
+          <a
+            href={socialLinks.instagram}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
+            className="hover:text-pink-600 transition-colors duration-200"
+          >
+            <FaInstagram />
+          </a>
+          <a
+            href={socialLinks.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+            className="hover:text-pink-600 transition-colors duration-200"
+          >
+            <FaLinkedinIn />
+          </a>
         </div>
 
         {/* Footer Bottom */}

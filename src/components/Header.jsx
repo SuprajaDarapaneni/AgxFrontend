@@ -16,6 +16,7 @@ const Header = () => {
     { key: "nav.aboutUs", path: "/about" },
     { key: "nav.services", path: "/services" },
     { key: "nav.products", path: "/products" },
+      { key: "nav.careers", path: "/careers" },
     { key: "nav.blog", path: "/blogs" },
     { key: "nav.contactUs", path: "/contact" },
     { key: "nav.review", path: "/review" },
@@ -32,18 +33,17 @@ const Header = () => {
         document.body.appendChild(script);
 
         window.googleTranslateElementInit = () => {
-          // Added a small timeout for robustness in script loading/DOM readiness
           setTimeout(() => {
             new window.google.translate.TranslateElement(
               {
-                pageLanguage: "en", // Ensures the original language is English
-                includedLanguages: "en,fr,de,nl,zh-CN,es,pt,vi,fa,ar,hi", // English is an available option
+                pageLanguage: "en",
+                includedLanguages: "en,fr,de,nl,zh-CN,es,pt,vi,fa,ar,hi",
                 layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
                 autoDisplay: false,
               },
               "google_translate_element"
             );
-          }, 100); // 100ms delay
+          }, 100);
         };
       }
     };
@@ -51,7 +51,6 @@ const Header = () => {
     addGoogleTranslate();
   }, []);
 
-  // Close mobile menu when navigating
   useEffect(() => {
     setIsMenuOpen(false);
   }, [location.pathname]);
@@ -66,55 +65,26 @@ const Header = () => {
       </Helmet>
 
       <header className="bg-white shadow-md fixed w-full top-0 left-0 z-50">
-        {/* Topbar - Visible on All Devices */}
+        {/* Topbar */}
         <div className="bg-white py-1 px-4 border-b border-gray-200">
-          {/* Reverted to flex-wrap for better visibility if content is too wide */}
-          <div className="max-w-screen-xl mx-auto flex flex-wrap justify-between items-center gap-3 text-sm">
-            {/* Contact Information */}
-            <div className="flex items-center gap-4 text-gray-700 flex-wrap flex-grow"> {/* flex-grow added */}
+          <div className="max-w-screen-xl mx-auto flex items-center justify-between text-sm flex-nowrap overflow-x-auto">
+            <div className="flex items-center gap-4 text-gray-700 flex-shrink-0">
               <div className="flex items-center gap-1">
                 <Mail size={16} className="text-pink-600" />
-                <a href="mailto:info@agx-international.com">info@agx-international.com</a>
+                <a href="mailto:info@agx-international.com" className="whitespace-nowrap">info@agx-international.com</a>
               </div>
               <div className="flex items-center gap-1">
                 <Phone size={16} className="text-pink-600" />
-                <a href="tel:+16479049839">+1 647 904 9839</a>
+                <a href="tel:+16479049839" className="whitespace-nowrap">+1 647 904 9839</a>
               </div>
             </div>
-            {/* Google Translate element */}
-            <div id="google_translate_element" className="text-gray-700 flex-shrink-0" />
+            <div id="google_translate_element" className="text-gray-700 flex-shrink-0 ml-auto" />
           </div>
         </div>
 
         {/* Main Header */}
-        {/* Changed justify-between md:justify-end back to just justify-between */}
-        <div className="max-w-screen-xl mx-auto px-4 py-3 flex items-center justify-between flex-wrap gap-4">
-          {/* Wrapper for Logo and Mobile Toggle Button - shown only on mobile */}
-          <div className="flex items-center gap-4 md:hidden">
-            {/* Logo for mobile */}
-            <Link to="/" className="flex items-center space-x-3">
-              <img
-                src={logo}
-                alt="AGX-International Logo"
-                className="h-12 w-auto object-contain"
-                loading="lazy"
-                onError={(e) => {
-                  e.currentTarget.src = "/fallback-logo.png";
-                }}
-              />
-            </Link>
-            {/* Mobile Toggle Button - now directly beside the logo */}
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="focus:outline-none text-pink-700 text-3xl"
-              aria-label="Toggle mobile menu"
-            >
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
-
-          {/* Desktop Logo - shown only on desktop, positioned to the left by justify-between */}
-          <Link to="/" className="hidden md:flex items-center space-x-3">
+        <div className="max-w-screen-xl mx-auto px-4 py-3 flex items-center justify-between gap-4 flex-wrap md:flex-nowrap">
+          <Link to="/" className="flex items-center space-x-3 flex-shrink-0">
             <img
               src={logo}
               alt="AGX-International Logo"
@@ -126,8 +96,17 @@ const Header = () => {
             />
           </Link>
 
-          {/* Desktop Navigation - shown only on desktop, positioned to the right by justify-between */}
-          <nav className="hidden md:flex flex-wrap gap-5 lg:gap-6 text-sm">
+          {/* Mobile Menu Toggle */}
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="md:hidden ml-auto text-pink-700 text-3xl focus:outline-none"
+            aria-label="Toggle mobile menu"
+          >
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex flex-wrap justify-center md:justify-end gap-4 lg:gap-6 text-sm w-full md:w-auto">
             {mainNavItems.map(({ key, path }) => (
               <Link
                 key={path}
@@ -176,7 +155,7 @@ const Header = () => {
         )}
       </header>
 
-      {/* Google Translate Style Cleanup */}
+      {/* Translate Cleanup */}
       <style>{`
         .goog-logo-link,
         .goog-te-gadget span {

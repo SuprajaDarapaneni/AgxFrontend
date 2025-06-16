@@ -75,8 +75,8 @@ const TermsOfService = () => {
               If you have questions about these Terms, please contact us:
             </p>
             <ul className="mt-2 ml-6 list-none space-y-1">
-              <li>📧 <a href="mailto:contact@agx-international.com" className="text-pink-700 underline">contact@agx-international.com</a></li>
-              <li>📞 +49 152 1815 4435</li>
+              <li>📧 <a href="mailto: info@agx-international.com" className="text-pink-700 underline">contact@agx-international.com</a></li>
+              <li>📞  +1 647 904 9839</li>
             </ul>
           </section>
         </div>

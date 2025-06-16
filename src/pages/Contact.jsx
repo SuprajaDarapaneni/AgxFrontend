@@ -78,7 +78,7 @@ function ContactForm() {
               </div>
               <div>
                 <h2 className="text-xl font-semibold text-gray-800 mb-1">Address</h2>
-                <p className="text-gray-600">North York, M2J 1M6</p>
+                <p className="text-gray-600">Toronto, Ontario</p>
                 <p className="text-gray-600">Canada</p>
               </div>
             </div>
@@ -122,8 +122,8 @@ function ContactForm() {
               </div>
               <div>
                 <h2 className="text-xl font-semibold text-gray-800 mb-1">Open Hours</h2>
-                <p className="text-gray-600">Monday - Sunday</p>
-                <p className="text-gray-600">9:00AM - 10:00PM</p>
+                <p className="text-gray-600">Monday - Saturday</p>
+                <p className="text-gray-600">9:00AM - 9:00PM</p>
               </div>
             </div>
           </div>

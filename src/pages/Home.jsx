@@ -8,13 +8,14 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-import globalBusinessImage from '../assets/about.jpeg';
-import img1 from '../assets/IMG_3489.png';
-import img2 from '../assets/IMG_3502.jpeg';
-import img3 from '../assets/IMG_3503.jpeg';
-import img4 from '../assets/IMG_3504.jpeg';
-import img5 from '../assets/IMG_3506.jpeg';
-import img6 from '../assets/IMG_3507.jpeg';
+import globalBusinessImage from '../assets/Import-....jpg';
+//import img1 from '../assets/IMG_3489.png';
+import img2 from '../assets/budha.jpg';
+import img3 from '../assets/Hussain_Sagar_Lake2C_Hyderabad_20230309151019.jpg';
+// import img4 from '../assets/IB_image.jpg';
+// import img5 from '../assets/Import-Export.jpg';
+// import img6 from '../assets/IB_image.jpg'; 
+
 
 const HomePage = () => {
   const { t, i18n } = useTranslation();
@@ -22,7 +23,7 @@ const HomePage = () => {
   const [viewportHeight, setViewportHeight] = useState(window.innerHeight);
   const [reviews, setReviews] = useState([]);
 
-  const images = [img1, img2, img3, img4, img5, img6];
+  const images = [  img2, img3];
 
   useEffect(() => {
     const fetchProducts = async () => {
