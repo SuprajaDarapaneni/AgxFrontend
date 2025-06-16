@@ -109,7 +109,7 @@ const Footer = () => {
               <Mail className="mt-1" size={16} />
               <a
                 href="mailto:info@agx-international.com"
-                className="hover:text-pink-600 break-words"
+                className="hover:text-pink-600 break-keep whitespace-nowrap text-sm sm:text-[15px] md:text-[14px]"
               >
                 info@agx-international.com
               </a>
