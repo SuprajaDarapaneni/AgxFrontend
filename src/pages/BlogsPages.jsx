@@ -2,7 +2,6 @@ import React, { useState, useEffect, useMemo } from 'react';
 import {
   Box,
   Button,
-  TextField,
   Typography,
   Paper,
   Card,
@@ -18,10 +17,15 @@ import {
   Tooltip,
   Fade,
   Avatar,
+  TextField // <-- ✅ Add this here
 } from '@mui/material';
+
+ 
 import { Edit, Delete, Description } from '@mui/icons-material';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 import Topbar from '../components/Topbar';
 import Sidebar from '../components/sidebar';
@@ -86,6 +90,7 @@ const BlogsPage = () => {
   const [form, setForm] = useState({ title: '', excerpt: '', content: '' });
   const [editingId, setEditingId] = useState(null);
   const [message, setMessage] = useState('');
+  const [files, setFiles] = useState({ image: null, video: null });
 
   useEffect(() => {
     fetch('https://agxbackend-1.onrender.com/blogs')
@@ -98,9 +103,41 @@ const BlogsPage = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  const handleFileChange = (e) => {
+    const { name, files } = e.target;
+    setFiles((prev) => ({ ...prev, [name]: files[0] }));
+  };
+
+  const uploadFile = async (file, type) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', 'your_upload_preset'); // Replace with your Cloudinary upload preset
+    const cloudName = 'your_cloud_name'; // Replace with your Cloudinary cloud name
+
+    const res = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/${type}/upload`, {
+      method: 'POST',
+      body: formData,
+    });
+
+    const data = await res.json();
+    return data.secure_url;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      let contentWithMedia = form.content;
+
+      if (files.image) {
+        const imageUrl = await uploadFile(files.image, 'image');
+        contentWithMedia += `<p><img src="${imageUrl}" alt="Uploaded image" /></p>`;
+      }
+
+      if (files.video) {
+        const videoUrl = await uploadFile(files.video, 'video');
+        contentWithMedia += `<p><video controls src="${videoUrl}" width="100%"></video></p>`;
+      }
+
       const url = editingId
         ? `https://agxbackend-1.onrender.com/blogs/${editingId}`
         : 'https://agxbackend-1.onrender.com/blogs';
@@ -109,7 +146,7 @@ const BlogsPage = () => {
       const res = await fetch(url, {
         method,
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, content: contentWithMedia }),
       });
 
       if (!res.ok) throw new Error(t('blogspage.failedToSubmitBlog'));
@@ -125,6 +162,7 @@ const BlogsPage = () => {
       }
 
       setForm({ title: '', excerpt: '', content: '' });
+      setFiles({ image: null, video: null });
       setEditingId(null);
       setTimeout(() => setMessage(''), 3000);
     } catch (error) {
@@ -159,7 +197,6 @@ const BlogsPage = () => {
 
         <Box
           component="main"
-          aria-label={t('blogspage.manageBlogs')}
           sx={{
             flexGrow: 1,
             p: 4,
@@ -172,10 +209,7 @@ const BlogsPage = () => {
         >
           <Helmet>
             <title>{`${t('blogspage.manageBlogs')} | AGX-International`}</title>
-            <meta
-              name="description"
-              content="Manage blog posts on AGX-International platform. Add, edit, or delete blogs easily."
-            />
+            <meta name="description" content="Manage blog posts on AGX-International platform." />
           </Helmet>
 
           <Typography variant="h3" fontWeight={700} gutterBottom>
@@ -195,9 +229,6 @@ const BlogsPage = () => {
                   onChange={handleInputChange}
                   fullWidth
                   required
-                  autoFocus
-                  inputProps={{ maxLength: 100 }}
-                  aria-label={t('blogspage.title')}
                 />
                 <TextField
                   label={t('blogspage.excerpt')}
@@ -207,42 +238,70 @@ const BlogsPage = () => {
                   fullWidth
                   required
                   helperText={t('blogspage.shortSummary')}
-                  inputProps={{ maxLength: 200 }}
-                  aria-label={t('blogspage.excerpt')}
                 />
-                <TextField
-                  label={t('blogspage.content')}
-                  name="content"
+
+                <Typography>{t('blogspage.content')}</Typography>
+                <ReactQuill
                   value={form.content}
-                  onChange={handleInputChange}
-                  fullWidth
-                  multiline
-                  rows={8}
+                  onChange={(value) => setForm({ ...form, content: value })}
                   placeholder={t('blogspage.writeFullContentHere')}
-                  aria-label={t('blogspage.content')}
+                  theme="snow"
                 />
+
+                {/* Image Upload */}
+                <Box>
+                  <Typography variant="subtitle1" sx={{ mb: 1 }}>
+                    Upload Image (Optional)
+                  </Typography>
+                  <input
+                    type="file"
+                    name="image"
+                    accept="image/*"
+                    onChange={handleFileChange}
+                    style={{
+                      display: 'block',
+                      padding: '8px 12px',
+                      border: '1px solid #ccc',
+                      borderRadius: 8,
+                      width: '100%',
+                    }}
+                  />
+                </Box>
+
+                {/* Video Upload */}
+                <Box>
+                  <Typography variant="subtitle1" sx={{ mb: 1 }}>
+                    Upload Video (Optional)
+                  </Typography>
+                  <input
+                    type="file"
+                    name="video"
+                    accept="video/*"
+                    onChange={handleFileChange}
+                    style={{
+                      display: 'block',
+                      padding: '8px 12px',
+                      border: '1px solid #ccc',
+                      borderRadius: 8,
+                      width: '100%',
+                    }}
+                  />
+                </Box>
+
                 <Box sx={{ display: 'flex', gap: 2 }}>
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    color="primary"
-                    size="large"
-                    sx={{ flexGrow: 1 }}
-                    aria-label={editingId ? t('blogspage.updateBlog') : t('blogspage.addBlog')}
-                  >
+                  <Button type="submit" variant="contained" color="primary" fullWidth>
                     {editingId ? t('blogspage.updateBlog') : t('blogspage.addBlog')}
                   </Button>
                   {editingId && (
                     <Button
                       variant="outlined"
                       color="secondary"
-                      size="large"
-                      sx={{ flexGrow: 1 }}
+                      fullWidth
                       onClick={() => {
                         setEditingId(null);
                         setForm({ title: '', excerpt: '', content: '' });
+                        setFiles({ image: null, video: null });
                       }}
-                      aria-label={t('blogspage.cancelEditing')}
                     >
                       {t('blogspage.cancelEditing')}
                     </Button>
@@ -252,7 +311,7 @@ const BlogsPage = () => {
             </Box>
 
             {message && (
-              <Typography color="success.main" sx={{ mt: 2, fontWeight: 600, fontSize: 16 }} align="center">
+              <Typography color="success.main" sx={{ mt: 2, fontWeight: 600 }} align="center">
                 {message}
               </Typography>
             )}
@@ -269,20 +328,7 @@ const BlogsPage = () => {
           ) : (
             <Stack spacing={3}>
               {blogs.map((blog) => (
-                <Card
-                  component="article"
-                  key={blog._id}
-                  variant="outlined"
-                  sx={{
-                    borderRadius: 3,
-                    boxShadow: 3,
-                    transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-                    '&:hover': {
-                      boxShadow: 6,
-                      transform: 'translateY(-5px)',
-                    },
-                  }}
-                >
+                <Card key={blog._id} variant="outlined" sx={{ borderRadius: 3, boxShadow: 3 }}>
                   <CardContent>
                     <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
                       <Avatar sx={{ bgcolor: theme.palette.primary.main, mr: 2 }}>
@@ -293,33 +339,28 @@ const BlogsPage = () => {
                       </Typography>
                     </Box>
                     {blog.date && (
-                      <Typography variant="caption" color="text.secondary" sx={{ mb: 1 }}>
+                      <Typography variant="caption" color="text.secondary">
                         <time dateTime={new Date(blog.date).toISOString()}>
-                          {new Date(blog.date).toLocaleDateString(undefined, {
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric',
-                          })}
+                          {new Date(blog.date).toLocaleDateString()}
                         </time>
                       </Typography>
                     )}
-                    <Typography variant="body2" color="text.secondary" sx={{ whiteSpace: 'pre-line' }}>
-                      {blog.excerpt.length > 150 ? blog.excerpt.substring(0, 150) + '...' : blog.excerpt}
-                    </Typography>
+                    <Box
+                      sx={{ mt: 1 }}
+                      dangerouslySetInnerHTML={{
+                        __html: blog.content.substring(0, 300) + (blog.content.length > 300 ? '...' : ''),
+                      }}
+                    />
                   </CardContent>
                   <Divider />
-                  <CardActions disableSpacing sx={{ justifyContent: 'flex-end' }}>
+                  <CardActions sx={{ justifyContent: 'flex-end' }}>
                     <Tooltip title={t('blogspage.edit')} arrow TransitionComponent={Fade}>
-                      <IconButton color="primary" onClick={() => handleEdit(blog)} aria-label={t('blogspage.edit')}>
+                      <IconButton color="primary" onClick={() => handleEdit(blog)}>
                         <Edit />
                       </IconButton>
                     </Tooltip>
                     <Tooltip title={t('blogspage.delete')} arrow TransitionComponent={Fade}>
-                      <IconButton
-                        color="error"
-                        onClick={() => handleDelete(blog._id)}
-                        aria-label={t('blogspage.delete')}
-                      >
+                      <IconButton color="error" onClick={() => handleDelete(blog._id)}>
                         <Delete />
                       </IconButton>
                     </Tooltip>
