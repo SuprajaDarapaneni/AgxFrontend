@@ -96,7 +96,7 @@ const BlogsPage = () => {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('upload_preset', 'blogss'); // Your unsigned preset
-    const cloudName = 'SUPPU'; // Your Cloudinary cloud name
+    const cloudName = 'dz5noprbz'; // Your Cloudinary cloud name
 
     const res = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/${type}/upload`, {
       method: 'POST',
