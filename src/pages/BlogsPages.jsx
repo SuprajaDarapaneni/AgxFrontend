@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {
   Box,
   Button,
@@ -39,7 +39,7 @@ const BlogsPage = () => {
   const [form, setForm] = useState({ title: '', excerpt: '', content: '' });
   const [editingId, setEditingId] = useState(null);
   const [message, setMessage] = useState('');
-  const quillRef = useRef(null);
+  const [files, setFiles] = useState({ image: null, video: null });
 
   const colorMode = useMemo(() => ({
     toggleColorMode: () => setMode((prev) => (prev === 'light' ? 'dark' : 'light')),
@@ -64,7 +64,11 @@ const BlogsPage = () => {
       components: {
         MuiButton: {
           styleOverrides: {
-            root: { textTransform: 'none', fontWeight: 600, borderRadius: 12 },
+            root: {
+              textTransform: 'none',
+              fontWeight: 600,
+              borderRadius: 12,
+            },
           },
         },
       },
@@ -83,11 +87,16 @@ const BlogsPage = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  const handleFileChange = (e) => {
+    const { name, files } = e.target;
+    setFiles((prev) => ({ ...prev, [name]: files[0] }));
+  };
+
   const uploadFile = async (file, type) => {
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('upload_preset', 'blogss'); // Your preset
-    const cloudName = 'dz5noprbz';
+    formData.append('upload_preset', 'blogss'); // Your unsigned preset
+    const cloudName = 'dz5noprbz'; // Your Cloudinary cloud name
 
     const res = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/${type}/upload`, {
       method: 'POST',
@@ -98,48 +107,21 @@ const BlogsPage = () => {
     return data.secure_url;
   };
 
-  const handleMediaInsert = async (type) => {
-    const input = document.createElement('input');
-    input.setAttribute('type', 'file');
-    input.setAttribute('accept', type === 'image' ? 'image/*' : 'video/*');
-    input.click();
-
-    input.onchange = async () => {
-      const file = input.files[0];
-      if (!file) return;
-
-      const url = await uploadFile(file, type);
-      const editor = quillRef.current.getEditor();
-      const range = editor.getSelection();
-
-      if (type === 'image') {
-        editor.insertEmbed(range.index, 'image', url);
-      } else {
-        editor.insertEmbed(range.index, 'video', url);
-      }
-      editor.setSelection(range.index + 1);
-    };
-  };
-
-  const quillModules = {
-    toolbar: {
-      container: [
-        [{ header: [1, 2, false] }],
-        ['bold', 'italic', 'underline'],
-        ['image', 'video'],
-        [{ list: 'ordered' }, { list: 'bullet' }],
-        ['clean']
-      ],
-      handlers: {
-        image: () => handleMediaInsert('image'),
-        video: () => handleMediaInsert('video'),
-      },
-    },
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      let contentWithMedia = form.content;
+
+      if (files.image) {
+        const imageUrl = await uploadFile(files.image, 'image');
+        contentWithMedia += `<p><img src="${imageUrl}" alt="Uploaded image" style="max-width: 100%;" /></p>`;
+      }
+
+      if (files.video) {
+        const videoUrl = await uploadFile(files.video, 'video');
+        contentWithMedia += `<p><video controls src="${videoUrl}" style="width: 100%;"></video></p>`;
+      }
+
       const url = editingId
         ? `https://agxbackend-1.onrender.com/blogs/${editingId}`
         : 'https://agxbackend-1.onrender.com/blogs';
@@ -148,7 +130,7 @@ const BlogsPage = () => {
       const res = await fetch(url, {
         method,
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, content: contentWithMedia }),
       });
 
       if (!res.ok) throw new Error(t('blogspage.failedToSubmitBlog'));
@@ -156,13 +138,16 @@ const BlogsPage = () => {
 
       setBlogs(editingId
         ? blogs.map((b) => (b._id === editingId ? result : b))
-        : [result, ...blogs]);
+        : [result, ...blogs]
+      );
 
       setMessage(editingId
         ? t('blogspage.blogUpdatedSuccess')
-        : t('blogspage.blogAddedSuccess'));
+        : t('blogspage.blogAddedSuccess')
+      );
 
       setForm({ title: '', excerpt: '', content: '' });
+      setFiles({ image: null, video: null });
       setEditingId(null);
       setTimeout(() => setMessage(''), 3000);
     } catch (error) {
@@ -226,14 +211,20 @@ const BlogsPage = () => {
                 <TextField label={t('blogspage.excerpt')} name="excerpt" value={form.excerpt} onChange={handleInputChange} fullWidth required helperText={t('blogspage.shortSummary')} />
 
                 <Typography>{t('blogspage.content')}</Typography>
-                <ReactQuill
-                  ref={quillRef}
-                  value={form.content}
-                  onChange={(value) => setForm({ ...form, content: value })}
-                  placeholder={t('blogspage.writeFullContentHere')}
-                  theme="snow"
-                  modules={quillModules}
-                />
+                <ReactQuill value={form.content} onChange={(value) => setForm({ ...form, content: value })} placeholder={t('blogspage.writeFullContentHere')} theme="snow" />
+
+                {/* Image Upload */}
+                <Box>
+                  <Typography variant="subtitle1" sx={{ mb: 1 }}>Upload Image (Optional)</Typography>
+                  <input type="file" name="image" accept="image/*" onChange={handleFileChange} />
+                  {files.image && <img src={URL.createObjectURL(files.image)} alt="Preview" style={{ marginTop: 10, maxWidth: '100%' }} />}
+                </Box>
+
+                {/* Video Upload */}
+                <Box>
+                  <Typography variant="subtitle1" sx={{ mb: 1 }}>Upload Video (Optional)</Typography>
+                  <input type="file" name="video" accept="video/*" onChange={handleFileChange} />
+                </Box>
 
                 <Box sx={{ display: 'flex', gap: 2 }}>
                   <Button type="submit" variant="contained" color="primary" fullWidth>
@@ -243,6 +234,7 @@ const BlogsPage = () => {
                     <Button variant="outlined" color="secondary" fullWidth onClick={() => {
                       setEditingId(null);
                       setForm({ title: '', excerpt: '', content: '' });
+                      setFiles({ image: null, video: null });
                     }}>
                       {t('blogspage.cancelEditing')}
                     </Button>
