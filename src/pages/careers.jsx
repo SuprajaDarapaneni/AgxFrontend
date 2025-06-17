@@ -187,7 +187,7 @@ const App = () => {
                         <p className="text-base mb-4 leading-relaxed max-w-prose mx-auto md:mx-0">
                             {getTranslatedText("apply-ready-text")}
                         </p>
-                        <a href="https://forms.gle/your-google-form-link" target="_blank" rel="noopener noreferrer"
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeauobF3kVaZhvCE0-0uRmCfXPNPevepVNoYleN5CZdCQiLUQ/viewform?usp=header" target="_blank" rel="noopener noreferrer"
                            className="inline-block bg-rose-700 text-white hover:bg-rose-600 font-bold py-2 px-6 rounded-full text-base md:text-lg uppercase transition duration-300 transform hover:scale-105 shadow-lg">
                             {getTranslatedText("apply-button")}
                         </a>
