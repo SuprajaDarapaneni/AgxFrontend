@@ -98,13 +98,13 @@ const HomePage = () => {
   />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.agx-international.com/" />
-  <meta property="og:image" content="https://www.agx-international.com/assets/og-banner.jpg" />
+  <meta property="og:image" content="https://www.agx-international.com/favicon.ico" />
 
   {/* Twitter Card */}
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={t('homepage.seoTitle') || 'AGX Global | International Trade Experts'} />
   <meta name="twitter:description" content={t('homepage.seoDescription') || 'Trusted global trade partner.'} />
-  <meta name="twitter:image" content="https://www.agx-international.com/assets/og-banner.jpg" />
+  <meta name="twitter:image" content="https://www.agx-international.com/favicon.ico" />
 </Helmet>
 
 
