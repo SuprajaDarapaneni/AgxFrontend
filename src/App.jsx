@@ -173,12 +173,13 @@ const AppContent = () => {
     </div>
   );
 };
-
+import CookieConsent from './components/CookieConsent';
 // App wrapper with HelmetProvider and Router
 const App = () => (
   <HelmetProvider>
     <Router>
       <AppContent />
+      <CookieConsent />
     </Router>
   </HelmetProvider>
 );

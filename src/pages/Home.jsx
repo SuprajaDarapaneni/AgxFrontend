@@ -382,7 +382,7 @@ const HomePage = () => {
       </div>
     </section>
 
-       <CookieConsent />
+       {/* <CookieConsent /> */}
  
       </main>
     </div>

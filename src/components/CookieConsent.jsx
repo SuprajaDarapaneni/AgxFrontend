@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const COOKIE_EXPIRY_DAYS = 1;
 
@@ -40,40 +41,44 @@ const CookieConsent = () => {
         position: 'fixed',
         bottom: 0,
         width: '100%',
-        background: 'linear-gradient(90deg, #004080 0%, #0073e6 100%)',
+        background: 'linear-gradient(90deg, #001F3F, #0074D9)',
         color: '#fff',
-        boxShadow: '0 -4px 15px rgba(0, 115, 230, 0.5)',
-        padding: '1.25rem 2rem',
-        fontFamily: "'Roboto', sans-serif",
+        padding: '1.5rem 2rem',
+        fontFamily: "'Segoe UI', sans-serif",
+        boxShadow: '0 -5px 15px rgba(0, 0, 0, 0.2)',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
         flexWrap: 'wrap',
         zIndex: 9999,
-        animation: 'slideUp 0.5s ease-out',
+        animation: 'fadeInUp 0.6s ease-out',
       }}
       role="dialog"
       aria-live="polite"
       aria-label="Cookie consent banner"
     >
       <style>{`
-        @keyframes slideUp {
+        @keyframes fadeInUp {
           from { transform: translateY(100%); opacity: 0; }
           to { transform: translateY(0); opacity: 1; }
         }
-        button:focus {
-          outline: 2px solid #ffd700;
-          outline-offset: 2px;
+        button:hover {
+          filter: brightness(110%);
+        }
+        a {
+          text-decoration: underline;
+          color:rgb(231, 50, 156);
         }
       `}</style>
 
-      <div style={{ maxWidth: '65%', minWidth: '280px', marginBottom: '0.5rem' }}>
-        <h2 style={{ margin: '0 0 0.3rem 0', fontWeight: '700', fontSize: '1.25rem' }}>
-          AGX Global | International Trade Experts
-        </h2>
-        <p style={{ margin: 0, fontSize: '1rem', lineHeight: '1.5' }}>
-          We use cookies to enhance your journey with AGX — ensuring seamless logistics and supply chain solutions worldwide.
-          By continuing, you agree to our cookie policy.
+      <div style={{ maxWidth: '60%', minWidth: '260px', marginBottom: '0.5rem' }}>
+        <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1.15rem', fontWeight: 600 }}>
+          AGX Global | Enhancing Trade, Powered by Trust
+        </h3>
+        <p style={{ margin: 0, fontSize: '0.95rem', lineHeight: '1.5' }}>
+          We use cookies to optimize your browsing experience and ensure secure, seamless logistics services globally.
+          By clicking <strong>"Accept"</strong>, you consent to our use of cookies in accordance with our{' '}
+          <Link to="/legal/privacy">Privacy Policy</Link> and <Link to="/legal/terms">Terms & Conditions</Link>.
         </p>
       </div>
 
@@ -81,24 +86,15 @@ const CookieConsent = () => {
         <button
           onClick={() => saveConsent('accepted')}
           style={{
-            backgroundColor: '#ffd700', // Golden yellow
+            backgroundColor: '#ffd700',
+            color: '#001F3F',
             border: 'none',
-            padding: '0.65rem 1.6rem',
+            padding: '0.6rem 1.4rem',
             borderRadius: '30px',
-            color: '#004080',
-            fontWeight: '700',
-            fontSize: '1rem',
+            fontWeight: 'bold',
             cursor: 'pointer',
-            boxShadow: '0 4px 8px rgba(255, 215, 0, 0.5)',
-            transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-          }}
-          onMouseEnter={e => {
-            e.currentTarget.style.transform = 'scale(1.05)';
-            e.currentTarget.style.boxShadow = '0 6px 12px rgba(255, 215, 0, 0.7)';
-          }}
-          onMouseLeave={e => {
-            e.currentTarget.style.transform = 'scale(1)';
-            e.currentTarget.style.boxShadow = '0 4px 8px rgba(255, 215, 0, 0.5)';
+            boxShadow: '0 4px 10px rgba(255, 215, 0, 0.5)',
+            transition: 'all 0.2s ease-in-out',
           }}
         >
           Accept
@@ -107,22 +103,13 @@ const CookieConsent = () => {
           onClick={() => saveConsent('rejected')}
           style={{
             backgroundColor: 'transparent',
-            border: '2px solid #fff',
-            padding: '0.65rem 1.6rem',
-            borderRadius: '30px',
             color: '#fff',
-            fontWeight: '700',
-            fontSize: '1rem',
+            border: '2px solid #fff',
+            padding: '0.6rem 1.4rem',
+            borderRadius: '30px',
+            fontWeight: 'bold',
             cursor: 'pointer',
-            transition: 'background-color 0.3s ease, color 0.3s ease',
-          }}
-          onMouseEnter={e => {
-            e.currentTarget.style.backgroundColor = '#fff';
-            e.currentTarget.style.color = '#004080';
-          }}
-          onMouseLeave={e => {
-            e.currentTarget.style.backgroundColor = 'transparent';
-            e.currentTarget.style.color = '#fff';
+            transition: 'all 0.2s ease-in-out',
           }}
         >
           Reject
