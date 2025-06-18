@@ -4,17 +4,45 @@ import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
 import { Helmet } from "react-helmet-async";
 
+const baseUrl = "https://agx-backedn.onrender.com";
+
+// Helper function to translate text using LibreTranslate API
+const translateText = async (text, targetLang = "en") => {
+  if (!text) return "";
+  try {
+    const res = await fetch("https://libretranslate.com/translate", {
+      method: "POST",
+      body: JSON.stringify({
+        q: text,
+        source: "auto",
+        target: targetLang,
+        format: "text",
+        api_key: "" // Add your API key here if you have one
+      }),
+      headers: { "Content-Type": "application/json" },
+    });
+    const data = await res.json();
+    return data.translatedText || text;
+  } catch (error) {
+    console.error("Translation API error:", error);
+    return text; // fallback to original text on error
+  }
+};
+
 const ProductDetails = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
+  const [translated, setTranslated] = useState({
+    bannerTitle: "",
+    intro: "",
+    additionalInfo: "",
+  });
   const [mainImage, setMainImage] = useState("");
   const [zoomedImage, setZoomedImage] = useState(null);
   const navigate = useNavigate();
 
-  const baseUrl = "https://agxbackend-1.onrender.com";
-
   useEffect(() => {
-    const fetchProduct = async () => {
+    const fetchAndTranslate = async () => {
       try {
         const res = await axios.get(`${baseUrl}/client/getproduct/${id}`);
         const data = res.data;
@@ -25,23 +53,34 @@ const ProductDetails = () => {
         } else if (data.multipleImages?.length > 0) {
           setMainImage(`${baseUrl}${data.multipleImages[0]}`);
         }
+
+        // Translate required fields in parallel
+        const [bannerTitle, intro, additionalInfo] = await Promise.all([
+          translateText(data.bannerTitle, "en"),
+          translateText(data.intro, "en"),
+          translateText(data.additionalInfo, "en"),
+        ]);
+
+        setTranslated({ bannerTitle, intro, additionalInfo });
       } catch (err) {
-        console.error("Error fetching product:", err);
+        console.error("Error fetching or translating product:", err);
       }
     };
-
-    fetchProduct();
-  }, [id, baseUrl]);
+    fetchAndTranslate();
+  }, [id]);
 
   const goToBuySell = () => {
     navigate("/buy-sell");
   };
 
-  const handleKeyDown = useCallback((e) => {
-    if (e.key === "Escape" && zoomedImage) {
-      setZoomedImage(null);
-    }
-  }, [zoomedImage]);
+  const handleKeyDown = useCallback(
+    (e) => {
+      if (e.key === "Escape" && zoomedImage) {
+        setZoomedImage(null);
+      }
+    },
+    [zoomedImage]
+  );
 
   useEffect(() => {
     if (zoomedImage) {
@@ -58,17 +97,20 @@ const ProductDetails = () => {
     );
   }
 
-  const pageTitle = product.bannerTitle
+  const pageTitle = translated.bannerTitle
+    ? `${translated.bannerTitle} | AGX Global`
+    : product.bannerTitle
     ? `${product.bannerTitle} | AGX Global`
     : "Product Details | AGX Global";
 
-  const metaDescription = product.intro || product.additionalInfo || "Discover our product at AGX Global";
+  const metaDescription =
+    translated.intro || translated.additionalInfo || product.intro || product.additionalInfo || "Discover our product at AGX Global";
 
   const jsonLd = {
     "@context": "https://schema.org/",
     "@type": "Product",
-    name: product.bannerTitle || "Product",
-    image: [mainImage, ...(product.multipleImages?.map(img => baseUrl + img) || [])],
+    name: translated.bannerTitle || product.bannerTitle || "Product",
+    image: [mainImage, ...(product.multipleImages?.map((img) => baseUrl + img) || [])],
     description: metaDescription,
     category: product.category || "",
     offers: {
@@ -165,18 +207,18 @@ const ProductDetails = () => {
 
           {/* Right Details */}
           <div className="space-y-8">
-            <h1 className="text-4xl font-extrabold text-gray-900">{product.bannerTitle}</h1>
+            <h1 className="text-4xl font-extrabold text-gray-900">{translated.bannerTitle || product.bannerTitle}</h1>
             {product.category && (
               <p className="text-md text-indigo-700 font-semibold bg-indigo-50 inline-block px-3 py-1 rounded-full">
                 {product.category}
               </p>
             )}
-            {product.intro && <p className="text-gray-800 text-lg leading-relaxed">{product.intro}</p>}
+            <p className="text-gray-800 text-lg leading-relaxed">{translated.intro || product.intro}</p>
 
             {/* Custom Sections */}
             <ProductDetailSection title="Introduction" content={product.introduction} />
             <ProductDetailSection title="Product Range" content={product.productRange} />
-            <ProductDetailSection title="Additional Info" content={product.additionalInfo} />
+            <ProductDetailSection title="Additional Info" content={translated.additionalInfo || product.additionalInfo} />
 
             <div className="flex gap-4 mt-8 flex-wrap">
               <Link to="/products" className="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
@@ -185,7 +227,10 @@ const ProductDetails = () => {
               <Link to="/contact" className="px-6 py-3 border border-indigo-600 text-indigo-600 rounded-lg hover:bg-indigo-50">
                 Contact Us
               </Link>
-              <button onClick={goToBuySell} className="px-6 py-3 border border-green-600 text-green-600 rounded-lg hover:bg-green-50">
+              <button
+                onClick={goToBuySell}
+                className="px-6 py-3 border border-green-600 text-green-600 rounded-lg hover:bg-green-50"
+              >
                 Go to Buy/Sell
               </button>
             </div>
@@ -203,7 +248,7 @@ const ProductDetailSection = ({ title, content }) => {
 
   const isBulletList = title.toLowerCase() === "product range";
   const contentArray = isBulletList
-    ? content.split("•").map(item => item.trim()).filter(Boolean)
+    ? content.split("•").map((item) => item.trim()).filter(Boolean)
     : null;
 
   return (
