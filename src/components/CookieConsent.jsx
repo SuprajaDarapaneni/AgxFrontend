@@ -66,7 +66,7 @@ const CookieConsent = () => {
           filter: brightness(110%);
         }
         a {
-          text-decoration: underline;
+          text-decoration: none;
           color:rgb(231, 50, 156);
         }
       `}</style>
