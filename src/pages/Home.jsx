@@ -96,9 +96,18 @@ const HomePage = () => {
       'Explore our premium services and international products. Discover why AGX Global is your ideal partner in trade.'
     }
   />
-  <meta property="og:type" content="website" />
+{/*   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.agx-international.com/" />
-  <meta property="og:image" content="https://www.agx-international.com/favicon.ico" />
+  <meta property="og:image" content="https://www.agx-international.com/favicon.ico" /> */}
+
+     <meta property="og:type" content="website" />
+<meta property="og:url" content="https://www.agx-international.com/" />
+<meta property="og:title" content="AGX International – Import & Export Logistics Solutions" />
+<meta property="og:description" content="Your trusted global logistics partner for freight, customs, and trade." />
+<meta property="og:image" content="https://www.agx-international.com/assets/og-image.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+
 
   {/* Twitter Card */}
   <meta name="twitter:card" content="summary_large_image" />
