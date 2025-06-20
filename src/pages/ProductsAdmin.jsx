@@ -32,8 +32,8 @@ const ProductAdmin = () => {
   const [loading, setLoading] = useState(false); // New loading state for uploads
 
   // --- Cloudinary Configuration (Replace with your actual values) ---
-  const cloudName = " dz5noprbz"; // Replace with your Cloudinary cloud name
-  const uploadPreset = "YOUR_UPLOAD_PRESET"; // Replace with your unsigned upload preset
+  const cloudName = "dz5noprbz"; // Replace with your Cloudinary cloud name
+  const uploadPreset = "blogss"; // Replace with your unsigned upload preset
 
   const colorMode = useMemo(
     () => ({
@@ -194,7 +194,7 @@ const ProductAdmin = () => {
     setLoading(true); // Start loading
     const cloudinaryData = new FormData();
     cloudinaryData.append("file", file);
-    cloudinaryData.append("upload_preset",  'blogss');
+    cloudinaryData.append("upload_preset",uploadPreset);
 
     try {
       const res = await axios.post(
