@@ -194,7 +194,7 @@ const ProductAdmin = () => {
     setLoading(true); // Start loading
     const cloudinaryData = new FormData();
     cloudinaryData.append("file", file);
-    cloudinaryData.append("upload_preset", uploadPreset);
+    cloudinaryData.append("upload_preset",  'blogss');
 
     try {
       const res = await axios.post(
