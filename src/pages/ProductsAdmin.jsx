@@ -198,7 +198,7 @@ const ProductAdmin = () => {
 
     try {
       const res = await axios.post(
-        `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+        `https://api.cloudinary.com/v1_1/${cloudName}/upload`,
         cloudinaryData
       );
       setLoading(false); // End loading
