@@ -32,7 +32,7 @@ const ProductAdmin = () => {
   const [loading, setLoading] = useState(false); // New loading state for uploads
 
   // --- Cloudinary Configuration (Replace with your actual values) ---
-  const cloudName = "YOUR_CLOUD_NAME"; // Replace with your Cloudinary cloud name
+  const cloudName = " dz5noprbz"; // Replace with your Cloudinary cloud name
   const uploadPreset = "YOUR_UPLOAD_PRESET"; // Replace with your unsigned upload preset
 
   const colorMode = useMemo(
