@@ -82,6 +82,31 @@ const BuySellForm = () => {
     setSuccessMessage('');
     setErrorMessage('');
 
+    // Manual validation
+    if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      setErrorMessage('Invalid email format.');
+      setIsSubmitDisabled(false);
+      return;
+    }
+
+    if (!/^\d{8,15}$/.test(formData.phone)) {
+      setErrorMessage('Phone number should contain 8 to 15 digits only.');
+      setIsSubmitDisabled(false);
+      return;
+    }
+
+    if (formData.industries.length === 0) {
+      setErrorMessage('Please select at least one industry.');
+      setIsSubmitDisabled(false);
+      return;
+    }
+
+    if (formData.industries.includes("Other") && formData.otherIndustry.trim() === "") {
+      setErrorMessage('Please specify the "Other" industry.');
+      setIsSubmitDisabled(false);
+      return;
+    }
+
     try {
       const uploadedImageUrls = [];
 
@@ -190,24 +215,63 @@ const BuySellForm = () => {
               ))}
             </fieldset>
 
-            {['name', 'phone', 'email'].map(name => (
-              <div key={name} className="mb-6">
-                <label htmlFor={name} className="block text-pink-600 font-medium mb-1">
-                  {t(`form.${name}`)}<span className="text-red-500">*</span>
-                </label>
-                <input
-                  id={name}
-                  name={name}
-                  type={name === 'email' ? 'email' : 'text'}
-                  required
-                  value={formData[name]}
-                  onChange={handleChange}
-                  placeholder={t(`form.${name}`)}
-                  className="w-full border border-pink-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-pink-400"
-                />
-              </div>
-            ))}
+            {/* Name */}
+            <div className="mb-6">
+              <label htmlFor="name" className="block text-pink-600 font-medium mb-1">
+                {t('form.name')}<span className="text-red-500">*</span>
+              </label>
+              <input
+                id="name"
+                name="name"
+                type="text"
+                required
+                pattern="^[a-zA-Z\s]{2,50}$"
+                maxLength="50"
+                value={formData.name}
+                onChange={handleChange}
+                placeholder={t('form.name')}
+                className="w-full border border-pink-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-pink-400"
+              />
+            </div>
 
+            {/* Phone */}
+            <div className="mb-6">
+              <label htmlFor="phone" className="block text-pink-600 font-medium mb-1">
+                {t('form.phone')}<span className="text-red-500">*</span>
+              </label>
+              <input
+                id="phone"
+                name="phone"
+                type="tel"
+                required
+                pattern="^\d{8,15}$"
+                maxLength="15"
+                value={formData.phone}
+                onChange={handleChange}
+                placeholder={t('form.phone')}
+                className="w-full border border-pink-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-pink-400"
+              />
+            </div>
+
+            {/* Email */}
+            <div className="mb-6">
+              <label htmlFor="email" className="block text-pink-600 font-medium mb-1">
+                {t('form.email')}<span className="text-red-500">*</span>
+              </label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                required
+                pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder={t('form.email')}
+                className="w-full border border-pink-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-pink-400"
+              />
+            </div>
+
+            {/* Location */}
             <div className="mb-6">
               <label htmlFor="location" className="block text-pink-600 font-medium mb-1">
                 {t(locationLabelKey)}<span className="text-red-500">*</span>
@@ -217,6 +281,7 @@ const BuySellForm = () => {
                 name="location"
                 type="text"
                 required
+                maxLength="100"
                 value={formData.location}
                 onChange={handleChange}
                 placeholder="Town/City/State"
@@ -224,6 +289,7 @@ const BuySellForm = () => {
               />
             </div>
 
+            {/* Country */}
             <div className="mb-6">
               <label htmlFor="country" className="block text-pink-600 font-medium mb-1">
                 {t('form.country')}<span className="text-red-500">*</span>
@@ -243,6 +309,7 @@ const BuySellForm = () => {
               </select>
             </div>
 
+            {/* Industries */}
             <div className="mb-6">
               <label htmlFor="industries" className="block text-pink-600 font-medium mb-1">
                 {t('form.industries')}<span className="text-red-500">*</span>
@@ -256,12 +323,11 @@ const BuySellForm = () => {
                 onChange={handleIndustrySelect}
                 classNamePrefix="select"
               />
-
-              {/* Show extra field if "Other" is selected */}
               {formData.industries.includes("Other") && (
                 <input
                   type="text"
                   name="otherIndustry"
+                  required
                   placeholder="Please specify other industry"
                   value={formData.otherIndustry}
                   onChange={handleChange}
@@ -270,6 +336,7 @@ const BuySellForm = () => {
               )}
             </div>
 
+            {/* Timing */}
             <div className="mb-6">
               <label htmlFor="timing" className="block text-pink-600 font-medium mb-1">
                 {t('form.timing')}<span className="text-red-500">*</span>
@@ -291,21 +358,24 @@ const BuySellForm = () => {
               </select>
             </div>
 
+            {/* Message */}
             <div className="mb-6">
               <label htmlFor="message" className="block text-pink-600 font-medium mb-1">
-                {t('form.message')}<span className="text-red-500">*</span>
+                {t('form.message')}<span className="text-red-500"></span>
               </label>
               <textarea
                 id="message"
                 name="message"
+                
+                maxLength="500"
                 value={formData.message}
                 onChange={handleChange}
                 rows={4}
-                required
                 className="w-full border border-pink-300 px-4 py-3 rounded-lg resize-none"
               />
             </div>
 
+            {/* File Upload */}
             <div className="mb-6">
               <label htmlFor="files" className="block text-pink-600 font-medium mb-1">
                 {t('form.attachFiles')}
@@ -322,6 +392,7 @@ const BuySellForm = () => {
               />
             </div>
 
+            {/* Submit */}
             <button
               type="submit"
               disabled={isSubmitDisabled}
@@ -332,6 +403,7 @@ const BuySellForm = () => {
               {isSubmitDisabled ? t('form.submitting') : t('form.submitRequest')}
             </button>
 
+            {/* Message Display */}
             {(successMessage || errorMessage) && (
               <div className="mt-4 text-center whitespace-pre-line">
                 <p className={`font-semibold ${successMessage ? 'text-green-600' : 'text-red-600'}`}>

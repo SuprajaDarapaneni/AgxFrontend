@@ -16,6 +16,7 @@ import {
   createTheme,
   Divider,
   Tooltip,
+  CircularProgress, // Added for loading indicator
 } from "@mui/material";
 import axios from "axios";
 
@@ -28,12 +29,18 @@ const ProductAdmin = () => {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
   const [mode, setMode] = useState(prefersDarkMode ? "dark" : "light");
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [loading, setLoading] = useState(false); // New loading state for uploads
+
+  // --- Cloudinary Configuration (Replace with your actual values) ---
+  const cloudName = "YOUR_CLOUD_NAME"; // Replace with your Cloudinary cloud name
+  const uploadPreset = "YOUR_UPLOAD_PRESET"; // Replace with your unsigned upload preset
 
   const colorMode = useMemo(
     () => ({
-      toggleColorMode: () => setMode((prev) => (prev === "light" ? "dark" : "light")),
+      toggleColorMode: () =>
+        setMode((prev) => (prev === "light" ? "dark" : "light")),
     }),
-    [],
+    []
   );
 
   const theme = useMemo(
@@ -69,7 +76,7 @@ const ProductAdmin = () => {
           },
         },
       }),
-    [mode],
+    [mode]
   );
 
   const handleDrawerToggle = () => {
@@ -90,13 +97,13 @@ const ProductAdmin = () => {
     productRange: "",
     additionalInfo: "",
     whyChooseUs: "",
-    coverImage: null,
-    multipleImages: [],
+    coverImage: null, // This will still hold the File object temporarily
+    multipleImages: [], // This will still hold File objects temporarily
   });
   const [existingCoverImageUrl, setExistingCoverImageUrl] = useState("");
-  const [existingMultipleImageUrls, setExistingMultipleImageUrls] = useState([]);
-  // The expandedProducts state is less critical now as CardContent itself will scroll,
-  // but we can keep it for an initial 'truncated' view if desired.
+  const [existingMultipleImageUrls, setExistingMultipleImageUrls] = useState(
+    []
+  );
   const [expandedProducts, setExpandedProducts] = useState({});
 
   useEffect(() => {
@@ -105,10 +112,12 @@ const ProductAdmin = () => {
 
   const fetchProducts = async () => {
     try {
-      const res = await axios.get("https://agxbackend-1.onrender.com/client/getproducts");
-      // Sort products by creation date in ASCENDING order (oldest first, last added last)
-      // Assuming your product objects have a 'createdAt' field.
-      const sortedProducts = res.data.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+      const res = await axios.get(
+        "https://agxbackend-1.onrender.com/client/getproducts"
+      );
+      const sortedProducts = res.data.sort(
+        (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+      );
       setProducts(sortedProducts);
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -136,11 +145,15 @@ const ProductAdmin = () => {
   };
 
   const handleDelete = async (id) => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this product?");
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this product?"
+    );
     if (!confirmDelete) return;
 
     try {
-      await axios.delete(`https://agxbackend-1.onrender.com/client/deleteproduct/${id}`);
+      await axios.delete(
+        `https://agxbackend-1.onrender.com/client/deleteproduct/${id}`
+      );
       fetchProducts();
     } catch (error) {
       console.error("Error deleting product:", error);
@@ -158,55 +171,111 @@ const ProductAdmin = () => {
       productRange: product.productRange || "",
       additionalInfo: product.additionalInfo || "",
       whyChooseUs: product.whyChooseUs || "",
-      coverImage: null,
-      multipleImages: [],
+      coverImage: null, // Will be set only if a new file is selected
+      multipleImages: [], // Will be set only if new files are selected
     });
-    setExistingCoverImageUrl(product.coverImage ? `https://agxbackend-1.onrender.com${product.coverImage}` : "");
-    setExistingMultipleImageUrls(
-      product.multipleImages ? product.multipleImages.map((img) => `https://agxbackend-1.onrender.com${img}`) : [],
-    );
+    // Cloudinary URLs are absolute, so no need to prepend base URL
+    setExistingCoverImageUrl(product.coverImage || "");
+    setExistingMultipleImageUrls(product.multipleImages || []);
 
     setIsEditMode(true);
     setEditingProductId(product._id);
     setShowForm(true);
   };
 
+  // --- New function to upload image to Cloudinary ---
+  const uploadImageToCloudinary = async (file) => {
+    setLoading(true); // Start loading
+    const cloudinaryData = new FormData();
+    cloudinaryData.append("file", file);
+    cloudinaryData.append("upload_preset", uploadPreset);
+
+    try {
+      const res = await axios.post(
+        `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+        cloudinaryData
+      );
+      setLoading(false); // End loading
+      return res.data.secure_url; // Return the public URL
+    } catch (error) {
+      setLoading(false); // End loading even on error
+      console.error("Error uploading to Cloudinary:", error);
+      alert("Failed to upload image to Cloudinary.");
+      return null;
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = new FormData();
-    data.append("name", formData.name);
-    data.append("category", formData.category);
-    data.append("description", formData.description);
-    data.append("bannerTitle", formData.bannerTitle);
-    data.append("introduction", formData.introduction);
-    data.append("productRange", formData.productRange);
-    data.append("additionalInfo", formData.additionalInfo);
-    data.append("whyChooseUs", formData.whyChooseUs);
+    setLoading(true); // Start general form submission loading
 
+    let coverImageUrl = existingCoverImageUrl;
+    let multipleImageUrls = [...existingMultipleImageUrls];
+
+    // Upload cover image if a new one is selected
     if (formData.coverImage) {
-      data.append("coverImage", formData.coverImage);
+      const url = await uploadImageToCloudinary(formData.coverImage);
+      if (url) {
+        coverImageUrl = url;
+      } else {
+        setLoading(false);
+        return; // Stop submission if cover image upload fails
+      }
     }
 
+    // Upload multiple images if new ones are selected
     if (formData.multipleImages.length > 0) {
-      formData.multipleImages.forEach((file) => data.append("multipleImages", file));
+      const uploadedUrls = [];
+      for (const file of formData.multipleImages) {
+        const url = await uploadImageToCloudinary(file);
+        if (url) {
+          uploadedUrls.push(url);
+        } else {
+          setLoading(false);
+          return; // Stop submission if any multiple image upload fails
+        }
+      }
+      // For multiple images, decide if you want to replace existing or add to them.
+      // Here, we're replacing if new ones are provided. If you want to add,
+      // you'd do: multipleImageUrls = [...existingMultipleImageUrls, ...uploadedUrls];
+      multipleImageUrls = uploadedUrls;
     }
+
+    const productData = {
+      name: formData.name,
+      category: formData.category,
+      description: formData.description,
+      bannerTitle: formData.bannerTitle,
+      introduction: formData.introduction,
+      productRange: formData.productRange,
+      additionalInfo: formData.additionalInfo,
+      whyChooseUs: formData.whyChooseUs,
+      coverImage: coverImageUrl,
+      multipleImages: multipleImageUrls,
+    };
 
     try {
       if (isEditMode) {
-        await axios.patch(`https://agxbackend-1.onrender.com/client/updateproduct/${editingProductId}`, data);
+        await axios.patch(
+          `https://agxbackend-1.onrender.com/client/updateproduct/${editingProductId}`,
+          productData // Send as JSON, not FormData, as image URLs are now strings
+        );
       } else {
-        await axios.post("https://agxbackend-1.onrender.com/client/addproduct", data);
+        await axios.post(
+          "https://agxbackend-1.onrender.com/client/addproduct",
+          productData // Send as JSON
+        );
       }
       fetchProducts();
       resetForm();
     } catch (error) {
       console.error("Error saving product:", error);
       alert("Failed to save product. Please try again.");
+    } finally {
+      setLoading(false); // Always stop loading at the end
     }
   };
 
-  // This function is still useful for initial truncation if desired,
-  // but the primary scroll will now be on the CardContent itself.
   const toggleExpand = (productId) => {
     setExpandedProducts((prev) => ({
       ...prev,
@@ -214,67 +283,85 @@ const ProductAdmin = () => {
     }));
   };
 
-  // Modified renderContentWithToggle to provide an initial truncated view,
-  // but rely on parent container's scroll for full content.
   const renderContentWithToggle = (text, productId, initialLineLimit = 2) => {
     if (!text) return null;
 
-    const lines = text.split("\n").filter(line => line.trim());
+    const lines = text.split("\n").filter((line) => line.trim());
     const isExpanded = expandedProducts[productId];
     const needsToggle = lines.length > initialLineLimit;
 
-    const displayLines = needsToggle && !isExpanded ? lines.slice(0, initialLineLimit) : lines;
+    const displayLines =
+      needsToggle && !isExpanded ? lines.slice(0, initialLineLimit) : lines;
 
     const renderList = (items, ordered = false) => {
-        const ListTag = ordered ? 'ol' : 'ul';
-        return (
-            <ListTag style={{ paddingLeft: 20, marginTop: 6, marginBottom: 10 }}>
-                {items.map((line, idx) => (
-                    <li key={idx} style={{ marginBottom: 4, lineHeight: 1.5 }}>
-                        {line.trim().replace(/^[•-]\s*|^(\d+\.)\s*/, "")}
-                    </li>
-                ))}
-            </ListTag>
-        );
+      const ListTag = ordered ? "ol" : "ul";
+      return (
+        <ListTag style={{ paddingLeft: 20, marginTop: 6, marginBottom: 10 }}>
+          {items.map((line, idx) => (
+            <li key={idx} style={{ marginBottom: 4, lineHeight: 1.5 }}>
+              {line.trim().replace(/^[•-]\s*|^(\d+\.)\s*/, "")}
+            </li>
+          ))}
+        </ListTag>
+      );
     };
 
     let contentToRender;
     if (text.includes("•") || text.includes("-")) {
-        contentToRender = renderList(displayLines, false);
+      contentToRender = renderList(displayLines, false);
     } else if (text.match(/^\d+\./m)) {
-        contentToRender = renderList(displayLines, true);
+      contentToRender = renderList(displayLines, true);
     } else {
-        // Fallback for plain text, truncate by words/characters
-        const words = text.split(/\s+/);
-        const displayContent = needsToggle && !isExpanded && words.length > 30 // More words than lines
-            ? words.slice(0, 30).join(" ") + "..."
-            : text;
-        contentToRender = (
-            <Typography variant="body2" sx={{ whiteSpace: "pre-line" }}>
-                {displayContent}
-            </Typography>
-        );
+      const words = text.split(/\s+/);
+      const displayContent =
+        needsToggle && !isExpanded && words.length > 30
+          ? words.slice(0, 30).join(" ") + "..."
+          : text;
+      contentToRender = (
+        <Typography variant="body2" sx={{ whiteSpace: "pre-line" }}>
+          {displayContent}
+        </Typography>
+      );
     }
 
     return (
-        <>
-            {contentToRender}
-            {needsToggle && (
-                <Button size="small" onClick={() => toggleExpand(productId)} sx={{ p: 0, minWidth: 0, textTransform: "none" }}>
-                    {isExpanded ? "Show Less" : "View More"}
-                </Button>
-            )}
-        </>
+      <>
+        {contentToRender}
+        {needsToggle && (
+          <Button
+            size="small"
+            onClick={() => toggleExpand(productId)}
+            sx={{ p: 0, minWidth: 0, textTransform: "none" }}
+          >
+            {isExpanded ? "Show Less" : "View More"}
+          </Button>
+        )}
+      </>
     );
   };
-
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Box sx={{ display: "flex", height: "100vh", bgcolor: "background.default", overflow: "hidden" }}>
-        <Topbar onDrawerToggle={handleDrawerToggle} colorMode={colorMode} mode={mode} drawerWidth={drawerWidth} />
-        <Sidebar mobileOpen={mobileOpen} onDrawerToggle={handleDrawerToggle} drawerWidth={drawerWidth} />
+      <Box
+        sx={{
+          display: "flex",
+          height: "100vh",
+          bgcolor: "background.default",
+          overflow: "hidden",
+        }}
+      >
+        <Topbar
+          onDrawerToggle={handleDrawerToggle}
+          colorMode={colorMode}
+          mode={mode}
+          drawerWidth={drawerWidth}
+        />
+        <Sidebar
+          mobileOpen={mobileOpen}
+          onDrawerToggle={handleDrawerToggle}
+          drawerWidth={drawerWidth}
+        />
 
         <Box
           component="main"
@@ -335,8 +422,8 @@ const ProductAdmin = () => {
                 borderRadius: 3,
                 boxShadow: 3,
                 backgroundColor: theme.palette.background.paper,
-                maxHeight: '80vh',
-                overflowY: 'auto'
+                maxHeight: "80vh",
+                overflowY: "auto",
               }}
             >
               <Typography variant="h6" sx={{ fontWeight: 700 }}>
@@ -355,7 +442,9 @@ const ProductAdmin = () => {
               <TextField
                 label="Category"
                 value={formData.category}
-                onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, category: e.target.value })
+                }
                 required
                 fullWidth
                 sx={{ bgcolor: mode === "light" ? "white" : "grey.900" }}
@@ -364,7 +453,9 @@ const ProductAdmin = () => {
               <TextField
                 label="Banner Title"
                 value={formData.bannerTitle}
-                onChange={(e) => setFormData({ ...formData, bannerTitle: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, bannerTitle: e.target.value })
+                }
                 multiline
                 minRows={1}
                 fullWidth
@@ -377,7 +468,9 @@ const ProductAdmin = () => {
                 multiline
                 minRows={3}
                 value={formData.introduction}
-                onChange={(e) => setFormData({ ...formData, introduction: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, introduction: e.target.value })
+                }
                 fullWidth
                 sx={{ bgcolor: mode === "light" ? "white" : "grey.900" }}
                 helperText="Brief introduction about the product category"
@@ -388,7 +481,9 @@ const ProductAdmin = () => {
                 multiline
                 minRows={3}
                 value={formData.productRange}
-                onChange={(e) => setFormData({ ...formData, productRange: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, productRange: e.target.value })
+                }
                 fullWidth
                 sx={{ bgcolor: mode === "light" ? "white" : "grey.900" }}
                 helperText="List of products in this category. Use bullet points (•) or numbers (1.) for lists"
@@ -399,7 +494,9 @@ const ProductAdmin = () => {
                 multiline
                 minRows={2}
                 value={formData.additionalInfo}
-                onChange={(e) => setFormData({ ...formData, additionalInfo: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, additionalInfo: e.target.value })
+                }
                 fullWidth
                 sx={{ bgcolor: mode === "light" ? "white" : "grey.900" }}
               />
@@ -409,7 +506,9 @@ const ProductAdmin = () => {
                 multiline
                 minRows={3}
                 value={formData.whyChooseUs}
-                onChange={(e) => setFormData({ ...formData, whyChooseUs: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, whyChooseUs: e.target.value })
+                }
                 fullWidth
                 sx={{ bgcolor: mode === "light" ? "white" : "grey.900" }}
                 helperText="List the key benefits. Use bullet points (•) for better formatting"
@@ -420,7 +519,9 @@ const ProductAdmin = () => {
                 multiline
                 minRows={4}
                 value={formData.description}
-                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, description: e.target.value })
+                }
                 fullWidth
                 sx={{ bgcolor: mode === "light" ? "white" : "grey.900" }}
                 helperText="Detailed description. Use bullet points (•) or numbers (1.) for lists"
@@ -433,7 +534,9 @@ const ProductAdmin = () => {
                 <input
                   type="file"
                   accept="image/*"
-                  onChange={(e) => setFormData({ ...formData, coverImage: e.target.files[0] })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, coverImage: e.target.files[0] })
+                  }
                   style={{ marginBottom: 12 }}
                 />
 
@@ -488,14 +591,19 @@ const ProductAdmin = () => {
                   accept="image/*"
                   multiple
                   onChange={(e) =>
-                    setFormData({ ...formData, multipleImages: Array.from(e.target.files) })
+                    setFormData({
+                      ...formData,
+                      multipleImages: Array.from(e.target.files),
+                    })
                   }
                   style={{ marginBottom: 12 }}
                 />
 
                 {formData.multipleImages.length > 0 && (
                   <Stack direction="row" flexWrap="wrap" gap={1} mt={1}>
-                    <Typography variant="body2" width="100%" mb={1}>New Additional Image Previews:</Typography>
+                    <Typography variant="body2" width="100%" mb={1}>
+                      New Additional Image Previews:
+                    </Typography>
                     {formData.multipleImages.map((file, idx) => (
                       <Box
                         key={idx}
@@ -515,27 +623,31 @@ const ProductAdmin = () => {
                   </Stack>
                 )}
 
-                {isEditMode && existingMultipleImageUrls.length > 0 && formData.multipleImages.length === 0 && (
-                  <Stack direction="row" flexWrap="wrap" gap={1} mt={1}>
-                    <Typography variant="body2" width="100%" mb={1} color="text.secondary">Current Additional Images:</Typography>
-                    {existingMultipleImageUrls.map((url, index) => (
-                      <Box
-                        component="img"
-                        key={index}
-                        src={url}
-                        alt={`Additional ${index}`}
-                        sx={{
-                          width: 90,
-                          height: 90,
-                          borderRadius: 2,
-                          objectFit: "cover",
-                          boxShadow: 1,
-                          border: `1px solid ${theme.palette.divider}`,
-                        }}
-                      />
-                    ))}
-                  </Stack>
-                )}
+                {isEditMode &&
+                  existingMultipleImageUrls.length > 0 &&
+                  formData.multipleImages.length === 0 && (
+                    <Stack direction="row" flexWrap="wrap" gap={1} mt={1}>
+                      <Typography variant="body2" width="100%" mb={1} color="text.secondary">
+                        Current Additional Images:
+                      </Typography>
+                      {existingMultipleImageUrls.map((url, index) => (
+                        <Box
+                          component="img"
+                          key={index}
+                          src={url}
+                          alt={`Additional ${index}`}
+                          sx={{
+                            width: 90,
+                            height: 90,
+                            borderRadius: 2,
+                            objectFit: "cover",
+                            boxShadow: 1,
+                            border: `1px solid ${theme.palette.divider}`,
+                          }}
+                        />
+                      ))}
+                    </Stack>
+                  )}
 
                 {isEditMode && (
                   <Typography variant="caption" color="text.secondary" mt={0.5}>
@@ -550,8 +662,15 @@ const ProductAdmin = () => {
                 color="primary"
                 size="large"
                 sx={{ borderRadius: 3, fontWeight: 700, mt: 2 }}
+                disabled={loading} // Disable button while loading
               >
-                {isEditMode ? "Update Product" : "Add Product"}
+                {loading ? (
+                  <CircularProgress size={24} color="inherit" />
+                ) : isEditMode ? (
+                  "Update Product"
+                ) : (
+                  "Add Product"
+                )}
               </Button>
             </Box>
           </Collapse>
@@ -568,7 +687,7 @@ const ProductAdmin = () => {
                 <Card
                   key={product._id}
                   sx={{
-                    width: { xs: '100%', sm: 300, md: 280 },
+                    width: { xs: "100%", sm: 300, md: 280 },
                     borderRadius: 3,
                     boxShadow: 4,
                     transition: "transform 0.3s ease, box-shadow 0.3s ease",
@@ -583,39 +702,41 @@ const ProductAdmin = () => {
                   <CardMedia
                     component="img"
                     height="160"
-                    image={
-                      product.coverImage
-                        ? `https://agxbackend-1.onrender.com${product.coverImage}`
-                        : "/placeholder.jpg"
-                    }
+                    image={product.coverImage || "/placeholder.jpg"} // Cloudinary URL or fallback
                     alt={product.name}
-                    sx={{ objectFit: "cover", borderTopLeftRadius: 12, borderTopRightRadius: 12 }}
+                    sx={{
+                      objectFit: "cover",
+                      borderTopLeftRadius: 12,
+                      borderTopRightRadius: 12,
+                    }}
                   />
                   <CardContent
                     sx={{
                       flexGrow: 1,
                       pb: 1,
-                      // --- IMPORTANT CHANGES FOR CARD HEIGHT AND SCROLL ---
-                      maxHeight: 220, // Set a fixed maximum height for content area
-                      overflowY: 'auto', // Enable scrolling within the card content
-                      scrollbarWidth: 'thin', // For Firefox
-                      '&::-webkit-scrollbar': {
-                        width: '4px',
+                      maxHeight: 220,
+                      overflowY: "auto",
+                      scrollbarWidth: "thin",
+                      "&::-webkit-scrollbar": {
+                        width: "4px",
                       },
-                      '&::-webkit-scrollbar-track': {
-                        background: '#f1f1f1',
+                      "&::-webkit-scrollbar-track": {
+                        background: "#f1f1f1",
                       },
-                      '&::-webkit-scrollbar-thumb': {
-                        background: '#888',
-                        borderRadius: '2px',
+                      "&::-webkit-scrollbar-thumb": {
+                        background: "#888",
+                        borderRadius: "2px",
                       },
-                      '&::-webkit-scrollbar-thumb:hover': {
-                        background: '#555',
+                      "&::-webkit-scrollbar-thumb:hover": {
+                        background: "#555",
                       },
-                      // ---------------------------------------------------
                     }}
                   >
-                    <Typography variant="h6" gutterBottom sx={{ fontWeight: 700, mb: 1, lineHeight: 1.2 }}>
+                    <Typography
+                      variant="h6"
+                      gutterBottom
+                      sx={{ fontWeight: 700, mb: 1, lineHeight: 1.2 }}
+                    >
                       {product.name}
                     </Typography>
                     <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
@@ -624,10 +745,14 @@ const ProductAdmin = () => {
 
                     {product.bannerTitle && (
                       <Box sx={{ mb: 1 }}>
-                          <Typography variant="subtitle2" color="primary" sx={{ display: 'inline' }}>
-                            <strong>Banner:</strong>
-                          </Typography>{" "}
-                        {renderContentWithToggle(product.bannerTitle, `${product._id}-bannerTitle`, 1)}
+                        <Typography variant="subtitle2" color="primary" sx={{ display: "inline" }}>
+                          <strong>Banner:</strong>
+                        </Typography>{" "}
+                        {renderContentWithToggle(
+                          product.bannerTitle,
+                          `${product._id}-bannerTitle`,
+                          1
+                        )}
                       </Box>
                     )}
 
@@ -636,7 +761,10 @@ const ProductAdmin = () => {
                         <Typography variant="subtitle2" gutterBottom sx={{ mb: 0.5 }}>
                           Introduction:
                         </Typography>
-                        {renderContentWithToggle(product.introduction, `${product._id}-introduction`)}
+                        {renderContentWithToggle(
+                          product.introduction,
+                          `${product._id}-introduction`
+                        )}
                       </Box>
                     )}
 
@@ -645,7 +773,10 @@ const ProductAdmin = () => {
                         <Typography variant="subtitle2" gutterBottom sx={{ mb: 0.5 }}>
                           Product Range:
                         </Typography>
-                        {renderContentWithToggle(product.productRange, `${product._id}-productRange`)}
+                        {renderContentWithToggle(
+                          product.productRange,
+                          `${product._id}-productRange`
+                        )}
                       </Box>
                     )}
 
@@ -654,7 +785,10 @@ const ProductAdmin = () => {
                         <Typography variant="subtitle2" gutterBottom sx={{ mb: 0.5 }}>
                           Additional Info:
                         </Typography>
-                        {renderContentWithToggle(product.additionalInfo, `${product._id}-additionalInfo`)}
+                        {renderContentWithToggle(
+                          product.additionalInfo,
+                          `${product._id}-additionalInfo`
+                        )}
                       </Box>
                     )}
 
@@ -663,7 +797,10 @@ const ProductAdmin = () => {
                         <Typography variant="subtitle2" gutterBottom sx={{ mb: 0.5 }}>
                           Why Choose Us:
                         </Typography>
-                        {renderContentWithToggle(product.whyChooseUs, `${product._id}-whyChooseUs`)}
+                        {renderContentWithToggle(
+                          product.whyChooseUs,
+                          `${product._id}-whyChooseUs`
+                        )}
                       </Box>
                     )}
 
@@ -672,7 +809,10 @@ const ProductAdmin = () => {
                         <Typography variant="subtitle2" gutterBottom sx={{ mb: 0.5 }}>
                           Description:
                         </Typography>
-                        {renderContentWithToggle(product.description, `${product._id}-description`)}
+                        {renderContentWithToggle(
+                          product.description,
+                          `${product._id}-description`
+                        )}
                       </Box>
                     )}
                   </CardContent>

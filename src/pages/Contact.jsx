@@ -22,12 +22,31 @@ function ContactForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (
-      !formData.name.trim() ||
-      !formData.message.trim() ||
-      (!formData.email.trim() && !formData.phone.trim())
-    ) {
-      setSubmitMessage(t("contactForm.validationError") || "Please fill Name, Message and Email or Phone.");
+    const { name, email, phone, message } = formData;
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^\+?[0-9]{7,15}$/;
+
+    if (!name.trim() || !message.trim()) {
+      setSubmitMessage(t("contactForm.validationError") || "Please fill out Name and Message.");
+      setIsSuccess(false);
+      return;
+    }
+
+    if (!email.trim() && !phone.trim()) {
+      setSubmitMessage(t("contactForm.validationError") || "Please provide at least Email or Phone.");
+      setIsSuccess(false);
+      return;
+    }
+
+    if (email.trim() && !emailRegex.test(email.trim())) {
+      setSubmitMessage("Please enter a valid email address.");
+      setIsSuccess(false);
+      return;
+    }
+
+    if (phone.trim() && !phoneRegex.test(phone.trim())) {
+      setSubmitMessage("Please enter a valid phone number.");
       setIsSuccess(false);
       return;
     }
@@ -35,11 +54,18 @@ function ContactForm() {
     setIsSubmitting(true);
     setSubmitMessage("");
 
+    const payload = {
+      name: name.trim(),
+      message: message.trim(),
+      ...(email.trim() && { email: email.trim() }),
+      ...(phone.trim() && { phone: phone.trim() }),
+    };
+
     try {
       const response = await fetch("https://agxbackend-1.onrender.com/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       });
 
       const data = await response.json();
@@ -69,7 +95,7 @@ function ContactForm() {
       </header>
 
       <div className="flex flex-col lg:flex-row gap-12">
-        {/* Left Side - Contact Info */}
+        {/* Contact Info */}
         <address className="lg:w-1/3 bg-white p-8 rounded-lg shadow-md not-italic">
           <div className="space-y-8">
             <div className="flex items-start gap-4">
@@ -90,9 +116,7 @@ function ContactForm() {
               <div>
                 <h2 className="text-xl font-semibold text-gray-800 mb-1">Call / WhatsApp</h2>
                 <p className="text-gray-600">
-                  <a href="tel:+16479049839" className="hover:underline">
-                    +1 647 904 9839
-                  </a>
+                  <a href="tel:+16479049839" className="hover:underline">+1 647 904 9839</a>
                 </p>
                 <p className="text-gray-600">
                   <a href="https://wa.me/16479049839" target="_blank" rel="noopener noreferrer" className="text-green-600 hover:underline">
@@ -109,9 +133,7 @@ function ContactForm() {
               <div>
                 <h2 className="text-xl font-semibold text-gray-800 mb-1">Email Us</h2>
                 <p className="text-gray-600">
-                  <a href="mailto:info@agx-international.com" className="hover:underline">
-                    info@agx-international.com
-                  </a>
+                  <a href="mailto:info@agx-international.com" className="hover:underline">info@agx-international.com</a>
                 </p>
               </div>
             </div>
@@ -129,7 +151,7 @@ function ContactForm() {
           </div>
         </address>
 
-        {/* Right Side - Form */}
+        {/* Form */}
         <div className="lg:w-2/3 bg-white p-8 rounded-lg shadow-md">
           {submitMessage && (
             <div
@@ -146,9 +168,7 @@ function ContactForm() {
 
           <form onSubmit={handleSubmit} className="space-y-6" noValidate>
             <div>
-              <label htmlFor="name" className="block mb-2 font-medium text-gray-700">
-                Name
-              </label>
+              <label htmlFor="name" className="block mb-2 font-medium text-gray-700">Name</label>
               <input
                 id="name"
                 type="text"
@@ -163,9 +183,7 @@ function ContactForm() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label htmlFor="email" className="block mb-2 font-medium text-gray-700">
-                  Email
-                </label>
+                <label htmlFor="email" className="block mb-2 font-medium text-gray-700">Email</label>
                 <input
                   id="email"
                   type="email"
@@ -178,9 +196,7 @@ function ContactForm() {
               </div>
 
               <div>
-                <label htmlFor="phone" className="block mb-2 font-medium text-gray-700">
-                  Phone
-                </label>
+                <label htmlFor="phone" className="block mb-2 font-medium text-gray-700">Phone</label>
                 <input
                   id="phone"
                   type="tel"
@@ -194,9 +210,7 @@ function ContactForm() {
             </div>
 
             <div>
-              <label htmlFor="message" className="block mb-2 font-medium text-gray-700">
-                Message
-              </label>
+              <label htmlFor="message" className="block mb-2 font-medium text-gray-700">Message</label>
               <textarea
                 id="message"
                 name="message"
