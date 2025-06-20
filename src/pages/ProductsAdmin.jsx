@@ -112,19 +112,14 @@ const ProductAdmin = () => {
 
   const fetchProducts = async () => {
     try {
-<<<<<<< HEAD
+      // Remove the merge conflict markers here.
+      // Use the correct backend URL.
       const res = await axios.get(
         "https://agxbackend-1.onrender.com/client/getproducts"
       );
       const sortedProducts = res.data.sort(
         (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
       );
-=======
-      const res = await axios.get("https://agx-backedn.onrender.com/client/getproducts");
-      // Sort products by creation date in ASCENDING order (oldest first, last added last)
-      // Assuming your product objects have a 'createdAt' field.
-      const sortedProducts = res.data.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
->>>>>>> f94b94fe8015937335825ae184ba4ffce1056922
       setProducts(sortedProducts);
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -158,13 +153,11 @@ const ProductAdmin = () => {
     if (!confirmDelete) return;
 
     try {
-<<<<<<< HEAD
+      // Remove the merge conflict markers here.
+      // Use the correct backend URL.
       await axios.delete(
         `https://agxbackend-1.onrender.com/client/deleteproduct/${id}`
       );
-=======
-      await axios.delete(`https://agx-backedn.onrender.com/client/deleteproduct/${id}`);
->>>>>>> f94b94fe8015937335825ae184ba4ffce1056922
       fetchProducts();
     } catch (error) {
       console.error("Error deleting product:", error);
@@ -185,16 +178,11 @@ const ProductAdmin = () => {
       coverImage: null, // Will be set only if a new file is selected
       multipleImages: [], // Will be set only if new files are selected
     });
-<<<<<<< HEAD
-    // Cloudinary URLs are absolute, so no need to prepend base URL
+    // Cloudinary URLs are absolute, so no need to prepend base URL.
+    // Ensure that if product.coverImage is null/undefined, it defaults to an empty string.
     setExistingCoverImageUrl(product.coverImage || "");
+    // Ensure that if product.multipleImages is null/undefined, it defaults to an empty array.
     setExistingMultipleImageUrls(product.multipleImages || []);
-=======
-    setExistingCoverImageUrl(product.coverImage ? `https://agx-backedn.onrender.com${product.coverImage}` : "");
-    setExistingMultipleImageUrls(
-      product.multipleImages ? product.multipleImages.map((img) => `https://agx-backedn.onrender.com${img}`) : [],
-    );
->>>>>>> f94b94fe8015937335825ae184ba4ffce1056922
 
     setIsEditMode(true);
     setEditingProductId(product._id);
@@ -274,21 +262,19 @@ const ProductAdmin = () => {
 
     try {
       if (isEditMode) {
-<<<<<<< HEAD
+        // Remove the merge conflict markers here.
+        // Use the correct backend URL.
         await axios.patch(
           `https://agxbackend-1.onrender.com/client/updateproduct/${editingProductId}`,
           productData // Send as JSON, not FormData, as image URLs are now strings
         );
       } else {
+        // Remove the merge conflict markers here.
+        // Use the correct backend URL.
         await axios.post(
           "https://agxbackend-1.onrender.com/client/addproduct",
           productData // Send as JSON
         );
-=======
-        await axios.patch(`https://agx-backedn.onrender.com/client/updateproduct/${editingProductId}`, data);
-      } else {
-        await axios.post("https://agx-backedn.onrender.com/client/addproduct", data);
->>>>>>> f94b94fe8015937335825ae184ba4ffce1056922
       }
       fetchProducts();
       resetForm();
@@ -726,15 +712,8 @@ const ProductAdmin = () => {
                   <CardMedia
                     component="img"
                     height="160"
-<<<<<<< HEAD
+                    // Cloudinary URLs are absolute, so no need to prepend base URL
                     image={product.coverImage || "/placeholder.jpg"} // Cloudinary URL or fallback
-=======
-                    image={
-                      product.coverImage
-                        ? `https://agx-backedn.onrender.com${product.coverImage}`
-                        : "/placeholder.jpg"
-                    }
->>>>>>> f94b94fe8015937335825ae184ba4ffce1056922
                     alt={product.name}
                     sx={{
                       objectFit: "cover",
