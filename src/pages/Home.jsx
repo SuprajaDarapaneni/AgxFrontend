@@ -6,6 +6,8 @@ import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet-async';
 import 'swiper/css';
 import 'swiper/css/navigation';
+import CookieConsent from '../components/CookieConsent';  // adjust path as needed
+
 import 'swiper/css/pagination';
 
 import globalBusinessImage from '../assets/Import-....jpg';
@@ -35,7 +37,7 @@ const HomePage = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch('https://agxbackend-1.onrender.com/client/getproducts');
+        const response = await fetch('https://agx-backedn.onrender.com/client/getproducts');
         const data = await response.json();
         setProducts(data);
       } catch (error) {
@@ -47,7 +49,7 @@ const HomePage = () => {
    useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await fetch('https://agxbackend-1.onrender.com/reviews');
+        const response = await fetch('https://agx-backedn.onrender.com/reviews');
         const data = await response.json();
         setReviews(data);
       } catch (error) {
@@ -97,15 +99,24 @@ const HomePage = () => {
       'Explore our premium services and international products. Discover why AGX Global is your ideal partner in trade.'
     }
   />
-  <meta property="og:type" content="website" />
+{/*   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.agx-international.com/" />
-  <meta property="og:image" content="https://www.agx-international.com/favicon.ico" />
+  <meta property="og:image" content="https://www.agx-international.com/favicon.ico" /> */}
+
+     <meta property="og:type" content="website" />
+<meta property="og:url" content="https://www.agx-international.com/" />
+<meta property="og:title" content="AGX International – Import & Export Logistics Solutions" />
+<meta property="og:description" content="Your trusted global logistics partner for freight, customs, and trade." />
+<meta property="og:image" content="https://www.agx-international.com/assets/og-image.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+
 
   {/* Twitter Card */}
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={t('homepage.seoTitle') || 'AGX Global | International Trade Experts'} />
   <meta name="twitter:description" content={t('homepage.seoDescription') || 'Trusted global trade partner.'} />
-  <meta name="twitter:image" content="https://www.agx-international.com/favicon.ico" />
+  <meta name="twitter:image" content="https://www.agx-international.com/assets/og-image.jpg" />
 </Helmet>
 
 
@@ -256,7 +267,7 @@ const HomePage = () => {
                     src={
                       product.coverImage?.startsWith('http')
                         ? product.coverImage
-                        : `https://agxbackend-1.onrender.com/${product.coverImage?.replace(/^\/+/, '')}`
+                        : `https://agx-backedn.onrender.com/${product.coverImage?.replace(/^\/+/, '')}`
                     }
                     alt={product.name || 'Product Image'}
                     className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
@@ -372,7 +383,7 @@ const HomePage = () => {
       </div>
     </section>
 
-      
+       {/* <CookieConsent /> */}
  
       </main>
     </div>

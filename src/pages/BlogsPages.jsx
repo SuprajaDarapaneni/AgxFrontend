@@ -75,7 +75,7 @@ const BlogsPage = () => {
     }), [mode]);
 
   useEffect(() => {
-    fetch('https://agxbackend-1.onrender.com/blogs')
+    fetch('https://agx-backedn.onrender.com/blogs')
       .then((res) => res.json())
       .then((data) => setBlogs(data))
       .catch((err) => console.error('Failed to fetch blogs:', err));
@@ -123,8 +123,8 @@ const BlogsPage = () => {
       }
 
       const url = editingId
-        ? `https://agxbackend-1.onrender.com/blogs/${editingId}`
-        : 'https://agxbackend-1.onrender.com/blogs';
+        ? `https://agx-backedn.onrender.com/blogs/${editingId}`
+        : 'https://agx-backedn.onrender.com/blogs';
       const method = editingId ? 'PUT' : 'POST';
 
       const res = await fetch(url, {
@@ -162,7 +162,7 @@ const BlogsPage = () => {
 
   const handleDelete = async (id) => {
     try {
-      const res = await fetch(`https://agxbackend-1.onrender.com/blogs/${id}`, { method: 'DELETE' });
+      const res = await fetch(`https://agx-backedn.onrender.com/blogs/${id}`, { method: 'DELETE' });
       if (!res.ok) throw new Error(t('blogspage.failedToDeleteBlog'));
       setBlogs(blogs.filter((b) => b._id !== id));
       setMessage(t('blogspage.blogDeletedSuccess'));
