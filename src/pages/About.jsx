@@ -86,7 +86,7 @@ const About = () => {
 
       <main aria-label={`About ${company}`} className="container mx-auto px-4 max-w-7xl">
         <motion.h1
-          className="text-4xl sm:text-5xl font-extrabold text-center text-pink-500 mb-4 sm:mb-6 tracking-wide drop-shadow-md"
+          className="text-4xl sm:text-5xl font-extrabold text-center text-pink-800 mb-4 sm:mb-6  "
           variants={fadeInUp}
           initial="hidden"
           animate="visible"

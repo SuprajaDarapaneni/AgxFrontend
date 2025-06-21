@@ -115,7 +115,7 @@ const ProductAdmin = () => {
       // Remove the merge conflict markers here.
       // Use the correct backend URL.
       const res = await axios.get(
-        "https://agxbackend-1.onrender.com/client/getproducts"
+        "https://agxbackend.onrender.com/client/getproducts"
       );
       const sortedProducts = res.data.sort(
         (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
@@ -156,7 +156,7 @@ const ProductAdmin = () => {
       // Remove the merge conflict markers here.
       // Use the correct backend URL.
       await axios.delete(
-        `https://agxbackend-1.onrender.com/client/deleteproduct/${id}`
+        ` http://localhost:9000/client/deleteproduct/${id}`
       );
       fetchProducts();
     } catch (error) {
@@ -203,6 +203,7 @@ const ProductAdmin = () => {
       );
       setLoading(false); // End loading
       return res.data.secure_url; // Return the public URL
+      
     } catch (error) {
       setLoading(false); // End loading even on error
       console.error("Error uploading to Cloudinary:", error);
@@ -223,6 +224,7 @@ const ProductAdmin = () => {
       const url = await uploadImageToCloudinary(formData.coverImage);
       if (url) {
         coverImageUrl = url;
+        console.log(coverImageUrl)
       } else {
         setLoading(false);
         return; // Stop submission if cover image upload fails
@@ -265,14 +267,14 @@ const ProductAdmin = () => {
         // Remove the merge conflict markers here.
         // Use the correct backend URL.
         await axios.patch(
-          `https://agxbackend-1.onrender.com/client/updateproduct/${editingProductId}`,
+          ` http://localhost:9000/client/updateproduct/${editingProductId}`,
           productData // Send as JSON, not FormData, as image URLs are now strings
         );
       } else {
         // Remove the merge conflict markers here.
         // Use the correct backend URL.
         await axios.post(
-          "https://agxbackend-1.onrender.com/client/addproduct",
+          " http://localhost:9000/client/addproduct",
           productData // Send as JSON
         );
       }

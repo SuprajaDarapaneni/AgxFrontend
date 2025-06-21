@@ -82,17 +82,18 @@ function ContactForm() {
   };
 
   return (
-    <section className="max-w-6xl mx-auto my-12 px-4" aria-label={t("contactForm.title") || "Contact Form"}>
-      <header>
-        <h1 className="text-5xl font-extrabold text-pink-700 mb-4 drop-shadow-sm text-center">
-          {t("contactForm.title") || "Contact Us"}
-        </h1>
-        <div className="w-20 h-1 bg-pink-500 mx-auto rounded mb-6 animate-pulse" aria-hidden="true"></div>
-        <p className="text-center mb-12 text-gray-600 max-w-2xl mx-auto">
-          {t("contactForm.description") ||
-            "Connect with AGX-International — your trusted global trade partner. Whether you're looking to import quality products or expand your business across borders, our expert team is here to support you every step of the way. Let's grow together, globally."}
-        </p>
-      </header>
+   <section className="bg-white text-black flex flex-col items-center py-16 sm:py-20 px-4 max-w-6xl mx-auto" aria-label={t("contactForm.title") || "Contact Form"}>
+  <header className="w-full">
+    <h1 className="text-5xl font-extrabold text-pink-800 mb-6 drop-shadow-sm text-center">
+      {t("contactForm.title") || "Contact Us"}
+    </h1>
+    <div className="w-20 h-1 bg-pink-500 mx-auto rounded mb-6 animate-pulse" aria-hidden="true"></div>
+    <p className="text-center mb-12 text-gray-600 max-w-2xl mx-auto">
+      {t("contactForm.description") ||
+        "Connect with AGX-International — your trusted global trade partner. Whether you're looking to import quality products or expand your business across borders, our expert team is here to support you every step of the way. Let's grow together, globally."}
+    </p>
+  </header>
+
 
       <div className="flex flex-col lg:flex-row gap-12">
         {/* Contact Info */}

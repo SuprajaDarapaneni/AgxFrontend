@@ -29,7 +29,7 @@ const Blogs = () => {
   }, [t]);
 
   return (
-    <section className="container mx-auto px-4 py-12">
+    <section className="min-h-screen bg-[#fff5fa] pt-20 pb-16 px-4 sm:px-6 lg:px-8">
       <Helmet>
         <title>{t('blogs.title')} | AGX-International</title>
         <meta
@@ -39,8 +39,10 @@ const Blogs = () => {
         <meta name="robots" content="index, follow" />
       </Helmet>
 
-      <h2 className="text-3xl font-bold text-center text-pink-800 mb-1">{t('blogs.title')}</h2>
-      <div className="w-20 h-1 bg-pink-500 mx-auto rounded mb-6 animate-pulse"></div>
+      <h2 className="text-4xl sm:text-5xl font-extrabold text-center text-[#8A0C5A] mb-4 sm:mb-6">
+        {t('blogs.title')}
+      </h2>
+      <div className="w-20 h-1 bg-pink-400 mx-auto rounded mb-12 animate-pulse"></div>
 
       <main aria-label={t('blogs.title')}>
         {loading ? (

@@ -51,7 +51,7 @@ const Services = () => {
       <section className="bg-gradient-to-br from-pink-50 via-white to-pink-50 min-h-screen py-20">
         <div className="container mx-auto px-6 max-w-7xl">
 
-          <h2 className="text-5xl font-extrabold text-center text-pink-600 mb-6 tracking-tight drop-shadow-md">
+          <h2 className="text-5xl font-extrabold text-center text-pink-800 mb-6 ">
             {t('title')}
           </h2>
           <div className="flex justify-center mb-12">

@@ -76,15 +76,15 @@ const Products = () => {
         </script>
       </Helmet>
 
-      <section className="max-w-7xl mx-auto px-6 py-16 bg-gradient-to-b from-white to-indigo-50 min-h-screen">
-        <header className="mb-14 text-center">
-          <h1 className="text-5xl font-extrabold text-pink-700 mb-4 drop-shadow-sm">
-            {t("product.title")}
-          </h1>
-          <div className="w-20 h-1 bg-pink-500 mx-auto rounded mb-6 animate-pulse"></div>
-          <p className="max-w-2xl mx-auto text-gray-600 text-lg leading-relaxed">
-            {t("product.description")}
-          </p>
+     <section className="bg-gradient-to-b from-white to-indigo-50 text-black min-h-screen flex flex-col items-center py-16 sm:py-20">
+  <header className="text-center px-4 max-w-4xl">
+    <h1 className="text-4xl sm:text-5xl font-extrabold text-pink-800 mb-4">
+      {t("product.title")}
+    </h1>
+    <div className="w-20 h-1 bg-pink-500 mx-auto rounded mb-6 animate-pulse"></div>
+    <p className="text-gray-600 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
+      {t("product.description")}
+    </p>
         </header>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
