@@ -16,7 +16,7 @@ const Header = () => {
     { key: "nav.aboutUs", path: "/about" },
     { key: "nav.services", path: "/services" },
     { key: "nav.products", path: "/products" },
-      { key: "nav.careers", path: "/careers" },
+    { key: "nav.careers", path: "/careers" },
     { key: "nav.blog", path: "/blogs" },
     { key: "nav.contactUs", path: "/contact" },
     { key: "nav.review", path: "/review" },
@@ -83,27 +83,30 @@ const Header = () => {
         </div>
 
         {/* Main Header */}
-        <div className="max-w-screen-xl mx-auto px-4 py-3 flex items-center justify-between gap-4 flex-wrap md:flex-nowrap">
-          <Link to="/" className="flex items-center space-x-3 flex-shrink-0">
-            <img
-              src={logo}
-              alt="AGX-International Logo"
-              className="h-12 w-auto object-contain"
-              loading="lazy"
-              onError={(e) => {
-                e.currentTarget.src = "/fallback-logo.png";
-              }}
-            />
-          </Link>
+        <div className="max-w-screen-xl mx-auto px-4 py-3 flex items-center justify-between gap-4 flex-nowrap">
+          {/* Logo and toggle grouped together */}
+          <div className="flex items-center justify-between w-full md:w-auto">
+            <Link to="/" className="flex items-center space-x-3 flex-shrink-0">
+              <img
+                src={logo}
+                alt="AGX-International Logo"
+                className="h-12 w-auto object-contain"
+                loading="lazy"
+                onError={(e) => {
+                  e.currentTarget.src = "/fallback-logo.png";
+                }}
+              />
+            </Link>
 
-          {/* Mobile Menu Toggle */}
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden ml-auto text-pink-700 text-3xl focus:outline-none"
-            aria-label="Toggle mobile menu"
-          >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+            {/* Mobile Menu Toggle */}
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="md:hidden ml-auto text-pink-700 text-3xl focus:outline-none"
+              aria-label="Toggle mobile menu"
+            >
+              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex flex-wrap justify-center md:justify-end gap-4 lg:gap-6 text-sm w-full md:w-auto">
