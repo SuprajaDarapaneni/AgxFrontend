@@ -117,7 +117,7 @@ const Products = () => {
                 />
               </div>
 
-              <p className="inline-block bg-pink-100 hover:bg-pink-200 font-medium px-4 py-1 rounded-full text-sm mb-4 tracking-wide select-none">
+              <p className="inline-block bg-pink-100 hover:bg-pink-300 font-medium px-4 py-1 rounded-full text-sm mb-4 tracking-wide select-none">
                 {product.category}
               </p>
 
