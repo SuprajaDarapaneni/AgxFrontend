@@ -598,18 +598,20 @@ const ProductAdmin = () => {
                 <Typography variant="subtitle1" gutterBottom>
                   Additional Images:
                 </Typography>
-                <input
-                  type="file"
-                  accept="image/*"
-                  multiple
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      multipleImages: Array.from(e.target.files),
-                    })
-                  }
-                  style={{ marginBottom: 12 }}
-                />
+               <input
+  type="file"
+  accept="image/*"
+  multiple
+  onChange={(e) => {
+    const files = Array.from(e.target.files);
+    console.log("Selected multiple files:", files);
+    setFormData({
+      ...formData,
+      multipleImages: files,
+    });
+  }}
+/>
+
 
                 {formData.multipleImages.length > 0 && (
                   <Stack direction="row" flexWrap="wrap" gap={1} mt={1}>

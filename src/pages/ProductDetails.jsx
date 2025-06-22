@@ -183,7 +183,7 @@ const ProductDetails = () => {
             {product.multipleImages?.length > 0 && (
               <div className="grid grid-cols-4 gap-3 mt-6 w-full max-w-lg">
                 {product.multipleImages.map((img, index) => {
-                  const fullImg = `${baseUrl}${img}`;
+                  const fullImg = `${img}`;
                   return (
                     <motion.img
                       key={index}
