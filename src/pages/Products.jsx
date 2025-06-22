@@ -37,7 +37,7 @@ const Products = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-white">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-pink-600 border-opacity-50"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-pink-600 border-opacity-80"></div>
         <span className="mt-4 text-pink-600 text-lg font-medium">{t("product.loading", "Loading products...")}</span>
       </div>
     );
