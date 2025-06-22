@@ -49,9 +49,9 @@ const ProductDetails = () => {
         setProduct(data);
 
         if (data.coverImage) {
-          setMainImage(`${baseUrl}${data.coverImage}`);
+          setMainImage(`${data.coverImage}`);
         } else if (data.multipleImages?.length > 0) {
-          setMainImage(`${baseUrl}${data.multipleImages[0]}`);
+          setMainImage(` ${data.multipleImages[0]}`);
         }
 
         // Translate required fields in parallel

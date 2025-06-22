@@ -108,7 +108,7 @@ const Products = () => {
                 <img
                   src={
                     product.coverImage
-                      ? `https://agxbackend.onrender.com${product.coverImage}`
+                      ? `${product.coverImage}`
                       : `https://via.placeholder.com/300x200?text=${encodeURIComponent(t("product.placeholderAlt"))}`
                   }
                   alt={product.bannerTitle ? `${product.bannerTitle} - ${product.category}` : t("product.placeholderAlt")}
