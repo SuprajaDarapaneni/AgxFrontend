@@ -136,7 +136,7 @@ const BuySellForm = () => {
         imageUrls: uploadedImageUrls,
       };
 
-      const response = await fetch('https://agx-backedn.onrender.com/buyform', {
+      const response = await fetch('https://agxbackend.onrender.com/buyform', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -184,7 +184,8 @@ const BuySellForm = () => {
   return (
     <>
       <Helmet>
-        <title>{t('form.pageTitle') || 'Buy/Sell Request Form - AGX-International'}</title>
+        <title>{'Global Trade Inquiry Buy/Sell With Us'}</title>
+        t('form.pageTitle') || 
         <meta
           name="description"
           content={t('form.pageDescription') || 'Submit your buy or sell request with AGX-International using our easy-to-use form.'}
@@ -195,8 +196,11 @@ const BuySellForm = () => {
       <main className="min-h-screen bg-gradient-to-r from-pink-100 via-pink-50 to-pink-100 flex items-center justify-center px-6 py-8">
         <section className="max-w-xl w-full bg-white p-8 rounded-3xl shadow-xl border border-pink-200 space-y-8">
           <h1 className="text-3xl font-bold text-pink-600 text-center">
-            {t('form.heading') || 'Buy/Sell Request Form'}
-          </h1>
+  Global Trade Inquiry{' '}
+  <span className="uppercase font-bold">Buy/Sell</span>{' '}
+  With Us
+</h1>
+
 
           <form onSubmit={handleSubmit} noValidate>
             <fieldset className="flex justify-center space-x-6 mb-6">
