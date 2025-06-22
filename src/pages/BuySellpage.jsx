@@ -111,7 +111,7 @@ const BuySellForm = () => {
         imageUrls: uploadedImageUrls,
       };
 
-      const response = await fetch('https://agx-backedn.onrender.com/buyform', {
+      const response = await fetch('https://agxbackend.onrender.com/buyform', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -62,7 +62,7 @@ const ReviewsPage = () => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
 
   useEffect(() => {
-    fetch('https://agx-backedn.onrender.com/reviewss')
+    fetch('https://agxbackend.onrender.com/reviewss')
       .then(res => res.json())
       .then(data => setReviews(Array.isArray(data) ? data : []))
       .catch(err => console.error('Failed to fetch reviews:', err));
@@ -81,8 +81,8 @@ const ReviewsPage = () => {
     e.preventDefault();
     try {
       const url = editingId
-        ? `https://agx-backedn.onrender.com/reviews/${editingId}`
-        : 'https://agx-backedn.onrender.com/reviews';
+        ? `https://agxbackend.onrender.com/reviews/${editingId}`
+        : 'https://agxbackend.onrender.com/reviews';
       const method = editingId ? 'PUT' : 'POST';
 
       const res = await fetch(url, {
@@ -117,7 +117,7 @@ const ReviewsPage = () => {
 
   const handleDelete = async (id) => {
     try {
-      const res = await fetch(`https://agx-backedn.onrender.com/reviews/${id}`, { method: 'DELETE' });
+      const res = await fetch(`https://agxbackend.onrender.com/reviews/${id}`, { method: 'DELETE' });
       if (!res.ok) throw new Error(t('reviewspage.notifications.errorDelete'));
 
       setReviews(reviews.filter(r => r._id !== id));

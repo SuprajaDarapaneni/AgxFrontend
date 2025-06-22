@@ -25,8 +25,8 @@ const Auth = () => {
 
     const url =
       mode === 'login'
-        ? 'https://agx-backedn.onrender.com/auth/login'
-        : 'https://agx-backedn.onrender.com/auth/signup';
+        ? 'https://agxbackend.onrender.com/auth/login'
+        : 'https://agxbackend.onrender.com/auth/signup';
 
     try {
       const res = await axios.post(url, { email, password });
