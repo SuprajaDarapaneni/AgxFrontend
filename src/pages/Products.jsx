@@ -78,9 +78,9 @@ const Products = () => {
 
      <section className="max-w-7xl mx-auto px-6 pt-20 pb-8 bg-gradient-to-b from-white to-indigo-50 min-h-screen">
   <header className="mb-10 text-center">
-    <h1 className="text-4xl sm:text-5xl font-extrabold text-pink-800 mb-2">
-      {t("product.title")}
-    </h1>
+    <h1 className="text-4xl sm:text-5xl font-extrabold text-pink-800 mb-4">
+  Industries We Serve
+</h1>
     <div className="w-20 h-1 bg-pink-500 mx-auto rounded mb-4 animate-pulse"></div>
     <p className="max-w-2xl mx-auto text-gray-600 text-base sm:text-lg leading-relaxed">
       {t("product.description")}
@@ -117,7 +117,7 @@ const Products = () => {
                 />
               </div>
 
-              <p className="inline-block bg-pink-100 hover:bg-pink-300 font-medium px-4 py-1 rounded-full text-sm mb-4 tracking-wide select-none">
+              <p className="inline-block bg-pink-100 hover:bg-pink-200 font-medium px-4 py-1 rounded-full text-sm mb-4 tracking-wide select-none">
                 {product.category}
               </p>
 

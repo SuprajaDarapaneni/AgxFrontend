@@ -236,7 +236,8 @@
     "Machinery and Tools": "Machines et outils",
     "Home Decor": "Décoration intérieure",
     "Imitation Jewellery": "Bijoux fantaisie",
-    "Cosmetics": "Cosmétiques"
+    "Cosmetics": "Cosmétiques",
+     "Other":"Other"
   },
   "admin": {
     "title": "Page d'administration",

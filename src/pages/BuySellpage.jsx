@@ -160,7 +160,7 @@ const BuySellForm = () => {
           location: '',
           country: '',
           industries: [],
-          otherIndustry: '',
+          other: '',
           timing: 'Immediately',
           message: '',
         });

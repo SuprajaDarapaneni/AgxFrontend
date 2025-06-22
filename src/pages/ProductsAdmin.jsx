@@ -156,7 +156,7 @@ const ProductAdmin = () => {
       // Remove the merge conflict markers here.
       // Use the correct backend URL.
       await axios.delete(
-        ` http://localhost:9000/client/deleteproduct/${id}`
+        `https://agxbackend.onrender.com/client/deleteproduct/${id}`
       );
       fetchProducts();
     } catch (error) {
@@ -267,14 +267,14 @@ const ProductAdmin = () => {
         // Remove the merge conflict markers here.
         // Use the correct backend URL.
         await axios.patch(
-          ` http://localhost:9000/client/updateproduct/${editingProductId}`,
+          `https://agxbackend.onrender.com/client/updateproduct/${editingProductId}`,
           productData // Send as JSON, not FormData, as image URLs are now strings
         );
       } else {
         // Remove the merge conflict markers here.
         // Use the correct backend URL.
         await axios.post(
-          " http://localhost:9000/client/addproduct",
+          "https://agxbackend.onrender.com/client/addproduct",
           productData // Send as JSON
         );
       }

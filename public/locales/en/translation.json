@@ -231,7 +231,8 @@
     "Machinery and Tools": "Machinery and Tools",
     "Home Decor": "Home Decor",
     "Imitation Jewellery": "Imitation Jewellery",
-    "Cosmetics": "Cosmetics"
+    "Cosmetics": "Cosmetics",
+    "Other":"Other"
   },
   "countryOptions": {
     "India": "India",
