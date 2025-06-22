@@ -37,7 +37,7 @@ const HomePage = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch('https://agx-backedn.onrender.com/client/getproducts');
+        const response = await fetch('https://agxbackend.onrender.com/client/getproducts');
         const data = await response.json();
         setProducts(data);
       } catch (error) {
@@ -49,7 +49,7 @@ const HomePage = () => {
    useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await fetch('https://agx-backedn.onrender.com/reviews');
+        const response = await fetch('https://agxbackend.onrender.com/reviews');
         const data = await response.json();
         setReviews(data);
       } catch (error) {
@@ -267,7 +267,7 @@ const HomePage = () => {
                     src={
                       product.coverImage?.startsWith('http')
                         ? product.coverImage
-                        : `https://agx-backedn.onrender.com/${product.coverImage?.replace(/^\/+/, '')}`
+                        : `https://agxbackend.onrender.com/${product.coverImage?.replace(/^\/+/, '')}`
                     }
                     alt={product.name || 'Product Image'}
                     className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"

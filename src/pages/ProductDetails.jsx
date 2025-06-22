@@ -4,7 +4,7 @@ import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
 import { Helmet } from "react-helmet-async";
 
-const baseUrl = "https://agx-backedn.onrender.com";
+const baseUrl = "https://agxbackend.onrender.com";
 
 // Helper function to translate text using LibreTranslate API
 const translateText = async (text, targetLang = "en") => {
