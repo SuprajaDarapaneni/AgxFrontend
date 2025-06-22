@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';  // <-- import here
+import { useTranslation } from 'react-i18next';  
 import {
   Box,
   Button,
@@ -27,7 +27,7 @@ import Sidebar from '../components/sidebar';
 const drawerWidth = 240;
 
 const ReviewsPage = () => {
-  const { t, i18n } = useTranslation(); // <-- useTranslation hook
+  const { t, i18n } = useTranslation();
 
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   const [mode, setMode] = useState(prefersDarkMode ? 'dark' : 'light');
@@ -62,7 +62,7 @@ const ReviewsPage = () => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
 
   useEffect(() => {
-    fetch('https://agxbackend.onrender.com/reviewss')
+    fetch('https://agxbackend.onrender.com/reviews')  // FIXED URL here
       .then(res => res.json())
       .then(data => setReviews(Array.isArray(data) ? data : []))
       .catch(err => console.error('Failed to fetch reviews:', err));
@@ -79,6 +79,18 @@ const ReviewsPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const payload = {
+      ...form,
+      rating: Number(form.rating),  // convert rating to number
+    };
+
+    // Basic client-side validation for rating
+    if (isNaN(payload.rating) || payload.rating < 1 || payload.rating > 5) {
+      alert('Rating must be a number between 1 and 5.');
+      return;
+    }
+
     try {
       const url = editingId
         ? `https://agxbackend.onrender.com/reviews/${editingId}`
@@ -88,7 +100,7 @@ const ReviewsPage = () => {
       const res = await fetch(url, {
         method,
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify(payload),
       });
 
       if (!res.ok) throw new Error(t('reviewspage.notifications.errorSubmit'));
