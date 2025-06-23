@@ -65,7 +65,7 @@ const CustomerReviewForm = () => {
     };
 
     try {
-      const response = await fetch('http://localhost:9000/review-form', {
+      const response = await fetch('https://agxbackend.onrender.com/review-form', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(submitData),
