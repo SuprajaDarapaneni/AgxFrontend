@@ -69,7 +69,6 @@ const BuySellForm = () => {
     setFormData(prev => ({
       ...prev,
       industries: selectedOptions ? selectedOptions.map(option => option.value) : [],
-      // Clear otherIndustry if 'Other' is not selected
       otherIndustry: selectedOptions && selectedOptions.some(o => o.value === 'Other') ? prev.otherIndustry : '',
     }));
   };
@@ -174,12 +173,7 @@ const BuySellForm = () => {
       });
 
       if (response.ok) {
-        setSuccessMessage(
-          t('form.successMessage') +
-          (uploadedImageUrls.length > 0
-            ? `\n\n${t('form.uploadedImages') || 'Uploaded Images:'}\n${uploadedImageUrls.join('\n')}`
-            : '')
-        );
+        setSuccessMessage(t('form.successMessage') || 'Review submitted successfully.');
 
         setFormData({
           buySell: 'buy',
@@ -197,6 +191,9 @@ const BuySellForm = () => {
         if (fileInputRef.current) {
           fileInputRef.current.value = null;
         }
+
+        // Hide success message after 5 seconds
+        setTimeout(() => setSuccessMessage(''), 5000);
       } else {
         setErrorMessage(t('form.failureMessage') || 'Submission failed. Please try again.');
       }
@@ -333,19 +330,19 @@ const BuySellForm = () => {
               <label htmlFor="country" className="block text-pink-600 font-medium mb-1">
                 {t('form.country')}<span className="text-red-500">*</span>
               </label>
-              <select
+              <Select
                 id="country"
                 name="country"
+                options={COUNTRY_OPTIONS}
+                value={COUNTRY_OPTIONS.find(c => c.value === formData.country) || null}
+                onChange={(selected) => setFormData(prev => ({ ...prev, country: selected ? selected.value : '' }))}
+                placeholder={t('form.selectCountry')}
+                className="react-select-container"
+                classNamePrefix="react-select"
+                aria-label={t('form.country')}
+                isSearchable
                 required
-                value={formData.country}
-                onChange={handleChange}
-                className="w-full border border-pink-300 px-4 py-3 rounded-lg text-gray-700 focus:ring-2 focus:ring-pink-400"
-              >
-                <option value="" disabled>{t('form.selectCountry')}</option>
-                {COUNTRY_OPTIONS.map(({ value, label }) => (
-                  <option key={value} value={value}>{label}</option>
-                ))}
-              </select>
+              />
             </div>
 
             {/* Industries */}
@@ -354,24 +351,26 @@ const BuySellForm = () => {
                 {t('form.industries')}<span className="text-red-500">*</span>
               </label>
               <Select
-                inputId="industries"
-                isMulti
-                required
+                id="industries"
+                name="industries"
                 options={INDUSTRY_OPTIONS}
                 value={INDUSTRY_OPTIONS.filter(opt => formData.industries.includes(opt.value))}
                 onChange={handleIndustrySelect}
-                classNamePrefix="select"
-                aria-describedby="industryHelp"
+                placeholder={t('form.selectIndustries')}
+                className="react-select-container"
+                classNamePrefix="react-select"
+                isMulti
+                aria-label={t('form.industries')}
               />
               {formData.industries.includes('Other') && (
                 <input
                   type="text"
                   name="otherIndustry"
-                  required
-                  placeholder={t('form.otherIndustryPlaceholder') || "Please specify other industry"}
                   value={formData.otherIndustry}
                   onChange={handleChange}
-                  className="mt-3 w-full border border-pink-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-pink-400"
+                  placeholder={t('form.otherIndustryPlaceholder')}
+                  className="mt-2 w-full border border-pink-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-pink-400"
+                  aria-label={t('form.otherIndustry')}
                 />
               )}
             </div>
@@ -386,12 +385,14 @@ const BuySellForm = () => {
                 name="timing"
                 value={formData.timing}
                 onChange={handleChange}
-                className="w-full border border-pink-300 px-4 py-3 rounded-lg text-gray-700 focus:ring-2 focus:ring-pink-400"
+                className="w-full border border-pink-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-pink-400"
+                aria-label={t('form.timing')}
               >
-                <option value="Immediately">{'Immediately'}</option>
-                <option value="Within 30 Days">{'Within 30 Days'}</option>
-                <option value="Within 90 Days">{ 'Within 90 Days'}</option>
-                <option value="More than 90 Days">{'More than 90 Days'}</option>
+                {['Immediately', 'Next Week', 'Next Month', 'Not Sure'].map(option => (
+                  <option key={option} value={option}>
+                    {t(`form.timingOptions.${option}`)}
+                  </option>
+                ))}
               </select>
             </div>
 
@@ -404,52 +405,62 @@ const BuySellForm = () => {
                 id="message"
                 name="message"
                 rows="4"
-                maxLength="500"
                 value={formData.message}
                 onChange={handleChange}
-                placeholder={t('form.messagePlaceholder') || 'Your message'}
-                className="w-full border border-pink-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-pink-400 resize-none"
+                placeholder={t('form.messagePlaceholder')}
+                className="w-full border border-pink-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-pink-400"
               />
             </div>
 
-            {/* Image Upload */}
+            {/* File Upload */}
             <div className="mb-6">
               <label htmlFor="images" className="block text-pink-600 font-medium mb-1">
-                {"Upload The Image"}
+                {t('form.uploadImages')}
               </label>
               <input
-                ref={fileInputRef}
                 id="images"
                 name="images"
                 type="file"
-                accept="image/*"
                 multiple
+                accept="image/*"
                 onChange={handleFileChange}
+                ref={fileInputRef}
                 className="block w-full text-pink-600"
+                aria-describedby="imagesHelp"
               />
               {files.length > 0 && (
-                <p className="mt-2 text-sm text-gray-600">
-                  {files.length} { 'files selected'}
-                </p>
+                <p className="mt-2 text-pink-700">{files.length} {t('form.filesSelected')}</p>
               )}
             </div>
 
-            {errorMessage && (
-              <p className="text-red-600 font-semibold mb-4" role="alert">{errorMessage}</p>
+            {/* Messages */}
+            {successMessage && (
+              <div
+                role="alert"
+                className="mb-4 p-4 text-green-700 bg-green-100 rounded"
+              >
+                {successMessage}
+              </div>
             )}
 
-            {successMessage && (
-              <p className="text-green-600 font-semibold mb-4 whitespace-pre-line" role="status">{successMessage}</p>
+            {errorMessage && (
+              <div
+                role="alert"
+                className="mb-4 p-4 text-red-700 bg-red-100 rounded"
+              >
+                {errorMessage}
+              </div>
             )}
 
             <button
               type="submit"
               disabled={isSubmitDisabled}
-              className={`w-full py-3 rounded-lg text-white font-semibold ${
+              className={`w-full py-3 font-semibold text-white rounded-lg ${
                 isSubmitDisabled ? 'bg-pink-300 cursor-not-allowed' : 'bg-pink-600 hover:bg-pink-700'
-              } transition-colors duration-300`}
+              }`}
+              aria-live="polite"
             >
-              {"submit"}
+              {t('form.submit')}
             </button>
           </form>
         </section>
