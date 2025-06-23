@@ -175,7 +175,7 @@ const BuySellForm = () => {
 
       if (response.ok) {
         setSuccessMessage(
-          'Review submitted successfully.'
+          'Form submitted successfully.'
         );
 
         setFormData({
