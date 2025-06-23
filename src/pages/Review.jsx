@@ -21,7 +21,7 @@ const CustomerReviewForm = () => {
     setIsLoadingReviews(true);
     setReviewsError('');
     try {
-      const response = await fetch('https://agxbackend.onrender.com/reviews');
+      const response = await fetch('https://agxbackend.onrender.com/review-form');
       if (!response.ok) throw new Error(t('customerReviewForm.reviewsSection.error'));
       const data = await response.json();
       setReviews(data);
@@ -65,7 +65,7 @@ const CustomerReviewForm = () => {
     };
 
     try {
-      const response = await fetch('https://agxbackend.onrender.com/reviews', {
+      const response = await fetch('http://localhost:9000/review-form', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(submitData),
