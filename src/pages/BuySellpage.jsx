@@ -47,7 +47,7 @@ const BuySellForm = () => {
     name: '',
     phone: '',
     email: '',
-    location: '',
+    dropOffLocation: '',
     country: '',
     industries: [],
     otherIndustry: '',
@@ -69,6 +69,8 @@ const BuySellForm = () => {
     setFormData(prev => ({
       ...prev,
       industries: selectedOptions ? selectedOptions.map(option => option.value) : [],
+      // Clear otherIndustry if 'Other' is not selected
+      otherIndustry: selectedOptions && selectedOptions.some(o => o.value === 'Other') ? prev.otherIndustry : '',
     }));
   };
 
@@ -76,33 +78,53 @@ const BuySellForm = () => {
     setFiles(Array.from(e.target.files));
   };
 
+  const validateEmail = (email) => /\S+@\S+\.\S+/.test(email);
+  const validatePhone = (phone) => /^\d{8,15}$/.test(phone);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitDisabled(true);
     setSuccessMessage('');
     setErrorMessage('');
 
-    // Manual validation
-    if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      setErrorMessage('Invalid email format.');
+    if (!formData.name.trim() || !/^[a-zA-Z\s]{2,50}$/.test(formData.name)) {
+      setErrorMessage(t('form.validation.name') || 'Please enter a valid name (2-50 letters).');
       setIsSubmitDisabled(false);
       return;
     }
 
-    if (!/^\d{8,15}$/.test(formData.phone)) {
-      setErrorMessage('Phone number should contain 8 to 15 digits only.');
+    if (!validateEmail(formData.email)) {
+      setErrorMessage(t('form.validation.email') || 'Invalid email format.');
+      setIsSubmitDisabled(false);
+      return;
+    }
+
+    if (!validatePhone(formData.phone)) {
+      setErrorMessage(t('form.validation.phone') || 'Phone number should contain 8 to 15 digits only.');
       setIsSubmitDisabled(false);
       return;
     }
 
     if (formData.industries.length === 0) {
-      setErrorMessage('Please select at least one industry.');
+      setErrorMessage(t('form.validation.industries') || 'Please select at least one industry.');
       setIsSubmitDisabled(false);
       return;
     }
 
-    if (formData.industries.includes("Other") && formData.otherIndustry.trim() === "") {
-      setErrorMessage('Please specify the "Other" industry.');
+    if (formData.industries.includes('Other') && formData.otherIndustry.trim() === '') {
+      setErrorMessage(t('form.validation.otherIndustry') || 'Please specify the "Other" industry.');
+      setIsSubmitDisabled(false);
+      return;
+    }
+
+    if (!formData.dropOffLocation.trim()) {
+      setErrorMessage(t('form.validation.location') || 'Please provide your location.');
+      setIsSubmitDisabled(false);
+      return;
+    }
+
+    if (!formData.country) {
+      setErrorMessage(t('form.validation.country') || 'Please select your country.');
       setIsSubmitDisabled(false);
       return;
     }
@@ -128,28 +150,32 @@ const BuySellForm = () => {
         }
       }
 
+      const finalIndustries = formData.industries.includes('Other') && formData.otherIndustry
+        ? [...formData.industries.filter(ind => ind !== 'Other'), formData.otherIndustry]
+        : formData.industries;
+
       const finalData = {
-        ...formData,
-        industries: formData.industries.includes('Other') && formData.otherIndustry
-          ? [...formData.industries.filter(ind => ind !== 'Other'), formData.otherIndustry]
-          : formData.industries,
+        buySell: formData.buySell,
+        name: formData.name.trim(),
+        phone: formData.phone.trim(),
+        email: formData.email.trim(),
+        dropOffLocation: formData.dropOffLocation.trim(),
+        country: formData.country,
+        industries: finalIndustries,
+        timing: formData.timing,
+        message: formData.message.trim(),
         imageUrls: uploadedImageUrls,
       };
 
       const response = await fetch('https://agxbackend.onrender.com/buyform', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(finalData),
       });
 
       if (response.ok) {
         setSuccessMessage(
-          t('form.successMessage') +
-          (uploadedImageUrls.length > 0
-            ? `\n\n${t('form.uploadedImages') || 'Uploaded Images:'}\n${uploadedImageUrls.join('\n')}`
-            : '')
+          'Form submitted successfully.'
         );
 
         setFormData({
@@ -157,10 +183,10 @@ const BuySellForm = () => {
           name: '',
           phone: '',
           email: '',
-          location: '',
+          dropOffLocation: '',
           country: '',
           industries: [],
-          other: '',
+          otherIndustry: '',
           timing: 'Immediately',
           message: '',
         });
@@ -169,11 +195,11 @@ const BuySellForm = () => {
           fileInputRef.current.value = null;
         }
       } else {
-        setErrorMessage(t('form.failureMessage'));
+        setErrorMessage(t('form.failureMessage') || 'Submission failed. Please try again.');
       }
     } catch (error) {
       console.error('Submission error:', error);
-      setErrorMessage(t('form.errorMessage'));
+      setErrorMessage(t('form.errorMessage') || 'An error occurred. Please try again later.');
     } finally {
       setIsSubmitDisabled(false);
     }
@@ -184,8 +210,7 @@ const BuySellForm = () => {
   return (
     <>
       <Helmet>
-        <title>{'Global Trade Inquiry Buy/Sell With Us'}</title>
-        t('form.pageTitle') || 
+        <title>{t('form.pageTitle') || 'Global Trade Inquiry Buy/Sell With Us'}</title>
         <meta
           name="description"
           content={t('form.pageDescription') || 'Submit your buy or sell request with AGX-International using our easy-to-use form.'}
@@ -196,18 +221,22 @@ const BuySellForm = () => {
       <main className="min-h-screen bg-gradient-to-r from-pink-100 via-pink-50 to-pink-100 flex items-center justify-center px-6 py-8">
         <section className="max-w-xl w-full bg-white p-8 rounded-3xl shadow-xl border border-pink-200 space-y-8">
           <h1 className="text-3xl font-bold text-pink-600 text-center">
-  Global Trade Inquiry{' '}
-  <span className="uppercase font-bold">Buy/Sell</span>{' '}
-  With Us
-</h1>
-
+            Global Trade Inquiry{' '}
+            <span className="uppercase font-bold">Buy/Sell</span>{' '}
+            With Us
+          </h1>
 
           <form onSubmit={handleSubmit} noValidate>
-            <fieldset className="flex justify-center space-x-6 mb-6">
+            <fieldset className="flex justify-center space-x-6 mb-6" aria-label={t('form.buySellChoice')}>
               {['buy', 'sell'].map(option => (
-                <label key={option} className="inline-flex items-center text-lg font-medium text-pink-600 cursor-pointer">
+                <label
+                  key={option}
+                  className="inline-flex items-center text-lg font-medium text-pink-600 cursor-pointer"
+                  htmlFor={`buySell-${option}`}
+                >
                   <input
                     type="radio"
+                    id={`buySell-${option}`}
                     name="buySell"
                     value={option}
                     checked={formData.buySell === option}
@@ -235,6 +264,7 @@ const BuySellForm = () => {
                 onChange={handleChange}
                 placeholder={t('form.name')}
                 className="w-full border border-pink-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-pink-400"
+                aria-describedby="nameHelp"
               />
             </div>
 
@@ -254,6 +284,7 @@ const BuySellForm = () => {
                 onChange={handleChange}
                 placeholder={t('form.phone')}
                 className="w-full border border-pink-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-pink-400"
+                aria-describedby="phoneHelp"
               />
             </div>
 
@@ -272,23 +303,24 @@ const BuySellForm = () => {
                 onChange={handleChange}
                 placeholder={t('form.email')}
                 className="w-full border border-pink-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-pink-400"
+                aria-describedby="emailHelp"
               />
             </div>
 
             {/* Location */}
             <div className="mb-6">
-              <label htmlFor="location" className="block text-pink-600 font-medium mb-1">
+              <label htmlFor="dropOffLocation" className="block text-pink-600 font-medium mb-1">
                 {t(locationLabelKey)}<span className="text-red-500">*</span>
               </label>
               <input
-                id="location"
-                name="location"
+                id="dropOffLocation"
+                name="dropOffLocation"
                 type="text"
                 required
                 maxLength="100"
-                value={formData.location}
+                value={formData.dropOffLocation}
                 onChange={handleChange}
-                placeholder="Town/City/State"
+                placeholder={'Town/City/State'}
                 className="w-full border border-pink-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-pink-400"
               />
             </div>
@@ -326,13 +358,14 @@ const BuySellForm = () => {
                 value={INDUSTRY_OPTIONS.filter(opt => formData.industries.includes(opt.value))}
                 onChange={handleIndustrySelect}
                 classNamePrefix="select"
+                aria-describedby="industryHelp"
               />
-              {formData.industries.includes("Other") && (
+              {formData.industries.includes('Other') && (
                 <input
                   type="text"
                   name="otherIndustry"
                   required
-                  placeholder="Please specify other industry"
+                  placeholder={t('form.otherIndustryPlaceholder') || "Please specify other industry"}
                   value={formData.otherIndustry}
                   onChange={handleChange}
                   className="mt-3 w-full border border-pink-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-pink-400"
@@ -343,78 +376,78 @@ const BuySellForm = () => {
             {/* Timing */}
             <div className="mb-6">
               <label htmlFor="timing" className="block text-pink-600 font-medium mb-1">
-                {t('form.timing')}<span className="text-red-500">*</span>
+                {t('form.timing')}
               </label>
               <select
                 id="timing"
                 name="timing"
-                required
                 value={formData.timing}
                 onChange={handleChange}
-                className="w-full border border-pink-300 px-4 py-3 rounded-lg"
+                className="w-full border border-pink-300 px-4 py-3 rounded-lg text-gray-700 focus:ring-2 focus:ring-pink-400"
               >
-                <option value="Immediately">{t('form.immediately')}</option>
-                <option value="0-20days">{t('form.days0to20')}</option>
-                <option value="20-45days">{t('form.days20to45')}</option>
-                <option value="45-60days">{t('form.days45to60')}</option>
-                <option value="60-90days">{t('form.days60to90')}</option>
-                <option value="90-120days">{t('form.days90to120')}</option>
+                <option value="Immediately">{'Immediately'}</option>
+                <option value="Within 30 Days">{'Within 30 Days'}</option>
+                <option value="Within 90 Days">{ 'Within 90 Days'}</option>
+                <option value="More than 90 Days">{'More than 90 Days'}</option>
               </select>
             </div>
 
             {/* Message */}
             <div className="mb-6">
               <label htmlFor="message" className="block text-pink-600 font-medium mb-1">
-                {t('form.message')}<span className="text-red-500"></span>
+                {t('form.message')}
               </label>
               <textarea
                 id="message"
                 name="message"
-                
+                rows="4"
                 maxLength="500"
                 value={formData.message}
                 onChange={handleChange}
-                rows={4}
-                className="w-full border border-pink-300 px-4 py-3 rounded-lg resize-none"
+                placeholder={t('form.messagePlaceholder') || 'Your message'}
+                className="w-full border border-pink-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-pink-400 resize-none"
               />
             </div>
 
-            {/* File Upload */}
+            {/* Image Upload */}
             <div className="mb-6">
-              <label htmlFor="files" className="block text-pink-600 font-medium mb-1">
-                {t('form.attachFiles')}
+              <label htmlFor="images" className="block text-pink-600 font-medium mb-1">
+                {"Upload The Image"}
               </label>
               <input
-                id="files"
-                name="files"
-                type="file"
-                multiple
-                accept="image/*"
-                onChange={handleFileChange}
                 ref={fileInputRef}
-                className="w-full"
+                id="images"
+                name="images"
+                type="file"
+                accept="image/*"
+                multiple
+                onChange={handleFileChange}
+                className="block w-full text-pink-600"
               />
+              {files.length > 0 && (
+                <p className="mt-2 text-sm text-gray-600">
+                  {files.length} { 'files selected'}
+                </p>
+              )}
             </div>
 
-            {/* Submit */}
+            {errorMessage && (
+              <p className="text-red-600 font-semibold mb-4" role="alert">{errorMessage}</p>
+            )}
+
+            {successMessage && (
+              <p className="text-green-600 font-semibold mb-4 whitespace-pre-line" role="status">{successMessage}</p>
+            )}
+
             <button
               type="submit"
               disabled={isSubmitDisabled}
-              className={`w-full py-3 font-bold text-white rounded-lg transition duration-300
-                ${isSubmitDisabled ? 'bg-pink-300 cursor-not-allowed' : 'bg-pink-600 hover:bg-pink-700'}
-              `}
+              className={`w-full py-3 rounded-lg text-white font-semibold ${
+                isSubmitDisabled ? 'bg-pink-300 cursor-not-allowed' : 'bg-pink-600 hover:bg-pink-700'
+              } transition-colors duration-300`}
             >
-              {isSubmitDisabled ? t('form.submitting') : t('form.submitRequest')}
+              {"submit"}
             </button>
-
-            {/* Message Display */}
-            {(successMessage || errorMessage) && (
-              <div className="mt-4 text-center whitespace-pre-line">
-                <p className={`font-semibold ${successMessage ? 'text-green-600' : 'text-red-600'}`}>
-                  {successMessage || errorMessage}
-                </p>
-              </div>
-            )}
           </form>
         </section>
       </main>
