@@ -208,40 +208,74 @@ const HomePage = () => {
         
         {/* Services Section */}
         <section
-          aria-label={t('homepage.servicesSectionAriaLabel') || 'Our Services'}
-          className="py-16 bg-white animate-fade-in-up transition-opacity duration-700"
+  aria-label="Our Services"
+  className="py-16 bg-white animate-fade-in-up transition-opacity duration-700"
+>
+  <div className="container mx-auto text-center">
+    <h2 className="text-4xl font-bold text-gray-900 mb-6">
+      Our Services
+    </h2>
+    <div className="flex justify-center mb-8">
+      <div className="w-24 h-1 bg-gradient-to-r from-pink-500 via-red-400 to-yellow-300 rounded-full"></div>
+    </div>
+
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto px-4">
+      {/* Box 1: Import Compliance */}
+      <article
+        className="bg-white shadow-md rounded-md p-6 hover:shadow-xl transition duration-500 transform hover:-translate-y-2 animate-fade-in-up"
+        aria-labelledby="service-title-1"
+      >
+        <h3 id="service-title-1" className="text-xl font-semibold text-gray-900 mb-2">
+          Import Compliance & Support
+        </h3>
+        <p>
+          Ensure seamless cross-border trade by navigating complex import regulations with expert
+          assistance.
+        </p>
+      </article>
+
+      {/* Box 2: Export Strategy */}
+      <article
+        className="bg-white shadow-md rounded-md p-6 hover:shadow-xl transition duration-500 transform hover:-translate-y-2 animate-fade-in-up"
+        aria-labelledby="service-title-2"
+      >
+        <h3 id="service-title-2" className="text-xl font-semibold text-gray-900 mb-2">
+          Export Strategy & Execution
+        </h3>
+        <p>
+          Accelerate global growth with tailored export planning, documentation, and fulfillment
+          services.
+        </p>
+      </article>
+
+      {/* Box 3: Trade Partnerships */}
+      <article
+        className="bg-white shadow-md rounded-md p-6 hover:shadow-xl transition duration-500 transform hover:-translate-y-2 animate-fade-in-up"
+        aria-labelledby="service-title-3"
+      >
+        <h3 id="service-title-3" className="text-xl font-semibold text-gray-900 mb-2">
+          International Trade Partnerships
+        </h3>
+        <p>
+          Connect with verified global buyers and suppliers through our secure and trusted partner
+          network.
+        </p>
+      </article>
+    </div>
+
+    <div className="mt-10">
+      <Link to="/services" onClick={scrollToTop}>
+        <button
+          className="bg-pink-500 text-white px-6 py-3 rounded-md hover:bg-pink-600 transition duration-300 shadow-lg hover:shadow-2xl hover:scale-105"
+          aria-label="Learn more about our services"
         >
-          <div className="container mx-auto text-center">
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">{t('homepage.servicesTitle')}</h2>
-            <div className="flex justify-center mb-8">
-              <div className="w-24 h-1 bg-gradient-to-r from-pink-500 via-red-400 to-yellow-300 rounded-full"></div>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto px-4">
-              {[1, 2, 3].map((num, idx) => (
-                <article
-                  key={idx}
-                  className="bg-white shadow-md rounded-md p-6 hover:shadow-xl transition duration-500 transform hover:-translate-y-2 animate-fade-in-up"
-                  aria-labelledby={`service-title-${num}`}
-                >
-                  <h3 id={`service-title-${num}`} className="text-xl font-semibold text-gray-900 mb-2">
-                    {t(`homepage.service${num}Title`)}
-                  </h3>
-                  <p>{t(`homepage.service${num}Desc`)}</p>
-                </article>
-              ))}
-            </div>
-            <div className="mt-10">
-              <Link to="/services" onClick={scrollToTop}>
-                <button
-                  className="bg-pink-500 text-white px-6 py-3 rounded-md hover:bg-pink-600 transition duration-300 shadow-lg hover:shadow-2xl hover:scale-105"
-                  aria-label={t('homepage.learnMoreAriaLabel')}
-                >
-                  {t('homepage.learnMoreserice')}
-                </button>
-              </Link>
-            </div>
-          </div>
-        </section>
+          Learn More
+        </button>
+      </Link>
+    </div>
+  </div>
+</section>
+
 
         {/* Products Section */}
         <section
@@ -298,6 +332,55 @@ const HomePage = () => {
             </Link>
           </div>
         </section>
+
+
+        {/* How We Work Section */}
+ <section className="py-16 bg-white animate-fade-in-up">
+  <div className="container mx-auto text-center px-4">
+    <h2 className="text-4xl font-bold text-gray-900 mb-4">How We Work</h2>
+    <h3 className="text-2xl font-semibold text-pink-600 mb-2">Simple. Transparent. Global.</h3>
+    <p className="text-gray-700 max-w-2xl mx-auto mb-12">
+      Our process is built for clarity and efficiency at every step:
+    </p>
+
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+      {/* Step 1 */}
+      <div className="bg-white border border-gray-200 rounded-lg p-6 shadow hover:shadow-lg transition duration-300">
+        <div className="text-pink-500 mb-4 flex justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" className="w-12 h-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16h6m2 4H7a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v12a2 2 0 01-2 2z" />
+          </svg>
+        </div>
+        <h4 className="text-xl font-semibold mb-2">Step 1: Submit Inquiry</h4>
+        <p className="text-gray-600">Tell us what you're looking to buy or sell.</p>
+      </div>
+
+      {/* Step 2 */}
+      <div className="bg-white border border-gray-200 rounded-lg p-6 shadow hover:shadow-lg transition duration-300">
+        <div className="text-pink-500 mb-4 flex justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" className="w-12 h-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h1l1 9h14l1-9h1M5 6h14l1 4H4l1-4z" />
+          </svg>
+        </div>
+        <h4 className="text-xl font-semibold mb-2">Step 2: Get Custom Quote</h4>
+        <p className="text-gray-600">We verify, source, and send you detailed pricing.</p>
+      </div>
+
+      {/* Step 3 */}
+      <div className="bg-white border border-gray-200 rounded-lg p-6 shadow hover:shadow-lg transition duration-300">
+        <div className="text-pink-500 mb-4 flex justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" className="w-12 h-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17v-1a4 4 0 014-4h3m0 0v4m0-4l4 4M7 10h.01M12 10h.01M17 10h.01" />
+          </svg>
+        </div>
+        <h4 className="text-xl font-semibold mb-2">Step 3: Global Delivery</h4>
+        <p className="text-gray-600">We handle compliance, documentation, and ship to your door.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
          {/* Testimonials Section */}
          <section
       aria-label={t('homepage.testimonialsSectionAriaLabel') || 'What Our Clients Say'}
@@ -361,7 +444,7 @@ const HomePage = () => {
                         <svg
                           key={i}
                           className={`w-6 h-6 ${
-                            i < review.rating ? 'text-yellow-400' : 'text-gray-300'
+                            i < review.rating ? 'text-yellow-300' : 'text-gray-300'
                           }`}
                           fill="currentColor"
                           viewBox="0 0 20 20"
