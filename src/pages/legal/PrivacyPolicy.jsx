@@ -13,7 +13,7 @@ const PrivacyPolicy = () => {
       <div className="max-w-5xl mx-auto">
         <div className="mb-12 text-center">
           <h1 className="text-4xl font-bold text-pink-700 mb-4">Privacy Policy</h1>
-          <p className="text-sm text-gray-500">Effective Date: June 5, 2025</p>
+          <p className="text-sm text-gray-500">Effective Date: July 10, 2022</p>
         </div>
 
         <div className="space-y-10">
