@@ -19,7 +19,7 @@ const Blogs = () => {
         setError(null);
       } catch (err) {
         console.error('Failed to fetch blogs:', err);
-        setError(t('blogs.error'));
+        setError(t('blogs.error') || 'Failed to load blogs.');
       } finally {
         setLoading(false);
       }
@@ -46,12 +46,13 @@ const Blogs = () => {
 
       <main aria-label={t('blogs.title')}>
         {loading ? (
-          <div className="flex justify-center items-center">
+          <div className="flex justify-center items-center" role="status" aria-live="polite">
             <svg
               className="animate-spin h-8 w-8 text-blue-600"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
+              aria-hidden="true"
             >
               <circle
                 className="opacity-25"
@@ -70,7 +71,7 @@ const Blogs = () => {
             <span className="ml-3 text-gray-500">{t('blogs.loading')}</span>
           </div>
         ) : error ? (
-          <p className="text-center text-red-500">{error}</p>
+          <p className="text-center text-red-500" role="alert">{error}</p>
         ) : blogPosts.length === 0 ? (
           <p className="text-center text-gray-500">{t('blogs.noBlogs')}</p>
         ) : (
@@ -80,17 +81,28 @@ const Blogs = () => {
                 key={post._id || post.title}
                 className="bg-white rounded-xl shadow p-6 hover:shadow-lg transition-shadow duration-300"
               >
+                {post.image && (
+                  <img
+                    src={post.image}
+                    alt={post.title}
+                    className="w-full h-48 object-cover rounded-md mb-4"
+                    loading="lazy"
+                  />
+                )}
+
                 <h3 className="text-xl font-semibold text-blue-600 mb-2">{post.title}</h3>
-                <time
-                  dateTime={new Date(post.date).toISOString()}
-                  className="text-sm text-gray-500 mb-4 block"
-                >
-                  {new Date(post.date).toLocaleDateString(undefined, {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                  })}
-                </time>
+                {post.date && (
+                  <time
+                    dateTime={new Date(post.date).toISOString()}
+                    className="text-sm text-gray-500 mb-4 block"
+                  >
+                    {new Date(post.date).toLocaleDateString(undefined, {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric',
+                    })}
+                  </time>
+                )}
                 <p className="text-gray-700 mb-4">{post.excerpt}</p>
                 <Link
                   to={`/blogs/${post._id}`}
