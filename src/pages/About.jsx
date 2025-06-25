@@ -83,6 +83,7 @@ const About = () => {
           })}
         </script>
       </Helmet>
+      
 
       <main aria-label={`About ${company}`} className="container mx-auto px-4 max-w-7xl">
         <motion.h1

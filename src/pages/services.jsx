@@ -32,17 +32,15 @@ const Services = () => {
     )
   ];
 
-  // Fetch industries from translation and add Cosmetics at the end
-  const industries = [...t('industries', { returnObjects: true }), 'Cosmetics'];
+  // Fetch industries from translation only (no 'Cosmetics' manually added)
+  const industries = t('industries', { returnObjects: true });
 
   return (
     <>
       <Helmet>
-       <Helmet>
-  <title>Our Services | Freight Forwarding & Trade Consulting - AGX</title>
-  <meta name="description" content="Explore AGX's logistics services including customs clearance, freight forwarding, and supply chain consulting." />
-</Helmet>
- <meta name="keywords" content="services, industries, cosmetics, AGX-International" />
+        <title>Our Services | Freight Forwarding & Trade Consulting - AGX</title>
+        <meta name="description" content="Explore AGX's logistics services including customs clearance, freight forwarding, and supply chain consulting." />
+        <meta name="keywords" content="services, industries, AGX-International" />
         <meta name="author" content={company} />
         <meta property="og:title" content={`${t('title')} - ${company}`} />
         <meta property="og:description" content={t('intro', { company })} />
@@ -51,7 +49,7 @@ const Services = () => {
       <section className="bg-gradient-to-br from-pink-50 via-white to-pink-50 min-h-screen py-20">
         <div className="container mx-auto px-6 max-w-7xl">
 
-          <h2 className="text-5xl font-extrabold text-center text-pink-800 mb-6 ">
+          <h2 className="text-5xl font-extrabold text-center text-pink-800 mb-6">
             {t('title')}
           </h2>
           <div className="flex justify-center mb-12">
@@ -85,12 +83,6 @@ const Services = () => {
                   key={i}
                   className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300 text-center border border-pink-200"
                 >
-                  {/* Image is commented out as requested */}
-                  {/* <img
-                    src={industryImages[i]}
-                    alt={industry}
-                    className="w-full h-40 object-cover"
-                  /> */}
                   <div className="p-5">
                     <h4 className="text-lg font-semibold text-pink-700">{industry}</h4>
                   </div>
