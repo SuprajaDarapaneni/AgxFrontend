@@ -93,14 +93,28 @@ const BlogsPage = () => {
     return data.secure_url;
   };
 
+  // Helper to clear the form and reset editing state
+  const clearForm = () => {
+    setForm({ title: '', excerpt: '', content: '', image: '', video: '' });
+    setFiles({ image: null, video: null });
+    setEditingId(null);
+    setMessage('');
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       let imageUrl = form.image;
       let videoUrl = form.video;
 
-      if (files.image) imageUrl = await uploadFile(files.image, 'image');
-      if (files.video) videoUrl = await uploadFile(files.video, 'video');
+      if (files.image) {
+        imageUrl = await uploadFile(files.image, 'image');
+      }
+
+      if (files.video) {
+        videoUrl = await uploadFile(files.video, 'video');
+      }
 
       const payload = {
         title: form.title,
@@ -110,10 +124,13 @@ const BlogsPage = () => {
         video: videoUrl,
       };
 
-      const url = editingId
+      const isEditing = Boolean(editingId);
+      const url = isEditing
         ? `https://agxbackend.onrender.com/blogs/${editingId}`
-        : 'https://agxbackend.onrender.com/blogs';
-      const method = editingId ? 'PUT' : 'POST';
+        : `https://agxbackend.onrender.com/blogs`;
+      const method = isEditing ? 'PUT' : 'POST';
+
+      console.log('Submitting blog:', { isEditing, editingId, payload });
 
       const res = await fetch(url, {
         method,
@@ -121,23 +138,23 @@ const BlogsPage = () => {
         body: JSON.stringify(payload),
       });
 
-      if (!res.ok) throw new Error(t('blogspage.failedToSubmitBlog'));
+      if (!res.ok) throw new Error('Failed to submit blog.');
+
       const result = await res.json();
 
-      setBlogs(editingId
-        ? blogs.map((b) => (b._id === editingId ? result : b))
-        : [result, ...blogs]);
+      setBlogs((prev) =>
+        isEditing
+          ? prev.map((b) => (b._id === editingId ? result : b))
+          : [result, ...prev]
+      );
 
-      setMessage(editingId
-        ? t('blogspage.blogUpdatedSuccess')
-        : t('blogspage.blogAddedSuccess'));
+      clearForm();
 
-      setForm({ title: '', excerpt: '', content: '', image: '', video: '' });
-      setFiles({ image: null, video: null });
-      setEditingId(null);
+      setMessage(isEditing ? 'Blog updated successfully.' : 'Blog added.');
       setTimeout(() => setMessage(''), 3000);
     } catch (error) {
-      alert(error.message);
+      console.error(error);
+      alert('Error submitting blog: ' + error.message);
     }
   };
 
@@ -150,6 +167,7 @@ const BlogsPage = () => {
       image: blog.image || '',
       video: blog.video || '',
     });
+    setFiles({ image: null, video: null });
   };
 
   const handleDelete = async (id) => {
@@ -157,6 +175,9 @@ const BlogsPage = () => {
       const res = await fetch(`https://agxbackend.onrender.com/blogs/${id}`, { method: 'DELETE' });
       if (!res.ok) throw new Error(t('blogspage.failedToDeleteBlog'));
       setBlogs(blogs.filter((b) => b._id !== id));
+
+      clearForm();
+
       setMessage(t('blogspage.blogDeletedSuccess'));
       setTimeout(() => setMessage(''), 3000);
     } catch (error) {
@@ -191,11 +212,31 @@ const BlogsPage = () => {
 
             <Box component="form" onSubmit={handleSubmit} noValidate>
               <Stack spacing={3}>
-                <TextField label={t('blogspage.title')} name="title" value={form.title} onChange={handleInputChange} fullWidth required />
-                <TextField label={t('blogspage.excerpt')} name="excerpt" value={form.excerpt} onChange={handleInputChange} fullWidth required helperText={t('blogspage.shortSummary')} />
+                <TextField
+                  label={t('blogspage.title')}
+                  name="title"
+                  value={form.title}
+                  onChange={handleInputChange}
+                  fullWidth
+                  required
+                />
+                <TextField
+                  label={t('blogspage.excerpt')}
+                  name="excerpt"
+                  value={form.excerpt}
+                  onChange={handleInputChange}
+                  fullWidth
+                  required
+                  helperText={t('blogspage.shortSummary')}
+                />
 
                 <Typography>{t('blogspage.content')}</Typography>
-                <ReactQuill value={form.content} onChange={(value) => setForm({ ...form, content: value })} placeholder={t('blogspage.writeFullContentHere')} theme="snow" />
+                <ReactQuill
+                  value={form.content}
+                  onChange={(value) => setForm({ ...form, content: value })}
+                  placeholder={t('blogspage.writeFullContentHere')}
+                  theme="snow"
+                />
 
                 {/* Upload Image */}
                 <Box>
@@ -221,11 +262,12 @@ const BlogsPage = () => {
                     {editingId ? t('blogspage.updateBlog') : t('blogspage.addBlog')}
                   </Button>
                   {editingId && (
-                    <Button variant="outlined" color="secondary" fullWidth onClick={() => {
-                      setEditingId(null);
-                      setForm({ title: '', excerpt: '', content: '', image: '', video: '' });
-                      setFiles({ image: null, video: null });
-                    }}>
+                    <Button
+                      variant="outlined"
+                      color="secondary"
+                      fullWidth
+                      onClick={() => clearForm()}
+                    >
                       {t('blogspage.cancelEditing')}
                     </Button>
                   )}
