@@ -69,7 +69,6 @@ const BuySellForm = () => {
     setFormData(prev => ({
       ...prev,
       industries: selectedOptions ? selectedOptions.map(option => option.value) : [],
-      // Clear otherIndustry if 'Other' is not selected
       otherIndustry: selectedOptions && selectedOptions.some(o => o.value === 'Other') ? prev.otherIndustry : '',
     }));
   };
@@ -88,43 +87,43 @@ const BuySellForm = () => {
     setErrorMessage('');
 
     if (!formData.name.trim() || !/^[a-zA-Z\s]{2,50}$/.test(formData.name)) {
-      setErrorMessage(t('form.validation.name') || 'Please enter a valid name (2-50 letters).');
+      setErrorMessage('Please enter a valid name (2-50 letters).');
       setIsSubmitDisabled(false);
       return;
     }
 
     if (!validateEmail(formData.email)) {
-      setErrorMessage(t('form.validation.email') || 'Invalid email format.');
+      setErrorMessage('Invalid email format.');
       setIsSubmitDisabled(false);
       return;
     }
 
     if (!validatePhone(formData.phone)) {
-      setErrorMessage(t('form.validation.phone') || 'Phone number should contain 8 to 15 digits only.');
+      setErrorMessage('Phone number should contain 8 to 15 digits only.');
       setIsSubmitDisabled(false);
       return;
     }
 
     if (formData.industries.length === 0) {
-      setErrorMessage(t('form.validation.industries') || 'Please select at least one industry.');
+      setErrorMessage('Please select at least one industry.');
       setIsSubmitDisabled(false);
       return;
     }
 
     if (formData.industries.includes('Other') && formData.otherIndustry.trim() === '') {
-      setErrorMessage(t('form.validation.otherIndustry') || 'Please specify the "Other" industry.');
+      setErrorMessage('Please specify the "Other" industry.');
       setIsSubmitDisabled(false);
       return;
     }
 
     if (!formData.dropOffLocation.trim()) {
-      setErrorMessage(t('form.validation.location') || 'Please provide your location.');
+      setErrorMessage('Please provide your location.');
       setIsSubmitDisabled(false);
       return;
     }
 
     if (!formData.country) {
-      setErrorMessage(t('form.validation.country') || 'Please select your country.');
+      setErrorMessage('Please select your country.');
       setIsSubmitDisabled(false);
       return;
     }
@@ -174,10 +173,7 @@ const BuySellForm = () => {
       });
 
       if (response.ok) {
-        setSuccessMessage(
-          'Form submitted successfully.'
-        );
-
+        setSuccessMessage('Form submitted successfully.');
         setFormData({
           buySell: 'buy',
           name: '',
@@ -191,15 +187,13 @@ const BuySellForm = () => {
           message: '',
         });
         setFiles([]);
-        if (fileInputRef.current) {
-          fileInputRef.current.value = null;
-        }
+        if (fileInputRef.current) fileInputRef.current.value = null;
       } else {
-        setErrorMessage(t('form.failureMessage') || 'Submission failed. Please try again.');
+        setErrorMessage('Submission failed. Please try again.');
       }
     } catch (error) {
       console.error('Submission error:', error);
-      setErrorMessage(t('form.errorMessage') || 'An error occurred. Please try again later.');
+      setErrorMessage('An error occurred. Please try again later.');
     } finally {
       setIsSubmitDisabled(false);
     }
@@ -210,24 +204,22 @@ const BuySellForm = () => {
   return (
     <>
       <Helmet>
-        <title>{t('form.pageTitle') || 'Global Trade Inquiry Buy/Sell With Us'}</title>
-        <meta
-          name="description"
-          content={t('form.pageDescription') || 'Submit your buy or sell request with AGX-International using our easy-to-use form.'}
-        />
+        <title>Global Trade Inquiry Buy/Sell With Us</title>
+        <meta name="description" content="Submit your buy or sell request with AGX-International using our easy-to-use form." />
         <meta name="robots" content="index, follow" />
       </Helmet>
 
       <main className="min-h-screen bg-gradient-to-r from-pink-100 via-pink-50 to-pink-100 flex items-center justify-center px-6 py-8">
         <section className="max-w-xl w-full bg-white p-8 rounded-3xl shadow-xl border border-pink-200 space-y-8">
-          <h1 className="text-3xl font-bold text-pink-600 text-center">
-            Global Trade Inquiry{' '}
-            <span className="uppercase font-bold">Buy/Sell</span>{' '}
-            With Us
+          <h1 className="text-2xl font-bold text-pink-600 text-center">
+            Global Trade Inquiry Buy/Sell With Us
           </h1>
+          <p className="text-center text-gray-800 mt-2">
+            Submit your buying or selling interest below. Our trade team will review and respond with tailored solutions.
+          </p>
 
           <form onSubmit={handleSubmit} noValidate>
-            <fieldset className="flex justify-center space-x-6 mb-6" aria-label={t('form.buySellChoice')}>
+            <fieldset className="flex justify-center space-x-6 mb-6">
               {['buy', 'sell'].map(option => (
                 <label
                   key={option}
@@ -243,7 +235,7 @@ const BuySellForm = () => {
                     onChange={handleChange}
                     className="form-radio text-pink-500 w-5 h-5"
                   />
-                  <span className="ml-2 capitalize">{t(`form.${option}`)}</span>
+                  <span className="ml-2 capitalize">{option}</span>
                 </label>
               ))}
             </fieldset>
@@ -251,7 +243,7 @@ const BuySellForm = () => {
             {/* Name */}
             <div className="mb-6">
               <label htmlFor="name" className="block text-pink-600 font-medium mb-1">
-                {t('form.name')}<span className="text-red-500">*</span>
+                Name<span className="text-red-500">*</span>
               </label>
               <input
                 id="name"
@@ -262,16 +254,15 @@ const BuySellForm = () => {
                 maxLength="50"
                 value={formData.name}
                 onChange={handleChange}
-                placeholder={t('form.name')}
+                placeholder="Full Name"
                 className="w-full border border-pink-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-pink-400"
-                aria-describedby="nameHelp"
               />
             </div>
 
             {/* Phone */}
             <div className="mb-6">
               <label htmlFor="phone" className="block text-pink-600 font-medium mb-1">
-                {t('form.phone')}<span className="text-red-500">*</span>
+                Phone<span className="text-red-500">*</span>
               </label>
               <input
                 id="phone"
@@ -282,45 +273,41 @@ const BuySellForm = () => {
                 maxLength="15"
                 value={formData.phone}
                 onChange={handleChange}
-                placeholder={t('form.phone')}
+                placeholder="Phone Number"
                 className="w-full border border-pink-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-pink-400"
-                aria-describedby="phoneHelp"
               />
             </div>
 
             {/* Email */}
             <div className="mb-6">
               <label htmlFor="email" className="block text-pink-600 font-medium mb-1">
-                {t('form.email')}<span className="text-red-500">*</span>
+                Email<span className="text-red-500">*</span>
               </label>
               <input
                 id="email"
                 name="email"
                 type="email"
                 required
-                pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                 value={formData.email}
                 onChange={handleChange}
-                placeholder={t('form.email')}
+                placeholder="Email Address"
                 className="w-full border border-pink-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-pink-400"
-                aria-describedby="emailHelp"
               />
             </div>
 
             {/* Location */}
             <div className="mb-6">
               <label htmlFor="dropOffLocation" className="block text-pink-600 font-medium mb-1">
-                {t(locationLabelKey)}<span className="text-red-500">*</span>
+                {formData.buySell === 'buy' ? 'Drop-Off Location' : 'Pick-Up Location'}<span className="text-red-500">*</span>
               </label>
               <input
                 id="dropOffLocation"
                 name="dropOffLocation"
                 type="text"
                 required
-                maxLength="100"
                 value={formData.dropOffLocation}
                 onChange={handleChange}
-                placeholder={'Town/City/State'}
+                placeholder="Town/City/State"
                 className="w-full border border-pink-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-pink-400"
               />
             </div>
@@ -328,27 +315,24 @@ const BuySellForm = () => {
             {/* Country */}
             <div className="mb-6">
               <label htmlFor="country" className="block text-pink-600 font-medium mb-1">
-                {t('form.country')}<span className="text-red-500">*</span>
+                Country<span className="text-red-500">*</span>
               </label>
-              <select
+              <input
+                type="text"
                 id="country"
                 name="country"
                 required
                 value={formData.country}
                 onChange={handleChange}
-                className="w-full border border-pink-300 px-4 py-3 rounded-lg text-gray-700 focus:ring-2 focus:ring-pink-400"
-              >
-                <option value="" disabled>{t('form.selectCountry')}</option>
-                {COUNTRY_OPTIONS.map(({ value, label }) => (
-                  <option key={value} value={value}>{label}</option>
-                ))}
-              </select>
+                placeholder="Enter your country"
+                className="w-full border border-pink-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-pink-400"
+              />
             </div>
 
             {/* Industries */}
             <div className="mb-6">
               <label htmlFor="industries" className="block text-pink-600 font-medium mb-1">
-                {t('form.industries')}<span className="text-red-500">*</span>
+                Industries<span className="text-red-500">*</span>
               </label>
               <Select
                 inputId="industries"
@@ -357,15 +341,13 @@ const BuySellForm = () => {
                 options={INDUSTRY_OPTIONS}
                 value={INDUSTRY_OPTIONS.filter(opt => formData.industries.includes(opt.value))}
                 onChange={handleIndustrySelect}
-                classNamePrefix="select"
-                aria-describedby="industryHelp"
               />
               {formData.industries.includes('Other') && (
                 <input
                   type="text"
                   name="otherIndustry"
                   required
-                  placeholder={t('form.otherIndustryPlaceholder') || "Please specify other industry"}
+                  placeholder="Please specify other industry"
                   value={formData.otherIndustry}
                   onChange={handleChange}
                   className="mt-3 w-full border border-pink-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-pink-400"
@@ -374,28 +356,29 @@ const BuySellForm = () => {
             </div>
 
             {/* Timing */}
-            <div className="mb-6">
-              <label htmlFor="timing" className="block text-pink-600 font-medium mb-1">
-                {t('form.timing')}
-              </label>
-              <select
-                id="timing"
-                name="timing"
-                value={formData.timing}
-                onChange={handleChange}
-                className="w-full border border-pink-300 px-4 py-3 rounded-lg text-gray-700 focus:ring-2 focus:ring-pink-400"
-              >
-                <option value="Immediately">{'Immediately'}</option>
-                <option value="Within 30 Days">{'Within 30 Days'}</option>
-                <option value="Within 90 Days">{ 'Within 90 Days'}</option>
-                <option value="More than 90 Days">{'More than 90 Days'}</option>
-              </select>
-            </div>
+            {/* Date Picker for Shipment/Ready Date */}
+<div className="mb-6">
+  <label htmlFor="expectedDate" className="block text-pink-600 font-medium mb-1">
+    {formData.buySell === 'buy'
+      ? 'When are you expecting the shipment?'
+      : 'When will the products be ready to ship?'}
+    <span className="text-red-500">*</span>
+  </label>
+  <input
+    id="expectedDate"
+    name="expectedDate"
+    type="date"
+    required
+    value={formData.expectedDate}
+    onChange={handleChange}
+    className="w-full border border-pink-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-pink-400"
+  />
+</div>
 
             {/* Message */}
             <div className="mb-6">
               <label htmlFor="message" className="block text-pink-600 font-medium mb-1">
-                {t('form.message')}
+                Message
               </label>
               <textarea
                 id="message"
@@ -404,15 +387,15 @@ const BuySellForm = () => {
                 maxLength="500"
                 value={formData.message}
                 onChange={handleChange}
-                placeholder={t('form.messagePlaceholder') || 'Your message'}
+                placeholder="Your message"
                 className="w-full border border-pink-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-pink-400 resize-none"
               />
             </div>
 
-            {/* Image Upload */}
+            {/* Upload Image */}
             <div className="mb-6">
               <label htmlFor="images" className="block text-pink-600 font-medium mb-1">
-                {"Upload The Image"}
+                Upload the Image
               </label>
               <input
                 ref={fileInputRef}
@@ -426,19 +409,20 @@ const BuySellForm = () => {
               />
               {files.length > 0 && (
                 <p className="mt-2 text-sm text-gray-600">
-                  {files.length} { 'files selected'}
+                  {files.length} files selected
                 </p>
               )}
             </div>
 
+            {/* Messages */}
             {errorMessage && (
-              <p className="text-red-600 font-semibold mb-4" role="alert">{errorMessage}</p>
+              <p className="text-red-600 font-semibold mb-4">{errorMessage}</p>
             )}
-
             {successMessage && (
-              <p className="text-green-600 font-semibold mb-4 whitespace-pre-line" role="status">{successMessage}</p>
+              <p className="text-green-600 font-semibold mb-4">{successMessage}</p>
             )}
 
+            {/* Submit */}
             <button
               type="submit"
               disabled={isSubmitDisabled}
@@ -446,7 +430,7 @@ const BuySellForm = () => {
                 isSubmitDisabled ? 'bg-pink-300 cursor-not-allowed' : 'bg-pink-600 hover:bg-pink-700'
               } transition-colors duration-300`}
             >
-              {"submit"}
+              Submit
             </button>
           </form>
         </section>
