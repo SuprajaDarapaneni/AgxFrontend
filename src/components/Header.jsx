@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { Mail, Phone, Menu, X } from "lucide-react";
+import { Menu, X, Globe2 } from "lucide-react"; // Using Globe icon for language
 import { useTranslation } from "react-i18next";
 import { Helmet } from "react-helmet";
 import logo from "../assets/logo-removebg-preview.png";
@@ -65,28 +65,39 @@ const Header = () => {
       </Helmet>
 
       <header className="bg-white shadow-md fixed w-full top-0 left-0 z-50">
-        {/* Topbar */}
-        <div className="bg-white py-1 px-4 border-b border-gray-200">
-          <div className="max-w-screen-xl mx-auto flex items-center justify-between text-sm flex-nowrap overflow-x-auto">
-            <div className="flex items-center gap-4 text-gray-700 flex-shrink-0">
-              <div className="flex items-center gap-1">
-                <Mail size={16} className="text-pink-600" />
-                <a href="mailto:info@agx-international.com" className="whitespace-nowrap">info@agx-international.com</a>
-              </div>
-              <div className="flex items-center gap-1">
-                <Phone size={16} className="text-pink-600" />
-                <a href="tel:+16479049839" className="whitespace-nowrap">+1 647 904 9839</a>
-              </div>
-            </div>
-            <div id="google_translate_element" className="text-gray-700 flex-shrink-0 ml-auto" />
-          </div>
-        </div>
+        {/* Topbar (Only Translate & Icon) */}
+      <div className="bg-white py-1 px-4 border-b border-gray-200">
+  <div className="max-w-screen-xl mx-auto flex items-center justify-end text-sm relative">
+    {/* Language Dropdown Trigger */}
+    <div className="relative group cursor-pointer">
+      <div className="flex items-center gap-1 text-gray-700">
+             {/* <button
+          
+          className="bg-pink-600 text-white px-4 py-1.5 rounded hover:bg-pink-700 transition text-sm"
+        >
+          Translate <Globe2 size={28} className="text-black-600" />
+        </button> */}
+<Globe2 size={48} className="text-pink-600" />
+
+      </div>
+
+      {/* Hidden Translate Menu — shows on hover or click */}
+      <div
+        className="absolute right-0 mt-2 z-50 bg-white border rounded shadow-md p-2 transition-all duration-200 scale-0 group-hover:scale-100"
+        style={{ transformOrigin: "top right" }}
+      >
+        <div id="google_translate_element" />
+      </div>
+    </div>
+  </div>
+</div>
+
 
         {/* Main Header */}
-        <div className="max-w-screen-xl mx-auto px-4 py-3 flex items-center justify-between gap-4 flex-nowrap">
-          {/* Logo and toggle grouped together */}
+        <div className="max-w-screen-xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+          {/* Logo and Toggle */}
           <div className="flex items-center justify-between w-full md:w-auto">
-            <Link to="/" className="flex items-center space-x-3 flex-shrink-0">
+            <Link to="/" className="flex items-center space-x-3">
               <img
                 src={logo}
                 alt="AGX-International Logo"
@@ -108,8 +119,8 @@ const Header = () => {
             </button>
           </div>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex flex-wrap justify-center md:justify-end gap-4 lg:gap-6 text-sm w-full md:w-auto">
+          {/* Desktop Nav */}
+          <nav className="hidden md:flex flex-wrap justify-end gap-4 lg:gap-6 text-sm w-full md:w-auto">
             {mainNavItems.map(({ key, path }) => (
               <Link
                 key={path}
@@ -143,22 +154,17 @@ const Header = () => {
                   {t(key)}
                 </Link>
               ))}
-              <div className="border-t border-pink-200 pt-3 space-y-2 text-sm">
-                <div className="flex items-center gap-2">
-                  <Mail size={16} className="text-pink-700" />
-                  <span>info@agx-international.com</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Phone size={16} className="text-pink-700" />
-                  <span>+1 647 904 9839</span>
-                </div>
+              {/* Translate shown below nav links for mobile */}
+              <div className="border-t border-pink-200 pt-3 text-sm flex items-center gap-2 text-gray-700">
+                <Globe2 size={18} className="text-pink-600" />
+                <div id="google_translate_element_mobile" />
               </div>
             </nav>
           </div>
         )}
       </header>
 
-      {/* Translate Cleanup */}
+      {/* Translate Styling Cleanup */}
       <style>{`
         .goog-logo-link,
         .goog-te-gadget span {
@@ -173,7 +179,22 @@ const Header = () => {
           padding: 4px 6px;
           border-radius: 4px;
         }
-      `}</style>
+      `}
+      {`
+  .goog-logo-link,
+  .goog-te-gadget span {
+    display: none !important;
+  }
+  .goog-te-gadget {
+    font-size: 0 !important;
+  }
+  .goog-te-combo {
+    font-size: 14px !important;
+    border: 1px solid #e2e8f0;
+    padding: 4px 6px;
+    border-radius: 4px;
+  }
+`}</style>
     </>
   );
 };
