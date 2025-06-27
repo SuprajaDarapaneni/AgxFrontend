@@ -77,7 +77,7 @@ const Header = () => {
         >
           Translate <Globe2 size={28} className="text-black-600" />
         </button> */}
-<Globe2 size={48} className="text-pink-600" />
+<Globe2 size={18} className="text-pink-600" />
 
       </div>
 
