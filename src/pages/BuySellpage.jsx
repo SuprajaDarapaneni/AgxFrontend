@@ -53,6 +53,7 @@ const BuySellForm = () => {
     otherIndustry: '',
     timing: 'Immediately',
     message: '',
+    expectedDate: '',
   });
 
   const [files, setFiles] = useState([]);
@@ -86,44 +87,44 @@ const BuySellForm = () => {
     setSuccessMessage('');
     setErrorMessage('');
 
+    // Validation
     if (!formData.name.trim() || !/^[a-zA-Z\s]{2,50}$/.test(formData.name)) {
       setErrorMessage('Please enter a valid name (2-50 letters).');
       setIsSubmitDisabled(false);
       return;
     }
-
     if (!validateEmail(formData.email)) {
       setErrorMessage('Invalid email format.');
       setIsSubmitDisabled(false);
       return;
     }
-
     if (!validatePhone(formData.phone)) {
       setErrorMessage('Phone number should contain 8 to 15 digits only.');
       setIsSubmitDisabled(false);
       return;
     }
-
     if (formData.industries.length === 0) {
       setErrorMessage('Please select at least one industry.');
       setIsSubmitDisabled(false);
       return;
     }
-
     if (formData.industries.includes('Other') && formData.otherIndustry.trim() === '') {
       setErrorMessage('Please specify the "Other" industry.');
       setIsSubmitDisabled(false);
       return;
     }
-
     if (!formData.dropOffLocation.trim()) {
       setErrorMessage('Please provide your location.');
       setIsSubmitDisabled(false);
       return;
     }
-
     if (!formData.country) {
       setErrorMessage('Please select your country.');
+      setIsSubmitDisabled(false);
+      return;
+    }
+    if (!formData.expectedDate) {
+      setErrorMessage('Please select the expected date.');
       setIsSubmitDisabled(false);
       return;
     }
@@ -163,6 +164,7 @@ const BuySellForm = () => {
         industries: finalIndustries,
         timing: formData.timing,
         message: formData.message.trim(),
+        expectedDate: formData.expectedDate,
         imageUrls: uploadedImageUrls,
       };
 
@@ -185,6 +187,7 @@ const BuySellForm = () => {
           otherIndustry: '',
           timing: 'Immediately',
           message: '',
+          expectedDate: '',
         });
         setFiles([]);
         if (fileInputRef.current) fileInputRef.current.value = null;
@@ -199,13 +202,14 @@ const BuySellForm = () => {
     }
   };
 
-  const locationLabelKey = formData.buySell === 'buy' ? 'DropOffLocation' : 'PickUpLocation';
-
   return (
     <>
       <Helmet>
         <title>Global Trade Inquiry Buy/Sell With Us</title>
-        <meta name="description" content="Submit your buy or sell request with AGX-International using our easy-to-use form." />
+        <meta
+          name="description"
+          content="Submit your buy or sell request with AGX-International using our easy-to-use form."
+        />
         <meta name="robots" content="index, follow" />
       </Helmet>
 
@@ -215,7 +219,8 @@ const BuySellForm = () => {
             Global Trade Inquiry Buy/Sell With Us
           </h1>
           <p className="text-center text-gray-800 mt-2">
-            Submit your buying or selling interest below. Our trade team will review and respond with tailored solutions.
+            Submit your buying or selling interest below. Our trade team will review and respond with tailored
+            solutions.
           </p>
 
           <form onSubmit={handleSubmit} noValidate>
@@ -298,7 +303,8 @@ const BuySellForm = () => {
             {/* Location */}
             <div className="mb-6">
               <label htmlFor="dropOffLocation" className="block text-pink-600 font-medium mb-1">
-                {formData.buySell === 'buy' ? 'Drop-Off Location' : 'Pick-Up Location'}<span className="text-red-500">*</span>
+                {formData.buySell === 'buy' ? 'Drop-Off Location' : 'Pick-Up Location'}
+                <span className="text-red-500">*</span>
               </label>
               <input
                 id="dropOffLocation"
@@ -337,7 +343,6 @@ const BuySellForm = () => {
               <Select
                 inputId="industries"
                 isMulti
-                required
                 options={INDUSTRY_OPTIONS}
                 value={INDUSTRY_OPTIONS.filter(opt => formData.industries.includes(opt.value))}
                 onChange={handleIndustrySelect}
@@ -355,25 +360,24 @@ const BuySellForm = () => {
               )}
             </div>
 
-            {/* Timing */}
-            {/* Date Picker for Shipment/Ready Date */}
-<div className="mb-6">
-  <label htmlFor="expectedDate" className="block text-pink-600 font-medium mb-1">
-    {formData.buySell === 'buy'
-      ? 'When are you expecting the shipment?'
-      : 'When will the products be ready to ship?'}
-    <span className="text-red-500">*</span>
-  </label>
-  <input
-    id="expectedDate"
-    name="expectedDate"
-    type="date"
-    required
-    value={formData.expectedDate}
-    onChange={handleChange}
-    className="w-full border border-pink-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-pink-400"
-  />
-</div>
+            {/* Expected Date */}
+            <div className="mb-6">
+              <label htmlFor="expectedDate" className="block text-pink-600 font-medium mb-1">
+                {formData.buySell === 'buy'
+                  ? 'When are you expecting the shipment?'
+                  : 'When will the products be ready to ship?'}
+                <span className="text-red-500">*</span>
+              </label>
+              <input
+                id="expectedDate"
+                name="expectedDate"
+                type="date"
+                required
+                value={formData.expectedDate}
+                onChange={handleChange}
+                className="w-full border border-pink-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-pink-400"
+              />
+            </div>
 
             {/* Message */}
             <div className="mb-6">
@@ -408,19 +412,13 @@ const BuySellForm = () => {
                 className="block w-full text-pink-600"
               />
               {files.length > 0 && (
-                <p className="mt-2 text-sm text-gray-600">
-                  {files.length} files selected
-                </p>
+                <p className="mt-2 text-sm text-gray-600">{files.length} file(s) selected</p>
               )}
             </div>
 
             {/* Messages */}
-            {errorMessage && (
-              <p className="text-red-600 font-semibold mb-4">{errorMessage}</p>
-            )}
-            {successMessage && (
-              <p className="text-green-600 font-semibold mb-4">{successMessage}</p>
-            )}
+            {errorMessage && <p className="text-red-600 font-semibold mb-4">{errorMessage}</p>}
+            {successMessage && <p className="text-green-600 font-semibold mb-4">{successMessage}</p>}
 
             {/* Submit */}
             <button
