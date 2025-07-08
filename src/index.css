@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* Hide default Google Translate widget
+#google_translate_element,
+.goog-te-banner-frame,
+.goog-logo-link,
+.goog-te-gadget span,
+body > .skiptranslate {
+  display: none !important;
+}
+
+body {
+  top: 0 !important;
+} */
+

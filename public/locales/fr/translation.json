@@ -1,0 +1,411 @@
+{
+  "hero": {
+    "title": "Relier les continents en toute confiance",
+    "cta": "Je veux acheter/vendre"
+  },
+  "services": {
+    "title": "Nos services",
+    "importAssistance": {
+      "title": "Assistance à l'importation",
+      "desc": "Naviguez dans la complexité des réglementations et des procédures d'importation internationales grâce à notre expertise."
+    },
+    "exportSolutions": {
+      "title": "Solutions d'exportation",
+      "desc": "Étendez votre portée sur les marchés mondiaux avec nos stratégies d'exportation sur mesure et notre soutien."
+    },
+    "businessBrokering": {
+      "title": "Intermédiation commerciale",
+      "desc": "Trouvez les bons partenaires commerciaux internationaux et opportunités grâce à notre réseau étendu."
+    },
+    "learnMore": "En savoir plus"
+  },
+  "testimonials": {
+    "title": "Ce que disent nos clients",
+    "ravi": "Leur soutien à l'exportation m'a aidé à développer mon entreprise à l'international. Très professionnel et fiable !",
+    "anjali": "Ils ont rendu le commerce international facile. Une équipe digne de confiance et expérimentée !",
+    "mohammed": "Service excellent et communication parfaite tout au long de notre processus d'importation."
+  },
+  "about": {
+    "title": "À propos de nous",
+    "description": "Notre aventure a commencé le 10 juillet 2022, avec une vision claire : créer un pont solide entre les industries indiennes et les marchés mondiaux grâce à des services d'exportation fiables...",
+    "learnMore": "En savoir plus"
+  },
+  "products": {
+    "title": "Nos produits",
+    "viewMore": "Voir plus",
+    "viewAll": "Voir tous les produits"
+  },
+  "nav": {
+    "home": "Accueil",
+    "aboutUs": "À propos",
+    "services": "Services",
+    "products": "Produits",
+    "careers": "Carrières",
+    "blog": "Blog",
+    "contactUs": "Contactez-nous",
+    "review": "Avis"
+  },
+  "blogspage": {
+    "manageBlogs": "Gérer les blogs",
+    "editBlog": "Modifier le blog",
+    "addNewBlog": "Ajouter un nouveau blog",
+    "title": "Titre",
+    "excerpt": "Extrait",
+    "content": "Contenu",
+    "shortSummary": "Résumé court du blog (max 200 caractères)",
+    "updateBlog": "Mettre à jour le blog",
+    "addBlog": "Ajouter le blog",
+    "cancelEditing": "Annuler",
+    "noBlogsFound": "Aucun blog trouvé.",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "blogAddedSuccess": "Blog ajouté avec succès",
+    "blogUpdatedSuccess": "Blog mis à jour avec succès",
+    "blogDeletedSuccess": "Blog supprimé avec succès",
+    "writeFullContentHere": "Écrivez le contenu complet ici..."
+  }
+  ,
+  "sidebar": {
+    "dashboard": "Tableau de bord",
+    "products": "Produits",
+    "blogs": "Blogs",
+    "reviews": "Avis",
+    "careers": "Carrières"
+  },
+  "topbar": {
+    "brandName": "AGX-International",
+    "toggleTheme": "Changer le thème",
+    "settings": "Paramètres",
+    "account": "Compte",
+    "logout": "Déconnexion"
+  },
+  "aboutus.whyChooseUsTitle": "Pourquoi nous choisir",
+  "aboutus.whyChooseUs.qualityTitle": "Basé au Canada, axé sur la qualité",
+  "aboutus.whyChooseUs.qualityContent": "En tant qu'importateur et distributeur basé au Canada, nous veillons à ce que tous les produits répondent aux normes, réglementations et attentes des clients canadiens.",
+  "aboutus.whyChooseUs.directSourcingTitle": "Approvisionnement direct auprès de fabricants mondiaux",
+  "aboutus.whyChooseUs.directSourcingContent": "Nous importons des produits de qualité supérieure auprès de producteurs mondiaux fiables pour vous offrir les meilleurs prix sans compromettre la qualité.",
+  "aboutus.whyChooseUs.distributionNetworkTitle": "Réseau de distribution rationalisé",
+  "aboutus.whyChooseUs.distributionNetworkContent": "Grâce à une chaîne d'approvisionnement croissante dans les principales villes canadiennes, nous assurons une livraison à temps, la disponibilité des stocks et un soutien logistique local.",
+  "aboutus.whyChooseUs.complianceTitle": "Conformité réglementaire et certifications",
+  "aboutus.whyChooseUs.complianceContent": "Tous les produits sont importés conformément aux protocoles de conformité canadiens — y compris l'ACIA, Santé Canada et d'autres certifications requises.",
+  "aboutus.whyChooseUs.b2bSupportTitle": "Soutien B2B personnalisé",
+  "aboutus.whyChooseUs.b2bSupportContent": "Que vous soyez un détaillant, un grossiste ou un acheteur B2B, nous offrons des quantités de commande flexibles, un soutien à la marque et un approvisionnement constant.",
+  "aboutus.whyChooseUs.customerCentricTitle": "Service axé sur le client",
+  "aboutus.whyChooseUs.customerCentricContent": "Des demandes de renseignements au service après-vente, nous valorisons la transparence, la confiance et les relations à long terme avec tous nos clients.",
+  "footer": {
+    "companyDescription": "AGX-International est un fournisseur mondial de solutions logistiques et commerciales, offrant des services complets de transit de marchandises, de dédouanement et de gestion de la chaîne d'approvisionnement.",
+    "brandInfo": "Nous offrons l'excellence grâce à l'innovation et à la stratégie. Découvrez notre gamme de solutions et restez inspiré.",
+    "quickLinks": "Liens rapides",
+    "legal": "Légal",
+    "termsOfService": "Conditions d'utilisation",
+    "privacyPolicy": "Politique de confidentialité",
+    "followUs": "Suivez-nous",
+    "rightsReserved": "Tous droits réservés."
+  },
+  "title": "À propos d'AGX-International",
+  "intro1": "Bienvenue chez {{company}}, votre partenaire de confiance dans le commerce mondial, spécialisé dans les services d'importation et d'exportation fluides à travers divers secteurs.",
+  "intro2": "Que vous soyez une entreprise à la recherche de nouveaux marchés ou un acheteur à la recherche de produits internationaux de haute qualité, nous vous offrons l'expertise, l'infrastructure et la confiance nécessaires pour réussir à l'échelle mondiale.",
+  "ourStoryTitle": "Notre Histoire",
+  "ourStoryContent": "Fondée le {{date}}, {{company}} est née d’une vision : créer un pont solide entre les industries indiennes et les marchés mondiaux. Ce qui a commencé comme une petite idée est devenu un nom de confiance dans le secteur de l'import-export, guidé par l'engagement de fournir des produits de la plus haute qualité dans divers secteurs — de l’agriculture et des textiles aux machines industrielles et biens de consommation. Notre fondation repose sur l'expertise, l'intégrité et l'innovation. Chaque envoi que nous traitons transporte non seulement des produits, mais aussi la confiance, le partenariat et une valeur à long terme. En élargissant notre empreinte mondiale, nous restons déterminés à construire des relations significatives et à établir de nouvelles normes dans le commerce international.",
+  "founderTitle": "Rencontrez le Fondateur",
+  "founderName": "Anudeep – Fondateur & PDG, AGX-International",
+  "founderBio1": "Anudeep est un entrepreneur visionnaire animé par une mission unique : connecter les acheteurs internationaux à des produits indiens de qualité via des partenariats commerciaux transparents, efficaces et fiables.",
+  "founderBio2": "Des produits agricoles et textiles aux outils industriels, à la décoration intérieure et aux cosmétiques, Anudeep a construit une plateforme d’exportation multi-catégories qui met la qualité, la conformité et la satisfaction client au premier plan.",
+  "founderQuote": "Le commerce mondial ne consiste pas seulement à importer — il s’agit de construire des ponts de confiance, de service et de croissance partagée.",
+  "founderVision": "Animé par un esprit entrepreneurial fort et une connaissance pratique de l'industrie, Anudeep continue de diriger AGX-International avec intégrité, innovation et une vision tournée vers l'avenir.",
+  "mission": "Notre Mission",
+  "missionDesc": "Simplifier le commerce mondial en offrant des services d’import-export fiables, transparents et efficaces qui permettent aux entreprises de prospérer à l'international.",
+  "why": "Pourquoi Choisir AGX-International ?",
+  "whyDesc": "Grâce à notre profonde connaissance sectorielle, notre réseau logistique solide et notre approche centrée sur le client, nous garantissons des transactions transfrontalières fluides et sécurisées — à chaque fois.",
+  "values": "Nos Valeurs",
+  "valuesDesc": "Intégrité, fiabilité et partenariat guident tout ce que nous faisons — chaque interaction construit des relations durables et ouvre des opportunités mondiales.",
+  "ctaTitle": "Prêt à commercer à l’international avec AGX-International ?",
+  "ctaDesc": "Contactez-nous dès aujourd'hui et découvrons ensemble de nouvelles opportunités.",
+  "ctaBtn": "Contactez-nous",
+  "title": "Nos Services Premium",
+  "intro": "Chez {{company}}, nous proposons des solutions d'import-export de classe mondiale qui ouvrent de nouveaux horizons pour votre entreprise à l'échelle mondiale.",
+  "services": [
+    {
+      "title": "Services d’exportation",
+      "desc": "Aide aux entreprises indiennes pour exporter des produits de qualité dans le monde entier avec conformité et logistique fluides."
+    },
+    {
+      "title": "Services d’importation",
+      "desc": "De la source à la livraison, vivez des importations internationales efficaces et sans tracas."
+    },
+    {
+      "title": "Approvisionnement mondial",
+      "desc": "Accédez à des fournisseurs internationaux fiables pour des produits de qualité à des prix compétitifs."
+    },
+    {
+      "title": "Gestion logistique",
+      "desc": "Logistique complète de bout en bout garantissant un transport sûr et rentable des marchandises."
+    }
+  ],
+  "industriesTitle": "Secteurs que nous desservons",
+  "industries": [
+    "Mode et textiles",
+    "Bijoux fantaisie",
+    "Produits agricoles",
+    "Automobiles et pièces détachées",
+    "Épices et ingrédients alimentaires",
+    "Machines industrielles"
+  ],
+  "ctaTitle": "Prêt à développer votre entreprise à l'international ?",
+  "ctaDesc": "Partenaire de AGX-International et découvrez des solutions de commerce mondial sans faille conçues pour votre succès.",
+  "ctaBtn": "Contactez-nous",
+  "aboutus": {
+    "title": "À propos d’AGX-International",
+    "intro1": "Bienvenue chez AGX-International, votre partenaire de confiance dans le commerce mondial, spécialisé dans les services d'import-export fluides dans divers secteurs.",
+    "intro2": "Que vous soyez une entreprise cherchant à accéder à de nouveaux marchés ou un acheteur en quête de produits internationaux de qualité – nous fournissons l'expertise, l'infrastructure et la confiance nécessaires pour réussir à l'international.",
+    "ourStoryTitle": "Notre Histoire",
+    "ourStoryContent": "Fondée le 10 juillet 2022, AGX-International est née d’une vision : créer un pont solide entre les industries indiennes et les marchés mondiaux.\n\nCe qui a commencé comme une petite idée est devenu un nom de confiance dans le secteur de l'import-export, porté par l'engagement de fournir des produits de la plus haute qualité dans des secteurs variés — de l'agriculture et des textiles aux machines industrielles et biens de consommation.\n\nNotre fondation repose sur l'expertise, l'intégrité et l'innovation. Chaque expédition que nous gérons transporte non seulement des produits, mais aussi de la confiance, des partenariats et une valeur à long terme.\n\nAlors que nous continuons à étendre notre empreinte mondiale, nous restons déterminés à construire des relations significatives et à établir de nouvelles références dans le commerce international.",
+    "founderTitle": "Rencontrez le Fondateur",
+    "founderName": "Anudeep – Fondateur & PDG, AGX-International",
+    "founderBio1": "Anudeep est un entrepreneur visionnaire dont la mission est de connecter les acheteurs mondiaux à des produits indiens de qualité à travers des partenariats commerciaux transparents, efficaces et fiables.",
+    "founderBio2": "Des produits agricoles et textiles aux machines industrielles et accessoires de maison, Anudeep a bâti une plateforme d'exportation polyvalente axée sur la qualité, la conformité et la satisfaction client.",
+    "founderQuote": "Le commerce mondial ne consiste pas seulement à importer – il s'agit de construire des ponts de confiance, de service et de croissance partagée.",
+    "founderVision": "Avec un esprit entrepreneurial et une connaissance approfondie du secteur, Anudeep continue de diriger AGX-International avec intégrité, innovation et une vision tournée vers l’avenir.",
+    "mission": "Notre Mission",
+    "missionDesc": "Simplifier le commerce mondial en offrant des services d'import-export fiables, transparents et efficaces qui renforcent les entreprises à travers le monde.",
+    "why": "Pourquoi AGX-International ?",
+    "whyDesc": "Grâce à notre connaissance approfondie du secteur, un solide réseau logistique et une approche centrée sur le client, nous assurons des transactions transfrontalières fluides et sécurisées à chaque fois.",
+    "values": "Nos Valeurs",
+    "valuesDesc": "Intégrité, fiabilité et partenariat guident toutes nos actions – chaque interaction crée des relations durables et des opportunités mondiales.",
+    "ctaTitle": "Prêt à commercer à l’échelle mondiale avec AGX-International ?",
+    "ctaDesc": "Contactez-nous dès"
+  },
+  "homepage": {
+    "servicesTitle": "Nos Services",
+    "service1Title": "Assistance à l'Importation",
+    "service1Desc": "Naviguez dans les réglementations internationales avec l'aide d'experts.",
+    "service2Title": "Solutions d'Exportation",
+    "service2Desc": "Élargissez votre portée sur le marché mondial avec des stratégies d'exportation.",
+    "service3Title": "Courtage d'Affaires",
+    "service3Desc": "Trouvez les bons partenaires grâce à notre réseau.",
+    "learnMore": "En savoir plus",
+    "testimonialsTitle": "Ce que disent nos clients",
+    "testimonial1": "Leur soutien à l’exportation m’a aidé à m’étendre à l’étranger. Très professionnel !",
+    "testimonial2": "Ils ont rendu le commerce international facile. Fiables et expérimentés !",
+    "testimonial3": "Service excellent tout au long de notre processus d'importation.",
+    "heroTitle": "Connecter les continents en toute confiance",
+    "heroButton": "Je veux acheter/vendre",
+    "aboutTitle": "À propos de nous",
+    "aboutDesc": "Fondée le 10 juillet 2022, AGX-International est née d’une vision : créer un pont solide entre les industries indiennes et les marchés mondiaux....",
+    "productsTitle": "Nos Produits",
+    "viewMore": "Voir plus",
+    "viewAllProducts": "Voir tous les produits"
+  },
+  "blogs": {
+    "title": "Nos derniers blogs",
+    "loading": "Chargement des blogs...",
+    "error": "Échec du chargement des blogs. Veuillez réessayer plus tard.",
+    "noBlogs": "Aucun blog trouvé.",
+    "readMore": "Lire la suite →"
+  },
+  "form": {
+    "buy": "Acheter",
+    "sell": "Vendre",
+    "name": "Nom",
+    "industriesHelper": "Sélectionnez une ou plusieurs industries",
+    "phone": "Téléphone",
+    "email": "E-mail",
+    "country": "Pays",
+    "selectCountry": "Sélectionnez votre pays",
+    "industries": "Sélectionnez les industries",
+    "timing": "Délai préféré",
+    "immediately": "Immédiatement",
+    "days0to20": "0-20 jours",
+    "days20to45": "20-45 jours",
+    "days45to60": "45-60 jours",
+    "days60to90": "60-90 jours",
+    "days90to120": "90-120 jours",
+    "submitRequest": "Envoyer la demande",
+    "submitting": "Envoi en cours...",
+    "successMessage": "🎉 Votre demande a été soumise avec succès !",
+    "failureMessage": "❌ Échec de la soumission. Veuillez réessayer.",
+    "errorMessage": "⚠️ Quelque chose a mal tourné. Veuillez réessayer plus tard.",
+    "message": "Message",
+    "messagePlaceholder": "Entrez votre message ici (facultatif)",
+    "messageNote": "Facultatif, mais utile pour nous."
+  },
+  "industryOptions": {
+    "Agricultural Products": "Produits agricoles",
+    "Textiles and Garments": "Textiles et vêtements",
+    "Automobiles and Parts": "Automobiles et pièces",
+    "Machinery and Tools": "Machines et outils",
+    "Home Decor": "Décoration intérieure",
+    "Imitation Jewellery": "Bijoux fantaisie",
+    "Cosmetics": "Cosmétiques",
+     "Other":"Other"
+  },
+  "admin": {
+    "title": "Page d'administration",
+    "uploadLabel": "Téléverser une image :",
+    "preview": "Aperçu de l'image :",
+    "previewAlt": "Aperçu",
+    "clear": "Effacer l'image",
+    "invalidImage": "Veuillez sélectionner un fichier image valide."
+  },
+  "countryOptions": {
+    "India": "Inde",
+    "United States": "États-Unis",
+    "China": "Chine",
+    "Germany": "Allemagne",
+    "Brazil": "Brésil",
+    "United Kingdom": "Royaume-Uni",
+    "United Arab Emirates": "Émirats arabes unis",
+    "Other": "Autre"
+  },
+  "dashboard": {
+    "title": "Contenu du tableau de bord",
+    "welcomeMessage": "Bienvenue sur le tableau de bord ! Cette page gère désormais sa propre mise en page."
+  },
+  "product": {
+    "title": "Nos solutions industrielles",
+    "description": "Découvrez notre large gamme de solutions industrielles adaptées aux différents besoins des entreprises. Explorez les catégories pour trouver ce qui vous convient le mieux.",
+    "button": "Explorer",
+    "placeholderAlt": "Pas d'image",
+    "langToggle": "Deutsch"
+  },
+  "productAdmin": {
+    "buttons": {
+      "addProduct": "Ajouter un produit",
+      "closeForm": "Fermer le formulaire",
+      "cancelEdit": "Annuler la modification",
+      "submitAdd": "Ajouter le produit",
+      "submitUpdate": "Mettre à jour le produit",
+      "edit": "Modifier",
+      "delete": "Supprimer"
+    },
+    "labels": {
+      "manageProducts": "Gérer les produits",
+      "name": "Nom",
+      "category": "Catégorie",
+      "description": "Description",
+      "coverImage": "Image de couverture :",
+      "additionalImages": "Images supplémentaires :"
+    },
+    "placeholders": {
+      "name": "Entrez le nom du produit",
+      "category": "Entrez la catégorie",
+      "description": "Entrez la description du produit"
+    },
+    "messages": {
+      "noProducts": "Aucun produit trouvé. Commencez par ajouter un nouveau produit.",
+      "confirmDelete": "Êtes-vous sûr de vouloir supprimer ce produit ?",
+      "saveError": "Échec de l'enregistrement du produit. Veuillez réessayer.",
+      "deleteError": "Échec de la suppression du produit"
+    },
+    "currentCoverImage": "Image de couverture actuelle :",
+    "replaceFileHint": "Sélectionnez un nouveau fichier ci-dessus pour le remplacer.",
+    "replaceAdditionalFilesHint": "Sélectionnez de nouveaux fichiers ci-dessus pour les ajouter/remplacer."
+  },
+  "contactForm": {
+    "buttons": {
+      "submit": "Envoyer"
+    },
+    "adresse": "3e étage, bâtiment Ongole, Andhra Pradesh",
+    "appelezNous": "+49 152 1815 4435",
+    "email": "contact@consulting.com",
+    "heuresOuverture": "Heures d'ouverture",
+    "jours": "Lundi - Vendredi",
+    "heures": "9h00 - 22h00",
+    "fields": {
+      "name": "Nom",
+      "email": "Email",
+      "phone": "Téléphone",
+      "message": "Message"
+    },
+    "placeholders": {
+      "name": "Votre nom",
+      "email": "vous@exemple.com",
+      "phone": "+33 1 23 45 67 89",
+      "message": "Écrivez votre message ici..."
+    },
+    "title": "Contactez-nous",
+    "successMessage": "Formulaire envoyé avec succès !",
+    "errorMessage": "Une erreur est survenue. Veuillez réessayer."
+  },
+  "customerReviewForm": {
+    "title": "Laissez un avis",
+    "subtitle": "Nous aimerions avoir votre avis !",
+    "fields": {
+      "name": "Votre nom",
+      "email": "Adresse e-mail",
+      "review": "Écrivez votre avis ici...",
+      "ratingLabel": "Votre note :"
+    },
+    "ratingStars": "★",
+    "buttons": {
+      "submit": "Envoyer l'avis",
+      "submitting": "Envoi en cours..."
+    },
+    "messages": {
+      "thankYou": "Merci pour votre avis !",
+      "submitError": "Une erreur est survenue lors de l'envoi de votre avis."
+    },
+    "reviewsSection": {
+      "header": "Avis clients",
+      "loading": "Chargement des avis...",
+      "error": "Erreur lors du chargement des avis.",
+      "noReviews": "Aucun avis pour le moment. Soyez le premier à en laisser un !",
+      "ratingDisplay": "({{rating}})"
+    }
+  },
+  "reviewspage": {
+    "pageTitle": "Gérer les Avis",
+    "form": {
+      "addTitle": "Ajouter un Nouvel Avis",
+      "editTitle": "Modifier l'Avis",
+      "fields": {
+        "name": "Nom",
+        "rating": "Note (1-5)",
+        "comment": "Commentaire"
+      },
+      "buttons": {
+        "submitAdd": "Ajouter l'Avis",
+        "submitEdit": "Mettre à Jour l'Avis",
+        "cancel": "Annuler"
+      }
+    },
+    "existingReviewsTitle": "Avis Existants",
+    "noReviews": "Aucun avis trouvé.",
+    "notifications": {
+      "added": "Avis ajouté avec succès",
+      "updated": "Avis mis à jour avec succès",
+      "deleted": "Avis supprimé avec succès",
+      "errorSubmit": "Échec de l'envoi de l'avis",
+      "errorDelete": "Échec de la suppression de l'avis"
+    },
+    "ratingLabel": "⭐ {{rating}}"
+  },
+  "careersPage": {
+    "seoTitle": "Carrières - Rejoignez Notre Équipe | AGX Global",
+    "seoDescription": "Explorez des opportunités de carrière passionnantes chez AGX Global. Nous recherchons des talents pour rejoindre notre équipe en pleine croissance dans le commerce international et la logistique.",
+    "seoKeywords": "carrières, emplois, emploi, emplois commerce international, emplois logistique, carrières chaîne d'approvisionnement, AGX Global, offres d'emploi",
+    "title": "Bâtissez votre carrière avec AGX Global",
+    "intro": "Nous recherchons toujours des personnes passionnées et talentueuses pour rejoindre notre équipe dynamique et contribuer à notre mission de connecter les continents en toute confiance. Découvrez nos offres d'emploi actuelles ou soumettez votre CV pour de futures opportunités.",
+    "job1": {
+      "title": "Coordinateur Logistique Internationale",
+      "description": "Nous recherchons un Coordinateur Logistique expérimenté pour gérer les opérations d'expédition, la documentation douanière et l'efficacité de la chaîne d'approvisionnement.",
+      "req1": "2+ ans d'expérience en logistique ou en transit.",
+      "req2": "Solide connaissance des réglementations d'importation/exportation.",
+      "req3": "Excellentes compétences en communication et en organisation.",
+      "location": "Lieu: Hyderabad, Inde"
+    },
+    "job2": {
+      "title": "Spécialiste Marketing Commercial International",
+      "description": "Rejoignez notre équipe marketing pour développer et exécuter des stratégies de promotion de nos produits et services sur les marchés mondiaux.",
+      "req1": "3+ ans en marketing, de préférence en B2B ou commerce international.",
+      "req2": "Maîtrise des outils de marketing numérique et de l'analyse.",
+      "req3": "Pensée créative et solides compétences en gestion de projet.",
+      "location": "Lieu: Ongole, Andhra Pradesh, Inde"
+    },
+    "noOpeningsTitle": "Pas d'offres d'emploi actuellement ?",
+    "noOpeningsContent": "Même si vous ne voyez pas de rôle correspondant à vos compétences, nous sommes impatients d'entendre des talents exceptionnels.",
+    "contactForInquiry": "Envoyez-nous une demande avec votre CV pour une considération future !",
+    "ctaMessage": "Prêt à avoir un impact sur le commerce mondial ? Nous serions ravis de vous entendre !",
+    "sendResume": "Envoyez votre CV"
+  }
+}
