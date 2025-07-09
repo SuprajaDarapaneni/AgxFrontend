@@ -1,60 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-  <url>
-    <loc>https://www.agx-international.com/</loc>
-    <lastmod>2025-06-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
+<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://www.agx-international.com/about</loc>
-    <lastmod>2025-05-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://www.agx-international.com/</loc>
   </url>
-
+  <url>
+    <loc>https://www.agx-international.com/about</loc>
+  </url>
   <url>
     <loc>https://www.agx-international.com/products</loc>
-    <lastmod>2025-05-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://www.agx-international.com/services</loc>
-    <lastmod>2025-05-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://www.agx-international.com/blogs</loc>
-    <lastmod>2025-06-01</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
   </url>
-
   <url>
     <loc>https://www.agx-international.com/contact</loc>
-    <lastmod>2025-05-28</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
   </url>
-
   <url>
     <loc>https://www.agx-international.com/buy-sell</loc>
-    <lastmod>2025-05-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
   </url>
-
   <url>
     <loc>https://www.agx-international.com/review</loc>
-    <lastmod>2025-05-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
   </url>
-
 </urlset>
