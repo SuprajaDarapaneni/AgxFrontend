@@ -1,0 +1,11 @@
+.homepage-logo {
+  width: 30%;          /* max width 30% of container */
+  max-width: 30vw;     /* optional viewport max */
+  height: auto;
+  transition: transform 0.3s ease;
+  cursor: pointer;     /* show pointer on hover */
+}
+
+.homepage-logo:hover {
+  transform: scale(1.1); /* zoom in 10% on hover */
+}
