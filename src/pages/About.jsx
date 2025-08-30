@@ -11,6 +11,7 @@ import distributionNetworkImage from '../assets/networking.png'; // <--- REPLACE
 import complianceImage from '../assets/networking1.png'; // <--- REPLACE with your actual image path
 import b2bSupportImage from '../assets/patent_9259111.png'; // <--- REPLACE with your actual image path
 import customerCentricImage from '../assets/process_12112367.png'; // <--- REPLACE with your actual image path
+import anudeep from '../assets/anudeep.jpg'; // <--- REPLACE with your actual image path
 
 import { FaCheckCircle, FaEye, FaHome, FaStar } from "react-icons/fa"; // Added FaStar for Core Values
 import '../i18n'; // Assuming this correctly sets up i18next
@@ -240,13 +241,20 @@ const About = () => {
           </h2>
           <div className="flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-12">
             <motion.figure
-              className="w-48 h-48 sm:w-56 sm:h-56 rounded-full bg-pink-100 flex items-center justify-center overflow-hidden shadow-lg border-4 border-pink-300 flex-shrink-0"
-              whileHover={{ scale: 1.08 }}
-              transition={{ duration: 0.4 }}
-            >
-              {/* Text for the founder's name inside the circle */}
-              <span className="font-bold text-pink-500 text-center text-xl sm:text-2xl drop-shadow-sm">{founderName}</span>
-            </motion.figure>
+  className="w-48 h-48 sm:w-56 sm:h-56 rounded-full bg-pink-100 flex items-center justify-center overflow-hidden shadow-lg border-4 border-pink-300 flex-shrink-0"
+  whileHover={{ scale: 1.08 }}
+  transition={{ duration: 0.4 }}
+>
+  {/* Founder image inside the circle */}
+  <img
+  src={anudeep}
+  alt={founderName}
+  className="w-full h-full object-cover object-top"
+/>
+
+
+</motion.figure>
+
             <div className="text-center md:text-left flex-grow max-w-xl">
               <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-5 leading-tight tracking-tight">
                 {founderName}
