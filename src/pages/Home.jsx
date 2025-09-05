@@ -421,10 +421,10 @@ const HomePage = () => {
                 {/* Testimonial Card with outline and improved styling */}
                 <div className="bg-white border border-gray-200 rounded-lg p-8 flex flex-col items-center text-center shadow-md hover:shadow-lg transition-shadow duration-300 h-full transform hover:scale-105">
                   {/* Quote icon SVG */}
-                   <img
-    src="https://www.w3schools.com/howto/img_avatar.png" // placeholder avatar
+ <img
+    src={`https://i.pravatar.cc/150?u=${review._id}`} // unique per user
     alt={`${review.name}'s profile`}
-    className="w-16 h-16 rounded-full mx-auto mb-4 border-2 border-pink-500"
+    className="w-16 h-16 rounded-full mx-auto mb-4 border-2 border-pink-500 shadow"
   />
                  <svg
                     className="w-12 h-12 text-pink-500 mb-4" // Tailwind classes for size, color, and margin
