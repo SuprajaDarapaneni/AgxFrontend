@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';  
+import { useTranslation } from 'react-i18next';
 import {
   Box,
   Button,
@@ -27,7 +27,7 @@ import Sidebar from '../components/sidebar';
 const drawerWidth = 240;
 
 const ReviewsPage = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   const [mode, setMode] = useState(prefersDarkMode ? 'dark' : 'light');
@@ -56,20 +56,25 @@ const ReviewsPage = () => {
   const handleDrawerToggle = () => setMobileOpen(!mobileOpen);
 
   const [reviews, setReviews] = useState([]);
-  const [form, setForm] = useState({ name: '', rating: '', comment: '' });
+  const [form, setForm] = useState({ name: '', rating: '', comment: '', image: null });
   const [editingId, setEditingId] = useState(null);
   const [message, setMessage] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
 
   useEffect(() => {
-    fetch('https://agxbackend.onrender.com/reviews')  // FIXED URL here
+    fetch('https://agxbackend.onrender.com/reviews')
       .then(res => res.json())
       .then(data => setReviews(Array.isArray(data) ? data : []))
       .catch(err => console.error('Failed to fetch reviews:', err));
   }, []);
 
   const handleInputChange = (e) => {
-    setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
+    const { name, value, files } = e.target;
+    if (name === 'image') {
+      setForm(prev => ({ ...prev, image: files[0] }));
+    } else {
+      setForm(prev => ({ ...prev, [name]: value }));
+    }
   };
 
   const showMessage = (msg) => {
@@ -80,18 +85,37 @@ const ReviewsPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const payload = {
-      ...form,
-      rating: Number(form.rating),  // convert rating to number
-    };
-
-    // Basic client-side validation for rating
-    if (isNaN(payload.rating) || payload.rating < 1 || payload.rating > 5) {
+    const ratingNum = Number(form.rating);
+    if (isNaN(ratingNum) || ratingNum < 1 || ratingNum > 5) {
       alert('Rating must be a number between 1 and 5.');
       return;
     }
 
     try {
+      let imageUrl = null;
+
+      if (form.image) {
+        const cloudForm = new FormData();
+        cloudForm.append('file', form.image);
+        cloudForm.append('upload_preset', 'ml_default'); // Replace with your upload preset
+        const cloudinaryRes = await fetch('https://api.cloudinary.com/v1_1/dz5noprbz/upload', {
+          method: 'POST',
+          body: cloudForm
+        });
+        const cloudinaryData = await cloudinaryRes.json();
+        imageUrl = cloudinaryData.secure_url;
+        console.log('Image uploaded to Cloudinary:', imageUrl);
+        console.log('Cloudinary response data:', cloudinaryData);
+
+      }
+
+      const reviewData = {
+        name: form.name,
+        rating: ratingNum,
+        comment: form.comment,
+        imageUrl
+      };
+
       const url = editingId
         ? `https://agxbackend.onrender.com/reviews/${editingId}`
         : 'https://agxbackend.onrender.com/reviews';
@@ -100,7 +124,7 @@ const ReviewsPage = () => {
       const res = await fetch(url, {
         method,
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(reviewData)
       });
 
       if (!res.ok) throw new Error(t('reviewspage.notifications.errorSubmit'));
@@ -115,7 +139,7 @@ const ReviewsPage = () => {
         showMessage(t('reviewspage.notifications.added'));
       }
 
-      setForm({ name: '', rating: '', comment: '' });
+      setForm({ name: '', rating: '', comment: '', image: null });
       setEditingId(null);
     } catch (error) {
       alert(error.message);
@@ -124,7 +148,12 @@ const ReviewsPage = () => {
 
   const handleEdit = (review) => {
     setEditingId(review._id);
-    setForm({ name: review.name, rating: review.rating, comment: review.comment });
+    setForm({
+      name: review.name,
+      rating: review.rating,
+      comment: review.comment,
+      image: null,
+    });
   };
 
   const handleDelete = async (id) => {
@@ -199,6 +228,17 @@ const ReviewsPage = () => {
                   required
                   variant="outlined"
                 />
+                <input
+                  type="file"
+                  name="image"
+                  accept="image/*"
+                  onChange={handleInputChange}
+                />
+                {form.image && (
+                  <Typography variant="body2" color="textSecondary">
+                    {form.image.name}
+                  </Typography>
+                )}
                 <Stack direction="row" spacing={2}>
                   <Button type="submit" variant="contained" color="primary" size="large">
                     {editingId ? t('reviewspage.form.buttons.submitEdit') : t('reviewspage.form.buttons.submitAdd')}
@@ -210,7 +250,7 @@ const ReviewsPage = () => {
                       size="large"
                       onClick={() => {
                         setEditingId(null);
-                        setForm({ name: '', rating: '', comment: '' });
+                        setForm({ name: '', rating: '', comment: '', image: null });
                       }}
                     >
                       {t('reviewspage.form.buttons.cancel')}
@@ -226,7 +266,7 @@ const ReviewsPage = () => {
           </Typography>
 
           <Stack spacing={3}>
-            {reviews.length === 0 && (
+                        {reviews.length === 0 && (
               <Typography sx={{ p: 2, textAlign: 'center' }} color="text.secondary">
                 {t('reviewspage.noReviews')}
               </Typography>
@@ -253,10 +293,27 @@ const ReviewsPage = () => {
                       sx={{ fontWeight: 'bold', fontSize: '1rem' }}
                     />
                   </Stack>
+
+                  {review.imageUrl && (
+                    <Box
+                      component="img"
+                      src={review.imageUrl}
+                      alt="Review"
+                      sx={{
+                        width: '100%',
+                        maxHeight: 300,
+                        objectFit: 'cover',
+                        borderRadius: 2,
+                        mb: 2
+                      }}
+                    />
+                  )}
+
                   <Typography variant="body1" color="text.secondary" sx={{ whiteSpace: 'pre-line' }}>
                     {review.comment}
                   </Typography>
                 </CardContent>
+
                 <CardActions disableSpacing>
                   <IconButton aria-label="edit" onClick={() => handleEdit(review)} color="primary">
                     <Edit />
