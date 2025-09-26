@@ -108,10 +108,10 @@ const Footer = () => {
             <div className="flex items-start space-x-2">
               <Mail className="mt-1" size={16} />
               <a
-                href="mailto:info@agx-international.com"
+                href="mailto:contact@agx-international.com"
                 className="hover:text-pink-600 break-keep whitespace-nowrap text-sm sm:text-[15px] md:text-[14px]"
               >
-                info@agx-international.com
+                contact@agx-international.com
               </a>
             </div>
             <div className="flex items-start space-x-2">

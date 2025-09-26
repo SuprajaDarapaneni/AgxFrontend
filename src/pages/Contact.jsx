@@ -134,7 +134,7 @@ function ContactForm() {
               <div>
                 <h2 className="text-xl font-semibold text-gray-800 mb-1">Email Us</h2>
                 <p className="text-gray-600">
-                  <a href="mailto:info@agx-international.com" className="hover:underline">info@agx-international.com</a>
+                  <a href="mailto:contact@agx-international.com" className="hover:underline">contact@agx-international.com</a>
                 </p>
               </div>
             </div>

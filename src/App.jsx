@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import ScrollToTop from "./components/ScrollToTop";
 import Header from './components/Header';
+import Loading from './pages/Loading';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
 import TermsOfService from "./pages/legal/TermsOfService";
@@ -98,6 +99,7 @@ const AppContent = () => {
 
       <main className="flex-grow pt-20 px-0">
         <Suspense fallback={<div className="text-center text-gray-500 py-10">Loading page...</div>}>
+        <Loading>
           <ScrollToTop />
           <Routes>
             {/* Public Routes */}
@@ -163,7 +165,9 @@ const AppContent = () => {
                 </>
               }
             />
+            
           </Routes>
+         </Loading>
         </Suspense>
       </main>
 
